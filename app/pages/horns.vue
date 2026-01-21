@@ -69,6 +69,18 @@ const attackMelodyMultiplier = computed(() => {
       return 1.0
   }
 })
+
+// 会心強化旋律の補正値を計算（固定値の場合のみ）
+const criticalMelodyBonus = computed(() => {
+  switch (criticalMelody.value) {
+    case '15':
+      return 15
+    case '20':
+      return 20
+    default:
+      return 0
+  }
+})
 </script>
 
 <template>
@@ -245,6 +257,8 @@ const attackMelodyMultiplier = computed(() => {
         :has-mad-affinity="hasMadAffinity"
         :attack-melody="attackMelody"
         :attack-melody-multiplier="attackMelodyMultiplier"
+        :critical-melody="criticalMelody"
+        :critical-melody-bonus="criticalMelodyBonus"
       />
     </UPageSection>
   </div>

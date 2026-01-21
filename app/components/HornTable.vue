@@ -5,6 +5,7 @@ import {
   getNoteBorderColor,
   getMelodyNames,
   getHornAttackMelodyMultiplier,
+  getHornCriticalMelodyBonus,
 } from '~/types/horn'
 import { getSharpnessColor } from '~/types/sharpness'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
@@ -13,6 +14,7 @@ import { ref, computed } from 'vue'
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
 
 type AttackMelody = 'none' | '1.10' | '1.15' | '1.20' | 'horn'
+type CriticalMelody = 'none' | '15' | '20' | 'horn'
 
 interface Props {
   horns: Horn[]
@@ -22,6 +24,8 @@ interface Props {
   hasMadAffinity?: boolean
   attackMelody?: AttackMelody
   attackMelodyMultiplier?: number
+  criticalMelody?: CriticalMelody
+  criticalMelodyBonus?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -31,6 +35,8 @@ const props = withDefaults(defineProps<Props>(), {
   hasMadAffinity: false,
   attackMelody: 'none',
   attackMelodyMultiplier: 1.0,
+  criticalMelody: 'none',
+  criticalMelodyBonus: 0,
 })
 
 // ソート状態
@@ -128,20 +134,34 @@ const formatAffinity = (affinity: number): string => {
   return `${affinity > 0 ? '+' : ''}${affinity}%`
 }
 
-// 会心率を計算（元の会心率 + 会心補正）
+// 会心強化旋律の補正値を取得（criticalMelodyの設定を考慮）
+const getCriticalMelodyBonus = (horn: Horn): number => {
+  // 笛依存の場合は、各狩猟笛の旋律を確認
+  if (props.criticalMelody === 'horn') {
+    return getHornCriticalMelodyBonus(horn)
+  }
+  // 固定値の場合は、propsから取得
+  return props.criticalMelodyBonus
+}
+
+// 会心率を計算（元の会心率 + 会心補正 + 会心強化旋律）
 const calculateAffinity = (horn: Horn): number => {
-  return horn.affinity + props.criticalBonus
+  const criticalMelodyBonus = getCriticalMelodyBonus(horn)
+  return horn.affinity + props.criticalBonus + criticalMelodyBonus
 }
 
 // 期待値を計算
 const getExpectedValue = (horn: Horn): number => {
   // 攻撃旋律の倍率を適用した攻撃力を計算
   const attackWithMelody = getAttackWithMelody(horn)
+  // 会心補正（会心補正 + 会心強化旋律）
+  const criticalMelodyBonus = getCriticalMelodyBonus(horn)
+  const totalCriticalBonus = props.criticalBonus + criticalMelodyBonus
   return calculateExpectedValue(
     attackWithMelody,
     horn,
     props.selectedSharpness,
-    props.criticalBonus,
+    totalCriticalBonus,
     props.hasCriticalBoost,
     props.hasMadAffinity
   )
@@ -241,7 +261,10 @@ const getAttackWithMelody = (horn: Horn): number => {
           <td class="p-2 text-right">
             <div class="flex flex-col">
               <span>{{ formatAffinity(calculateAffinity(horn)) }}</span>
-              <span v-if="props.criticalBonus !== 0" class="text-xs text-gray-400">
+              <span
+                v-if="props.criticalBonus !== 0 || getCriticalMelodyBonus(horn) !== 0"
+                class="text-xs text-gray-400"
+              >
                 ({{ formatAffinity(horn.affinity) }})
               </span>
             </div>
@@ -268,8 +291,9 @@ const getAttackWithMelody = (horn: Horn): number => {
                 :key="index"
                 :class="{
                   'text-red-500':
-                    props.attackMelody === 'horn' &&
-                    (name === '攻撃力強化【小】' || name === '攻撃力強化【大】'),
+                    (props.attackMelody === 'horn' &&
+                      (name === '攻撃力強化【小】' || name === '攻撃力強化【大】')) ||
+                    (props.criticalMelody === 'horn' && name === '会心率UP&体力回復【小】'),
                 }"
               >
                 {{ name }}

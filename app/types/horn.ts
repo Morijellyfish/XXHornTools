@@ -113,3 +113,20 @@ export const getHornAttackMelodyMultiplier = (horn: Horn): number => {
   // どちらもない場合は倍率なし
   return 1.0
 }
+
+/**
+ * 狩猟笛の会心強化旋律補正値を取得（笛依存の場合）
+ * @param horn 狩猟笛データ
+ * @returns 会心強化旋律の補正値（0, 20）
+ */
+export const getHornCriticalMelodyBonus = (horn: Horn): number => {
+  const melodyNames = getMelodyNames(horn)
+
+  // 会心率UP&体力回復【小】を確認
+  if (melodyNames.includes('会心率UP&体力回復【小】')) {
+    return 20
+  }
+
+  // 該当する旋律がない場合は補正なし
+  return 0
+}
