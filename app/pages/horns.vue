@@ -22,6 +22,13 @@ const hasCriticalBoost = ref(false)
 // 裏会心
 const hasMadAffinity = ref(false)
 
+// 旋律オプション
+type AttackMelody = 'none' | '1.10' | '1.15' | '1.20' | 'horn'
+const attackMelody = ref<AttackMelody>('none')
+
+type CriticalMelody = 'none' | '15' | '20' | 'horn'
+const criticalMelody = ref<CriticalMelody>('none')
+
 // 会心補正を計算
 const calculateCriticalBonus = (): number => {
   let bonus = 0
@@ -48,6 +55,20 @@ const calculateCriticalBonus = (): number => {
 
 // 会心補正値を計算
 const criticalBonus = computed(() => calculateCriticalBonus())
+
+// 攻撃旋律の倍率を計算（固定値の場合のみ）
+const attackMelodyMultiplier = computed(() => {
+  switch (attackMelody.value) {
+    case '1.10':
+      return 1.1
+    case '1.15':
+      return 1.15
+    case '1.20':
+      return 1.2
+    default:
+      return 1.0
+  }
+})
 </script>
 
 <template>
@@ -144,6 +165,76 @@ const criticalBonus = computed(() => calculateCriticalBonus())
             </UButton>
           </div>
         </div>
+
+        <div>
+          <label class="text-sm font-medium mb-2 block">旋律:</label>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">攻撃旋律:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="attackMelody === 'none' ? 'solid' : 'outline'"
+                  @click="attackMelody = 'none'"
+                >
+                  なし
+                </UButton>
+                <UButton
+                  :variant="attackMelody === '1.10' ? 'solid' : 'outline'"
+                  @click="attackMelody = '1.10'"
+                >
+                  x1.10
+                </UButton>
+                <UButton
+                  :variant="attackMelody === '1.15' ? 'solid' : 'outline'"
+                  @click="attackMelody = '1.15'"
+                >
+                  x1.15
+                </UButton>
+                <UButton
+                  :variant="attackMelody === '1.20' ? 'solid' : 'outline'"
+                  @click="attackMelody = '1.20'"
+                >
+                  x1.20
+                </UButton>
+                <UButton
+                  :variant="attackMelody === 'horn' ? 'solid' : 'outline'"
+                  @click="attackMelody = 'horn'"
+                >
+                  笛依存
+                </UButton>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">会心強化:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="criticalMelody === 'none' ? 'solid' : 'outline'"
+                  @click="criticalMelody = 'none'"
+                >
+                  なし
+                </UButton>
+                <UButton
+                  :variant="criticalMelody === '15' ? 'solid' : 'outline'"
+                  @click="criticalMelody = '15'"
+                >
+                  15%
+                </UButton>
+                <UButton
+                  :variant="criticalMelody === '20' ? 'solid' : 'outline'"
+                  @click="criticalMelody = '20'"
+                >
+                  20%
+                </UButton>
+                <UButton
+                  :variant="criticalMelody === 'horn' ? 'solid' : 'outline'"
+                  @click="criticalMelody = 'horn'"
+                >
+                  笛依存
+                </UButton>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <HornTable
@@ -152,6 +243,8 @@ const criticalBonus = computed(() => calculateCriticalBonus())
         :critical-bonus="criticalBonus"
         :has-critical-boost="hasCriticalBoost"
         :has-mad-affinity="hasMadAffinity"
+        :attack-melody="attackMelody"
+        :attack-melody-multiplier="attackMelodyMultiplier"
       />
     </UPageSection>
   </div>

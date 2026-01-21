@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import type { Horn, Note } from '~/types/horn'
-import { NOTE_COLORS, getNoteBorderColor } from '~/types/horn'
+import {
+  NOTE_COLORS,
+  getNoteBorderColor,
+  getMelodyNames,
+  getHornAttackMelodyMultiplier,
+} from '~/types/horn'
 import { getSharpnessColor } from '~/types/sharpness'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { ref, computed } from 'vue'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
+
+type AttackMelody = 'none' | '1.10' | '1.15' | '1.20' | 'horn'
 
 interface Props {
   horns: Horn[]
@@ -13,6 +20,8 @@ interface Props {
   criticalBonus?: number
   hasCriticalBoost?: boolean
   hasMadAffinity?: boolean
+  attackMelody?: AttackMelody
+  attackMelodyMultiplier?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -20,6 +29,8 @@ const props = withDefaults(defineProps<Props>(), {
   criticalBonus: 0,
   hasCriticalBoost: false,
   hasMadAffinity: false,
+  attackMelody: 'none',
+  attackMelodyMultiplier: 1.0,
 })
 
 // ソート状態
@@ -124,13 +135,30 @@ const calculateAffinity = (horn: Horn): number => {
 
 // 期待値を計算
 const getExpectedValue = (horn: Horn): number => {
+  // 攻撃旋律の倍率を適用した攻撃力を計算
+  const attackWithMelody = getAttackWithMelody(horn)
   return calculateExpectedValue(
+    attackWithMelody,
     horn,
     props.selectedSharpness,
     props.criticalBonus,
     props.hasCriticalBoost,
     props.hasMadAffinity
   )
+}
+
+// 攻撃旋律の倍率を取得（attackMelodyの設定を考慮）
+const getAttackMelodyMultiplier = (horn: Horn): number => {
+  if (props.attackMelody !== 'horn') {
+    return props.attackMelodyMultiplier
+  }
+  return getHornAttackMelodyMultiplier(horn)
+}
+
+// 攻撃旋律適用後の攻撃力を計算
+const getAttackWithMelody = (horn: Horn): number => {
+  const multiplier = getAttackMelodyMultiplier(horn)
+  return Math.round(horn.attack * multiplier)
 }
 </script>
 
@@ -182,6 +210,7 @@ const getExpectedValue = (horn: Horn): number => {
           </th>
           <th class="text-left p-2">属性・状態異常</th>
           <th class="text-left p-2">音色</th>
+          <th class="text-left p-2">旋律</th>
           <th class="text-left p-2">斬れ味</th>
         </tr>
       </thead>
@@ -193,7 +222,14 @@ const getExpectedValue = (horn: Horn): number => {
         >
           <td class="p-2">{{ horn.name }}</td>
           <td class="p-2">{{ getExpectedValue(horn) }}</td>
-          <td class="p-2">{{ horn.attack }}</td>
+          <td class="p-2 text-right">
+            <div class="flex flex-col">
+              <span>{{ getAttackWithMelody(horn) }}</span>
+              <span v-if="getAttackMelodyMultiplier(horn) !== 1.0" class="text-xs text-gray-400">
+                ({{ horn.attack }})
+              </span>
+            </div>
+          </td>
           <td class="p-2">{{ horn.defense }}</td>
           <td class="p-2">
             <div class="flex gap-0">
@@ -205,7 +241,9 @@ const getExpectedValue = (horn: Horn): number => {
           <td class="p-2 text-right">
             <div class="flex flex-col">
               <span>{{ formatAffinity(calculateAffinity(horn)) }}</span>
-              <span class="text-xs text-gray-400">({{ formatAffinity(horn.affinity) }})</span>
+              <span v-if="props.criticalBonus !== 0" class="text-xs text-gray-400">
+                ({{ formatAffinity(horn.affinity) }})
+              </span>
             </div>
           </td>
           <td class="p-2">{{ formatElementOrStatus(horn) }}</td>
@@ -221,6 +259,21 @@ const getExpectedValue = (horn: Horn): number => {
                   borderColor: getNoteBorderColor(note),
                 }"
               />
+            </div>
+          </td>
+          <td class="p-2">
+            <div class="flex flex-col gap-1 text-sm">
+              <span
+                v-for="(name, index) in getMelodyNames(horn)"
+                :key="index"
+                :class="{
+                  'text-red-500':
+                    props.attackMelody === 'horn' &&
+                    (name === '攻撃力強化【小】' || name === '攻撃力強化【大】'),
+                }"
+              >
+                {{ name }}
+              </span>
             </div>
           </td>
           <td class="p-2">

@@ -55,6 +55,7 @@ const calculateCritical = (
 
 /**
  * 期待値を計算（攻撃力 × 切れ味の物理補正 × 会心補正）
+ * @param attack 攻撃力（攻撃旋律の倍率適用済み）
  * @param horn 狩猟笛データ
  * @param selectedSharpness 選択された切れ味（通常、匠1、匠2）
  * @param criticalBonus 会心補正値
@@ -63,6 +64,7 @@ const calculateCritical = (
  * @returns 期待ダメージ値
  */
 export const calculateExpectedValue = (
+  attack: number,
   horn: Horn,
   selectedSharpness: SharpnessType,
   criticalBonus: number,
@@ -79,9 +81,8 @@ export const calculateExpectedValue = (
     selectedSharpnessData = horn.sharpness.plus2!
   }
 
-    let expectedValue = horn.attack;
   // 切れ味補正を適用した攻撃力を計算
-  expectedValue = calculateSharpness(expectedValue, selectedSharpnessData.color)
+  const expectedValue = calculateSharpness(attack, selectedSharpnessData.color)
 
   // 会心率を計算（元の会心率 + 会心補正）
   const affinity = horn.affinity + criticalBonus
