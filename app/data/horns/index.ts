@@ -6,13 +6,7 @@ import { hornsR5 } from './horns-r5'
 import type { Horn } from '~/types/horn'
 
 // 全レア度の狩猟笛データを統合
-export const allHorns: Horn[] = [
-  ...hornsR1,
-  ...hornsR2,
-  ...hornsR3,
-  ...hornsR4,
-  ...hornsR5,
-]
+export const allHorns: Horn[] = [...hornsR1, ...hornsR2, ...hornsR3, ...hornsR4, ...hornsR5]
 
 // レア度別にエクスポート
 export { hornsR1, hornsR2, hornsR3, hornsR4, hornsR5 }

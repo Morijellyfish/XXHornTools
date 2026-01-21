@@ -23,15 +23,10 @@ useSeoMeta({
   <UApp class="bg-[#323339] min-h-screen">
     <UHeader class="bg-[#1e1f23]">
       <template #left>
-        <NuxtLink to="/" class="font-bold text-lg">
-          狩りピTools
-        </NuxtLink>
+        <NuxtLink to="/" class="font-bold text-lg"> 狩りピTools </NuxtLink>
 
-        <UButton to="/horns" variant="ghost" color="neutral">
-          一覧
-        </UButton>
+        <UButton to="/horns" variant="ghost" color="neutral"> 一覧 </UButton>
       </template>
-
     </UHeader>
 
     <UMain>
@@ -40,7 +35,9 @@ useSeoMeta({
 
     <UFooter>
       <template #left>
-        <p class="text-sm text-muted">モンスターハンターXX 狩猟笛比較表 • © {{ new Date().getFullYear() }}</p>
+        <p class="text-sm text-muted">
+          モンスターハンターXX 狩猟笛比較表 • © {{ new Date().getFullYear() }}
+        </p>
       </template>
     </UFooter>
   </UApp>

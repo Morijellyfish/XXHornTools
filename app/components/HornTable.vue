@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { Horn } from '~/types/horn'
-import { getSharpnessColor, SHARPNESS_MULTIPLIERS, type SharpnessSet } from '~/types/sharpness'
-import { NOTE_COLORS, getNoteBorderColor, type Note } from '~/types/horn'
+import type { Horn, Note } from '~/types/horn'
+import { NOTE_COLORS, getNoteBorderColor } from '~/types/horn'
+import { getSharpnessColor } from '~/types/sharpness'
+import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { ref, computed } from 'vue'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -9,10 +10,16 @@ type SharpnessType = 'normal' | 'plus1' | 'plus2'
 interface Props {
   horns: Horn[]
   selectedSharpness?: SharpnessType
+  criticalBonus?: number
+  hasCriticalBoost?: boolean
+  hasMadAffinity?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
+  criticalBonus: 0,
+  hasCriticalBoost: false,
+  hasMadAffinity: false,
 })
 
 // ソート状態
@@ -32,8 +39,8 @@ const sortedHorns = computed(() => {
 
     switch (sortKey.value) {
       case 'expected':
-        aValue = calculateExpectedValue(a)
-        bValue = calculateExpectedValue(b)
+        aValue = getExpectedValue(a)
+        bValue = getExpectedValue(b)
         break
       case 'attack':
         aValue = a.attack
@@ -110,19 +117,20 @@ const formatAffinity = (affinity: number): string => {
   return `${affinity > 0 ? '+' : ''}${affinity}%`
 }
 
-// 期待値を計算（攻撃力 × 切れ味の物理補正）
-const calculateExpectedValue = (horn: Horn): number => {
-  let selectedSharpness
-  if (props.selectedSharpness === 'normal') {
-    selectedSharpness = horn.sharpness.normal
-  } else if (props.selectedSharpness === 'plus1') {
-    selectedSharpness = horn.sharpness.plus1!
-  } else {
-    selectedSharpness = horn.sharpness.plus2!
-  }
+// 会心率を計算（元の会心率 + 会心補正）
+const calculateAffinity = (horn: Horn): number => {
+  return horn.affinity + props.criticalBonus
+}
 
-  const multiplier = SHARPNESS_MULTIPLIERS[selectedSharpness.color]
-  return Math.round(horn.attack * multiplier.physical)
+// 期待値を計算
+const getExpectedValue = (horn: Horn): number => {
+  return calculateExpectedValue(
+    horn,
+    props.selectedSharpness,
+    props.criticalBonus,
+    props.hasCriticalBoost,
+    props.hasMadAffinity
+  )
 }
 </script>
 
@@ -178,23 +186,28 @@ const calculateExpectedValue = (horn: Horn): number => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="horn in sortedHorns" :key="horn.name" class="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
+        <tr
+          v-for="horn in sortedHorns"
+          :key="horn.name"
+          class="border-b hover:bg-gray-50 dark:hover:bg-gray-800"
+        >
           <td class="p-2">{{ horn.name }}</td>
-          <td class="p-2">{{ calculateExpectedValue(horn) }}</td>
+          <td class="p-2">{{ getExpectedValue(horn) }}</td>
           <td class="p-2">{{ horn.attack }}</td>
           <td class="p-2">{{ horn.defense }}</td>
           <td class="p-2">
             <div class="flex gap-0">
-              <span
-                v-for="i in 3"
-                :key="i"
-                class="flex-1 text-center"
-              >
+              <span v-for="i in 3" :key="i" class="flex-1 text-center">
                 {{ getSlotValue(horn.slots, i - 1) }}
               </span>
             </div>
           </td>
-          <td class="p-2 text-right">{{ formatAffinity(horn.affinity) }}</td>
+          <td class="p-2 text-right">
+            <div class="flex flex-col">
+              <span>{{ formatAffinity(calculateAffinity(horn)) }}</span>
+              <span class="text-xs text-gray-400">({{ formatAffinity(horn.affinity) }})</span>
+            </div>
+          </td>
           <td class="p-2">{{ formatElementOrStatus(horn) }}</td>
           <td class="p-2">
             <div class="flex items-center gap-1">
@@ -222,7 +235,9 @@ const calculateExpectedValue = (horn: Horn): number => {
                   :style="{ background: getSharpnessColor(horn.sharpness.normal.color) }"
                   :title="String(horn.sharpness.normal.length)"
                 />
-                <div class="text-xs font-mono w-5 text-right">{{ horn.sharpness.normal.length }}</div>
+                <div class="text-xs font-mono w-5 text-right">
+                  {{ horn.sharpness.normal.length }}
+                </div>
               </div>
               <div
                 v-if="horn.sharpness.plus1"
@@ -235,7 +250,9 @@ const calculateExpectedValue = (horn: Horn): number => {
                   :style="{ background: getSharpnessColor(horn.sharpness.plus1.color) }"
                   :title="String(horn.sharpness.plus1.length)"
                 />
-                <div class="text-xs font-mono w-5 text-right">{{ horn.sharpness.plus1.length }}</div>
+                <div class="text-xs font-mono w-5 text-right">
+                  {{ horn.sharpness.plus1.length }}
+                </div>
               </div>
               <div
                 v-if="horn.sharpness.plus2"
@@ -248,7 +265,9 @@ const calculateExpectedValue = (horn: Horn): number => {
                   :style="{ background: getSharpnessColor(horn.sharpness.plus2.color) }"
                   :title="String(horn.sharpness.plus2.length)"
                 />
-                <div class="text-xs font-mono w-5 text-right">{{ horn.sharpness.plus2.length }}</div>
+                <div class="text-xs font-mono w-5 text-right">
+                  {{ horn.sharpness.plus2.length }}
+                </div>
               </div>
             </div>
           </td>

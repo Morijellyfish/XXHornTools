@@ -25,21 +25,10 @@ export const getNoteBorderColor = (note: Note): string => {
 }
 
 // 属性
-export type Element =
-  | '火'
-  | '水'
-  | '雷'
-  | '氷'
-  | '龍'
-  | '無'
+export type Element = '火' | '水' | '雷' | '氷' | '龍' | '無'
 
 // 状態異常
-export type StatusAilment =
-  | '毒'
-  | '麻痺'
-  | '睡眠'
-  | '爆破'
-  | '無'
+export type StatusAilment = '毒' | '麻痺' | '睡眠' | '爆破' | '無'
 
 // 狩猟笛の型定義
 export interface Horn {
