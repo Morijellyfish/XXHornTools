@@ -7,6 +7,7 @@ import type { AttackMelody } from './attackBuff_H'
 import type { Fortify } from './attackBuff_I'
 import type { ChallengeSkill } from './attackBuff_J'
 import type { HunterSkill } from './attackBuff_K'
+import type { Bludgeoner } from './attackBuff_L'
 import type { Resuscitate } from './attackBuff_M'
 import type { Resentment } from './attackBuff_N'
 import type { DragonInstinct } from './attackBuff_O'
@@ -28,6 +29,8 @@ export type { ChallengeSkill } from './attackBuff_J'
 export { getChallengeSkillValue } from './attackBuff_J'
 export type { HunterSkill } from './attackBuff_K'
 export { getHunterSkillValue } from './attackBuff_K'
+export type { Bludgeoner } from './attackBuff_L'
+export { getBludgeonerMultiplier } from './attackBuff_L'
 export type { Resuscitate } from './attackBuff_M'
 export type { Resentment } from './attackBuff_N'
 export type { DragonInstinct } from './attackBuff_O'
@@ -41,6 +44,7 @@ export interface AttackBuffs {
   adrenaline?: Adrenaline
   challengeSkill?: ChallengeSkill
   hunterSkill?: HunterSkill
+  bludgeoner?: Bludgeoner
   resuscitate?: Resuscitate
   resentment?: Resentment
   fortify?: Fortify

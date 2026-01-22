@@ -9,6 +9,7 @@ import type {
   Adrenaline,
   ChallengeSkill,
   HunterSkill,
+  Bludgeoner,
   Resuscitate,
   Resentment,
   Fortify,
@@ -20,6 +21,7 @@ import {
   getAdrenalineMultiplier,
   getChallengeSkillValue,
   getHunterSkillValue,
+  getBludgeonerMultiplier,
   getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
 
@@ -41,6 +43,9 @@ const challengeSkill = ref<ChallengeSkill>('none') // 挑戦者・フルチャ�
 
 // 北風/南風
 const hunterSkill = ref<HunterSkill>('none')
+
+// 鈍器使い
+const bludgeoner = ref<Bludgeoner>(false) // 鈍器使い（グループL）
 
 // 死中に活
 const resuscitate = ref<Resuscitate>(false) // 死中に活（グループM）
@@ -425,27 +430,46 @@ const criticalMelodyBonus = computed(() => {
                   </div>
                 </div>
               </div>
-              <div>
-                <label class="text-xs text-gray-400 mb-1 block">斬れ味:</label>
-                <div class="flex gap-2">
-                  <UButton
-                    :variant="selectedSharpness === 'normal' ? 'solid' : 'outline'"
-                    @click="selectedSharpness = 'normal'"
-                  >
-                    通常
-                  </UButton>
-                  <UButton
-                    :variant="selectedSharpness === 'plus1' ? 'solid' : 'outline'"
-                    @click="selectedSharpness = 'plus1'"
-                  >
-                    匠1
-                  </UButton>
-                  <UButton
-                    :variant="selectedSharpness === 'plus2' ? 'solid' : 'outline'"
-                    @click="selectedSharpness = 'plus2'"
-                  >
-                    匠2
-                  </UButton>
+              <div class="grid grid-cols-2">
+                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+                  <label class="text-xs text-gray-400 mb-1 block">斬れ味:</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="selectedSharpness === 'normal' ? 'solid' : 'outline'"
+                      @click="selectedSharpness = 'normal'"
+                    >
+                      通常
+                    </UButton>
+                    <UButton
+                      :variant="selectedSharpness === 'plus1' ? 'solid' : 'outline'"
+                      @click="selectedSharpness = 'plus1'"
+                    >
+                      匠1
+                    </UButton>
+                    <UButton
+                      :variant="selectedSharpness === 'plus2' ? 'solid' : 'outline'"
+                      @click="selectedSharpness = 'plus2'"
+                    >
+                      匠2
+                    </UButton>
+                  </div>
+                </div>
+                <div class="pl-4">
+                  <label class="text-xs text-gray-400 mb-1 block">鈍器使い (L):</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="!bludgeoner ? 'solid' : 'outline'"
+                      @click="bludgeoner = false"
+                    >
+                      無
+                    </UButton>
+                    <UButton
+                      :variant="bludgeoner ? 'solid' : 'outline'"
+                      @click="bludgeoner = true"
+                    >
+                      有
+                    </UButton>
+                  </div>
                 </div>
               </div>
               <div class="grid grid-cols-2">
@@ -707,6 +731,7 @@ const criticalMelodyBonus = computed(() => {
           adrenaline,
           challengeSkill,
           hunterSkill,
+          bludgeoner,
           resuscitate,
           resentment,
           fortify,

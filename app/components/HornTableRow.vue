@@ -3,7 +3,7 @@ import type { Horn } from '~/types/horn'
 import type { Note } from '~/types/notes'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import type { AttackMelody } from '~/types/attackBuff/attackBuffs'
-import { getSharpnessColor } from '~/types/sharpness'
+import { getSharpnessColor, SharpnessColor } from '~/types/sharpness'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
 type CriticalMelody = 'none' | '15' | '20' | 'horn'
@@ -20,9 +20,8 @@ interface Props {
   selectedSharpness: SharpnessType
   attackMelody: AttackMelody
   criticalMelody: CriticalMelody
+  bludgeoner?: boolean
 }
-
-defineProps<Props>()
 
 // 音色の色を取得
 const getNoteColor = (note: Note): string => {
@@ -49,6 +48,18 @@ const getSlotValue = (slots: number, index: number): string => {
 const formatAffinity = (affinity: number): string => {
   if (affinity === 0) return '0%'
   return `${affinity > 0 ? '+' : ''}${affinity}%`
+}
+
+const props = defineProps<Props>()
+
+// 切れ味が緑以下かどうかを判定（鈍器使いの対象）
+const isGreenOrBelow = (color: SharpnessColor): boolean => {
+  return (
+    color === SharpnessColor.Green ||
+    color === SharpnessColor.Yellow ||
+    color === SharpnessColor.Orange ||
+    color === SharpnessColor.Red
+  )
 }
 </script>
 
@@ -121,13 +132,25 @@ const formatAffinity = (affinity: number): string => {
           class="flex items-center gap-1"
           :class="{ 'opacity-50': selectedSharpness !== 'normal' }"
         >
-          <span class="text-xs w-7">通常:</span>
+          <span
+            class="text-xs w-7"
+            :class="{
+              'text-yellow-500': bludgeoner && isGreenOrBelow(horn.sharpness.normal.color),
+            }"
+          >
+            通常:
+          </span>
           <span
             class="inline-block w-4 h-4 border border-gray-600"
             :style="{ background: getSharpnessColor(horn.sharpness.normal.color) }"
             :title="String(horn.sharpness.normal.length)"
           />
-          <div class="text-xs font-mono w-5 text-right">
+          <div
+            class="text-xs font-mono w-5 text-right"
+            :class="{
+              'text-yellow-500': bludgeoner && isGreenOrBelow(horn.sharpness.normal.color),
+            }"
+          >
             {{ horn.sharpness.normal.length }}
           </div>
         </div>
@@ -136,13 +159,25 @@ const formatAffinity = (affinity: number): string => {
           class="flex items-center gap-1"
           :class="{ 'opacity-50': selectedSharpness !== 'plus1' }"
         >
-          <span class="text-xs w-7">匠1:</span>
+          <span
+            class="text-xs w-7"
+            :class="{
+              'text-yellow-500': bludgeoner && isGreenOrBelow(horn.sharpness.plus1.color),
+            }"
+          >
+            匠1:
+          </span>
           <span
             class="inline-block w-4 h-4 border border-gray-600"
             :style="{ background: getSharpnessColor(horn.sharpness.plus1.color) }"
             :title="String(horn.sharpness.plus1.length)"
           />
-          <div class="text-xs font-mono w-5 text-right">
+          <div
+            class="text-xs font-mono w-5 text-right"
+            :class="{
+              'text-yellow-500': bludgeoner && isGreenOrBelow(horn.sharpness.plus1.color),
+            }"
+          >
             {{ horn.sharpness.plus1.length }}
           </div>
         </div>
@@ -151,13 +186,25 @@ const formatAffinity = (affinity: number): string => {
           class="flex items-center gap-1"
           :class="{ 'opacity-50': selectedSharpness !== 'plus2' }"
         >
-          <span class="text-xs w-7">匠2:</span>
+          <span
+            class="text-xs w-7"
+            :class="{
+              'text-yellow-500': bludgeoner && isGreenOrBelow(horn.sharpness.plus2.color),
+            }"
+          >
+            匠2:
+          </span>
           <span
             class="inline-block w-4 h-4 border border-gray-600"
             :style="{ background: getSharpnessColor(horn.sharpness.plus2.color) }"
             :title="String(horn.sharpness.plus2.length)"
           />
-          <div class="text-xs font-mono w-5 text-right">
+          <div
+            class="text-xs font-mono w-5 text-right"
+            :class="{
+              'text-yellow-500': bludgeoner && isGreenOrBelow(horn.sharpness.plus2.color),
+            }"
+          >
             {{ horn.sharpness.plus2.length }}
           </div>
         </div>

@@ -147,7 +147,7 @@ const getAttackMelodyMultiplier = (horn: Horn): number => {
 
 // 補正済みの攻撃力を計算
 const getAttackWithBuffs = (horn: Horn): number => {
-  return calculateAttackWithBuffs(horn.attack, props.attackModifiers, horn)
+  return calculateAttackWithBuffs(horn.attack, props.attackModifiers, horn, props.selectedSharpness)
 }
 
 // 元の攻撃力を括弧で表示するかどうかを判定
@@ -169,6 +169,7 @@ const isShowBaseAttack = (horn: Horn): boolean => {
     (props.attackModifiers.adrenaline && props.attackModifiers.adrenaline !== 'none') ||
     hasAttackBuffFromChallengeSkill ||
     (props.attackModifiers.hunterSkill && props.attackModifiers.hunterSkill !== 'none') ||
+    props.attackModifiers.bludgeoner ||
     props.attackModifiers.resuscitate ||
     props.attackModifiers.resentment ||
     (props.attackModifiers.fortify && props.attackModifiers.fortify !== 'none') ||
@@ -245,6 +246,7 @@ const isShowBaseAttack = (horn: Horn): boolean => {
           :selected-sharpness="props.selectedSharpness"
           :attack-melody="props.attackModifiers.attackMelody ?? 'none'"
           :critical-melody="props.criticalMelody"
+          :bludgeoner="props.attackModifiers.bludgeoner"
         />
       </tbody>
     </table>

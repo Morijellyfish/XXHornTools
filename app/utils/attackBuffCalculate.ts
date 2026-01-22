@@ -1,6 +1,8 @@
 import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
 import type { attackBuff } from '~/types/attackBuff/attackBuff'
 import type { Horn } from '~/types/horn'
+
+type SharpnessType = 'normal' | 'plus1' | 'plus2'
 import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
 import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
 import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
@@ -11,6 +13,7 @@ import { attackBuffH } from '~/types/attackBuff/attackBuff_H'
 import { attackBuffI } from '~/types/attackBuff/attackBuff_I'
 import { attackBuffJ } from '~/types/attackBuff/attackBuff_J'
 import { attackBuffK } from '~/types/attackBuff/attackBuff_K'
+import { attackBuffL } from '~/types/attackBuff/attackBuff_L'
 import { attackBuffM } from '~/types/attackBuff/attackBuff_M'
 import { attackBuffN } from '~/types/attackBuff/attackBuff_N'
 import { attackBuffO } from '~/types/attackBuff/attackBuff_O'
@@ -18,7 +21,8 @@ import { attackBuffO } from '~/types/attackBuff/attackBuff_O'
 export const calculateAttackWithBuffs = (
   baseAttack: number,
   modifiers: AttackBuffs,
-  horn?: Horn
+  horn?: Horn,
+  selectedSharpness?: SharpnessType
 ): number => {
   const allModifiers: attackBuff[] = []
 
@@ -72,6 +76,21 @@ export const calculateAttackWithBuffs = (
 
   if (modifiers.attackMelody && modifiers.attackMelody !== 'none') {
     allModifiers.push(new attackBuffH(modifiers.attackMelody, horn))
+  }
+
+  // 鈍器使いの補正（切れ味に応じた倍率）
+  if (modifiers.bludgeoner && horn && selectedSharpness) {
+    let sharpnessColor
+    if (selectedSharpness === 'normal') {
+      sharpnessColor = horn.sharpness.normal.color
+    } else if (selectedSharpness === 'plus1' && horn.sharpness.plus1) {
+      sharpnessColor = horn.sharpness.plus1.color
+    } else if (selectedSharpness === 'plus2' && horn.sharpness.plus2) {
+      sharpnessColor = horn.sharpness.plus2.color
+    }
+    if (sharpnessColor) {
+      allModifiers.push(new attackBuffL(sharpnessColor))
+    }
   }
 
   let attack = baseAttack
