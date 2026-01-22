@@ -5,6 +5,7 @@ import type { AttackSkill } from './attackBuff_F'
 import type { Adrenaline } from './attackBuff_G'
 import type { AttackMelody } from './attackBuff_H'
 import type { Fortify } from './attackBuff_I'
+import type { ChallengeSkill } from './attackBuff_J'
 import type { HunterSkill } from './attackBuff_K'
 import type { Resuscitate } from './attackBuff_M'
 import type { Resentment } from './attackBuff_N'
@@ -23,6 +24,8 @@ export { getAdrenalineMultiplier } from './attackBuff_G'
 export type { AttackMelody } from './attackBuff_H'
 export type { Fortify } from './attackBuff_I'
 export { getFortifyMultiplier } from './attackBuff_I'
+export type { ChallengeSkill } from './attackBuff_J'
+export { getChallengeSkillValue } from './attackBuff_J'
 export type { HunterSkill } from './attackBuff_K'
 export { getHunterSkillValue } from './attackBuff_K'
 export type { Resuscitate } from './attackBuff_M'
@@ -36,6 +39,7 @@ export interface AttackBuffs {
   shortHypnosis?: ShortHypnosis
   attackSkill?: AttackSkill
   adrenaline?: Adrenaline
+  challengeSkill?: ChallengeSkill
   hunterSkill?: HunterSkill
   resuscitate?: Resuscitate
   resentment?: Resentment

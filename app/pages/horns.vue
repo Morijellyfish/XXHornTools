@@ -7,6 +7,7 @@ import type {
   PreparedBuff,
   ShortHypnosis,
   Adrenaline,
+  ChallengeSkill,
   HunterSkill,
   Resuscitate,
   Resentment,
@@ -17,6 +18,7 @@ import {
   getPreparedBuffValue,
   getAttackSkillValue,
   getAdrenalineMultiplier,
+  getChallengeSkillValue,
   getHunterSkillValue,
   getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
@@ -33,6 +35,9 @@ const shortHypnosis = ref<ShortHypnosis>(false) // 短期催眠術（グルー�
 
 // 攻撃スキル
 const attackSkill = ref<AttackSkill>('none')
+
+// 挑戦者・フルチャージ・力の解放
+const challengeSkill = ref<ChallengeSkill>('none') // 挑戦者・フルチャージ・力の解放（グループJ）
 
 // 北風/南風
 const hunterSkill = ref<HunterSkill>('none')
@@ -102,7 +107,28 @@ const calculateCriticalBonus = (): number => {
     bonus += 30
   }
 
+  // 挑戦者・フルチャージ・力の解放の補正
+  bonus += getChallengeSkillCriticalBonus(challengeSkill.value)
+
   return bonus
+}
+
+// 挑戦者・フルチャージ・力の解放の会心率補正値を取得
+const getChallengeSkillCriticalBonus = (skill: ChallengeSkill): number => {
+  switch (skill) {
+    case 'challenger1':
+      return 10 // 挑戦者+1: 会心率+10%
+    case 'challenger2':
+      return 20 // 挑戦者+2: 会心率+20%
+    case 'latentPower1':
+      return 30 // 力の解放+1: 会心率+30%
+    case 'latentPower2':
+      return 50 // 力の解放+2: 会心率+50%
+    case 'peakPerformance':
+    case 'none':
+    default:
+      return 0
+  }
 }
 
 // 会心補正値を計算
@@ -282,6 +308,57 @@ const criticalMelodyBonus = computed(() => {
                       @click="attackSkill = 'up_large'"
                     >
                       UP【大】| +{{ getAttackSkillValue('up_large') }}
+                    </UButton>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block"
+                  >挑戦者・フルチャージ・力の解放 (J):</label
+                >
+                <div class="space-y-2">
+                  <div class="flex gap-2 flex-wrap">
+                    <UButton
+                      :variant="challengeSkill === 'none' ? 'solid' : 'outline'"
+                      @click="challengeSkill = 'none'"
+                    >
+                      なし
+                    </UButton>
+                    <UButton
+                      :variant="challengeSkill === 'challenger1' ? 'solid' : 'outline'"
+                      @click="challengeSkill = 'challenger1'"
+                    >
+                      挑戦者+1 | +{{ getChallengeSkillValue('challenger1') }}, +{{
+                        getChallengeSkillCriticalBonus('challenger1')
+                      }}%
+                    </UButton>
+                    <UButton
+                      :variant="challengeSkill === 'challenger2' ? 'solid' : 'outline'"
+                      @click="challengeSkill = 'challenger2'"
+                    >
+                      挑戦者+2 | +{{ getChallengeSkillValue('challenger2') }}, +{{
+                        getChallengeSkillCriticalBonus('challenger2')
+                      }}%
+                    </UButton>
+                    <UButton
+                      :variant="challengeSkill === 'peakPerformance' ? 'solid' : 'outline'"
+                      @click="challengeSkill = 'peakPerformance'"
+                    >
+                      フルチャージ | +{{ getChallengeSkillValue('peakPerformance') }}
+                    </UButton>
+                  </div>
+                  <div class="flex gap-2 flex-wrap">
+                    <UButton
+                      :variant="challengeSkill === 'latentPower1' ? 'solid' : 'outline'"
+                      @click="challengeSkill = 'latentPower1'"
+                    >
+                      力の解放+1 | +{{ getChallengeSkillCriticalBonus('latentPower1') }}%
+                    </UButton>
+                    <UButton
+                      :variant="challengeSkill === 'latentPower2' ? 'solid' : 'outline'"
+                      @click="challengeSkill = 'latentPower2'"
+                    >
+                      力の解放+2 | +{{ getChallengeSkillCriticalBonus('latentPower2') }}%
                     </UButton>
                   </div>
                 </div>
@@ -628,6 +705,7 @@ const criticalMelodyBonus = computed(() => {
           shortHypnosis,
           attackSkill,
           adrenaline,
+          challengeSkill,
           hunterSkill,
           resuscitate,
           resentment,

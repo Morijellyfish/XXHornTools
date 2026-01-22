@@ -9,6 +9,7 @@ import { attackBuffF } from '~/types/attackBuff/attackBuff_F'
 import { attackBuffG } from '~/types/attackBuff/attackBuff_G'
 import { attackBuffH } from '~/types/attackBuff/attackBuff_H'
 import { attackBuffI } from '~/types/attackBuff/attackBuff_I'
+import { attackBuffJ } from '~/types/attackBuff/attackBuff_J'
 import { attackBuffK } from '~/types/attackBuff/attackBuff_K'
 import { attackBuffM } from '~/types/attackBuff/attackBuff_M'
 import { attackBuffN } from '~/types/attackBuff/attackBuff_N'
@@ -43,6 +44,10 @@ export const calculateAttackWithBuffs = (
 
   if (modifiers.adrenaline && modifiers.adrenaline !== 'none') {
     allModifiers.push(new attackBuffG(modifiers.adrenaline))
+  }
+
+  if (modifiers.challengeSkill && modifiers.challengeSkill !== 'none') {
+    allModifiers.push(new attackBuffJ(modifiers.challengeSkill))
   }
 
   if (modifiers.hunterSkill && modifiers.hunterSkill !== 'none') {

@@ -152,6 +152,14 @@ const getAttackWithBuffs = (horn: Horn): number => {
 
 // 元の攻撃力を括弧で表示するかどうかを判定
 const isShowBaseAttack = (horn: Horn): boolean => {
+  // 力の解放は攻撃力補正がないため除外
+  const challengeSkill = props.attackModifiers.challengeSkill
+  const hasAttackBuffFromChallengeSkill =
+    challengeSkill &&
+    challengeSkill !== 'none' &&
+    challengeSkill !== 'latentPower1' &&
+    challengeSkill !== 'latentPower2'
+
   return (
     props.attackModifiers.powerCharm ||
     props.attackModifiers.powerTalon ||
@@ -159,6 +167,7 @@ const isShowBaseAttack = (horn: Horn): boolean => {
     props.attackModifiers.shortHypnosis ||
     (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
     (props.attackModifiers.adrenaline && props.attackModifiers.adrenaline !== 'none') ||
+    hasAttackBuffFromChallengeSkill ||
     (props.attackModifiers.hunterSkill && props.attackModifiers.hunterSkill !== 'none') ||
     props.attackModifiers.resuscitate ||
     props.attackModifiers.resentment ||
