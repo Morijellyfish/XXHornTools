@@ -6,7 +6,7 @@ export const hornsR2: Horn[] = [
   {
     name: '天幸のカンパナリーオ6',
     attack: 280,
-    defense: 0,
+    defense: 20,
     slots: 3,
     affinity: 0,
     element: {
