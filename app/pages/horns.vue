@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { allHorns } from '~/data/horns'
 import { ref, computed } from 'vue'
-import type { AttackSkill, AttackMelody, PreparedBuff } from '~/types/attackBuff/attackBuffs'
-import { getPreparedBuffValue, getAttackSkillValue } from '~/types/attackBuff/attackBuffs'
+import type { AttackSkill, AttackMelody, PreparedBuff, HunterSkill } from '~/types/attackBuff/attackBuffs'
+import { getPreparedBuffValue, getAttackSkillValue, getHunterSkillValue } from '~/types/attackBuff/attackBuffs'
 
 useHead({
   title: '狩猟笛一覧',
@@ -15,6 +15,9 @@ const preparedBuff = ref<PreparedBuff>('none') // 鬼人薬・食事効果（グ
 
 // 攻撃スキル
 const attackSkill = ref<AttackSkill>('none')
+
+// 北風/南風
+const hunterSkill = ref<HunterSkill>('none')
 
 // 切れ味選択（通常、匠1、匠2）
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -229,6 +232,35 @@ const criticalMelodyBonus = computed(() => {
               </div>
             </div>
             <div>
+              <label class="text-xs text-gray-400 mb-1 block">北風/南風 (K):</label>
+              <div class="flex gap-2 flex-wrap">
+                <UButton
+                  :variant="hunterSkill === 'none' ? 'solid' : 'outline'"
+                  @click="hunterSkill = 'none'"
+                >
+                  なし
+                </UButton>
+                <UButton
+                  :variant="hunterSkill === 'cooler' ? 'solid' : 'outline'"
+                  @click="hunterSkill = 'cooler'"
+                >
+                  クーラー | +{{ getHunterSkillValue('cooler') }}
+                </UButton>
+                <UButton
+                  :variant="hunterSkill === 'eitherBlooded' ? 'solid' : 'outline'"
+                  @click="hunterSkill = 'eitherBlooded'"
+                >
+                  北風/南風 | +{{ getHunterSkillValue('eitherBlooded') }}
+                </UButton>
+                <UButton
+                  :variant="hunterSkill === 'polarCooler' ? 'solid' : 'outline'"
+                  @click="hunterSkill = 'polarCooler'"
+                >
+                  北風クーラー | +{{ getHunterSkillValue('polarCooler') }}
+                </UButton>
+              </div>
+            </div>
+            <div>
               <label class="text-xs text-gray-400 mb-1 block">斬れ味:</label>
               <div class="flex gap-2">
                 <UButton
@@ -423,6 +455,7 @@ const criticalMelodyBonus = computed(() => {
           powerTalon,
           preparedBuff,
           attackSkill,
+          hunterSkill,
           attackMelody,
           attackMelodyMultiplier,
         }"

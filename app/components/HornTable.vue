@@ -157,6 +157,7 @@ const isShowBaseAttack = (horn: Horn): boolean => {
     props.attackModifiers.powerTalon ||
     (props.attackModifiers.preparedBuff && props.attackModifiers.preparedBuff !== 'none') ||
     (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
+    (props.attackModifiers.hunterSkill && props.attackModifiers.hunterSkill !== 'none') ||
     getAttackMelodyMultiplier(horn) !== 1.0
   )
 }
