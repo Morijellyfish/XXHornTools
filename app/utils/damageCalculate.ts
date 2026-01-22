@@ -92,11 +92,7 @@ export const calculateExpectedValue = (
   }
 
   // 切れ味補正を適用した攻撃力を計算
-  const expectedValue = calculateSharpness(
-    attack,
-    selectedSharpnessData.color,
-    sharpnessMultiplier
-  )
+  const expectedValue = calculateSharpness(attack, selectedSharpnessData.color, sharpnessMultiplier)
 
   // 会心率を計算（元の会心率 + 会心補正）
   const affinity = horn.affinity + criticalBonus

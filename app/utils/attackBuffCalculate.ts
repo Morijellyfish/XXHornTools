@@ -1,8 +1,6 @@
 import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
 import type { attackBuff } from '~/types/attackBuff/attackBuff'
 import type { Horn } from '~/types/horn'
-
-type SharpnessType = 'normal' | 'plus1' | 'plus2'
 import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
 import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
 import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
@@ -18,6 +16,8 @@ import { attackBuffL } from '~/types/attackBuff/attackBuff_L'
 import { attackBuffM } from '~/types/attackBuff/attackBuff_M'
 import { attackBuffN } from '~/types/attackBuff/attackBuff_N'
 import { attackBuffO } from '~/types/attackBuff/attackBuff_O'
+
+type SharpnessType = 'normal' | 'plus1' | 'plus2'
 
 export const calculateAttackWithBuffs = (
   baseAttack: number,

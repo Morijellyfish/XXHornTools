@@ -23,6 +23,8 @@ interface Props {
   bludgeoner?: boolean
 }
 
+defineProps<Props>()
+
 // 音色の色を取得
 const getNoteColor = (note: Note): string => {
   return NOTE_COLORS[note]
@@ -49,8 +51,6 @@ const formatAffinity = (affinity: number): string => {
   if (affinity === 0) return '0%'
   return `${affinity > 0 ? '+' : ''}${affinity}%`
 }
-
-const props = defineProps<Props>()
 
 // 切れ味が緑以下かどうかを判定（鈍器使いの対象）
 const isGreenOrBelow = (color: SharpnessColor): boolean => {

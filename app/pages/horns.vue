@@ -23,7 +23,6 @@ import {
   getAdrenalineMultiplier,
   getChallengeSkillValue,
   getHunterSkillValue,
-  getBludgeonerMultiplier,
   getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
 
@@ -173,6 +172,57 @@ const criticalMelodyBonus = computed(() => {
     default:
       return 0
   }
+})
+
+// 攻撃力加算バフの合計を計算
+const totalAttackAdd = computed(() => {
+  let total = 0
+  if (powerCharm.value) total += 6 // 力の護符
+  if (powerTalon.value) total += 9 // 力の爪
+  if (preparedBuff.value !== 'none') {
+    total += getPreparedBuffValue(preparedBuff.value)
+  }
+  if (shortTermBuff.value !== 'none') {
+    total += getShortTermBuffValue(shortTermBuff.value)
+  }
+  if (shortHypnosis.value) total += 3 // 短期催眠術
+  if (attackSkill.value !== 'none') {
+    total += getAttackSkillValue(attackSkill.value)
+  }
+  const challengeSkillValue = getChallengeSkillValue(challengeSkill.value)
+  if (challengeSkillValue > 0) {
+    total += challengeSkillValue
+  }
+  if (hunterSkill.value !== 'none') {
+    total += getHunterSkillValue(hunterSkill.value)
+  }
+  if (resuscitate.value) total += 20 // 死中に活
+  if (resentment.value) total += 20 // 逆恨み
+  return total
+})
+
+// 攻撃力倍率（乗算バフ）の合計を計算
+const totalAttackMultiply = computed(() => {
+  let multiplier = 1.0
+  if (adrenaline.value !== 'none') {
+    multiplier *= getAdrenalineMultiplier(adrenaline.value)
+  }
+  if (fortify.value !== 'none') {
+    multiplier *= getFortifyMultiplier(fortify.value)
+  }
+  if (dragonInstinct.value) {
+    multiplier *= 1.1 // 龍気活性
+  }
+  if (attackMelody.value !== 'none' && attackMelody.value !== 'horn') {
+    multiplier *= attackMelodyMultiplier.value
+  }
+  // 鈍器使いと攻撃旋律（horn）は笛依存のため、ここでは計算しない
+  return multiplier
+})
+
+// 会心率追加の合計を計算
+const totalCriticalBonus = computed(() => {
+  return criticalBonus.value + criticalMelodyBonus.value
 })
 </script>
 
@@ -523,10 +573,7 @@ const criticalMelodyBonus = computed(() => {
                     >
                       無
                     </UButton>
-                    <UButton
-                      :variant="bludgeoner ? 'solid' : 'outline'"
-                      @click="bludgeoner = true"
-                    >
+                    <UButton :variant="bludgeoner ? 'solid' : 'outline'" @click="bludgeoner = true">
                       有
                     </UButton>
                   </div>
@@ -667,7 +714,7 @@ const criticalMelodyBonus = computed(() => {
                 </div>
               </div>
               <div>
-                <label class="text-xs text-gray-400 mb-1 block">会心強化:</label>
+                <label class="text-xs text-gray-400 mb-1 block">会心旋律:</label>
                 <div class="flex gap-2">
                   <UButton
                     :variant="criticalMelody === 'none' ? 'solid' : 'outline'"
@@ -776,6 +823,43 @@ const criticalMelodyBonus = computed(() => {
         </div>
       </div>
 
+      <!-- バフ合計表示 -->
+      <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+        <div class="flex flex-wrap gap-4 text-sm">
+          <div>
+            <span class="text-gray-600 dark:text-gray-400">攻撃力加算:</span>
+            <span
+              class="font-mono font-bold ml-2"
+              :class="totalAttackAdd > 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-400'"
+            >
+              {{ totalAttackAdd > 0 ? `+${totalAttackAdd}` : '0' }}
+            </span>
+          </div>
+          <div>
+            <span class="text-gray-600 dark:text-gray-400">攻撃力倍率:</span>
+            <span
+              class="font-mono font-bold ml-2"
+              :class="
+                totalAttackMultiply !== 1.0 ? 'text-green-600 dark:text-green-400' : 'text-gray-400'
+              "
+            >
+              x{{ totalAttackMultiply.toFixed(2) }}
+            </span>
+          </div>
+          <div>
+            <span class="text-gray-600 dark:text-gray-400">会心率追加:</span>
+            <span
+              class="font-mono font-bold ml-2"
+              :class="
+                totalCriticalBonus > 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-400'
+              "
+            >
+              {{ totalCriticalBonus > 0 ? `+${totalCriticalBonus}%` : '0%' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
       <HornTable
         :horns="allHorns"
         :selected-sharpness="selectedSharpness"
@@ -800,7 +884,9 @@ const criticalMelodyBonus = computed(() => {
           attackMelody,
           attackMelodyMultiplier,
         }"
-        :sharpness-multiplier="shortTermBuff === 'demonBullet' || shortTermBuff === 'demonCriticalBullet' ? 1.1 : 1.0"
+        :sharpness-multiplier="
+          shortTermBuff === 'demonBullet' || shortTermBuff === 'demonCriticalBullet' ? 1.1 : 1.0
+        "
         :critical-melody="criticalMelody"
         :critical-melody-bonus="criticalMelodyBonus"
       />
