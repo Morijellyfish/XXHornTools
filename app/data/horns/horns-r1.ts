@@ -1,5 +1,6 @@
 import type { Horn } from '~/types/horn'
 import { SharpnessColor } from '~/types/sharpness'
+import { Notes } from '~/types/notes'
 
 export const hornsR1: Horn[] = [
   {
@@ -8,9 +9,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 1,
     affinity: 20,
-    note1: '紫',
-    note2: '緑',
-    note3: '黄',
+    notes: new Notes('紫', '緑', '黄'),
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 10 },
@@ -23,9 +22,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    note1: '紫',
-    note2: '黄',
-    note3: '緑',
+    notes: new Notes('紫', '黄', '緑'),
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 30 },
@@ -38,9 +35,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    note1: '白',
-    note2: '青',
-    note3: '赤',
+    notes: new Notes('白', '青', '赤'),
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.White, length: 65 },
@@ -53,9 +48,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    note1: '紫',
-    note2: '赤',
-    note3: '黄',
+    notes: new Notes('紫', '赤', '黄'),
     sharpness: {
       normal: { color: SharpnessColor.White, length: 20 },
       plus1: { color: SharpnessColor.White, length: 45 },
@@ -68,9 +61,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    note1: '白',
-    note2: '緑',
-    note3: '赤',
+    notes: new Notes('白', '緑', '赤'),
     sharpness: {
       normal: { color: SharpnessColor.Green, length: 180 },
       plus1: { color: SharpnessColor.Blue, length: 25 },
@@ -83,9 +74,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    note1: '紫',
-    note2: '黄',
-    note3: '赤',
+    notes: new Notes('紫', '黄', '赤'),
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 60 },
       plus1: { color: SharpnessColor.White, length: 15 },
@@ -102,9 +91,7 @@ export const hornsR1: Horn[] = [
       type: '氷',
       value: 27,
     },
-    note1: '白',
-    note2: '緑',
-    note3: '空',
+    notes: new Notes('白', '緑', '空'),
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 70 },
       plus1: { color: SharpnessColor.White, length: 25 },
@@ -117,9 +104,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 2,
     affinity: -5,
-    note1: '紫',
-    note2: '青',
-    note3: '黄',
+    notes: new Notes('紫', '青', '黄'),
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
       plus1: { color: SharpnessColor.White, length: 35 },
@@ -132,9 +117,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    note1: '紫',
-    note2: '青',
-    note3: '空',
+    notes: new Notes('紫', '青', '空'),
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 10 },
       plus1: { color: SharpnessColor.Blue, length: 35 },
@@ -147,9 +130,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    note1: '白',
-    note2: '黄',
-    note3: '赤',
+    notes: new Notes('白', '黄', '赤'),
     sharpness: {
       normal: { color: SharpnessColor.Green, length: 180 },
       plus1: { color: SharpnessColor.Blue, length: 25 },
@@ -162,9 +143,7 @@ export const hornsR1: Horn[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    note1: '白',
-    note2: '空',
-    note3: '赤',
+    notes: new Notes('白', '空', '赤'),
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 50 },
       plus1: { color: SharpnessColor.White, length: 5 },

@@ -1,6 +1,5 @@
 import { attackBuff } from './attackBuff'
 import type { Horn } from '~/types/horn'
-import { getHornAttackMelodyMultiplier } from '~/types/horn'
 
 export class attackBuffH extends attackBuff {
   private attackMelody?: AttackMelody
@@ -20,7 +19,7 @@ export class attackBuffH extends attackBuff {
     let multiplier = 1.0
 
     if (this.attackMelody === 'horn' && this.horn) {
-      multiplier = getHornAttackMelodyMultiplier(this.horn)
+      multiplier = this.horn.notes.getMaxMelodyMultiplier_Attack()
     } else {
       switch (this.attackMelody) {
         case '1.10':

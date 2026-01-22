@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Horn } from '~/types/horn'
-import { getHornAttackMelodyMultiplier, getHornCriticalMelodyBonus } from '~/types/horn'
 import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
@@ -109,7 +108,7 @@ const getSortIcon = (key: SortKey): string => {
 const getCriticalMelodyBonus = (horn: Horn): number => {
   // 笛依存の場合は、各狩猟笛の旋律を確認
   if (props.criticalMelody === 'horn') {
-    return getHornCriticalMelodyBonus(horn)
+    return horn.notes.getMaxMelodyBonus_Critical()
   }
   // 固定値の場合は、propsから取得
   return props.criticalMelodyBonus
@@ -143,7 +142,7 @@ const getAttackMelodyMultiplier = (horn: Horn): number => {
   if (props.attackModifiers.attackMelody !== 'horn') {
     return props.attackModifiers.attackMelodyMultiplier ?? 1.0
   }
-  return getHornAttackMelodyMultiplier(horn)
+  return horn.notes.getMaxMelodyMultiplier_Attack()
 }
 
 // 補正済みの攻撃力を計算

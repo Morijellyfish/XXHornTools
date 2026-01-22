@@ -1,4 +1,7 @@
-import type { MelodyEffectsMap } from '~/types/horn'
+import type { Melody } from '~/types/melody'
+
+// 音色の組み合わせをキーとした旋律効果のマッピング
+type MelodyEffectsMap = Record<string, Melody[]>
 
 // 各狩猟笛の旋律効果テンプレート
 export const melodyEffects: MelodyEffectsMap = {

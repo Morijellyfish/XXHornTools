@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { Horn, Note } from '~/types/horn'
-import { NOTE_COLORS, getNoteBorderColor, getMelodyNames } from '~/types/horn'
+import type { Horn } from '~/types/horn'
+import type { Note } from '~/types/notes'
+import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import type { AttackMelody } from '~/types/attackBuff/attackBuffs'
 import { getSharpnessColor } from '~/types/sharpness'
 
@@ -87,7 +88,7 @@ const formatAffinity = (affinity: number): string => {
     <td class="p-2">
       <div class="flex items-center gap-1">
         <span
-          v-for="(note, index) in [horn.note1, horn.note2, horn.note3]"
+          v-for="(note, index) in [horn.notes.note1, horn.notes.note2, horn.notes.note3]"
           :key="index"
           :title="note"
           class="inline-block w-5 h-5 rounded-full border-2 flex-shrink-0"
@@ -101,7 +102,7 @@ const formatAffinity = (affinity: number): string => {
     <td class="p-2">
       <div class="flex flex-col gap-1 text-sm">
         <span
-          v-for="(name, index) in getMelodyNames(horn)"
+          v-for="(name, index) in horn.notes.getMelodyNames()"
           :key="index"
           :class="{
             'text-red-500':
