@@ -149,6 +149,17 @@ const getAttackMelodyMultiplier = (horn: Horn): number => {
 const getAttackWithBuffs = (horn: Horn): number => {
   return calculateAttackWithBuffs(horn.attack, props.attackModifiers, horn)
 }
+
+// 元の攻撃力を括弧で表示するかどうかを判定
+const isShowBaseAttack = (horn: Horn): boolean => {
+  return (
+    props.attackModifiers.powerCharm ||
+    props.attackModifiers.powerTalon ||
+    (props.attackModifiers.preparedBuff && props.attackModifiers.preparedBuff !== 'none') ||
+    (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
+    getAttackMelodyMultiplier(horn) !== 1.0
+  )
+}
 </script>
 
 <template>
@@ -211,13 +222,7 @@ const getAttackWithBuffs = (horn: Horn): number => {
           :expected-value="getExpectedValue(horn)"
           :attack-with-buffs="getAttackWithBuffs(horn)"
           :base-attack="horn.attack"
-          :show-base-attack="
-            props.attackModifiers.powerCharm ||
-            props.attackModifiers.powerTalon ||
-            (props.attackModifiers.preparedBuff && props.attackModifiers.preparedBuff !== 'none') ||
-            (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
-            getAttackMelodyMultiplier(horn) !== 1.0
-          "
+          :show-base-attack="isShowBaseAttack(horn)"
           :affinity="calculateAffinity(horn)"
           :base-affinity="horn.affinity"
           :show-base-affinity="props.criticalBonus !== 0 || getCriticalMelodyBonus(horn) !== 0"

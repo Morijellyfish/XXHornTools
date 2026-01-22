@@ -113,29 +113,29 @@ const criticalMelodyBonus = computed(() => {
           <label class="text-sm font-medium mb-2 block">事前準備:</label>
           <div class="space-y-3">
             <div>
-              <label class="text-xs text-gray-400 mb-1 block">力の護符:</label>
+              <label class="text-xs text-gray-400 mb-1 block">力の護符 (A):</label>
               <div class="flex gap-2">
                 <UButton :variant="!powerCharm ? 'solid' : 'outline'" @click="powerCharm = false">
                   無
                 </UButton>
                 <UButton :variant="powerCharm ? 'solid' : 'outline'" @click="powerCharm = true">
-                  有
+                  有 | +6
                 </UButton>
               </div>
             </div>
             <div>
-              <label class="text-xs text-gray-400 mb-1 block">力の爪:</label>
+              <label class="text-xs text-gray-400 mb-1 block">力の爪 (B):</label>
               <div class="flex gap-2">
                 <UButton :variant="!powerTalon ? 'solid' : 'outline'" @click="powerTalon = false">
                   無
                 </UButton>
                 <UButton :variant="powerTalon ? 'solid' : 'outline'" @click="powerTalon = true">
-                  有
+                  有 | +9
                 </UButton>
               </div>
             </div>
             <div>
-              <label class="text-xs text-gray-400 mb-1 block">鬼人薬・食事効果:</label>
+              <label class="text-xs text-gray-400 mb-1 block">鬼人薬・食事効果 (C):</label>
               <div class="flex gap-2 flex-wrap">
                 <UButton
                   :variant="preparedBuff === 'none' ? 'solid' : 'outline'"
