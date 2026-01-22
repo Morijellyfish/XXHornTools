@@ -6,6 +6,8 @@ import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
 import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
 import { attackBuffF } from '~/types/attackBuff/attackBuff_F'
 import { attackBuffK } from '~/types/attackBuff/attackBuff_K'
+import { attackBuffM } from '~/types/attackBuff/attackBuff_M'
+import { attackBuffN } from '~/types/attackBuff/attackBuff_N'
 import { attackBuffH } from '~/types/attackBuff/attackBuff_H'
 
 export const calculateAttackWithBuffs = (
@@ -33,6 +35,14 @@ export const calculateAttackWithBuffs = (
 
   if (modifiers.hunterSkill && modifiers.hunterSkill !== 'none') {
     allModifiers.push(new attackBuffK(modifiers.hunterSkill))
+  }
+
+  if (modifiers.resuscitate) {
+    allModifiers.push(new attackBuffM())
+  }
+
+  if (modifiers.resentment) {
+    allModifiers.push(new attackBuffN())
   }
 
   if (modifiers.attackMelody && modifiers.attackMelody !== 'none') {

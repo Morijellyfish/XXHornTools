@@ -1,8 +1,19 @@
 <script setup lang="ts">
 import { allHorns } from '~/data/horns'
 import { ref, computed } from 'vue'
-import type { AttackSkill, AttackMelody, PreparedBuff, HunterSkill } from '~/types/attackBuff/attackBuffs'
-import { getPreparedBuffValue, getAttackSkillValue, getHunterSkillValue } from '~/types/attackBuff/attackBuffs'
+import type {
+  AttackSkill,
+  AttackMelody,
+  PreparedBuff,
+  HunterSkill,
+  Resuscitate,
+  Resentment,
+} from '~/types/attackBuff/attackBuffs'
+import {
+  getPreparedBuffValue,
+  getAttackSkillValue,
+  getHunterSkillValue,
+} from '~/types/attackBuff/attackBuffs'
 
 useHead({
   title: '狩猟笛一覧',
@@ -18,6 +29,12 @@ const attackSkill = ref<AttackSkill>('none')
 
 // 北風/南風
 const hunterSkill = ref<HunterSkill>('none')
+
+// 死中に活
+const resuscitate = ref<Resuscitate>(false) // 死中に活（グループM）
+
+// 逆恨み
+const resentment = ref<Resentment>(false) // 逆恨み（グループN）
 
 // 切れ味選択（通常、匠1、匠2）
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -188,198 +205,223 @@ const criticalMelodyBonus = computed(() => {
 
           <div>
             <label class="text-sm font-medium mb-2 block">スキル:</label>
-          <div class="space-y-3">
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">攻撃 (F):</label>
-              <div class="space-y-2">
-                <div class="flex gap-2">
+            <div class="space-y-3">
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">攻撃 (F):</label>
+                <div class="space-y-2">
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="attackSkill === 'none' ? 'solid' : 'outline'"
+                      @click="attackSkill = 'none'"
+                    >
+                      なし
+                    </UButton>
+                    <UButton
+                      :variant="attackSkill === 'down_small' ? 'solid' : 'outline'"
+                      @click="attackSkill = 'down_small'"
+                    >
+                      DOWN【小】| {{ getAttackSkillValue('down_small') }}
+                    </UButton>
+                    <UButton
+                      :variant="attackSkill === 'down_medium' ? 'solid' : 'outline'"
+                      @click="attackSkill = 'down_medium'"
+                    >
+                      DOWN【中】| {{ getAttackSkillValue('down_medium') }}
+                    </UButton>
+                    <UButton
+                      :variant="attackSkill === 'down_large' ? 'solid' : 'outline'"
+                      @click="attackSkill = 'down_large'"
+                    >
+                      DOWN【大】| {{ getAttackSkillValue('down_large') }}
+                    </UButton>
+                  </div>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="attackSkill === 'up_small' ? 'solid' : 'outline'"
+                      @click="attackSkill = 'up_small'"
+                    >
+                      UP【小】| +{{ getAttackSkillValue('up_small') }}
+                    </UButton>
+                    <UButton
+                      :variant="attackSkill === 'up_medium' ? 'solid' : 'outline'"
+                      @click="attackSkill = 'up_medium'"
+                    >
+                      UP【中】| +{{ getAttackSkillValue('up_medium') }}
+                    </UButton>
+                    <UButton
+                      :variant="attackSkill === 'up_large' ? 'solid' : 'outline'"
+                      @click="attackSkill = 'up_large'"
+                    >
+                      UP【大】| +{{ getAttackSkillValue('up_large') }}
+                    </UButton>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">北風/南風 (K):</label>
+                <div class="flex gap-2 flex-wrap">
                   <UButton
-                    :variant="attackSkill === 'none' ? 'solid' : 'outline'"
-                    @click="attackSkill = 'none'"
+                    :variant="hunterSkill === 'none' ? 'solid' : 'outline'"
+                    @click="hunterSkill = 'none'"
                   >
                     なし
                   </UButton>
                   <UButton
-                    :variant="attackSkill === 'down_small' ? 'solid' : 'outline'"
-                    @click="attackSkill = 'down_small'"
+                    :variant="hunterSkill === 'cooler' ? 'solid' : 'outline'"
+                    @click="hunterSkill = 'cooler'"
                   >
-                    DOWN【小】| {{ getAttackSkillValue('down_small') }}
+                    クーラー | +{{ getHunterSkillValue('cooler') }}
                   </UButton>
                   <UButton
-                    :variant="attackSkill === 'down_medium' ? 'solid' : 'outline'"
-                    @click="attackSkill = 'down_medium'"
+                    :variant="hunterSkill === 'eitherBlooded' ? 'solid' : 'outline'"
+                    @click="hunterSkill = 'eitherBlooded'"
                   >
-                    DOWN【中】| {{ getAttackSkillValue('down_medium') }}
+                    北風/南風 | +{{ getHunterSkillValue('eitherBlooded') }}
                   </UButton>
                   <UButton
-                    :variant="attackSkill === 'down_large' ? 'solid' : 'outline'"
-                    @click="attackSkill = 'down_large'"
+                    :variant="hunterSkill === 'polarCooler' ? 'solid' : 'outline'"
+                    @click="hunterSkill = 'polarCooler'"
                   >
-                    DOWN【大】| {{ getAttackSkillValue('down_large') }}
+                    北風クーラー | +{{ getHunterSkillValue('polarCooler') }}
                   </UButton>
                 </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">死中に活 (M):</label>
                 <div class="flex gap-2">
                   <UButton
-                    :variant="attackSkill === 'up_small' ? 'solid' : 'outline'"
-                    @click="attackSkill = 'up_small'"
+                    :variant="!resuscitate ? 'solid' : 'outline'"
+                    @click="resuscitate = false"
                   >
-                    UP【小】| +{{ getAttackSkillValue('up_small') }}
+                    無
+                  </UButton>
+                  <UButton :variant="resuscitate ? 'solid' : 'outline'" @click="resuscitate = true">
+                    有 | +20
+                  </UButton>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">逆恨み (N):</label>
+                <div class="flex gap-2">
+                  <UButton :variant="!resentment ? 'solid' : 'outline'" @click="resentment = false">
+                    無
+                  </UButton>
+                  <UButton :variant="resentment ? 'solid' : 'outline'" @click="resentment = true">
+                    有 | +20
+                  </UButton>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">斬れ味:</label>
+                <div class="flex gap-2">
+                  <UButton
+                    :variant="selectedSharpness === 'normal' ? 'solid' : 'outline'"
+                    @click="selectedSharpness = 'normal'"
+                  >
+                    通常
                   </UButton>
                   <UButton
-                    :variant="attackSkill === 'up_medium' ? 'solid' : 'outline'"
-                    @click="attackSkill = 'up_medium'"
+                    :variant="selectedSharpness === 'plus1' ? 'solid' : 'outline'"
+                    @click="selectedSharpness = 'plus1'"
                   >
-                    UP【中】| +{{ getAttackSkillValue('up_medium') }}
+                    匠1
                   </UButton>
                   <UButton
-                    :variant="attackSkill === 'up_large' ? 'solid' : 'outline'"
-                    @click="attackSkill = 'up_large'"
+                    :variant="selectedSharpness === 'plus2' ? 'solid' : 'outline'"
+                    @click="selectedSharpness = 'plus2'"
                   >
-                    UP【大】| +{{ getAttackSkillValue('up_large') }}
+                    匠2
+                  </UButton>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">弱点特攻:</label>
+                <div class="flex gap-2">
+                  <UButton
+                    :variant="!hasWeaknessExploit ? 'solid' : 'outline'"
+                    @click="hasWeaknessExploit = false"
+                  >
+                    無
+                  </UButton>
+                  <UButton
+                    :variant="hasWeaknessExploit ? 'solid' : 'outline'"
+                    @click="hasWeaknessExploit = true"
+                  >
+                    有
+                  </UButton>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">連撃:</label>
+                <div class="flex gap-2">
+                  <UButton
+                    :variant="repeatOffensive === 'none' ? 'solid' : 'outline'"
+                    @click="repeatOffensive = 'none'"
+                  >
+                    なし
+                  </UButton>
+                  <UButton
+                    :variant="repeatOffensive === '25' ? 'solid' : 'outline'"
+                    @click="repeatOffensive = '25'"
+                  >
+                    25%
+                  </UButton>
+                  <UButton
+                    :variant="repeatOffensive === '30' ? 'solid' : 'outline'"
+                    @click="repeatOffensive = '30'"
+                  >
+                    30%
+                  </UButton>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">見切り:</label>
+                <div class="flex gap-2">
+                  <UButton
+                    v-for="value in [-3, -2, -1, 0, 1, 2, 3]"
+                    :key="value"
+                    :variant="criticalEye === value ? 'solid' : 'outline'"
+                    @click="criticalEye = value"
+                  >
+                    {{ value > 0 ? `+${value}` : value }}
+                  </UButton>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">超会心:</label>
+                <div class="flex gap-2">
+                  <UButton
+                    :variant="!hasCriticalBoost ? 'solid' : 'outline'"
+                    @click="hasCriticalBoost = false"
+                  >
+                    無
+                  </UButton>
+                  <UButton
+                    :variant="hasCriticalBoost ? 'solid' : 'outline'"
+                    @click="hasCriticalBoost = true"
+                  >
+                    有
+                  </UButton>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">裏会心:</label>
+                <div class="flex gap-2">
+                  <UButton
+                    :variant="!hasMadAffinity ? 'solid' : 'outline'"
+                    @click="hasMadAffinity = false"
+                  >
+                    無
+                  </UButton>
+                  <UButton
+                    :variant="hasMadAffinity ? 'solid' : 'outline'"
+                    @click="hasMadAffinity = true"
+                  >
+                    有
                   </UButton>
                 </div>
               </div>
             </div>
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">北風/南風 (K):</label>
-              <div class="flex gap-2 flex-wrap">
-                <UButton
-                  :variant="hunterSkill === 'none' ? 'solid' : 'outline'"
-                  @click="hunterSkill = 'none'"
-                >
-                  なし
-                </UButton>
-                <UButton
-                  :variant="hunterSkill === 'cooler' ? 'solid' : 'outline'"
-                  @click="hunterSkill = 'cooler'"
-                >
-                  クーラー | +{{ getHunterSkillValue('cooler') }}
-                </UButton>
-                <UButton
-                  :variant="hunterSkill === 'eitherBlooded' ? 'solid' : 'outline'"
-                  @click="hunterSkill = 'eitherBlooded'"
-                >
-                  北風/南風 | +{{ getHunterSkillValue('eitherBlooded') }}
-                </UButton>
-                <UButton
-                  :variant="hunterSkill === 'polarCooler' ? 'solid' : 'outline'"
-                  @click="hunterSkill = 'polarCooler'"
-                >
-                  北風クーラー | +{{ getHunterSkillValue('polarCooler') }}
-                </UButton>
-              </div>
-            </div>
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">斬れ味:</label>
-              <div class="flex gap-2">
-                <UButton
-                  :variant="selectedSharpness === 'normal' ? 'solid' : 'outline'"
-                  @click="selectedSharpness = 'normal'"
-                >
-                  通常
-                </UButton>
-                <UButton
-                  :variant="selectedSharpness === 'plus1' ? 'solid' : 'outline'"
-                  @click="selectedSharpness = 'plus1'"
-                >
-                  匠1
-                </UButton>
-                <UButton
-                  :variant="selectedSharpness === 'plus2' ? 'solid' : 'outline'"
-                  @click="selectedSharpness = 'plus2'"
-                >
-                  匠2
-                </UButton>
-              </div>
-            </div>
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">弱点特攻:</label>
-              <div class="flex gap-2">
-                <UButton
-                  :variant="!hasWeaknessExploit ? 'solid' : 'outline'"
-                  @click="hasWeaknessExploit = false"
-                >
-                  無
-                </UButton>
-                <UButton
-                  :variant="hasWeaknessExploit ? 'solid' : 'outline'"
-                  @click="hasWeaknessExploit = true"
-                >
-                  有
-                </UButton>
-              </div>
-            </div>
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">連撃:</label>
-              <div class="flex gap-2">
-                <UButton
-                  :variant="repeatOffensive === 'none' ? 'solid' : 'outline'"
-                  @click="repeatOffensive = 'none'"
-                >
-                  なし
-                </UButton>
-                <UButton
-                  :variant="repeatOffensive === '25' ? 'solid' : 'outline'"
-                  @click="repeatOffensive = '25'"
-                >
-                  25%
-                </UButton>
-                <UButton
-                  :variant="repeatOffensive === '30' ? 'solid' : 'outline'"
-                  @click="repeatOffensive = '30'"
-                >
-                  30%
-                </UButton>
-              </div>
-            </div>
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">見切り:</label>
-              <div class="flex gap-2">
-                <UButton
-                  v-for="value in [-3, -2, -1, 0, 1, 2, 3]"
-                  :key="value"
-                  :variant="criticalEye === value ? 'solid' : 'outline'"
-                  @click="criticalEye = value"
-                >
-                  {{ value > 0 ? `+${value}` : value }}
-                </UButton>
-              </div>
-            </div>
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">超会心:</label>
-              <div class="flex gap-2">
-                <UButton
-                  :variant="!hasCriticalBoost ? 'solid' : 'outline'"
-                  @click="hasCriticalBoost = false"
-                >
-                  無
-                </UButton>
-                <UButton
-                  :variant="hasCriticalBoost ? 'solid' : 'outline'"
-                  @click="hasCriticalBoost = true"
-                >
-                  有
-                </UButton>
-              </div>
-            </div>
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">裏会心:</label>
-              <div class="flex gap-2">
-                <UButton
-                  :variant="!hasMadAffinity ? 'solid' : 'outline'"
-                  @click="hasMadAffinity = false"
-                >
-                  無
-                </UButton>
-                <UButton
-                  :variant="hasMadAffinity ? 'solid' : 'outline'"
-                  @click="hasMadAffinity = true"
-                >
-                  有
-                </UButton>
-              </div>
-            </div>
-          </div>
           </div>
         </div>
 
@@ -466,6 +508,8 @@ const criticalMelodyBonus = computed(() => {
           preparedBuff,
           attackSkill,
           hunterSkill,
+          resuscitate,
+          resentment,
           attackMelody,
           attackMelodyMultiplier,
         }"

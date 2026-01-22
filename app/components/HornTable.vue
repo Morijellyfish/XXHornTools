@@ -158,6 +158,8 @@ const isShowBaseAttack = (horn: Horn): boolean => {
     (props.attackModifiers.preparedBuff && props.attackModifiers.preparedBuff !== 'none') ||
     (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
     (props.attackModifiers.hunterSkill && props.attackModifiers.hunterSkill !== 'none') ||
+    props.attackModifiers.resuscitate ||
+    props.attackModifiers.resentment ||
     getAttackMelodyMultiplier(horn) !== 1.0
   )
 }
