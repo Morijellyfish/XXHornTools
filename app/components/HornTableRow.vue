@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Horn, Note } from '~/types/horn'
 import { NOTE_COLORS, getNoteBorderColor, getMelodyNames } from '~/types/horn'
-import type { AttackMelody } from '~/types/attackBuffs'
+import type { AttackMelody } from '~/types/attackBuff/attackBuffs'
 import { getSharpnessColor } from '~/types/sharpness'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'

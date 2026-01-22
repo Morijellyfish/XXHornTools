@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Horn } from '~/types/horn'
 import { getHornAttackMelodyMultiplier, getHornCriticalMelodyBonus } from '~/types/horn'
-import type { AttackBuffs } from '~/types/attackBuffs'
+import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
 import HornTableRow from './HornTableRow.vue'

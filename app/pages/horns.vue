@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { allHorns } from '~/data/horns'
 import { ref, computed } from 'vue'
-import type { AttackSkill, AttackMelody } from '~/types/attackBuffs'
+import type { AttackSkill, AttackMelody } from '~/types/attackBuff/attackBuffs'
 
 useHead({
   title: '狩猟笛一覧',

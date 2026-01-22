@@ -1,10 +1,10 @@
-import type { AttackBuffs } from '~/types/attackBuffs'
-import type { attackBuff } from '~/types/attackBuff'
+import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
+import type { attackBuff } from '~/types/attackBuff/attackBuff'
 import type { Horn } from '~/types/horn'
-import { attackBuffA } from '~/types/attackBuff_A'
-import { attackBuffB } from '~/types/attackBuff_B'
-import { attackBuffF } from '~/types/attackBuff_F'
-import { attackBuffH } from '~/types/attackBuff_H'
+import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
+import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
+import { attackBuffF } from '~/types/attackBuff/attackBuff_F'
+import { attackBuffH } from '~/types/attackBuff/attackBuff_H'
 
 export const calculateAttackWithBuffs = (
   baseAttack: number,
