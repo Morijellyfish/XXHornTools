@@ -7,7 +7,7 @@ import { hornsR6 } from './horns-r6'
 import { hornsR7 } from './horns-r7'
 import { hornsR8 } from './horns-r8'
 import { hornsR10 } from './horns-r10'
-import { hornsRX } from './horns-rx'
+import { hornsRX } from './horns-rX'
 import type { Horn } from '~/types/horn'
 
 // 全レア度の狩猟笛データを統合
