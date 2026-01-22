@@ -7,13 +7,14 @@ import {
   getHornAttackMelodyMultiplier,
   getHornCriticalMelodyBonus,
 } from '~/types/horn'
+import type { AttackSkill, AttackMelody } from '~/types/attackBuff'
 import { getSharpnessColor } from '~/types/sharpness'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
+import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
 import { ref, computed } from 'vue'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
 
-type AttackMelody = 'none' | '1.10' | '1.15' | '1.20' | 'horn'
 type CriticalMelody = 'none' | '15' | '20' | 'horn'
 
 interface Props {
@@ -22,6 +23,7 @@ interface Props {
   criticalBonus?: number
   hasCriticalBoost?: boolean
   hasMadAffinity?: boolean
+  attackSkill?: AttackSkill
   attackMelody?: AttackMelody
   attackMelodyMultiplier?: number
   criticalMelody?: CriticalMelody
@@ -33,6 +35,7 @@ const props = withDefaults(defineProps<Props>(), {
   criticalBonus: 0,
   hasCriticalBoost: false,
   hasMadAffinity: false,
+  attackSkill: 'none',
   attackMelody: 'none',
   attackMelodyMultiplier: 1.0,
   criticalMelody: 'none',
@@ -152,13 +155,13 @@ const calculateAffinity = (horn: Horn): number => {
 
 // 期待値を計算
 const getExpectedValue = (horn: Horn): number => {
-  // 攻撃旋律の倍率を適用した攻撃力を計算
-  const attackWithMelody = getAttackWithMelody(horn)
+  // 補正済みの攻撃力を計算
+  const attackWithBuffs = getAttackWithBuffs(horn)
   // 会心補正（会心補正 + 会心強化旋律）
   const criticalMelodyBonus = getCriticalMelodyBonus(horn)
   const totalCriticalBonus = props.criticalBonus + criticalMelodyBonus
   return calculateExpectedValue(
-    attackWithMelody,
+    attackWithBuffs,
     horn,
     props.selectedSharpness,
     totalCriticalBonus,
@@ -175,7 +178,15 @@ const getAttackMelodyMultiplier = (horn: Horn): number => {
   return getHornAttackMelodyMultiplier(horn)
 }
 
-// 攻撃旋律適用後の攻撃力を計算
+// 補正済みの攻撃力を計算
+const getAttackWithBuffs = (horn: Horn): number => {
+  return calculateAttackWithBuffs(horn.attack, {
+    attackSkill: props.attackSkill,
+    attackMelody: props.attackMelody,
+  }, horn)
+}
+
+// 攻撃旋律適用後の攻撃力を計算（後方互換性のため残す）
 const getAttackWithMelody = (horn: Horn): number => {
   const multiplier = getAttackMelodyMultiplier(horn)
   return Math.round(horn.attack * multiplier)
@@ -244,8 +255,11 @@ const getAttackWithMelody = (horn: Horn): number => {
           <td class="p-2">{{ getExpectedValue(horn) }}</td>
           <td class="p-2 text-right">
             <div class="flex flex-col">
-              <span>{{ getAttackWithMelody(horn) }}</span>
-              <span v-if="getAttackMelodyMultiplier(horn) !== 1.0" class="text-xs text-gray-400">
+              <span>{{ getAttackWithBuffs(horn) }}</span>
+              <span
+                v-if="props.attackSkill !== 'none' || getAttackMelodyMultiplier(horn) !== 1.0"
+                class="text-xs text-gray-400"
+              >
                 ({{ horn.attack }})
               </span>
             </div>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { allHorns } from '~/data/horns'
 import { ref, computed } from 'vue'
+import type { AttackSkill, AttackMelody } from '~/types/attackBuff'
 
 useHead({
   title: '狩猟笛一覧',
 })
 
 // 攻撃スキル
-type AttackSkill = 'none' | 'down_small' | 'down_medium' | 'down_large' | 'up_small' | 'up_medium' | 'up_large'
 const attackSkill = ref<AttackSkill>('none')
 
 // 切れ味選択（通常、匠1、匠2）
@@ -31,7 +31,6 @@ const hasCriticalBoost = ref(false)
 const hasMadAffinity = ref(false)
 
 // 旋律オプション
-type AttackMelody = 'none' | '1.10' | '1.15' | '1.20' | 'horn'
 const attackMelody = ref<AttackMelody>('none')
 
 type CriticalMelody = 'none' | '15' | '20' | 'horn'
@@ -341,6 +340,7 @@ const criticalMelodyBonus = computed(() => {
         :critical-bonus="criticalBonus"
         :has-critical-boost="hasCriticalBoost"
         :has-mad-affinity="hasMadAffinity"
+        :attack-skill="attackSkill"
         :attack-melody="attackMelody"
         :attack-melody-multiplier="attackMelodyMultiplier"
         :critical-melody="criticalMelody"
