@@ -33,6 +33,16 @@ export const getAttackSkillValue = (attackSkill: AttackSkill): number => {
 }
 
 /**
+ * 力の護符（グループA）
+ */
+export type PowerCharm = boolean
+
+/**
+ * 力の爪（グループB）
+ */
+export type PowerTalon = boolean
+
+/**
  * 攻撃旋律
  */
 export type AttackMelody = 'none' | '1.10' | '1.15' | '1.20' | 'horn'
@@ -84,10 +94,16 @@ export interface AttackBuffModifier {
  * 攻撃バフの設定
  */
 export interface AttackBuffModifiers {
+  /** 力の護符（グループA） */
+  powerCharm?: PowerCharm
+  /** 力の爪（グループB） */
+  powerTalon?: PowerTalon
   /** 攻撃スキル（DOWN/UP【小】【中】【大】） */
   attackSkill?: AttackSkill
   /** 攻撃旋律 */
   attackMelody?: AttackMelody
+  /** 攻撃旋律の倍率（固定値の場合のみ） */
+  attackMelodyMultiplier?: number
   /** その他の補正（将来的に拡張） */
   [key: string]: unknown
 }

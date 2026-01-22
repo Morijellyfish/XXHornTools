@@ -10,6 +10,32 @@ import type { Horn } from '~/types/horn'
 import { getHornAttackMelodyMultiplier } from '~/types/horn'
 
 /**
+ * グループA（力の護符）の補正を計算
+ * @param attack 現在の攻撃力
+ * @param modifiers 攻撃バフの設定
+ * @returns 補正後の攻撃力
+ */
+const calcGroupA = (attack: number, modifiers: AttackBuffModifiers): number => {
+  if (modifiers.powerCharm) {
+    attack += 6
+  }
+  return attack
+}
+
+/**
+ * グループB（力の爪）の補正を計算
+ * @param attack 現在の攻撃力
+ * @param modifiers 攻撃バフの設定
+ * @returns 補正後の攻撃力
+ */
+const calcGroupB = (attack: number, modifiers: AttackBuffModifiers): number => {
+  if (modifiers.powerTalon) {
+    attack += 9
+  }
+  return attack
+}
+
+/**
  * グループF（攻撃力UPスキル）の補正を計算
  * @param attack 現在の攻撃力
  * @param modifiers 攻撃バフの設定
@@ -73,6 +99,12 @@ export const calculateAttackWithBuffs = (
 ): number => {
   let attack = baseAttack
 
+  // グループA（力の護符）の補正（加算）
+  attack = calcGroupA(attack, modifiers)
+
+  // グループB（力の爪）の補正（加算）
+  attack = calcGroupB(attack, modifiers)
+
   // グループF（攻撃力UPスキル）の補正（加算）
   attack = calcGroupF(attack, modifiers)
 
@@ -80,8 +112,7 @@ export const calculateAttackWithBuffs = (
   attack = calcGroupH(attack, modifiers, horn)
 
   // TODO: 他のグループの補正を追加
-  // attack = calcGroupA(attack, modifiers)
-  // attack = calcGroupB(attack, modifiers)
+  // attack = calcGroupC(attack, modifiers)
   // ...
 
   return attack

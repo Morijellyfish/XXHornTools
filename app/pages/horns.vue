@@ -7,6 +7,10 @@ useHead({
   title: '狩猟笛一覧',
 })
 
+// 事前準備
+const powerCharm = ref(false) // 力の護符（グループA）
+const powerTalon = ref(false) // 力の爪（グループB）
+
 // 攻撃スキル
 const attackSkill = ref<AttackSkill>('none')
 
@@ -103,6 +107,46 @@ const criticalMelodyBonus = computed(() => {
 
     <UPageSection>
       <div class="mb-4 space-y-4">
+        <div>
+          <label class="text-sm font-medium mb-2 block">事前準備:</label>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">力の護符:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="!powerCharm ? 'solid' : 'outline'"
+                  @click="powerCharm = false"
+                >
+                  無
+                </UButton>
+                <UButton
+                  :variant="powerCharm ? 'solid' : 'outline'"
+                  @click="powerCharm = true"
+                >
+                  有
+                </UButton>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">力の爪:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="!powerTalon ? 'solid' : 'outline'"
+                  @click="powerTalon = false"
+                >
+                  無
+                </UButton>
+                <UButton
+                  :variant="powerTalon ? 'solid' : 'outline'"
+                  @click="powerTalon = true"
+                >
+                  有
+                </UButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div>
           <label class="text-sm font-medium mb-2 block">スキル:</label>
           <div class="space-y-3">
@@ -340,9 +384,13 @@ const criticalMelodyBonus = computed(() => {
         :critical-bonus="criticalBonus"
         :has-critical-boost="hasCriticalBoost"
         :has-mad-affinity="hasMadAffinity"
-        :attack-skill="attackSkill"
-        :attack-melody="attackMelody"
-        :attack-melody-multiplier="attackMelodyMultiplier"
+        :attack-modifiers="{
+          powerCharm,
+          powerTalon,
+          attackSkill,
+          attackMelody,
+          attackMelodyMultiplier,
+        }"
         :critical-melody="criticalMelody"
         :critical-melody-bonus="criticalMelodyBonus"
       />
