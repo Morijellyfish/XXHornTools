@@ -129,8 +129,8 @@ const criticalMelodyBonus = computed(() => {
 
     <UPageSection>
       <div class="mb-4 space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
             <label class="text-sm font-medium mb-2 block">事前準備:</label>
             <div class="space-y-3">
               <div>
@@ -203,7 +203,7 @@ const criticalMelodyBonus = computed(() => {
             </div>
           </div>
 
-          <div>
+          <div class="pl-4">
             <label class="text-sm font-medium mb-2 block">スキル:</label>
             <div class="space-y-3">
               <div>
@@ -286,29 +286,37 @@ const criticalMelodyBonus = computed(() => {
                   </UButton>
                 </div>
               </div>
-              <div>
-                <label class="text-xs text-gray-400 mb-1 block">死中に活 (M):</label>
-                <div class="flex gap-2">
-                  <UButton
-                    :variant="!resuscitate ? 'solid' : 'outline'"
-                    @click="resuscitate = false"
-                  >
-                    無
-                  </UButton>
-                  <UButton :variant="resuscitate ? 'solid' : 'outline'" @click="resuscitate = true">
-                    有 | +20
-                  </UButton>
+              <div class="grid grid-cols-2">
+                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+                  <label class="text-xs text-gray-400 mb-1 block">死中に活 (M):</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="!resuscitate ? 'solid' : 'outline'"
+                      @click="resuscitate = false"
+                    >
+                      無
+                    </UButton>
+                    <UButton
+                      :variant="resuscitate ? 'solid' : 'outline'"
+                      @click="resuscitate = true"
+                    >
+                      有 | +20
+                    </UButton>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <label class="text-xs text-gray-400 mb-1 block">逆恨み (N):</label>
-                <div class="flex gap-2">
-                  <UButton :variant="!resentment ? 'solid' : 'outline'" @click="resentment = false">
-                    無
-                  </UButton>
-                  <UButton :variant="resentment ? 'solid' : 'outline'" @click="resentment = true">
-                    有 | +20
-                  </UButton>
+                <div class="pl-4">
+                  <label class="text-xs text-gray-400 mb-1 block">逆恨み (N):</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="!resentment ? 'solid' : 'outline'"
+                      @click="resentment = false"
+                    >
+                      無
+                    </UButton>
+                    <UButton :variant="resentment ? 'solid' : 'outline'" @click="resentment = true">
+                      有 | +20
+                    </UButton>
+                  </div>
                 </div>
               </div>
               <div>
@@ -334,44 +342,46 @@ const criticalMelodyBonus = computed(() => {
                   </UButton>
                 </div>
               </div>
-              <div>
-                <label class="text-xs text-gray-400 mb-1 block">弱点特攻:</label>
-                <div class="flex gap-2">
-                  <UButton
-                    :variant="!hasWeaknessExploit ? 'solid' : 'outline'"
-                    @click="hasWeaknessExploit = false"
-                  >
-                    無
-                  </UButton>
-                  <UButton
-                    :variant="hasWeaknessExploit ? 'solid' : 'outline'"
-                    @click="hasWeaknessExploit = true"
-                  >
-                    有
-                  </UButton>
+              <div class="grid grid-cols-2">
+                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+                  <label class="text-xs text-gray-400 mb-1 block">弱点特攻:</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="!hasWeaknessExploit ? 'solid' : 'outline'"
+                      @click="hasWeaknessExploit = false"
+                    >
+                      無
+                    </UButton>
+                    <UButton
+                      :variant="hasWeaknessExploit ? 'solid' : 'outline'"
+                      @click="hasWeaknessExploit = true"
+                    >
+                      有
+                    </UButton>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <label class="text-xs text-gray-400 mb-1 block">連撃:</label>
-                <div class="flex gap-2">
-                  <UButton
-                    :variant="repeatOffensive === 'none' ? 'solid' : 'outline'"
-                    @click="repeatOffensive = 'none'"
-                  >
-                    なし
-                  </UButton>
-                  <UButton
-                    :variant="repeatOffensive === '25' ? 'solid' : 'outline'"
-                    @click="repeatOffensive = '25'"
-                  >
-                    25%
-                  </UButton>
-                  <UButton
-                    :variant="repeatOffensive === '30' ? 'solid' : 'outline'"
-                    @click="repeatOffensive = '30'"
-                  >
-                    30%
-                  </UButton>
+                <div class="pl-4">
+                  <label class="text-xs text-gray-400 mb-1 block">連撃:</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="repeatOffensive === 'none' ? 'solid' : 'outline'"
+                      @click="repeatOffensive = 'none'"
+                    >
+                      なし
+                    </UButton>
+                    <UButton
+                      :variant="repeatOffensive === '25' ? 'solid' : 'outline'"
+                      @click="repeatOffensive = '25'"
+                    >
+                      25%
+                    </UButton>
+                    <UButton
+                      :variant="repeatOffensive === '30' ? 'solid' : 'outline'"
+                      @click="repeatOffensive = '30'"
+                    >
+                      30%
+                    </UButton>
+                  </div>
                 </div>
               </div>
               <div>
@@ -387,38 +397,40 @@ const criticalMelodyBonus = computed(() => {
                   </UButton>
                 </div>
               </div>
-              <div>
-                <label class="text-xs text-gray-400 mb-1 block">超会心:</label>
-                <div class="flex gap-2">
-                  <UButton
-                    :variant="!hasCriticalBoost ? 'solid' : 'outline'"
-                    @click="hasCriticalBoost = false"
-                  >
-                    無
-                  </UButton>
-                  <UButton
-                    :variant="hasCriticalBoost ? 'solid' : 'outline'"
-                    @click="hasCriticalBoost = true"
-                  >
-                    有
-                  </UButton>
+              <div class="grid grid-cols-2">
+                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+                  <label class="text-xs text-gray-400 mb-1 block">超会心:</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="!hasCriticalBoost ? 'solid' : 'outline'"
+                      @click="hasCriticalBoost = false"
+                    >
+                      無
+                    </UButton>
+                    <UButton
+                      :variant="hasCriticalBoost ? 'solid' : 'outline'"
+                      @click="hasCriticalBoost = true"
+                    >
+                      有
+                    </UButton>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <label class="text-xs text-gray-400 mb-1 block">裏会心:</label>
-                <div class="flex gap-2">
-                  <UButton
-                    :variant="!hasMadAffinity ? 'solid' : 'outline'"
-                    @click="hasMadAffinity = false"
-                  >
-                    無
-                  </UButton>
-                  <UButton
-                    :variant="hasMadAffinity ? 'solid' : 'outline'"
-                    @click="hasMadAffinity = true"
-                  >
-                    有
-                  </UButton>
+                <div class="pl-4">
+                  <label class="text-xs text-gray-400 mb-1 block">裏会心:</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="!hasMadAffinity ? 'solid' : 'outline'"
+                      @click="hasMadAffinity = false"
+                    >
+                      無
+                    </UButton>
+                    <UButton
+                      :variant="hasMadAffinity ? 'solid' : 'outline'"
+                      @click="hasMadAffinity = true"
+                    >
+                      有
+                    </UButton>
+                  </div>
                 </div>
               </div>
             </div>
