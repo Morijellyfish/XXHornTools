@@ -157,9 +157,12 @@ const isShowBaseAttack = (horn: Horn): boolean => {
     props.attackModifiers.powerTalon ||
     (props.attackModifiers.preparedBuff && props.attackModifiers.preparedBuff !== 'none') ||
     (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
+    (props.attackModifiers.adrenaline && props.attackModifiers.adrenaline !== 'none') ||
     (props.attackModifiers.hunterSkill && props.attackModifiers.hunterSkill !== 'none') ||
     props.attackModifiers.resuscitate ||
     props.attackModifiers.resentment ||
+    (props.attackModifiers.fortify && props.attackModifiers.fortify !== 'none') ||
+    props.attackModifiers.dragonInstinct ||
     getAttackMelodyMultiplier(horn) !== 1.0
   )
 }

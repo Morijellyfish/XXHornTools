@@ -5,10 +5,13 @@ import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
 import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
 import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
 import { attackBuffF } from '~/types/attackBuff/attackBuff_F'
+import { attackBuffG } from '~/types/attackBuff/attackBuff_G'
+import { attackBuffH } from '~/types/attackBuff/attackBuff_H'
+import { attackBuffI } from '~/types/attackBuff/attackBuff_I'
 import { attackBuffK } from '~/types/attackBuff/attackBuff_K'
 import { attackBuffM } from '~/types/attackBuff/attackBuff_M'
 import { attackBuffN } from '~/types/attackBuff/attackBuff_N'
-import { attackBuffH } from '~/types/attackBuff/attackBuff_H'
+import { attackBuffO } from '~/types/attackBuff/attackBuff_O'
 
 export const calculateAttackWithBuffs = (
   baseAttack: number,
@@ -33,6 +36,10 @@ export const calculateAttackWithBuffs = (
     allModifiers.push(new attackBuffF(modifiers.attackSkill))
   }
 
+  if (modifiers.adrenaline && modifiers.adrenaline !== 'none') {
+    allModifiers.push(new attackBuffG(modifiers.adrenaline))
+  }
+
   if (modifiers.hunterSkill && modifiers.hunterSkill !== 'none') {
     allModifiers.push(new attackBuffK(modifiers.hunterSkill))
   }
@@ -43,6 +50,14 @@ export const calculateAttackWithBuffs = (
 
   if (modifiers.resentment) {
     allModifiers.push(new attackBuffN())
+  }
+
+  if (modifiers.fortify && modifiers.fortify !== 'none') {
+    allModifiers.push(new attackBuffI(modifiers.fortify))
+  }
+
+  if (modifiers.dragonInstinct) {
+    allModifiers.push(new attackBuffO())
   }
 
   if (modifiers.attackMelody && modifiers.attackMelody !== 'none') {

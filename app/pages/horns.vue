@@ -5,14 +5,19 @@ import type {
   AttackSkill,
   AttackMelody,
   PreparedBuff,
+  Adrenaline,
   HunterSkill,
   Resuscitate,
   Resentment,
+  Fortify,
+  DragonInstinct,
 } from '~/types/attackBuff/attackBuffs'
 import {
   getPreparedBuffValue,
   getAttackSkillValue,
+  getAdrenalineMultiplier,
   getHunterSkillValue,
+  getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
 
 useHead({
@@ -35,6 +40,11 @@ const resuscitate = ref<Resuscitate>(false) // 死中に活（グループM）
 
 // 逆恨み
 const resentment = ref<Resentment>(false) // 逆恨み（グループN）
+
+// 火事場系
+const adrenaline = ref<Adrenaline>('none') // 火事場力（グループG）
+const fortify = ref<Fortify>('none') // 不屈（グループI）
+const dragonInstinct = ref<DragonInstinct>(false) // 龍気活性（グループO）
 
 // 切れ味選択（通常、匠1、匠2）
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -437,71 +447,149 @@ const criticalMelodyBonus = computed(() => {
           </div>
         </div>
 
-        <div>
-          <label class="text-sm font-medium mb-2 block">旋律:</label>
-          <div class="space-y-3">
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">攻撃旋律 (H):</label>
-              <div class="flex gap-2">
-                <UButton
-                  :variant="attackMelody === 'none' ? 'solid' : 'outline'"
-                  @click="attackMelody = 'none'"
-                >
-                  なし
-                </UButton>
-                <UButton
-                  :variant="attackMelody === '1.10' ? 'solid' : 'outline'"
-                  @click="attackMelody = '1.10'"
-                >
-                  x1.10
-                </UButton>
-                <UButton
-                  :variant="attackMelody === '1.15' ? 'solid' : 'outline'"
-                  @click="attackMelody = '1.15'"
-                >
-                  x1.15
-                </UButton>
-                <UButton
-                  :variant="attackMelody === '1.20' ? 'solid' : 'outline'"
-                  @click="attackMelody = '1.20'"
-                >
-                  x1.20
-                </UButton>
-                <UButton
-                  :variant="attackMelody === 'horn' ? 'solid' : 'outline'"
-                  @click="attackMelody = 'horn'"
-                >
-                  笛依存
-                </UButton>
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+            <label class="text-sm font-medium mb-2 block">旋律:</label>
+            <div class="space-y-3">
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">攻撃旋律 (H):</label>
+                <div class="flex gap-2">
+                  <UButton
+                    :variant="attackMelody === 'none' ? 'solid' : 'outline'"
+                    @click="attackMelody = 'none'"
+                  >
+                    なし
+                  </UButton>
+                  <UButton
+                    :variant="attackMelody === '1.10' ? 'solid' : 'outline'"
+                    @click="attackMelody = '1.10'"
+                  >
+                    x1.10
+                  </UButton>
+                  <UButton
+                    :variant="attackMelody === '1.15' ? 'solid' : 'outline'"
+                    @click="attackMelody = '1.15'"
+                  >
+                    x1.15
+                  </UButton>
+                  <UButton
+                    :variant="attackMelody === '1.20' ? 'solid' : 'outline'"
+                    @click="attackMelody = '1.20'"
+                  >
+                    x1.20
+                  </UButton>
+                  <UButton
+                    :variant="attackMelody === 'horn' ? 'solid' : 'outline'"
+                    @click="attackMelody = 'horn'"
+                  >
+                    笛依存
+                  </UButton>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">会心強化:</label>
+                <div class="flex gap-2">
+                  <UButton
+                    :variant="criticalMelody === 'none' ? 'solid' : 'outline'"
+                    @click="criticalMelody = 'none'"
+                  >
+                    なし
+                  </UButton>
+                  <UButton
+                    :variant="criticalMelody === '15' ? 'solid' : 'outline'"
+                    @click="criticalMelody = '15'"
+                  >
+                    15%
+                  </UButton>
+                  <UButton
+                    :variant="criticalMelody === '20' ? 'solid' : 'outline'"
+                    @click="criticalMelody = '20'"
+                  >
+                    20%
+                  </UButton>
+                  <UButton
+                    :variant="criticalMelody === 'horn' ? 'solid' : 'outline'"
+                    @click="criticalMelody = 'horn'"
+                  >
+                    笛依存
+                  </UButton>
+                </div>
               </div>
             </div>
-            <div>
-              <label class="text-xs text-gray-400 mb-1 block">会心強化:</label>
-              <div class="flex gap-2">
-                <UButton
-                  :variant="criticalMelody === 'none' ? 'solid' : 'outline'"
-                  @click="criticalMelody = 'none'"
-                >
-                  なし
-                </UButton>
-                <UButton
-                  :variant="criticalMelody === '15' ? 'solid' : 'outline'"
-                  @click="criticalMelody = '15'"
-                >
-                  15%
-                </UButton>
-                <UButton
-                  :variant="criticalMelody === '20' ? 'solid' : 'outline'"
-                  @click="criticalMelody = '20'"
-                >
-                  20%
-                </UButton>
-                <UButton
-                  :variant="criticalMelody === 'horn' ? 'solid' : 'outline'"
-                  @click="criticalMelody = 'horn'"
-                >
-                  笛依存
-                </UButton>
+          </div>
+          <div class="pl-4">
+            <label class="text-sm font-medium mb-2 block">火事場系:</label>
+            <div class="space-y-3">
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">火事場力 (G):</label>
+                <div class="flex gap-2 flex-wrap">
+                  <UButton
+                    :variant="adrenaline === 'none' ? 'solid' : 'outline'"
+                    @click="adrenaline = 'none'"
+                  >
+                    なし
+                  </UButton>
+                  <UButton
+                    :variant="adrenaline === 'worrywart' ? 'solid' : 'outline'"
+                    @click="adrenaline = 'worrywart'"
+                  >
+                    心配性 | x{{ getAdrenalineMultiplier('worrywart') }}
+                  </UButton>
+                  <UButton
+                    :variant="adrenaline === 'adrenalinePlus2' ? 'solid' : 'outline'"
+                    @click="adrenaline = 'adrenalinePlus2'"
+                  >
+                    火事場+2 | x{{ getAdrenalineMultiplier('adrenalinePlus2') }}
+                  </UButton>
+                  <UButton
+                    :variant="adrenaline === 'catAdrenaline' ? 'solid' : 'outline'"
+                    @click="adrenaline = 'catAdrenaline'"
+                  >
+                    猫火事場 | x{{ getAdrenalineMultiplier('catAdrenaline') }}
+                  </UButton>
+                </div>
+              </div>
+              <div class="grid grid-cols-2">
+                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+                  <label class="text-xs text-gray-400 mb-1 block">不屈 (I):</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="fortify === 'none' ? 'solid' : 'outline'"
+                      @click="fortify = 'none'"
+                    >
+                      無
+                    </UButton>
+                    <UButton
+                      :variant="fortify === 'fortify1' ? 'solid' : 'outline'"
+                      @click="fortify = 'fortify1'"
+                    >
+                      1乙 | x{{ getFortifyMultiplier('fortify1') }}
+                    </UButton>
+                    <UButton
+                      :variant="fortify === 'fortify2' ? 'solid' : 'outline'"
+                      @click="fortify = 'fortify2'"
+                    >
+                      2乙 | x{{ getFortifyMultiplier('fortify2') }}
+                    </UButton>
+                  </div>
+                </div>
+                <div class="pl-4">
+                  <label class="text-xs text-gray-400 mb-1 block">龍気活性 (O):</label>
+                  <div class="flex gap-2">
+                    <UButton
+                      :variant="!dragonInstinct ? 'solid' : 'outline'"
+                      @click="dragonInstinct = false"
+                    >
+                      無
+                    </UButton>
+                    <UButton
+                      :variant="dragonInstinct ? 'solid' : 'outline'"
+                      @click="dragonInstinct = true"
+                    >
+                      有 | x1.1
+                    </UButton>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -519,9 +607,12 @@ const criticalMelodyBonus = computed(() => {
           powerTalon,
           preparedBuff,
           attackSkill,
+          adrenaline,
           hunterSkill,
           resuscitate,
           resentment,
+          fortify,
+          dragonInstinct,
           attackMelody,
           attackMelodyMultiplier,
         }"
