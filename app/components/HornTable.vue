@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import type { Horn, Note } from '~/types/horn'
+import type { Horn } from '~/types/horn'
 import {
-  NOTE_COLORS,
-  getNoteBorderColor,
-  getMelodyNames,
   getHornAttackMelodyMultiplier,
   getHornCriticalMelodyBonus,
 } from '~/types/horn'
 import type { AttackSkill, AttackMelody } from '~/types/attackBuff'
-import { getSharpnessColor } from '~/types/sharpness'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
+import HornTableRow from './HornTableRow.vue'
 import { ref, computed } from 'vue'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -110,32 +107,6 @@ const getSortIcon = (key: SortKey): string => {
   return sortOrder.value === 'asc' ? '↑' : '↓'
 }
 
-// 音色の色を取得
-const getNoteColor = (note: Note): string => {
-  return NOTE_COLORS[note]
-}
-
-// 属性・状態異常を文字列で表示
-const formatElementOrStatus = (horn: Horn): string => {
-  if (horn.element) {
-    return `${horn.element.type}${horn.element.value}`
-  }
-  if (horn.statusAilment) {
-    return `${horn.statusAilment.type}${horn.statusAilment.value}`
-  }
-  return '-'
-}
-
-// スロットの各位置の値を取得
-const getSlotValue = (slots: number, index: number): string => {
-  return index < slots ? '◯' : '─'
-}
-
-// 会心率を文字列で表示
-const formatAffinity = (affinity: number): string => {
-  if (affinity === 0) return '0%'
-  return `${affinity > 0 ? '+' : ''}${affinity}%`
-}
 
 // 会心強化旋律の補正値を取得（criticalMelodyの設定を考慮）
 const getCriticalMelodyBonus = (horn: Horn): number => {
@@ -246,129 +217,21 @@ const getAttackWithMelody = (horn: Horn): number => {
         </tr>
       </thead>
       <tbody>
-        <tr
+        <HornTableRow
           v-for="horn in sortedHorns"
           :key="horn.name"
-          class="border-b hover:bg-gray-50 dark:hover:bg-gray-800"
-        >
-          <td class="p-2">{{ horn.name }}</td>
-          <td class="p-2">{{ getExpectedValue(horn) }}</td>
-          <td class="p-2 text-right">
-            <div class="flex flex-col">
-              <span>{{ getAttackWithBuffs(horn) }}</span>
-              <span
-                v-if="props.attackSkill !== 'none' || getAttackMelodyMultiplier(horn) !== 1.0"
-                class="text-xs text-gray-400"
-              >
-                ({{ horn.attack }})
-              </span>
-            </div>
-          </td>
-          <td class="p-2">{{ horn.defense }}</td>
-          <td class="p-2">
-            <div class="flex gap-0">
-              <span v-for="i in 3" :key="i" class="flex-1 text-center">
-                {{ getSlotValue(horn.slots, i - 1) }}
-              </span>
-            </div>
-          </td>
-          <td class="p-2 text-right">
-            <div class="flex flex-col">
-              <span
-                :class="{
-                  'text-red-500': calculateAffinity(horn) > 100,
-                }"
-              >
-                {{ formatAffinity(calculateAffinity(horn)) }}
-              </span>
-              <span
-                v-if="props.criticalBonus !== 0 || getCriticalMelodyBonus(horn) !== 0"
-                class="text-xs text-gray-400"
-              >
-                ({{ formatAffinity(horn.affinity) }})
-              </span>
-            </div>
-          </td>
-          <td class="p-2">{{ formatElementOrStatus(horn) }}</td>
-          <td class="p-2">
-            <div class="flex items-center gap-1">
-              <span
-                v-for="(note, index) in [horn.note1, horn.note2, horn.note3]"
-                :key="index"
-                :title="note"
-                class="inline-block w-5 h-5 rounded-full border-2 flex-shrink-0"
-                :style="{
-                  background: getNoteColor(note),
-                  borderColor: getNoteBorderColor(note),
-                }"
-              />
-            </div>
-          </td>
-          <td class="p-2">
-            <div class="flex flex-col gap-1 text-sm">
-              <span
-                v-for="(name, index) in getMelodyNames(horn)"
-                :key="index"
-                :class="{
-                  'text-red-500':
-                    (props.attackMelody === 'horn' &&
-                      (name === '攻撃力強化【小】' || name === '攻撃力強化【大】')) ||
-                    (props.criticalMelody === 'horn' && name === '会心率UP&体力回復【小】'),
-                }"
-              >
-                {{ name }}
-              </span>
-            </div>
-          </td>
-          <td class="p-2">
-            <div class="flex flex-col gap-1">
-              <div
-                class="flex items-center gap-1"
-                :class="{ 'opacity-50': props.selectedSharpness !== 'normal' }"
-              >
-                <span class="text-xs w-7">通常:</span>
-                <span
-                  class="inline-block w-4 h-4 border border-gray-600"
-                  :style="{ background: getSharpnessColor(horn.sharpness.normal.color) }"
-                  :title="String(horn.sharpness.normal.length)"
-                />
-                <div class="text-xs font-mono w-5 text-right">
-                  {{ horn.sharpness.normal.length }}
-                </div>
-              </div>
-              <div
-                v-if="horn.sharpness.plus1"
-                class="flex items-center gap-1"
-                :class="{ 'opacity-50': props.selectedSharpness !== 'plus1' }"
-              >
-                <span class="text-xs w-7">匠1:</span>
-                <span
-                  class="inline-block w-4 h-4 border border-gray-600"
-                  :style="{ background: getSharpnessColor(horn.sharpness.plus1.color) }"
-                  :title="String(horn.sharpness.plus1.length)"
-                />
-                <div class="text-xs font-mono w-5 text-right">
-                  {{ horn.sharpness.plus1.length }}
-                </div>
-              </div>
-              <div
-                v-if="horn.sharpness.plus2"
-                class="flex items-center gap-1"
-                :class="{ 'opacity-50': props.selectedSharpness !== 'plus2' }"
-              >
-                <span class="text-xs w-7">匠2:</span>
-                <span
-                  class="inline-block w-4 h-4 border border-gray-600"
-                  :style="{ background: getSharpnessColor(horn.sharpness.plus2.color) }"
-                  :title="String(horn.sharpness.plus2.length)"
-                />
-                <div class="text-xs font-mono w-5 text-right">
-                  {{ horn.sharpness.plus2.length }}
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
+          :horn="horn"
+          :expected-value="getExpectedValue(horn)"
+          :attack-with-buffs="getAttackWithBuffs(horn)"
+          :base-attack="horn.attack"
+          :show-base-attack="props.attackSkill !== 'none' || getAttackMelodyMultiplier(horn) !== 1.0"
+          :affinity="calculateAffinity(horn)"
+          :base-affinity="horn.affinity"
+          :show-base-affinity="props.criticalBonus !== 0 || getCriticalMelodyBonus(horn) !== 0"
+          :selected-sharpness="props.selectedSharpness"
+          :attack-melody="props.attackMelody"
+          :critical-melody="props.criticalMelody"
+        />
       </tbody>
     </table>
   </div>
