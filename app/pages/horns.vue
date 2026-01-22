@@ -13,6 +13,10 @@ const selectedSharpness = ref<SharpnessType>('normal')
 // 弱点特攻
 const hasWeaknessExploit = ref(false)
 
+// 連撃
+type RepeatOffensive = 'none' | '25' | '30'
+const repeatOffensive = ref<RepeatOffensive>('none')
+
 // 見切り（会心率）
 const criticalEye = ref(0)
 
@@ -48,6 +52,13 @@ const calculateCriticalBonus = (): number => {
   // 弱点特攻の補正
   if (hasWeaknessExploit.value) {
     bonus += 50
+  }
+
+  // 連撃の補正
+  if (repeatOffensive.value === '25') {
+    bonus += 25
+  } else if (repeatOffensive.value === '30') {
+    bonus += 30
   }
 
   return bonus
@@ -127,6 +138,30 @@ const criticalMelodyBonus = computed(() => {
               @click="hasWeaknessExploit = true"
             >
               有
+            </UButton>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium mb-2 block">連撃:</label>
+          <div class="flex gap-2">
+            <UButton
+              :variant="repeatOffensive === 'none' ? 'solid' : 'outline'"
+              @click="repeatOffensive = 'none'"
+            >
+              なし
+            </UButton>
+            <UButton
+              :variant="repeatOffensive === '25' ? 'solid' : 'outline'"
+              @click="repeatOffensive = '25'"
+            >
+              25%
+            </UButton>
+            <UButton
+              :variant="repeatOffensive === '30' ? 'solid' : 'outline'"
+              @click="repeatOffensive = '30'"
+            >
+              30%
             </UButton>
           </div>
         </div>

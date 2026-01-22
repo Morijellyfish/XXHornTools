@@ -260,7 +260,13 @@ const getAttackWithMelody = (horn: Horn): number => {
           </td>
           <td class="p-2 text-right">
             <div class="flex flex-col">
-              <span>{{ formatAffinity(calculateAffinity(horn)) }}</span>
+              <span
+                :class="{
+                  'text-red-500': calculateAffinity(horn) > 100,
+                }"
+              >
+                {{ formatAffinity(calculateAffinity(horn)) }}
+              </span>
               <span
                 v-if="props.criticalBonus !== 0 || getCriticalMelodyBonus(horn) !== 0"
                 class="text-xs text-gray-400"

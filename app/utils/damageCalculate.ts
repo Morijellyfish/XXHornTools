@@ -43,14 +43,17 @@ const calculateCritical = (
     return Math.round(baseAttack * 1.0)
   }
 
+  // 会心率が100%を超える場合は100%で頭打ち
+  const cappedAffinity = Math.min(affinity, 100)
+
   // 会心率が正の場合
   // 超会心あり: ATK*(1.0 + CRI/250)
   if (hasCriticalBoost) {
-    return Math.round(baseAttack * (1.0 + affinity / 250))
+    return Math.round(baseAttack * (1.0 + cappedAffinity / 250))
   }
 
   // 会心: ATK*(1.0 + CRI/400)
-  return Math.round(baseAttack * (1.0 + affinity / 400))
+  return Math.round(baseAttack * (1.0 + cappedAffinity / 400))
 }
 
 /**
