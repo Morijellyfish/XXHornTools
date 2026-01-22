@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import type { Horn, Note } from '~/types/horn'
-import {
-  NOTE_COLORS,
-  getNoteBorderColor,
-  getMelodyNames,
-} from '~/types/horn'
-import type { AttackMelody } from '~/types/attackBuff'
+import { NOTE_COLORS, getNoteBorderColor, getMelodyNames } from '~/types/horn'
+import type { AttackMelody } from '~/types/attackBuffs'
 import { getSharpnessColor } from '~/types/sharpness'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -62,9 +58,7 @@ const formatAffinity = (affinity: number): string => {
     <td class="p-2 text-right">
       <div class="flex flex-col">
         <span>{{ attackWithBuffs }}</span>
-        <span v-if="showBaseAttack" class="text-xs text-gray-400">
-          ({{ baseAttack }})
-        </span>
+        <span v-if="showBaseAttack" class="text-xs text-gray-400"> ({{ baseAttack }}) </span>
       </div>
     </td>
     <td class="p-2">{{ horn.defense }}</td>

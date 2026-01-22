@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import type { Horn } from '~/types/horn'
-import {
-  getHornAttackMelodyMultiplier,
-  getHornCriticalMelodyBonus,
-} from '~/types/horn'
-import type { AttackBuffModifiers } from '~/types/attackBuff'
+import { getHornAttackMelodyMultiplier, getHornCriticalMelodyBonus } from '~/types/horn'
+import type { AttackBuffs } from '~/types/attackBuffs'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
 import HornTableRow from './HornTableRow.vue'
@@ -19,7 +16,7 @@ interface Props {
   criticalBonus?: number
   hasCriticalBoost?: boolean
   hasMadAffinity?: boolean
-  attackModifiers?: AttackBuffModifiers
+  attackModifiers?: AttackBuffs
   criticalMelody?: CriticalMelody
   criticalMelodyBonus?: number
 }
@@ -108,7 +105,6 @@ const getSortIcon = (key: SortKey): string => {
   return sortOrder.value === 'asc' ? '↑' : '↓'
 }
 
-
 // 会心強化旋律の補正値を取得（criticalMelodyの設定を考慮）
 const getCriticalMelodyBonus = (horn: Horn): number => {
   // 笛依存の場合は、各狩猟笛の旋律を確認
@@ -154,7 +150,6 @@ const getAttackMelodyMultiplier = (horn: Horn): number => {
 const getAttackWithBuffs = (horn: Horn): number => {
   return calculateAttackWithBuffs(horn.attack, props.attackModifiers, horn)
 }
-
 </script>
 
 <template>
@@ -217,7 +212,10 @@ const getAttackWithBuffs = (horn: Horn): number => {
           :expected-value="getExpectedValue(horn)"
           :attack-with-buffs="getAttackWithBuffs(horn)"
           :base-attack="horn.attack"
-          :show-base-attack="(props.attackModifiers.attackSkill ?? 'none') !== 'none' || getAttackMelodyMultiplier(horn) !== 1.0"
+          :show-base-attack="
+            (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
+            getAttackMelodyMultiplier(horn) !== 1.0
+          "
           :affinity="calculateAffinity(horn)"
           :base-affinity="horn.affinity"
           :show-base-affinity="props.criticalBonus !== 0 || getCriticalMelodyBonus(horn) !== 0"

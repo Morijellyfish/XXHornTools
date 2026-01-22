@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { allHorns } from '~/data/horns'
 import { ref, computed } from 'vue'
-import type { AttackSkill, AttackMelody } from '~/types/attackBuff'
+import type { AttackSkill, AttackMelody } from '~/types/attackBuffs'
 
 useHead({
   title: '狩猟笛一覧',
@@ -113,16 +113,10 @@ const criticalMelodyBonus = computed(() => {
             <div>
               <label class="text-xs text-gray-400 mb-1 block">力の護符:</label>
               <div class="flex gap-2">
-                <UButton
-                  :variant="!powerCharm ? 'solid' : 'outline'"
-                  @click="powerCharm = false"
-                >
+                <UButton :variant="!powerCharm ? 'solid' : 'outline'" @click="powerCharm = false">
                   無
                 </UButton>
-                <UButton
-                  :variant="powerCharm ? 'solid' : 'outline'"
-                  @click="powerCharm = true"
-                >
+                <UButton :variant="powerCharm ? 'solid' : 'outline'" @click="powerCharm = true">
                   有
                 </UButton>
               </div>
@@ -130,16 +124,10 @@ const criticalMelodyBonus = computed(() => {
             <div>
               <label class="text-xs text-gray-400 mb-1 block">力の爪:</label>
               <div class="flex gap-2">
-                <UButton
-                  :variant="!powerTalon ? 'solid' : 'outline'"
-                  @click="powerTalon = false"
-                >
+                <UButton :variant="!powerTalon ? 'solid' : 'outline'" @click="powerTalon = false">
                   無
                 </UButton>
-                <UButton
-                  :variant="powerTalon ? 'solid' : 'outline'"
-                  @click="powerTalon = true"
-                >
+                <UButton :variant="powerTalon ? 'solid' : 'outline'" @click="powerTalon = true">
                   有
                 </UButton>
               </div>
@@ -299,7 +287,10 @@ const criticalMelodyBonus = computed(() => {
                 >
                   無
                 </UButton>
-                <UButton :variant="hasMadAffinity ? 'solid' : 'outline'" @click="hasMadAffinity = true">
+                <UButton
+                  :variant="hasMadAffinity ? 'solid' : 'outline'"
+                  @click="hasMadAffinity = true"
+                >
                   有
                 </UButton>
               </div>
