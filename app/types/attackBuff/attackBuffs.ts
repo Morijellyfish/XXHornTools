@@ -1,10 +1,13 @@
 import type { PowerCharm } from './attackBuff_A'
 import type { PowerTalon } from './attackBuff_B'
+import type { PreparedBuff } from './attackBuff_C'
 import type { AttackSkill } from './attackBuff_F'
 import type { AttackMelody } from './attackBuff_H'
 
 export type { PowerCharm } from './attackBuff_A'
 export type { PowerTalon } from './attackBuff_B'
+export type { PreparedBuff } from './attackBuff_C'
+export { getPreparedBuffValue } from './attackBuff_C'
 export type { AttackSkill } from './attackBuff_F'
 export { getAttackSkillValue } from './attackBuff_F'
 export type { AttackMelody } from './attackBuff_H'
@@ -12,6 +15,7 @@ export type { AttackMelody } from './attackBuff_H'
 export interface AttackBuffs {
   powerCharm?: PowerCharm
   powerTalon?: PowerTalon
+  preparedBuff?: PreparedBuff
   attackSkill?: AttackSkill
   attackMelody?: AttackMelody
   attackMelodyMultiplier?: number

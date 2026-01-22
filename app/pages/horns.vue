@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { allHorns } from '~/data/horns'
 import { ref, computed } from 'vue'
-import type { AttackSkill, AttackMelody } from '~/types/attackBuff/attackBuffs'
+import type { AttackSkill, AttackMelody, PreparedBuff } from '~/types/attackBuff/attackBuffs'
+import { getPreparedBuffValue, getAttackSkillValue } from '~/types/attackBuff/attackBuffs'
 
 useHead({
   title: '狩猟笛一覧',
@@ -10,6 +11,7 @@ useHead({
 // 事前準備
 const powerCharm = ref(false) // 力の護符（グループA）
 const powerTalon = ref(false) // 力の爪（グループB）
+const preparedBuff = ref<PreparedBuff>('none') // 鬼人薬・食事効果（グループC）
 
 // 攻撃スキル
 const attackSkill = ref<AttackSkill>('none')
@@ -132,6 +134,47 @@ const criticalMelodyBonus = computed(() => {
                 </UButton>
               </div>
             </div>
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">鬼人薬・食事効果:</label>
+              <div class="flex gap-2 flex-wrap">
+                <UButton
+                  :variant="preparedBuff === 'none' ? 'solid' : 'outline'"
+                  @click="preparedBuff = 'none'"
+                >
+                  なし
+                </UButton>
+                <UButton
+                  :variant="preparedBuff === 'demon_drug' ? 'solid' : 'outline'"
+                  @click="preparedBuff = 'demon_drug'"
+                >
+                  鬼人薬 | +{{ getPreparedBuffValue('demon_drug') }}
+                </UButton>
+                <UButton
+                  :variant="preparedBuff === 'MegaDemondrug' ? 'solid' : 'outline'"
+                  @click="preparedBuff = 'MegaDemondrug'"
+                >
+                  鬼人薬G | +{{ getPreparedBuffValue('MegaDemondrug') }}
+                </UButton>
+                <UButton
+                  :variant="preparedBuff === 'meal_attack_small' ? 'solid' : 'outline'"
+                  @click="preparedBuff = 'meal_attack_small'"
+                >
+                  食事【小】| +{{ getPreparedBuffValue('meal_attack_small') }}
+                </UButton>
+                <UButton
+                  :variant="preparedBuff === 'meal_attack_medium' ? 'solid' : 'outline'"
+                  @click="preparedBuff = 'meal_attack_medium'"
+                >
+                  食事【中】| +{{ getPreparedBuffValue('meal_attack_medium') }}
+                </UButton>
+                <UButton
+                  :variant="preparedBuff === 'meal_attack_large' ? 'solid' : 'outline'"
+                  @click="preparedBuff = 'meal_attack_large'"
+                >
+                  食事【大】| +{{ getPreparedBuffValue('meal_attack_large') }}
+                </UButton>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -151,37 +194,37 @@ const criticalMelodyBonus = computed(() => {
                   :variant="attackSkill === 'down_small' ? 'solid' : 'outline'"
                   @click="attackSkill = 'down_small'"
                 >
-                  DOWN【小】
+                  DOWN【小】| {{ getAttackSkillValue('down_small') }}
                 </UButton>
                 <UButton
                   :variant="attackSkill === 'down_medium' ? 'solid' : 'outline'"
                   @click="attackSkill = 'down_medium'"
                 >
-                  DOWN【中】
+                  DOWN【中】| {{ getAttackSkillValue('down_medium') }}
                 </UButton>
                 <UButton
                   :variant="attackSkill === 'down_large' ? 'solid' : 'outline'"
                   @click="attackSkill = 'down_large'"
                 >
-                  DOWN【大】
+                  DOWN【大】| {{ getAttackSkillValue('down_large') }}
                 </UButton>
                 <UButton
                   :variant="attackSkill === 'up_small' ? 'solid' : 'outline'"
                   @click="attackSkill = 'up_small'"
                 >
-                  UP【小】
+                  UP【小】| +{{ getAttackSkillValue('up_small') }}
                 </UButton>
                 <UButton
                   :variant="attackSkill === 'up_medium' ? 'solid' : 'outline'"
                   @click="attackSkill = 'up_medium'"
                 >
-                  UP【中】
+                  UP【中】| +{{ getAttackSkillValue('up_medium') }}
                 </UButton>
                 <UButton
                   :variant="attackSkill === 'up_large' ? 'solid' : 'outline'"
                   @click="attackSkill = 'up_large'"
                 >
-                  UP【大】
+                  UP【大】| +{{ getAttackSkillValue('up_large') }}
                 </UButton>
               </div>
             </div>
@@ -378,6 +421,7 @@ const criticalMelodyBonus = computed(() => {
         :attack-modifiers="{
           powerCharm,
           powerTalon,
+          preparedBuff,
           attackSkill,
           attackMelody,
           attackMelodyMultiplier,

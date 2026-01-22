@@ -212,6 +212,9 @@ const getAttackWithBuffs = (horn: Horn): number => {
           :attack-with-buffs="getAttackWithBuffs(horn)"
           :base-attack="horn.attack"
           :show-base-attack="
+            props.attackModifiers.powerCharm ||
+            props.attackModifiers.powerTalon ||
+            (props.attackModifiers.preparedBuff && props.attackModifiers.preparedBuff !== 'none') ||
             (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
             getAttackMelodyMultiplier(horn) !== 1.0
           "

@@ -3,6 +3,7 @@ import type { attackBuff } from '~/types/attackBuff/attackBuff'
 import type { Horn } from '~/types/horn'
 import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
 import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
+import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
 import { attackBuffF } from '~/types/attackBuff/attackBuff_F'
 import { attackBuffH } from '~/types/attackBuff/attackBuff_H'
 
@@ -19,6 +20,10 @@ export const calculateAttackWithBuffs = (
 
   if (modifiers.powerTalon) {
     allModifiers.push(new attackBuffB())
+  }
+
+  if (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') {
+    allModifiers.push(new attackBuffC(modifiers.preparedBuff))
   }
 
   if (modifiers.attackSkill && modifiers.attackSkill !== 'none') {
