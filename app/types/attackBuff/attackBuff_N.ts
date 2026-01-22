@@ -1,3 +1,6 @@
+/**
+ * グループN: 逆恨み
+ */
 import { attackBuff } from './attackBuff'
 
 export class attackBuffN extends attackBuff {

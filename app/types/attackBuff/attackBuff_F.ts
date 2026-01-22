@@ -1,3 +1,6 @@
+/**
+ * グループF: 攻撃力UPスキル
+ */
 import { attackBuff } from './attackBuff'
 
 export class attackBuffF extends attackBuff {

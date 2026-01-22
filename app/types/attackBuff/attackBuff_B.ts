@@ -1,3 +1,6 @@
+/**
+ * グループB: 力の爪
+ */
 import { attackBuff } from './attackBuff'
 
 export class attackBuffB extends attackBuff {

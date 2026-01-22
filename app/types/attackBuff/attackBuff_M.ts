@@ -1,3 +1,6 @@
+/**
+ * グループM: 死中に活
+ */
 import { attackBuff } from './attackBuff'
 
 export class attackBuffM extends attackBuff {

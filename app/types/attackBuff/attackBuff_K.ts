@@ -1,3 +1,6 @@
+/**
+ * グループK: 北風の狩人・南風の狩人
+ */
 import { attackBuff } from './attackBuff'
 
 export class attackBuffK extends attackBuff {

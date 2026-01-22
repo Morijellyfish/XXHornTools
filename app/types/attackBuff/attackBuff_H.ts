@@ -1,3 +1,6 @@
+/**
+ * グループH: 狩猟笛旋律
+ */
 import { attackBuff } from './attackBuff'
 import type { Horn } from '~/types/horn'
 

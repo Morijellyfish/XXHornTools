@@ -1,3 +1,6 @@
+/**
+ * グループC: 鬼人薬・食事効果（効果が高いものが優先）
+ */
 import { attackBuff } from './attackBuff'
 
 export class attackBuffC extends attackBuff {
