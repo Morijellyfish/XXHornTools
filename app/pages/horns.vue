@@ -5,6 +5,7 @@ import type {
   AttackSkill,
   AttackMelody,
   PreparedBuff,
+  ShortTermBuff,
   ShortHypnosis,
   Adrenaline,
   ChallengeSkill,
@@ -17,6 +18,7 @@ import type {
 } from '~/types/attackBuff/attackBuffs'
 import {
   getPreparedBuffValue,
+  getShortTermBuffValue,
   getAttackSkillValue,
   getAdrenalineMultiplier,
   getChallengeSkillValue,
@@ -34,6 +36,9 @@ const powerCharm = ref(false) // 力の護符（グループA）
 const powerTalon = ref(false) // 力の爪（グループB）
 const preparedBuff = ref<PreparedBuff>('none') // 鬼人薬・食事効果（グループC）
 const shortHypnosis = ref<ShortHypnosis>(false) // 短期催眠術（グループE）
+
+// 短期バフ
+const shortTermBuff = ref<ShortTermBuff>('none') // 短期バフ（グループD）
 
 // 攻撃スキル
 const attackSkill = ref<AttackSkill>('none')
@@ -114,6 +119,11 @@ const calculateCriticalBonus = (): number => {
 
   // 挑戦者・フルチャージ・力の解放の補正
   bonus += getChallengeSkillCriticalBonus(challengeSkill.value)
+
+  // 短期バフの補正（鬼人会心弾）
+  if (shortTermBuff.value === 'demonCriticalBullet') {
+    bonus += 10 // 鬼人会心弾: 会心率+10%
+  }
 
   return bonus
 }
@@ -257,6 +267,51 @@ const criticalMelodyBonus = computed(() => {
                     @click="shortHypnosis = true"
                   >
                     有 | +3
+                  </UButton>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <label class="text-sm font-medium mb-2 block">短期バフ (D):</label>
+              <div class="space-y-2">
+                <div class="flex gap-2 flex-wrap">
+                  <UButton
+                    :variant="shortTermBuff === 'none' ? 'solid' : 'outline'"
+                    @click="shortTermBuff = 'none'"
+                  >
+                    なし
+                  </UButton>
+                  <UButton
+                    :variant="shortTermBuff === 'seedOrHorn' ? 'solid' : 'outline'"
+                    @click="shortTermBuff = 'seedOrHorn'"
+                  >
+                    種/鬼人笛 | +10
+                  </UButton>
+                  <UButton
+                    :variant="shortTermBuff === 'pill' ? 'solid' : 'outline'"
+                    @click="shortTermBuff = 'pill'"
+                  >
+                    丸薬 | +25
+                  </UButton>
+                  <UButton
+                    :variant="shortTermBuff === 'restOrDance' ? 'solid' : 'outline'"
+                    @click="shortTermBuff = 'restOrDance'"
+                  >
+                    休憩術/舞踏術 | +15
+                  </UButton>
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                  <UButton
+                    :variant="shortTermBuff === 'demonBullet' ? 'solid' : 'outline'"
+                    @click="shortTermBuff = 'demonBullet'"
+                  >
+                    鬼人弾 | +10, 切れ味補正x1.1
+                  </UButton>
+                  <UButton
+                    :variant="shortTermBuff === 'demonCriticalBullet' ? 'solid' : 'outline'"
+                    @click="shortTermBuff = 'demonCriticalBullet'"
+                  >
+                    鬼人会心弾 | +15, +10%, 切れ味補正x1.1
                   </UButton>
                 </div>
               </div>
@@ -726,6 +781,7 @@ const criticalMelodyBonus = computed(() => {
           powerCharm,
           powerTalon,
           preparedBuff,
+          shortTermBuff,
           shortHypnosis,
           attackSkill,
           adrenaline,

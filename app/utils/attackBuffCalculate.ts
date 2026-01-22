@@ -6,6 +6,7 @@ type SharpnessType = 'normal' | 'plus1' | 'plus2'
 import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
 import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
 import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
+import { attackBuffD } from '~/types/attackBuff/attackBuff_D'
 import { attackBuffE } from '~/types/attackBuff/attackBuff_E'
 import { attackBuffF } from '~/types/attackBuff/attackBuff_F'
 import { attackBuffG } from '~/types/attackBuff/attackBuff_G'
@@ -36,6 +37,10 @@ export const calculateAttackWithBuffs = (
 
   if (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') {
     allModifiers.push(new attackBuffC(modifiers.preparedBuff))
+  }
+
+  if (modifiers.shortTermBuff && modifiers.shortTermBuff !== 'none') {
+    allModifiers.push(new attackBuffD(modifiers.shortTermBuff))
   }
 
   if (modifiers.shortHypnosis) {

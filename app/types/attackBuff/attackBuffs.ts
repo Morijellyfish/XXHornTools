@@ -1,6 +1,7 @@
 import type { PowerCharm } from './attackBuff_A'
 import type { PowerTalon } from './attackBuff_B'
 import type { PreparedBuff } from './attackBuff_C'
+import type { ShortTermBuff } from './attackBuff_D'
 import type { AttackSkill } from './attackBuff_F'
 import type { Adrenaline } from './attackBuff_G'
 import type { AttackMelody } from './attackBuff_H'
@@ -17,6 +18,8 @@ export type { PowerCharm } from './attackBuff_A'
 export type { PowerTalon } from './attackBuff_B'
 export type { PreparedBuff } from './attackBuff_C'
 export { getPreparedBuffValue } from './attackBuff_C'
+export type { ShortTermBuff } from './attackBuff_D'
+export { getShortTermBuffValue } from './attackBuff_D'
 export type { ShortHypnosis } from './attackBuff_E'
 export type { AttackSkill } from './attackBuff_F'
 export { getAttackSkillValue } from './attackBuff_F'
@@ -39,6 +42,7 @@ export interface AttackBuffs {
   powerCharm?: PowerCharm
   powerTalon?: PowerTalon
   preparedBuff?: PreparedBuff
+  shortTermBuff?: ShortTermBuff
   shortHypnosis?: ShortHypnosis
   attackSkill?: AttackSkill
   adrenaline?: Adrenaline
