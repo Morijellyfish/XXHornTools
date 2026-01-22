@@ -272,47 +272,52 @@ const criticalMelodyBonus = computed(() => {
               </div>
             </div>
             <div class="mt-4">
-              <label class="text-sm font-medium mb-2 block">短期バフ (D):</label>
-              <div class="space-y-2">
-                <div class="flex gap-2 flex-wrap">
-                  <UButton
-                    :variant="shortTermBuff === 'none' ? 'solid' : 'outline'"
-                    @click="shortTermBuff = 'none'"
-                  >
-                    なし
-                  </UButton>
-                  <UButton
-                    :variant="shortTermBuff === 'seedOrHorn' ? 'solid' : 'outline'"
-                    @click="shortTermBuff = 'seedOrHorn'"
-                  >
-                    種/鬼人笛 | +10
-                  </UButton>
-                  <UButton
-                    :variant="shortTermBuff === 'pill' ? 'solid' : 'outline'"
-                    @click="shortTermBuff = 'pill'"
-                  >
-                    丸薬 | +25
-                  </UButton>
-                  <UButton
-                    :variant="shortTermBuff === 'restOrDance' ? 'solid' : 'outline'"
-                    @click="shortTermBuff = 'restOrDance'"
-                  >
-                    休憩術/舞踏術 | +15
-                  </UButton>
-                </div>
-                <div class="flex gap-2 flex-wrap">
-                  <UButton
-                    :variant="shortTermBuff === 'demonBullet' ? 'solid' : 'outline'"
-                    @click="shortTermBuff = 'demonBullet'"
-                  >
-                    鬼人弾 | +10, 切れ味補正x1.1
-                  </UButton>
-                  <UButton
-                    :variant="shortTermBuff === 'demonCriticalBullet' ? 'solid' : 'outline'"
-                    @click="shortTermBuff = 'demonCriticalBullet'"
-                  >
-                    鬼人会心弾 | +15, +10%, 切れ味補正x1.1
-                  </UButton>
+              <label class="text-sm font-medium mb-2 block">短期バフ:</label>
+              <div class="space-y-3">
+                <div>
+                  <label class="text-xs text-gray-400 mb-1 block">アイテム等 (D):</label>
+                  <div class="space-y-2">
+                    <div class="flex gap-2 flex-wrap">
+                      <UButton
+                        :variant="shortTermBuff === 'none' ? 'solid' : 'outline'"
+                        @click="shortTermBuff = 'none'"
+                      >
+                        なし
+                      </UButton>
+                      <UButton
+                        :variant="shortTermBuff === 'seedOrHorn' ? 'solid' : 'outline'"
+                        @click="shortTermBuff = 'seedOrHorn'"
+                      >
+                        種/鬼人笛 | +10
+                      </UButton>
+                      <UButton
+                        :variant="shortTermBuff === 'pill' ? 'solid' : 'outline'"
+                        @click="shortTermBuff = 'pill'"
+                      >
+                        丸薬 | +25
+                      </UButton>
+                      <UButton
+                        :variant="shortTermBuff === 'restOrDance' ? 'solid' : 'outline'"
+                        @click="shortTermBuff = 'restOrDance'"
+                      >
+                        休憩術/舞踏術 | +15
+                      </UButton>
+                    </div>
+                    <div class="flex gap-2 flex-wrap">
+                      <UButton
+                        :variant="shortTermBuff === 'demonBullet' ? 'solid' : 'outline'"
+                        @click="shortTermBuff = 'demonBullet'"
+                      >
+                        鬼人弾 | +10, 切れ味補正x1.1
+                      </UButton>
+                      <UButton
+                        :variant="shortTermBuff === 'demonCriticalBullet' ? 'solid' : 'outline'"
+                        @click="shortTermBuff = 'demonCriticalBullet'"
+                      >
+                        鬼人会心弾 | +15, +10%, 切れ味補正x1.1
+                      </UButton>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
