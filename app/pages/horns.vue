@@ -6,6 +6,10 @@ useHead({
   title: '狩猟笛一覧',
 })
 
+// 攻撃スキル
+type AttackSkill = 'none' | 'down_small' | 'down_medium' | 'down_large' | 'up_small' | 'up_medium' | 'up_large'
+const attackSkill = ref<AttackSkill>('none')
+
 // 切れ味選択（通常、匠1、匠2）
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
 const selectedSharpness = ref<SharpnessType>('normal')
@@ -101,115 +105,162 @@ const criticalMelodyBonus = computed(() => {
     <UPageSection>
       <div class="mb-4 space-y-4">
         <div>
-          <label class="text-sm font-medium mb-2 block">使用する斬れ味:</label>
-          <div class="flex gap-2">
-            <UButton
-              :variant="selectedSharpness === 'normal' ? 'solid' : 'outline'"
-              @click="selectedSharpness = 'normal'"
-            >
-              通常
-            </UButton>
-            <UButton
-              :variant="selectedSharpness === 'plus1' ? 'solid' : 'outline'"
-              @click="selectedSharpness = 'plus1'"
-            >
-              匠1
-            </UButton>
-            <UButton
-              :variant="selectedSharpness === 'plus2' ? 'solid' : 'outline'"
-              @click="selectedSharpness = 'plus2'"
-            >
-              匠2
-            </UButton>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-sm font-medium mb-2 block">弱点特攻:</label>
-          <div class="flex gap-2">
-            <UButton
-              :variant="!hasWeaknessExploit ? 'solid' : 'outline'"
-              @click="hasWeaknessExploit = false"
-            >
-              無
-            </UButton>
-            <UButton
-              :variant="hasWeaknessExploit ? 'solid' : 'outline'"
-              @click="hasWeaknessExploit = true"
-            >
-              有
-            </UButton>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-sm font-medium mb-2 block">連撃:</label>
-          <div class="flex gap-2">
-            <UButton
-              :variant="repeatOffensive === 'none' ? 'solid' : 'outline'"
-              @click="repeatOffensive = 'none'"
-            >
-              なし
-            </UButton>
-            <UButton
-              :variant="repeatOffensive === '25' ? 'solid' : 'outline'"
-              @click="repeatOffensive = '25'"
-            >
-              25%
-            </UButton>
-            <UButton
-              :variant="repeatOffensive === '30' ? 'solid' : 'outline'"
-              @click="repeatOffensive = '30'"
-            >
-              30%
-            </UButton>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-sm font-medium mb-2 block">見切り:</label>
-          <div class="flex gap-2">
-            <UButton
-              v-for="value in [-3, -2, -1, 0, 1, 2, 3]"
-              :key="value"
-              :variant="criticalEye === value ? 'solid' : 'outline'"
-              @click="criticalEye = value"
-            >
-              {{ value > 0 ? `+${value}` : value }}
-            </UButton>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-sm font-medium mb-2 block">超会心:</label>
-          <div class="flex gap-2">
-            <UButton
-              :variant="!hasCriticalBoost ? 'solid' : 'outline'"
-              @click="hasCriticalBoost = false"
-            >
-              無
-            </UButton>
-            <UButton
-              :variant="hasCriticalBoost ? 'solid' : 'outline'"
-              @click="hasCriticalBoost = true"
-            >
-              有
-            </UButton>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-sm font-medium mb-2 block">裏会心:</label>
-          <div class="flex gap-2">
-            <UButton
-              :variant="!hasMadAffinity ? 'solid' : 'outline'"
-              @click="hasMadAffinity = false"
-            >
-              無
-            </UButton>
-            <UButton :variant="hasMadAffinity ? 'solid' : 'outline'" @click="hasMadAffinity = true">
-              有
-            </UButton>
+          <label class="text-sm font-medium mb-2 block">スキル:</label>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">攻撃:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="attackSkill === 'none' ? 'solid' : 'outline'"
+                  @click="attackSkill = 'none'"
+                >
+                  なし
+                </UButton>
+                <UButton
+                  :variant="attackSkill === 'down_small' ? 'solid' : 'outline'"
+                  @click="attackSkill = 'down_small'"
+                >
+                  DOWN【小】
+                </UButton>
+                <UButton
+                  :variant="attackSkill === 'down_medium' ? 'solid' : 'outline'"
+                  @click="attackSkill = 'down_medium'"
+                >
+                  DOWN【中】
+                </UButton>
+                <UButton
+                  :variant="attackSkill === 'down_large' ? 'solid' : 'outline'"
+                  @click="attackSkill = 'down_large'"
+                >
+                  DOWN【大】
+                </UButton>
+                <UButton
+                  :variant="attackSkill === 'up_small' ? 'solid' : 'outline'"
+                  @click="attackSkill = 'up_small'"
+                >
+                  UP【小】
+                </UButton>
+                <UButton
+                  :variant="attackSkill === 'up_medium' ? 'solid' : 'outline'"
+                  @click="attackSkill = 'up_medium'"
+                >
+                  UP【中】
+                </UButton>
+                <UButton
+                  :variant="attackSkill === 'up_large' ? 'solid' : 'outline'"
+                  @click="attackSkill = 'up_large'"
+                >
+                  UP【大】
+                </UButton>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">斬れ味:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="selectedSharpness === 'normal' ? 'solid' : 'outline'"
+                  @click="selectedSharpness = 'normal'"
+                >
+                  通常
+                </UButton>
+                <UButton
+                  :variant="selectedSharpness === 'plus1' ? 'solid' : 'outline'"
+                  @click="selectedSharpness = 'plus1'"
+                >
+                  匠1
+                </UButton>
+                <UButton
+                  :variant="selectedSharpness === 'plus2' ? 'solid' : 'outline'"
+                  @click="selectedSharpness = 'plus2'"
+                >
+                  匠2
+                </UButton>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">弱点特攻:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="!hasWeaknessExploit ? 'solid' : 'outline'"
+                  @click="hasWeaknessExploit = false"
+                >
+                  無
+                </UButton>
+                <UButton
+                  :variant="hasWeaknessExploit ? 'solid' : 'outline'"
+                  @click="hasWeaknessExploit = true"
+                >
+                  有
+                </UButton>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">連撃:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="repeatOffensive === 'none' ? 'solid' : 'outline'"
+                  @click="repeatOffensive = 'none'"
+                >
+                  なし
+                </UButton>
+                <UButton
+                  :variant="repeatOffensive === '25' ? 'solid' : 'outline'"
+                  @click="repeatOffensive = '25'"
+                >
+                  25%
+                </UButton>
+                <UButton
+                  :variant="repeatOffensive === '30' ? 'solid' : 'outline'"
+                  @click="repeatOffensive = '30'"
+                >
+                  30%
+                </UButton>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">見切り:</label>
+              <div class="flex gap-2">
+                <UButton
+                  v-for="value in [-3, -2, -1, 0, 1, 2, 3]"
+                  :key="value"
+                  :variant="criticalEye === value ? 'solid' : 'outline'"
+                  @click="criticalEye = value"
+                >
+                  {{ value > 0 ? `+${value}` : value }}
+                </UButton>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">超会心:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="!hasCriticalBoost ? 'solid' : 'outline'"
+                  @click="hasCriticalBoost = false"
+                >
+                  無
+                </UButton>
+                <UButton
+                  :variant="hasCriticalBoost ? 'solid' : 'outline'"
+                  @click="hasCriticalBoost = true"
+                >
+                  有
+                </UButton>
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 mb-1 block">裏会心:</label>
+              <div class="flex gap-2">
+                <UButton
+                  :variant="!hasMadAffinity ? 'solid' : 'outline'"
+                  @click="hasMadAffinity = false"
+                >
+                  無
+                </UButton>
+                <UButton :variant="hasMadAffinity ? 'solid' : 'outline'" @click="hasMadAffinity = true">
+                  有
+                </UButton>
+              </div>
+            </div>
           </div>
         </div>
 
