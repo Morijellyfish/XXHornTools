@@ -4,6 +4,7 @@ import type { Horn } from '~/types/horn'
 import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
 import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
 import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
+import { attackBuffE } from '~/types/attackBuff/attackBuff_E'
 import { attackBuffF } from '~/types/attackBuff/attackBuff_F'
 import { attackBuffG } from '~/types/attackBuff/attackBuff_G'
 import { attackBuffH } from '~/types/attackBuff/attackBuff_H'
@@ -30,6 +31,10 @@ export const calculateAttackWithBuffs = (
 
   if (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') {
     allModifiers.push(new attackBuffC(modifiers.preparedBuff))
+  }
+
+  if (modifiers.shortHypnosis) {
+    allModifiers.push(new attackBuffE())
   }
 
   if (modifiers.attackSkill && modifiers.attackSkill !== 'none') {

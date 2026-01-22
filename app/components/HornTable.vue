@@ -156,6 +156,7 @@ const isShowBaseAttack = (horn: Horn): boolean => {
     props.attackModifiers.powerCharm ||
     props.attackModifiers.powerTalon ||
     (props.attackModifiers.preparedBuff && props.attackModifiers.preparedBuff !== 'none') ||
+    props.attackModifiers.shortHypnosis ||
     (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
     (props.attackModifiers.adrenaline && props.attackModifiers.adrenaline !== 'none') ||
     (props.attackModifiers.hunterSkill && props.attackModifiers.hunterSkill !== 'none') ||

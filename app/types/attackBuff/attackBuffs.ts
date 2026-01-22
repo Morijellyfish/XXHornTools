@@ -9,11 +9,13 @@ import type { HunterSkill } from './attackBuff_K'
 import type { Resuscitate } from './attackBuff_M'
 import type { Resentment } from './attackBuff_N'
 import type { DragonInstinct } from './attackBuff_O'
+import type { ShortHypnosis } from './attackBuff_E'
 
 export type { PowerCharm } from './attackBuff_A'
 export type { PowerTalon } from './attackBuff_B'
 export type { PreparedBuff } from './attackBuff_C'
 export { getPreparedBuffValue } from './attackBuff_C'
+export type { ShortHypnosis } from './attackBuff_E'
 export type { AttackSkill } from './attackBuff_F'
 export { getAttackSkillValue } from './attackBuff_F'
 export type { Adrenaline } from './attackBuff_G'
@@ -31,6 +33,7 @@ export interface AttackBuffs {
   powerCharm?: PowerCharm
   powerTalon?: PowerTalon
   preparedBuff?: PreparedBuff
+  shortHypnosis?: ShortHypnosis
   attackSkill?: AttackSkill
   adrenaline?: Adrenaline
   hunterSkill?: HunterSkill

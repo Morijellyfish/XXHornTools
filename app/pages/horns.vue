@@ -5,6 +5,7 @@ import type {
   AttackSkill,
   AttackMelody,
   PreparedBuff,
+  ShortHypnosis,
   Adrenaline,
   HunterSkill,
   Resuscitate,
@@ -28,6 +29,7 @@ useHead({
 const powerCharm = ref(false) // 力の護符（グループA）
 const powerTalon = ref(false) // 力の爪（グループB）
 const preparedBuff = ref<PreparedBuff>('none') // 鬼人薬・食事効果（グループC）
+const shortHypnosis = ref<ShortHypnosis>(false) // 短期催眠術（グループE）
 
 // 攻撃スキル
 const attackSkill = ref<AttackSkill>('none')
@@ -208,6 +210,23 @@ const criticalMelodyBonus = computed(() => {
                       食事【大】| +{{ getPreparedBuffValue('meal_attack_large') }}
                     </UButton>
                   </div>
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1 block">短期催眠術 (E):</label>
+                <div class="flex gap-2">
+                  <UButton
+                    :variant="!shortHypnosis ? 'solid' : 'outline'"
+                    @click="shortHypnosis = false"
+                  >
+                    無
+                  </UButton>
+                  <UButton
+                    :variant="shortHypnosis ? 'solid' : 'outline'"
+                    @click="shortHypnosis = true"
+                  >
+                    有 | +3
+                  </UButton>
                 </div>
               </div>
             </div>
@@ -606,6 +625,7 @@ const criticalMelodyBonus = computed(() => {
           powerCharm,
           powerTalon,
           preparedBuff,
+          shortHypnosis,
           attackSkill,
           adrenaline,
           hunterSkill,
