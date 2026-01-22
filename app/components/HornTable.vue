@@ -18,6 +18,7 @@ interface Props {
   attackModifiers?: AttackBuffs
   criticalMelody?: CriticalMelody
   criticalMelodyBonus?: number
+  sharpnessMultiplier?: number // 切れ味補正倍率（デフォルト: 1.0 = 補正なし）
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -34,6 +35,7 @@ const props = withDefaults(defineProps<Props>(), {
   }),
   criticalMelody: 'none',
   criticalMelodyBonus: 0,
+  sharpnessMultiplier: 1.0,
 })
 
 // ソート状態
@@ -133,7 +135,8 @@ const getExpectedValue = (horn: Horn): number => {
     props.selectedSharpness,
     totalCriticalBonus,
     props.hasCriticalBoost,
-    props.hasMadAffinity
+    props.hasMadAffinity,
+    props.sharpnessMultiplier
   )
 }
 

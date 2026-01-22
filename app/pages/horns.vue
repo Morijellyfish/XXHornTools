@@ -795,6 +795,7 @@ const criticalMelodyBonus = computed(() => {
           attackMelody,
           attackMelodyMultiplier,
         }"
+        :sharpness-multiplier="shortTermBuff === 'demonBullet' || shortTermBuff === 'demonCriticalBullet' ? 1.1 : 1.0"
         :critical-melody="criticalMelody"
         :critical-melody-bonus="criticalMelodyBonus"
       />

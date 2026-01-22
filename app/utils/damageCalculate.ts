@@ -7,10 +7,15 @@ type SharpnessType = 'normal' | 'plus1' | 'plus2'
  * 切れ味補正を適用した攻撃力を計算
  * @param attack 基礎攻撃力
  * @param color 切れ味の色
+ * @param sharpnessMultiplier 切れ味補正倍率
  * @returns 切れ味補正後の攻撃力
  */
-const calculateSharpness = (attack: number, color: SharpnessColor): number => {
-  return Math.round(attack * SHARPNESS_MULTIPLIERS[color].physical)
+const calculateSharpness = (
+  attack: number,
+  color: SharpnessColor,
+  sharpnessMultiplier: number
+): number => {
+  return Math.round(attack * SHARPNESS_MULTIPLIERS[color].physical * sharpnessMultiplier)
 }
 
 /**
@@ -64,6 +69,7 @@ const calculateCritical = (
  * @param criticalBonus 会心補正値
  * @param hasCriticalBoost 超会心の有無
  * @param hasMadAffinity 裏会心の有無
+ * @param sharpnessMultiplier 切れ味補正倍率
  * @returns 期待ダメージ値
  */
 export const calculateExpectedValue = (
@@ -72,7 +78,8 @@ export const calculateExpectedValue = (
   selectedSharpness: SharpnessType,
   criticalBonus: number,
   hasCriticalBoost: boolean,
-  hasMadAffinity: boolean
+  hasMadAffinity: boolean,
+  sharpnessMultiplier: number
 ): number => {
   // 選択された切れ味を取得
   let selectedSharpnessData
@@ -85,7 +92,11 @@ export const calculateExpectedValue = (
   }
 
   // 切れ味補正を適用した攻撃力を計算
-  const expectedValue = calculateSharpness(attack, selectedSharpnessData.color)
+  const expectedValue = calculateSharpness(
+    attack,
+    selectedSharpnessData.color,
+    sharpnessMultiplier
+  )
 
   // 会心率を計算（元の会心率 + 会心補正）
   const affinity = horn.affinity + criticalBonus
