@@ -21,7 +21,7 @@ interface Props {
   criticalMelody: CriticalMelody
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 
 // 音色の色を取得
 const getNoteColor = (note: Note): string => {
