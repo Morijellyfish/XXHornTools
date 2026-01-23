@@ -6,20 +6,13 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
-  css: ['~/assets/css/main.css'],
-
   // GitHub Pages用の設定
   app: {
     baseURL: process.env.NUXT_APP_BASE_URL || '/',
     buildAssetsDir: '/_nuxt/',
   },
 
-  // 静的サイト生成（SSG）の設定
-  nitro: {
-    prerender: {
-      routes: ['/'],
-    },
-  },
+  css: ['~/assets/css/main.css'],
 
   routeRules: {
     '/': { prerender: true },
@@ -27,6 +20,13 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2025-01-15',
+
+  // 静的サイト生成（SSG）の設定
+  nitro: {
+    prerender: {
+      routes: ['/'],
+    },
+  },
 
   eslint: {
     config: {
