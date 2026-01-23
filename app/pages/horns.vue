@@ -94,6 +94,19 @@ const criticalMelody = ref<CriticalMelody>('none')
 // フィルター: 旋律
 const selectedMelodyNames = ref<Set<string>>(new Set())
 
+// ハイライト: 旋律
+const highlightedMelodyNames = ref<Set<string>>(new Set())
+
+// 旋律名のハイライトをトグル
+const toggleMelodyHighlight = (melodyName: string) => {
+  if (highlightedMelodyNames.value.has(melodyName)) {
+    highlightedMelodyNames.value.delete(melodyName)
+  } else {
+    highlightedMelodyNames.value.add(melodyName)
+  }
+  highlightedMelodyNames.value = new Set(highlightedMelodyNames.value)
+}
+
 // 会心補正を計算
 const calculateCriticalBonus = (): number => {
   let bonus = 0
@@ -812,6 +825,9 @@ const filteredHorns = computed(() => {
         "
         :critical-melody="criticalMelody"
         :critical-melody-bonus="criticalMelodyBonus"
+        :selected-melody-names="selectedMelodyNames"
+        :highlighted-melody-names="highlightedMelodyNames"
+        :on-melody-click="toggleMelodyHighlight"
       />
     </UPageSection>
   </div>

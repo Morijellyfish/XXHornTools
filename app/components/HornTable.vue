@@ -19,6 +19,9 @@ interface Props {
   criticalMelody?: CriticalMelody
   criticalMelodyBonus?: number
   sharpnessMultiplier?: number // 切れ味補正倍率（デフォルト: 1.0 = 補正なし）
+  selectedMelodyNames?: Set<string> // フィルターで選択されている旋律名
+  highlightedMelodyNames?: Set<string> // ハイライトされている旋律名
+  onMelodyClick?: (melodyName: string) => void // 旋律名クリック時のコールバック
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -251,6 +254,9 @@ const isShowBaseAttack = (horn: Horn): boolean => {
           :attack-melody="props.attackModifiers.attackMelody ?? 'none'"
           :critical-melody="props.criticalMelody"
           :bludgeoner="props.attackModifiers.bludgeoner"
+          :selected-melody-names="props.selectedMelodyNames"
+          :highlighted-melody-names="props.highlightedMelodyNames"
+          :on-melody-click="props.onMelodyClick"
         />
       </tbody>
     </table>

@@ -21,6 +21,9 @@ interface Props {
   attackMelody: AttackMelody
   criticalMelody: CriticalMelody
   bludgeoner?: boolean
+  selectedMelodyNames?: Set<string> // フィルターで選択されている旋律名
+  highlightedMelodyNames?: Set<string> // ハイライトされている旋律名
+  onMelodyClick?: (melodyName: string) => void // 旋律名クリック時のコールバック
 }
 
 defineProps<Props>()
@@ -120,7 +123,14 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
               (attackMelody === 'horn' &&
                 (name === '攻撃力強化【小】' || name === '攻撃力強化【大】')) ||
               (criticalMelody === 'horn' && name === '会心率UP&体力回復【小】'),
+            'bg-blue-200 dark:bg-blue-900 px-1 rounded':
+              selectedMelodyNames && selectedMelodyNames.has(name),
+            'bg-yellow-300 dark:bg-yellow-700 px-1 rounded cursor-pointer hover:bg-yellow-400 dark:hover:bg-yellow-600':
+              highlightedMelodyNames && highlightedMelodyNames.has(name),
+            'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-1 rounded':
+              onMelodyClick && !(highlightedMelodyNames && highlightedMelodyNames.has(name)),
           }"
+          @click="onMelodyClick && onMelodyClick(name)"
         >
           {{ name }}
         </span>
