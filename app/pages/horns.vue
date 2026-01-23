@@ -225,6 +225,139 @@ const totalAttackMultiply = computed(() => {
 const totalCriticalBonus = computed(() => {
   return criticalBonus.value + criticalMelodyBonus.value
 })
+
+// 発動スキルのリストを取得
+const activeSkills = computed(() => {
+  const skills: string[] = []
+
+  if (attackSkill.value !== 'none') {
+    const skillNames: Record<AttackSkill, string> = {
+      none: '',
+      down_small: '攻撃力DOWN【小】',
+      down_medium: '攻撃力DOWN【中】',
+      down_large: '攻撃力DOWN【大】',
+      up_small: '攻撃力UP【小】',
+      up_medium: '攻撃力UP【中】',
+      up_large: '攻撃力UP【大】',
+    }
+    skills.push(skillNames[attackSkill.value])
+  }
+
+  if (challengeSkill.value !== 'none') {
+    const skillNames: Record<ChallengeSkill, string> = {
+      none: '',
+      challenger1: '挑戦者+1',
+      challenger2: '挑戦者+2',
+      peakPerformance: 'フルチャージ',
+      latentPower1: '力の解放+1',
+      latentPower2: '力の解放+2',
+    }
+    skills.push(skillNames[challengeSkill.value])
+  }
+
+  if (hunterSkill.value !== 'none') {
+    const skillNames: Record<HunterSkill, string> = {
+      none: '',
+      cooler: '北風の狩人(非寒冷クーラー)',
+      eitherBlooded: '北風の狩人/南風の狩人',
+      polarCooler: '北風の狩人(寒冷クーラー)',
+    }
+    skills.push(skillNames[hunterSkill.value])
+  }
+
+  if (bludgeoner.value) {
+    skills.push('鈍器使い')
+  }
+
+  if (resuscitate.value) {
+    skills.push('死中に活')
+  }
+
+  if (resentment.value) {
+    skills.push('逆恨み')
+  }
+
+  if (adrenaline.value !== 'none' && adrenaline.value !== 'catAdrenaline') {
+    const skillName = (() => {
+      switch (adrenaline.value) {
+        case 'worrywart':
+          return '心配性'
+        case 'adrenalinePlus2':
+          return '火事場力+2'
+        default:
+          return null
+      }
+    })()
+    if (skillName) {
+      skills.push(skillName)
+    }
+  }
+
+  if (fortify.value !== 'none') {
+    const skillNames: Record<Fortify, string> = {
+      none: '',
+      fortify1: '不屈(1乙)',
+      fortify2: '不屈(2乙)',
+    }
+    skills.push(skillNames[fortify.value])
+  }
+
+  if (dragonInstinct.value) {
+    skills.push('龍気活性')
+  }
+
+  if (hasWeaknessExploit.value) {
+    skills.push('弱点特攻')
+  }
+
+  if (repeatOffensive.value !== 'none') {
+    skills.push(`連撃の心得(${repeatOffensive.value}%)`)
+  }
+
+  if (criticalEye.value !== 0) {
+    const eyeName = (() => {
+      switch (criticalEye.value) {
+        case -3:
+          return '見切り-3'
+        case -2:
+          return '見切り-2'
+        case -1:
+          return '見切り-1'
+        case 1:
+          return '見切り+1'
+        case 2:
+          return '見切り+2'
+        case 3:
+          return '見切り+3'
+        default:
+          return null
+      }
+    })()
+    if (eyeName) {
+      skills.push(eyeName)
+    }
+  }
+
+  if (hasCriticalBoost.value) {
+    skills.push('超会心')
+  }
+
+  if (hasMadAffinity.value) {
+    skills.push('裏会心')
+  }
+
+  // 斬れ味レベル
+  if (selectedSharpness.value !== 'normal') {
+    const sharpnessNames: Record<SharpnessType, string> = {
+      normal: '',
+      plus1: '斬れ味レベル+1',
+      plus2: '斬れ味レベル+2',
+    }
+    skills.push(sharpnessNames[selectedSharpness.value])
+  }
+
+  return skills
+})
 </script>
 
 <template>
@@ -560,6 +693,13 @@ const totalCriticalBonus = computed(() => {
               {{ totalCriticalBonus > 0 ? `+${totalCriticalBonus}%` : '0%' }}
             </span>
           </div>
+        </div>
+        <div class="mt-3 text-sm">
+          <span class="text-gray-600 dark:text-gray-400">発動スキル:</span>
+          <span v-if="activeSkills.length === 0" class="ml-2 text-gray-400">なし</span>
+          <span v-else class="ml-2 text-gray-800 dark:text-gray-200">
+            {{ activeSkills.join('、') }}
+          </span>
         </div>
       </div>
 
