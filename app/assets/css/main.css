@@ -20,3 +20,9 @@
 body {
   background-color: #323339;
 }
+
+/* UPageHeroの高さを半分に調整 */
+[data-slot="root"][data-orientation="vertical"] [data-slot="container"] {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}

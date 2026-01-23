@@ -27,7 +27,7 @@ import {
 } from '~/types/attackBuff/attackBuffs'
 
 useHead({
-  title: '狩猟笛一覧',
+  title: '狩猟笛比較表',
 })
 
 // 事前準備
@@ -228,7 +228,7 @@ const totalCriticalBonus = computed(() => {
 
 <template>
   <div>
-    <UPageHero title="狩猟笛一覧" description="モンスターハンターXXの狩猟笛のステータス比較表" />
+    <UPageHero title="狩猟笛比較表" description="モンスターハンターXXの狩猟笛のステータス比較表" />
 
     <UPageSection>
       <div class="mb-4 space-y-4">
