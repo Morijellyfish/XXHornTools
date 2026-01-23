@@ -1,60 +1,198 @@
-# Nuxt Starter Template
+# 狩猟笛比較表（XXHornList）
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+モンスターハンターXXの狩猟笛のステータス比較とダメージ計算を行うWebアプリケーションです。
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+## 概要
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+このツールは、モンスターハンターXXにおける狩猟笛の性能を比較し、様々なバフやスキルを組み合わせた際の期待される火力を表示します。
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-  </picture>
-</a>
+### 主な機能
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+- **狩猟笛一覧表示**: 全レア度（R1～R10、RX）の狩猟笛データを一覧表示
+- **詳細なバフ設定**: 攻撃力や会心率に影響する様々なバフ・スキルを設定可能
+- **期待値計算**: 設定したバフを反映した期待ダメージ値を自動計算
+- **ソート機能**: 期待値、攻撃力、防御力、スロット、会心率でソート可能
+- **切れ味補正**: 通常、匠+1、匠+2の切れ味状態を選択可能
+- **旋律効果**: 攻撃旋律や会心強化旋律の効果を反映
 
-## Quick Start
+## 技術スタック
 
-```bash [Terminal]
-npm create nuxt@latest -- -t github:nuxt-ui-templates/starter
-```
+- **フレームワーク**: [Nuxt 4](https://nuxt.com/)
+- **UIライブラリ**: [Nuxt UI](https://ui.nuxt.com/)
+- **言語**: TypeScript
+- **パッケージマネージャー**: pnpm
 
-## Deploy your own
+## セットアップ
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+### 必要な環境
 
-## Setup
+- Node.js（推奨バージョン: 18以上）
+- pnpm 10.26.1以上
 
-Make sure to install the dependencies:
+### インストール
 
 ```bash
+# 依存関係のインストール
 pnpm install
 ```
 
-## Development Server
+## 開発
 
-Start the development server on `http://localhost:3000`:
+### 開発サーバーの起動
 
 ```bash
 pnpm dev
 ```
 
-## Production
+開発サーバーは `http://localhost:3000` で起動します。
 
-Build the application for production:
+### ビルド
 
 ```bash
+# 本番用ビルド
 pnpm build
-```
 
-Locally preview production build:
-
-```bash
+# ビルド結果のプレビュー
 pnpm preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+### コード品質
+
+```bash
+# ESLintの実行
+pnpm lint
+
+# ESLintの自動修正
+pnpm lint:fix
+
+# Prettierのフォーマット
+pnpm format
+
+# Prettierのチェック
+pnpm format:check
+
+# フォーマットとリントの自動修正
+pnpm fix
+
+# TypeScriptの型チェック
+pnpm typecheck
+```
+
+## プロジェクト構造
+
+```
+XXHornList/
+├── app/
+│   ├── components/          # Vueコンポーネント
+│   │   ├── HornTable.vue    # 狩猟笛一覧テーブル
+│   │   ├── HornTableRow.vue # テーブル行コンポーネント
+│   │   └── ...
+│   ├── data/                # データファイル
+│   │   ├── horns/           # 狩猟笛データ（レア度別）
+│   │   └── melodies.ts      # 旋律効果データ
+│   ├── pages/               # ページコンポーネント
+│   │   ├── index.vue        # トップページ
+│   │   └── horns.vue        # 狩猟笛一覧ページ
+│   ├── types/               # TypeScript型定義
+│   │   ├── attackBuff/      # 攻撃バフ関連の型
+│   │   ├── horn.ts          # 狩猟笛の型
+│   │   ├── melody.ts        # 旋律の型
+│   │   ├── notes.ts         # 音色の型
+│   │   └── sharpness.ts     # 切れ味の型
+│   └── utils/               # ユーティリティ関数
+│       ├── attackBuffCalculate.ts  # 攻撃バフ計算
+│       └── damageCalculate.ts      # ダメージ計算
+├── public/                  # 静的ファイル
+├── nuxt.config.ts           # Nuxt設定
+├── package.json
+└── tsconfig.json            # TypeScript設定
+```
+
+## 機能詳細
+
+### バフ・スキル設定
+
+#### 事前準備（グループA～E）
+
+- **力の護符（A）**: 攻撃力+6
+- **力の爪（B）**: 攻撃力+9
+- **鬼人薬・食事効果（C）**: 鬼人薬、鬼人薬G、食事【小/中/大】
+- **短期バフ（D）**: 種/鬼人笛、丸薬、休憩術/舞踏術、鬼人弾、鬼人会心弾
+- **短期催眠術（E）**: 攻撃力+3
+
+#### 攻撃スキル（グループF）
+
+- **攻撃DOWN/UP**: 【小/中/大】の各レベル
+
+#### 火事場系（グループG、I、O）
+
+- **火事場力（G）**: 心配性、火事場+2、猫火事場
+- **不屈（I）**: 1乙、2乙
+- **龍気活性（O）**: 攻撃力倍率×1.1
+
+#### 攻撃旋律（グループH）
+
+- 固定倍率（×1.10、×1.15、×1.20）または笛依存
+
+#### 挑戦者・フルチャージ・力の解放（グループJ）
+
+- 挑戦者+1/+2、フルチャージ、力の解放+1/+2
+
+#### 北風/南風（グループK）
+
+- クーラー、北風/南風、北風クーラー
+
+#### 鈍器使い（グループL）
+
+- 切れ味が緑以下で攻撃力+15
+
+#### 死中に活・逆恨み（グループM、N）
+
+- 死中に活（M）: 攻撃力+20
+- 逆恨み（N）: 攻撃力+20
+
+### 会心率関連
+
+- **見切り**: -3～+3の各レベル
+- **弱点特攻**: 会心率+50%
+- **連撃**: 25%または30%
+- **超会心**: 会心時のダメージ倍率が1.25倍→1.40倍
+- **裏会心**: バッドクリティカルのダメージ減少を軽減
+- **会心強化旋律**: 固定値（+15%、+20%）または笛依存
+
+### 切れ味設定
+
+- **通常**: デフォルトの切れ味
+- **匠+1**: 斬れ味レベル+1時の切れ味
+- **匠+2**: 斬れ味レベル+2時の切れ味
+
+### 計算式
+
+期待値は以下の式で計算されます：
+
+```
+期待値 = (攻撃力 × 切れ味補正 × 切れ味補正倍率) × 会心補正
+```
+
+- **攻撃力**: 各種バフを適用した最終攻撃力
+  - すべての加算バフ（力の護符、力の爪、鬼人薬、攻撃スキルなど）を合計した後、乗算バフ（火事場力、不屈、攻撃旋律など）を適用します
+- **切れ味補正**: 切れ味の色に応じた物理倍率
+- **会心補正**: 会心率に応じたクリティカル倍率（超会心/裏会心を考慮）
+
+## ライセンス
+
+[LICENSE](./LICENSE) ファイルを参照してください。
+
+## 開発者向け情報
+
+### データの修正
+
+狩猟笛のデータを修正する場合は、`app/data/horns/` ディレクトリ内の該当レア度のファイルを編集してください。
+
+### バフの追加
+
+新しいバフタイプを追加する場合は、`app/types/attackBuff/` ディレクトリ内の該当グループファイルを編集し、計算ロジックを `app/utils/attackBuffCalculate.ts` に追加してください。
+
+## 貢献
+
+バグ報告や機能要望は、Issueでお知らせください。プルリクエストも歓迎します。
