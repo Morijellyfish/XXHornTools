@@ -38,7 +38,7 @@ jobs:
 
       - name: Build
         env:
-          NUXT_APP_BASE_URL: /
+          NUXT_APP_BASE_URL: /XXHornList/
         run: pnpm build
 
       - name: Setup Pages
