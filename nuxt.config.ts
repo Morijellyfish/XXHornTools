@@ -8,8 +8,22 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  // GitHub Pages用の設定
+  app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
+    buildAssetsDir: '/_nuxt/',
+  },
+
+  // 静的サイト生成（SSG）の設定
+  nitro: {
+    prerender: {
+      routes: ['/'],
+    },
+  },
+
   routeRules: {
     '/': { prerender: true },
+    '/horns': { prerender: true },
   },
 
   compatibilityDate: '2025-01-15',
