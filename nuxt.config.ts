@@ -24,7 +24,8 @@ export default defineNuxtConfig({
   // 静的サイト生成（SSG）の設定
   nitro: {
     prerender: {
-      routes: ['/'],
+      routes: ['/', '/horns'],
+      crawlLinks: true,
     },
   },
 
