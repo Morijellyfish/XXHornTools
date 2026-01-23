@@ -75,7 +75,9 @@ const tools: Tool[] = [
                 <UIcon
                   :name="tool.icon"
                   class="w-6 h-6"
-                  :class="tool.status === 'available' ? 'text-primary-600 dark:text-primary-400' : ''"
+                  :class="
+                    tool.status === 'available' ? 'text-primary-600 dark:text-primary-400' : ''
+                  "
                 />
               </div>
               <div>
@@ -95,7 +97,7 @@ const tools: Tool[] = [
 
           <p class="text-gray-600 dark:text-gray-400 mt-2">{{ tool.description }}</p>
 
-          <template #footer v-if="tool.status === 'available'">
+          <template v-if="tool.status === 'available'" #footer>
             <div class="flex items-center justify-between">
               <UButton
                 :to="tool.to"

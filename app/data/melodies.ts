@@ -1,7 +1,78 @@
-import type { Melody } from '~/types/melody'
+import type { Melody, MelodyCategory } from '~/types/melody'
 
 // 音色の組み合わせをキーとした旋律効果のマッピング
 type MelodyEffectsMap = Record<string, Melody[]>
+
+// カテゴリごとの旋律定義（フィルターUI用）
+export const melodyCategoryMap: Record<MelodyCategory, string[]> = {
+  属性耐性: [
+    '全属性耐性強化',
+    '火属性防御強化【小】',
+    '火属性防御強化【大】',
+    '水属性防御強化【小】',
+    '水属性防御強化【大】',
+    '雷属性防御強化【小】',
+    '雷属性防御強化【大】',
+    '氷属性防御強化【小】',
+    '氷属性防御強化【大】',
+    '龍属性防御強化【小】',
+    '龍属性防御強化【大】',
+  ],
+  体力: [
+    '会心率UP&体力回復【小】',
+    '体力回復【中】&消臭',
+    '体力回復【中】&解毒',
+    '体力回復【小】&解毒',
+    '体力回復【大】',
+    '体力回復【小】',
+    '回復速度【大】',
+    '回復速度【小】',
+    '体力増加【大】',
+    '体力増加【小】',
+  ],
+  状態異常耐性: ['全状態異常無効', '属性やられ無効', '気絶無効', '麻痺無効', '耐だるま状態'],
+  妨害耐性: [
+    'のけぞり無効',
+    '聴覚保護【小】&風圧軽減',
+    '聴覚保護【小】',
+    '聴覚保護【大】',
+    '風圧軽減',
+    '風圧無効',
+    '耐震',
+  ],
+  ステータス増加: [
+    '属性攻撃力強化',
+    '攻撃力強化【大】',
+    '攻撃力強化【小】',
+    '攻撃力&防御力強化【小】',
+    '防御力強化【大】',
+    '防御力強化【小】',
+    '状態異常攻撃強化',
+  ],
+  その他: [
+    'スタミナ減少無効【大】',
+    'スタミナ減少無効【小】',
+    '全旋律効果延長',
+    '精霊王の加護',
+    '寒さ無効',
+    '暑さ無効',
+    '高周波',
+    '千里眼',
+    '自己強化',
+  ],
+}
+
+// 旋律名からカテゴリを判定する関数（フィルターUI用）
+// melodyCategoryMapから逆引きしてカテゴリを判定
+export const getMelodyCategory = (name: string): MelodyCategory => {
+  for (const [category, melodies] of Object.entries(melodyCategoryMap)) {
+    if (melodies.includes(name)) {
+      return category as MelodyCategory
+    }
+  }
+  // 見つからない場合は「その他」
+  return 'その他'
+}
 
 // 各狩猟笛の旋律効果テンプレート
 export const melodyEffects: MelodyEffectsMap = {
@@ -1176,3 +1247,12 @@ export const melodyEffects: MelodyEffectsMap = {
     },
   ],
 }
+
+// すべての旋律名の一覧（重複除去・ソート済み）
+export const melodyNames: string[] = Array.from(
+  new Set(
+    Object.values(melodyEffects)
+      .flat()
+      .map(melody => melody.name)
+  )
+).sort()

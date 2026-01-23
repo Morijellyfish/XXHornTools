@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { allHorns } from '~/data/horns'
+import { melodyNames } from '~/data/melodies'
 import { ref, computed } from 'vue'
 import type {
   AttackSkill,
@@ -26,6 +27,7 @@ import {
   getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
 import SelectOption from '~/components/SelectOption.vue'
+import MelodyFilter from '~/components/MelodyFilter.vue'
 
 useHead({
   title: '狩猟笛比較表',
@@ -88,6 +90,9 @@ const attackMelody = ref<AttackMelody>('none')
 
 type CriticalMelody = 'none' | '15' | '20' | 'horn'
 const criticalMelody = ref<CriticalMelody>('none')
+
+// フィルター: 旋律
+const selectedMelodyNames = ref<Set<string>>(new Set())
 
 // 会心補正を計算
 const calculateCriticalBonus = (): number => {
@@ -358,6 +363,21 @@ const activeSkills = computed(() => {
 
   return skills
 })
+
+// フィルター済みの狩猟笛を計算
+const filteredHorns = computed(() => {
+  if (selectedMelodyNames.value.size === 0) {
+    return allHorns
+  }
+
+  return allHorns.filter(horn => {
+    const hornMelodyNames = horn.notes.getMelodyNames()
+    // 選択された旋律のいずれかが含まれているかチェック
+    return Array.from(selectedMelodyNames.value).some(selectedName =>
+      hornMelodyNames.includes(selectedName)
+    )
+  })
+})
 </script>
 
 <template>
@@ -365,46 +385,61 @@ const activeSkills = computed(() => {
     <UPageHero title="狩猟笛比較表" description="モンスターハンターXXの狩猟笛のステータス比較表" />
 
     <UPageSection>
-      <div class="mb-4 space-y-4">
+      <div class="mb-0 space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2">
           <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
             <label class="text-sm font-medium mb-2 block">事前準備:</label>
             <div class="space-y-3">
               <SelectOption
-                label="力の護符 (A):"
                 v-model="powerCharm"
+                label="力の護符 (A):"
                 :options="[
                   { value: false, label: '無' },
                   { value: true, label: '有 | +6' },
                 ]"
               />
               <SelectOption
-                label="力の爪 (B):"
                 v-model="powerTalon"
+                label="力の爪 (B):"
                 :options="[
                   { value: false, label: '無' },
                   { value: true, label: '有 | +9' },
                 ]"
               />
               <SelectOption
-                label="鬼人薬・食事効果 (C):"
                 v-model="preparedBuff"
+                label="鬼人薬・食事効果 (C):"
                 :rows="[
                   [
                     { value: 'none', label: '無' },
-                    { value: 'demon_drug', label: `鬼人薬 | +${getPreparedBuffValue('demon_drug')}` },
-                    { value: 'MegaDemondrug', label: `鬼人薬G | +${getPreparedBuffValue('MegaDemondrug')}` },
+                    {
+                      value: 'demon_drug',
+                      label: `鬼人薬 | +${getPreparedBuffValue('demon_drug')}`,
+                    },
+                    {
+                      value: 'MegaDemondrug',
+                      label: `鬼人薬G | +${getPreparedBuffValue('MegaDemondrug')}`,
+                    },
                   ],
                   [
-                    { value: 'meal_attack_small', label: `食事【小】| +${getPreparedBuffValue('meal_attack_small')}` },
-                    { value: 'meal_attack_medium', label: `食事【中】| +${getPreparedBuffValue('meal_attack_medium')}` },
-                    { value: 'meal_attack_large', label: `食事【大】| +${getPreparedBuffValue('meal_attack_large')}` },
+                    {
+                      value: 'meal_attack_small',
+                      label: `食事【小】| +${getPreparedBuffValue('meal_attack_small')}`,
+                    },
+                    {
+                      value: 'meal_attack_medium',
+                      label: `食事【中】| +${getPreparedBuffValue('meal_attack_medium')}`,
+                    },
+                    {
+                      value: 'meal_attack_large',
+                      label: `食事【大】| +${getPreparedBuffValue('meal_attack_large')}`,
+                    },
                   ],
                 ]"
               />
               <SelectOption
-                label="短期催眠術 (E):"
                 v-model="shortHypnosis"
+                label="短期催眠術 (E):"
                 :options="[
                   { value: false, label: '無' },
                   { value: true, label: '有 | +3' },
@@ -415,8 +450,8 @@ const activeSkills = computed(() => {
               <label class="text-sm font-medium mb-2 block">短期バフ:</label>
               <div class="space-y-3">
                 <SelectOption
-                  label="アイテム等 (D):"
                   v-model="shortTermBuff"
+                  label="アイテム等 (D):"
                   wrap
                   :rows="[
                     [
@@ -427,7 +462,10 @@ const activeSkills = computed(() => {
                     ],
                     [
                       { value: 'demonBullet', label: '鬼人弾 | +10, 切れ味補正x1.1' },
-                      { value: 'demonCriticalBullet', label: '鬼人会心弾 | +15, +10%, 切れ味補正x1.1' },
+                      {
+                        value: 'demonCriticalBullet',
+                        label: '鬼人会心弾 | +15, +10%, 切れ味補正x1.1',
+                      },
                     ],
                   ]"
                 />
@@ -439,14 +477,23 @@ const activeSkills = computed(() => {
             <label class="text-sm font-medium mb-2 block">スキル:</label>
             <div class="space-y-3">
               <SelectOption
-                label="攻撃 (F):"
                 v-model="attackSkill"
+                label="攻撃 (F):"
                 :rows="[
                   [
                     { value: 'none', label: '無' },
-                    { value: 'down_small', label: `DOWN【小】| ${getAttackSkillValue('down_small')}` },
-                    { value: 'down_medium', label: `DOWN【中】| ${getAttackSkillValue('down_medium')}` },
-                    { value: 'down_large', label: `DOWN【大】| ${getAttackSkillValue('down_large')}` },
+                    {
+                      value: 'down_small',
+                      label: `DOWN【小】| ${getAttackSkillValue('down_small')}`,
+                    },
+                    {
+                      value: 'down_medium',
+                      label: `DOWN【中】| ${getAttackSkillValue('down_medium')}`,
+                    },
+                    {
+                      value: 'down_large',
+                      label: `DOWN【大】| ${getAttackSkillValue('down_large')}`,
+                    },
                   ],
                   [
                     { value: 'up_small', label: `UP【小】| +${getAttackSkillValue('up_small')}` },
@@ -456,38 +503,59 @@ const activeSkills = computed(() => {
                 ]"
               />
               <SelectOption
-                label="挑戦者・フルチャージ・力の解放 (J):"
                 v-model="challengeSkill"
+                label="挑戦者・フルチャージ・力の解放 (J):"
                 wrap
                 :rows="[
                   [
                     { value: 'none', label: '無' },
-                    { value: 'challenger1', label: `挑戦者+1 | +${getChallengeSkillValue('challenger1')}, +${getChallengeSkillCriticalBonus('challenger1')}%` },
-                    { value: 'challenger2', label: `挑戦者+2 | +${getChallengeSkillValue('challenger2')}, +${getChallengeSkillCriticalBonus('challenger2')}%` },
-                    { value: 'peakPerformance', label: `フルチャージ | +${getChallengeSkillValue('peakPerformance')}` },
+                    {
+                      value: 'challenger1',
+                      label: `挑戦者+1 | +${getChallengeSkillValue('challenger1')}, +${getChallengeSkillCriticalBonus('challenger1')}%`,
+                    },
+                    {
+                      value: 'challenger2',
+                      label: `挑戦者+2 | +${getChallengeSkillValue('challenger2')}, +${getChallengeSkillCriticalBonus('challenger2')}%`,
+                    },
+                    {
+                      value: 'peakPerformance',
+                      label: `フルチャージ | +${getChallengeSkillValue('peakPerformance')}`,
+                    },
                   ],
                   [
-                    { value: 'latentPower1', label: `力の解放+1 | +${getChallengeSkillCriticalBonus('latentPower1')}%` },
-                    { value: 'latentPower2', label: `力の解放+2 | +${getChallengeSkillCriticalBonus('latentPower2')}%` },
+                    {
+                      value: 'latentPower1',
+                      label: `力の解放+1 | +${getChallengeSkillCriticalBonus('latentPower1')}%`,
+                    },
+                    {
+                      value: 'latentPower2',
+                      label: `力の解放+2 | +${getChallengeSkillCriticalBonus('latentPower2')}%`,
+                    },
                   ],
                 ]"
               />
               <SelectOption
-                label="北風/南風 (K):"
                 v-model="hunterSkill"
+                label="北風/南風 (K):"
                 wrap
                 :options="[
                   { value: 'none', label: '無' },
                   { value: 'cooler', label: `クーラー | +${getHunterSkillValue('cooler')}` },
-                  { value: 'eitherBlooded', label: `北風/南風 | +${getHunterSkillValue('eitherBlooded')}` },
-                  { value: 'polarCooler', label: `北風クーラー | +${getHunterSkillValue('polarCooler')}` },
+                  {
+                    value: 'eitherBlooded',
+                    label: `北風/南風 | +${getHunterSkillValue('eitherBlooded')}`,
+                  },
+                  {
+                    value: 'polarCooler',
+                    label: `北風クーラー | +${getHunterSkillValue('polarCooler')}`,
+                  },
                 ]"
               />
               <div class="grid grid-cols-2">
                 <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
                   <SelectOption
-                    label="死中に活 (M):"
                     v-model="resuscitate"
+                    label="死中に活 (M):"
                     :options="[
                       { value: false, label: '無' },
                       { value: true, label: '有 | +20' },
@@ -496,8 +564,8 @@ const activeSkills = computed(() => {
                 </div>
                 <div class="pl-4">
                   <SelectOption
-                    label="逆恨み (N):"
                     v-model="resentment"
+                    label="逆恨み (N):"
                     :options="[
                       { value: false, label: '無' },
                       { value: true, label: '有 | +20' },
@@ -508,8 +576,8 @@ const activeSkills = computed(() => {
               <div class="grid grid-cols-2">
                 <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
                   <SelectOption
-                    label="斬れ味:"
                     v-model="selectedSharpness"
+                    label="斬れ味:"
                     :options="[
                       { value: 'normal', label: '通常' },
                       { value: 'plus1', label: '匠1' },
@@ -519,8 +587,8 @@ const activeSkills = computed(() => {
                 </div>
                 <div class="pl-4">
                   <SelectOption
-                    label="鈍器使い (L):"
                     v-model="bludgeoner"
+                    label="鈍器使い (L):"
                     :options="[
                       { value: false, label: '無' },
                       { value: true, label: '有' },
@@ -531,8 +599,8 @@ const activeSkills = computed(() => {
               <div class="grid grid-cols-2">
                 <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
                   <SelectOption
-                    label="弱点特攻:"
                     v-model="hasWeaknessExploit"
+                    label="弱点特攻:"
                     :options="[
                       { value: false, label: '無' },
                       { value: true, label: '有' },
@@ -541,8 +609,8 @@ const activeSkills = computed(() => {
                 </div>
                 <div class="pl-4">
                   <SelectOption
-                    label="連撃:"
                     v-model="repeatOffensive"
+                    label="連撃:"
                     :options="[
                       { value: 'none', label: '無' },
                       { value: '25', label: '25%' },
@@ -552,8 +620,8 @@ const activeSkills = computed(() => {
                 </div>
               </div>
               <SelectOption
-                label="見切り:"
                 v-model="criticalEye"
+                label="見切り:"
                 :options="[
                   { value: -3, label: '-3' },
                   { value: -2, label: '-2' },
@@ -567,8 +635,8 @@ const activeSkills = computed(() => {
               <div class="grid grid-cols-2">
                 <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
                   <SelectOption
-                    label="超会心:"
                     v-model="hasCriticalBoost"
+                    label="超会心:"
                     :options="[
                       { value: false, label: '無' },
                       { value: true, label: '有' },
@@ -577,8 +645,8 @@ const activeSkills = computed(() => {
                 </div>
                 <div class="pl-4">
                   <SelectOption
-                    label="裏会心:"
                     v-model="hasMadAffinity"
+                    label="裏会心:"
                     :options="[
                       { value: false, label: '無' },
                       { value: true, label: '有' },
@@ -595,8 +663,8 @@ const activeSkills = computed(() => {
             <label class="text-sm font-medium mb-2 block">旋律:</label>
             <div class="space-y-3">
               <SelectOption
-                label="攻撃旋律 (H):"
                 v-model="attackMelody"
+                label="攻撃旋律 (H):"
                 :options="[
                   { value: 'none', label: '無' },
                   { value: '1.10', label: 'x1.10' },
@@ -606,8 +674,8 @@ const activeSkills = computed(() => {
                 ]"
               />
               <SelectOption
-                label="会心旋律:"
                 v-model="criticalMelody"
+                label="会心旋律:"
                 :options="[
                   { value: 'none', label: '無' },
                   { value: '15', label: '15%' },
@@ -621,21 +689,30 @@ const activeSkills = computed(() => {
             <label class="text-sm font-medium mb-2 block">火事場系:</label>
             <div class="space-y-3">
               <SelectOption
-                label="火事場力 (G):"
                 v-model="adrenaline"
+                label="火事場力 (G):"
                 wrap
                 :options="[
                   { value: 'none', label: '無' },
-                  { value: 'worrywart', label: `心配性 | x${getAdrenalineMultiplier('worrywart')}` },
-                  { value: 'adrenalinePlus2', label: `火事場+2 | x${getAdrenalineMultiplier('adrenalinePlus2')}` },
-                  { value: 'catAdrenaline', label: `猫火事場 | x${getAdrenalineMultiplier('catAdrenaline')}` },
+                  {
+                    value: 'worrywart',
+                    label: `心配性 | x${getAdrenalineMultiplier('worrywart')}`,
+                  },
+                  {
+                    value: 'adrenalinePlus2',
+                    label: `火事場+2 | x${getAdrenalineMultiplier('adrenalinePlus2')}`,
+                  },
+                  {
+                    value: 'catAdrenaline',
+                    label: `猫火事場 | x${getAdrenalineMultiplier('catAdrenaline')}`,
+                  },
                 ]"
               />
               <div class="grid grid-cols-2">
                 <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
                   <SelectOption
-                    label="不屈 (I):"
                     v-model="fortify"
+                    label="不屈 (I):"
                     :options="[
                       { value: 'none', label: '無' },
                       { value: 'fortify1', label: `1乙 | x${getFortifyMultiplier('fortify1')}` },
@@ -645,8 +722,8 @@ const activeSkills = computed(() => {
                 </div>
                 <div class="pl-4">
                   <SelectOption
-                    label="龍気活性 (O):"
                     v-model="dragonInstinct"
+                    label="龍気活性 (O):"
                     :options="[
                       { value: false, label: '無' },
                       { value: true, label: '有 | x1.1' },
@@ -659,8 +736,11 @@ const activeSkills = computed(() => {
         </div>
       </div>
 
+      <!-- フィルター -->
+      <MelodyFilter v-model="selectedMelodyNames" :melody-names="melodyNames" />
+
       <!-- バフ合計表示 -->
-      <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+      <div class="mb-0 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
         <div class="flex flex-wrap gap-4 text-sm">
           <div>
             <span class="text-gray-600 dark:text-gray-400">攻撃力加算:</span>
@@ -704,7 +784,7 @@ const activeSkills = computed(() => {
       </div>
 
       <HornTable
-        :horns="allHorns"
+        :horns="filteredHorns"
         :selected-sharpness="selectedSharpness"
         :critical-bonus="criticalBonus"
         :has-critical-boost="hasCriticalBoost"

@@ -36,7 +36,12 @@ const hasRows = computed(() => props.rows.length > 0)
   <div>
     <label class="text-xs text-gray-400 mb-1 block">{{ label }}</label>
     <div v-if="hasRows" class="space-y-2">
-      <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="flex gap-2" :class="{ 'flex-wrap': wrap }">
+      <div
+        v-for="(row, rowIndex) in rows"
+        :key="rowIndex"
+        class="flex gap-2"
+        :class="{ 'flex-wrap': wrap }"
+      >
         <UButton
           v-for="option in row"
           :key="String(option.value)"

@@ -1,3 +1,12 @@
+// 旋律カテゴリ
+export type MelodyCategory =
+  | '属性耐性'
+  | '体力'
+  | '状態異常耐性'
+  | '妨害耐性'
+  | 'ステータス増加'
+  | 'その他'
+
 // 旋律効果
 export interface Melody {
   name: string // 効果名
