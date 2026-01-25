@@ -152,7 +152,7 @@ const getChallengeSkillCriticalBonus = (skill: ChallengeSkill): number => {
     case 'challenger1':
       return 10 // 挑戦者+1: 会心率+10%
     case 'challenger2':
-      return 20 // 挑戦者+2: 会心率+20%
+      return 15 // 挑戦者+2: 会心率+15%
     case 'latentPower1':
       return 30 // 力の解放+1: 会心率+30%
     case 'latentPower2':

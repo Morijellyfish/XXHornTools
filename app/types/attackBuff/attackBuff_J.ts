@@ -32,7 +32,7 @@ export const getChallengeSkillValue = (challengeSkill: ChallengeSkill): number =
     case 'challenger1':
       return 10 // 挑戦者+1: +10
     case 'challenger2':
-      return 25 // 挑戦者+2: +25
+      return 20 // 挑戦者+2: +20
     case 'peakPerformance':
       return 20 // フルチャージ: +20
     case 'none':
