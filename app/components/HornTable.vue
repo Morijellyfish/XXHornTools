@@ -1,24 +1,17 @@
 <script setup lang="ts">
 import type { HuntingHorn } from '~/types/weapons'
-import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
+import type { TableBaseOption } from '~/types/tableBaseOption'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
-import type { SharpnessType } from '~/composables/useWeaponTable'
 import WeaponTable from './WeaponTable.vue'
 
 type CriticalMelody = 'none' | '15' | '20' | 'horn'
 
-interface Props {
+interface Props extends TableBaseOption {
   horns: HuntingHorn[]
-  selectedSharpness?: SharpnessType
-  criticalBonus?: number
-  hasCriticalBoost?: boolean
-  hasMadAffinity?: boolean
-  attackModifiers?: AttackBuffs
   criticalMelody?: CriticalMelody
   criticalMelodyBonus?: number
-  sharpnessMultiplier?: number // 切れ味補正倍率（デフォルト: 1.0 = 補正なし）
   selectedMelodyNames?: Set<string> // フィルターで選択されている旋律名
   highlightedMelodyNames?: Set<string> // ハイライトされている旋律名
   onMelodyClick?: (melodyName: string) => void // 旋律名クリック時のコールバック
@@ -26,9 +19,11 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
-  criticalBonus: 0,
-  hasCriticalBoost: false,
-  hasMadAffinity: false,
+  criticalBuffs: () => ({
+    criticalBonus: 0,
+    hasCriticalBoost: false,
+    hasMadAffinity: false,
+  }),
   attackModifiers: () => ({
     powerCharm: false,
     powerTalon: false,
@@ -61,21 +56,21 @@ const getAttackMelodyMultiplier = (horn: HuntingHorn): number => {
 
 // 期待値を計算（HornTable固有のロジック）
 const getExpectedValue = (horn: HuntingHorn): number => {
-  // 補正済みの攻撃力を計算
-  const attackWithBuffs = getAttackWithBuffs(horn)
-  // 会心補正（会心補正 + 会心強化旋律）
-  const criticalMelodyBonus = getCriticalMelodyBonus(horn)
-  const totalCriticalBonus = props.criticalBonus + criticalMelodyBonus
-  return calculateExpectedValue(
-    attackWithBuffs,
-    horn,
-    props.selectedSharpness,
-    totalCriticalBonus,
-    props.hasCriticalBoost,
-    props.hasMadAffinity,
-    props.sharpnessMultiplier
-  )
-}
+    // 補正済みの攻撃力を計算
+    const attackWithBuffs = getAttackWithBuffs(horn)
+    // 会心補正（会心補正 + 会心強化旋律）
+    const criticalMelodyBonus = getCriticalMelodyBonus(horn)
+    const totalCriticalBonus = (props.criticalBuffs?.criticalBonus ?? 0) + criticalMelodyBonus
+    return calculateExpectedValue(
+      attackWithBuffs,
+      horn,
+      props.selectedSharpness,
+      totalCriticalBonus,
+      props.criticalBuffs?.hasCriticalBoost ?? false,
+      props.criticalBuffs?.hasMadAffinity ?? false,
+      props.sharpnessMultiplier
+    )
+  }
 
 // 補正済みの攻撃力を計算
 const getAttackWithBuffs = (horn: HuntingHorn): number => {
@@ -90,7 +85,7 @@ const getAttackWithBuffs = (horn: HuntingHorn): number => {
 // 会心率を計算（元の会心率 + 会心補正 + 会心強化旋律）
 const calculateAffinity = (horn: HuntingHorn): number => {
   const criticalMelodyBonus = getCriticalMelodyBonus(horn)
-  return horn.affinity + props.criticalBonus + criticalMelodyBonus
+  return horn.affinity + (props.criticalBuffs?.criticalBonus ?? 0) + criticalMelodyBonus
 }
 
 // 元の攻撃力を括弧で表示するかどうかを判定
@@ -125,15 +120,13 @@ const isShowBaseAttack = (horn: HuntingHorn): boolean => {
 </script>
 
 <template>
-  <WeaponTable
-    :weapons="horns"
-    :selected-sharpness="selectedSharpness"
-    :critical-bonus="criticalBonus"
-    :has-critical-boost="hasCriticalBoost"
-    :has-mad-affinity="hasMadAffinity"
-    :attack-modifiers="attackModifiers"
-    :sharpness-multiplier="sharpnessMultiplier"
-  >
+    <WeaponTable
+      :weapons="horns"
+      :selected-sharpness="selectedSharpness"
+      :critical-buffs="criticalBuffs"
+      :attack-modifiers="attackModifiers"
+      :sharpness-multiplier="sharpnessMultiplier"
+    >
     <template #header-columns>
       <th class="text-left p-2">音色</th>
       <th class="text-left p-2">旋律</th>

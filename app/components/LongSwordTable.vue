@@ -1,24 +1,19 @@
 <script setup lang="ts">
 import type { LongSword } from '~/types/weapons'
-import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
-import type { SharpnessType } from '~/composables/useWeaponTable'
+import type { TableBaseOption } from '~/types/tableBaseOption'
 import WeaponTable from './WeaponTable.vue'
 
-interface Props {
+interface Props extends TableBaseOption {
   longSwords: LongSword[]
-  selectedSharpness?: SharpnessType
-  criticalBonus?: number
-  hasCriticalBoost?: boolean
-  hasMadAffinity?: boolean
-  attackModifiers?: AttackBuffs
-  sharpnessMultiplier?: number
 }
 
 withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
-  criticalBonus: 0,
-  hasCriticalBoost: false,
-  hasMadAffinity: false,
+  criticalBuffs: () => ({
+    criticalBonus: 0,
+    hasCriticalBoost: false,
+    hasMadAffinity: false,
+  }),
   attackModifiers: () => ({
     powerCharm: false,
     powerTalon: false,
@@ -34,9 +29,7 @@ withDefaults(defineProps<Props>(), {
   <WeaponTable
     :weapons="longSwords"
     :selected-sharpness="selectedSharpness"
-    :critical-bonus="criticalBonus"
-    :has-critical-boost="hasCriticalBoost"
-    :has-mad-affinity="hasMadAffinity"
+    :critical-buffs="criticalBuffs"
     :attack-modifiers="attackModifiers"
     :sharpness-multiplier="sharpnessMultiplier"
   />

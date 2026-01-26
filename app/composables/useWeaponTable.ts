@@ -1,21 +1,16 @@
 import { ref, computed, type Ref } from 'vue'
 import type { WeaponMelee } from '~/types/weapons'
-import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
+import type { TableBaseOption, SharpnessType } from '~/types/tableBaseOption'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
 
-export type SharpnessType = 'normal' | 'plus1' | 'plus2'
+// SharpnessType を再エクスポート（後方互換性のため）
+export type { SharpnessType }
 export type SortKey = 'expected' | 'attack' | 'defense' | 'slots' | 'affinity' | null
 export type SortOrder = 'asc' | 'desc'
 
-export interface UseWeaponTableProps<T extends WeaponMelee> {
+export interface UseWeaponTableProps<T extends WeaponMelee> extends TableBaseOption {
   weapons: T[]
-  selectedSharpness?: SharpnessType
-  criticalBonus?: number
-  hasCriticalBoost?: boolean
-  hasMadAffinity?: boolean
-  attackModifiers?: AttackBuffs
-  sharpnessMultiplier?: number
 }
 
 export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps<T>) {
@@ -86,7 +81,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
 
   // 会心率を計算（元の会心率 + 会心補正）
   const calculateAffinity = (weapon: T): number => {
-    return weapon.affinity + (props.criticalBonus ?? 0)
+    return weapon.affinity + (props.criticalBuffs?.criticalBonus ?? 0)
   }
 
   // 期待値を計算
@@ -94,14 +89,14 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     // 補正済みの攻撃力を計算
     const attackWithBuffs = getAttackWithBuffs(weapon)
     // 会心補正
-    const totalCriticalBonus = props.criticalBonus ?? 0
+    const totalCriticalBonus = props.criticalBuffs?.criticalBonus ?? 0
     return calculateExpectedValue(
       attackWithBuffs,
       weapon as any, // HuntingHorn として扱う（LongSword の場合は後で対応）
       props.selectedSharpness ?? 'normal',
       totalCriticalBonus,
-      props.hasCriticalBoost ?? false,
-      props.hasMadAffinity ?? false,
+      props.criticalBuffs?.hasCriticalBoost ?? false,
+      props.criticalBuffs?.hasMadAffinity ?? false,
       props.sharpnessMultiplier ?? 1.0
     )
   }

@@ -1,24 +1,20 @@
 <script setup lang="ts" generic="T extends WeaponMelee">
 import type { WeaponMelee } from '~/types/weapons'
-import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
-import { useWeaponTable, type SharpnessType } from '~/composables/useWeaponTable'
+import type { TableBaseOption } from '~/types/tableBaseOption'
+import { useWeaponTable } from '~/composables/useWeaponTable'
 import WeaponTableRow from './WeaponTableRow.vue'
 
-interface Props {
+interface Props extends TableBaseOption {
   weapons: T[]
-  selectedSharpness?: SharpnessType
-  criticalBonus?: number
-  hasCriticalBoost?: boolean
-  hasMadAffinity?: boolean
-  attackModifiers?: AttackBuffs
-  sharpnessMultiplier?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
-  criticalBonus: 0,
-  hasCriticalBoost: false,
-  hasMadAffinity: false,
+  criticalBuffs: () => ({
+    criticalBonus: 0,
+    hasCriticalBoost: false,
+    hasMadAffinity: false,
+  }),
   attackModifiers: () => ({
     powerCharm: false,
     powerTalon: false,
@@ -103,7 +99,7 @@ const {
           :show-base-attack="isShowBaseAttack(weapon)"
           :affinity="calculateAffinity(weapon)"
           :base-affinity="weapon.affinity"
-          :show-base-affinity="criticalBonus !== 0"
+          :show-base-affinity="(criticalBuffs?.criticalBonus ?? 0) !== 0"
           :selected-sharpness="selectedSharpness"
           :bludgeoner="attackModifiers.bludgeoner"
         >
