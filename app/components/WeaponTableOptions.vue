@@ -1,7 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import type { TableBaseOption, CriticalMelody } from '~/types/tableBaseOption'
 import type { AttackMelody } from '~/types/attackBuff/attackBuffs'
+import {
+  calculateCriticalBonus,
+  calculateAttackMelodyMultiplier,
+  calculateCriticalMelodyBonus,
+  calculateSharpnessMultiplier,
+  calculateTotalAttackAdd,
+  calculateTotalAttackMultiply,
+  calculateActiveSkills,
+  getChallengeSkillCriticalBonus,
+} from '~/types/tableBaseOption'
 import {
   getPreparedBuffValue,
   getAttackSkillValue,
@@ -10,7 +20,6 @@ import {
   getHunterSkillValue,
   getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
-import { getChallengeSkillCriticalBonus } from '~/types/tableBaseOption'
 import SelectOption from './SelectOption.vue'
 
 interface Props {
@@ -35,6 +44,170 @@ const options = computed({
 // 各プロパティへのアクセスを簡潔にするための computed
 const attackModifiers = computed(() => options.value.attackModifiers ?? {})
 const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
+
+// 会心補正値を自動計算して更新
+watch(
+  [
+    () => options.value.criticalEye,
+    () => options.value.hasWeaknessExploit,
+    () => options.value.repeatOffensive,
+    () => attackModifiers.value.challengeSkill,
+    () => attackModifiers.value.shortTermBuff,
+  ],
+  () => {
+    const calculatedBonus = calculateCriticalBonus(options.value)
+    const currentBonus = options.value.criticalBuffs?.criticalBonus ?? 0
+    if (currentBonus !== calculatedBonus) {
+      options.value = {
+        ...options.value,
+        criticalBuffs: {
+          ...(options.value.criticalBuffs ?? {}),
+          criticalBonus: calculatedBonus,
+        },
+      }
+    }
+  },
+  { immediate: true }
+)
+
+// 攻撃旋律の倍率を自動計算して更新
+watch(
+  [() => options.value.attackMelody, () => attackModifiers.value.attackMelody],
+  () => {
+    const calculatedMultiplier = calculateAttackMelodyMultiplier(options.value)
+    const currentMultiplier = options.value.attackMelodyMultiplier ?? 1.0
+    if (currentMultiplier !== calculatedMultiplier) {
+      options.value = {
+        ...options.value,
+        attackMelodyMultiplier: calculatedMultiplier,
+        attackModifiers: {
+          ...attackModifiers.value,
+          attackMelodyMultiplier: calculatedMultiplier,
+        },
+      }
+    }
+  },
+  { immediate: true }
+)
+
+// 会心強化旋律の補正値を自動計算して更新
+watch(
+  () => options.value.criticalMelody,
+  () => {
+    const calculatedBonus = calculateCriticalMelodyBonus(options.value)
+    const currentBonus = options.value.criticalMelodyBonus ?? 0
+    if (currentBonus !== calculatedBonus) {
+      options.value = {
+        ...options.value,
+        criticalMelodyBonus: calculatedBonus,
+      }
+    }
+  },
+  { immediate: true }
+)
+
+// 切れ味補正倍率を自動計算して更新
+watch(
+  () => attackModifiers.value.shortTermBuff,
+  () => {
+    const calculatedMultiplier = calculateSharpnessMultiplier(options.value)
+    const currentMultiplier = options.value.sharpnessMultiplier ?? 1.0
+    if (currentMultiplier !== calculatedMultiplier) {
+      options.value = {
+        ...options.value,
+        sharpnessMultiplier: calculatedMultiplier,
+      }
+    }
+  },
+  { immediate: true }
+)
+
+// 攻撃力加算バフの合計を自動計算して更新
+watch(
+  [
+    () => attackModifiers.value.powerCharm,
+    () => attackModifiers.value.powerTalon,
+    () => attackModifiers.value.preparedBuff,
+    () => attackModifiers.value.shortTermBuff,
+    () => attackModifiers.value.shortHypnosis,
+    () => attackModifiers.value.attackSkill,
+    () => attackModifiers.value.challengeSkill,
+    () => attackModifiers.value.hunterSkill,
+    () => attackModifiers.value.resuscitate,
+    () => attackModifiers.value.resentment,
+  ],
+  () => {
+    const calculatedTotal = calculateTotalAttackAdd(options.value)
+    const currentTotal = options.value.totalAttackAdd ?? 0
+    if (currentTotal !== calculatedTotal) {
+      options.value = {
+        ...options.value,
+        totalAttackAdd: calculatedTotal,
+      }
+    }
+  },
+  { immediate: true }
+)
+
+// 攻撃力倍率（乗算バフ）の合計を自動計算して更新
+watch(
+  [
+    () => attackModifiers.value.adrenaline,
+    () => attackModifiers.value.fortify,
+    () => attackModifiers.value.dragonInstinct,
+    () => options.value.attackMelody,
+    () => attackModifiers.value.attackMelody,
+    () => options.value.attackMelodyMultiplier,
+    () => attackModifiers.value.attackMelodyMultiplier,
+  ],
+  () => {
+    const calculatedMultiplier = calculateTotalAttackMultiply(options.value)
+    const currentMultiplier = options.value.totalAttackMultiply ?? 1.0
+    if (currentMultiplier !== calculatedMultiplier) {
+      options.value = {
+        ...options.value,
+        totalAttackMultiply: calculatedMultiplier,
+      }
+    }
+  },
+  { immediate: true }
+)
+
+// 発動スキルのリストを自動計算して更新
+watch(
+  [
+    () => attackModifiers.value.attackSkill,
+    () => attackModifiers.value.challengeSkill,
+    () => attackModifiers.value.hunterSkill,
+    () => attackModifiers.value.bludgeoner,
+    () => attackModifiers.value.resuscitate,
+    () => attackModifiers.value.resentment,
+    () => attackModifiers.value.adrenaline,
+    () => attackModifiers.value.fortify,
+    () => attackModifiers.value.dragonInstinct,
+    () => options.value.hasWeaknessExploit,
+    () => options.value.repeatOffensive,
+    () => options.value.criticalEye,
+    () => options.value.criticalBuffs?.hasCriticalBoost,
+    () => options.value.criticalBuffs?.hasMadAffinity,
+    () => options.value.selectedSharpness,
+  ],
+  () => {
+    const calculatedSkills = calculateActiveSkills(options.value)
+    const currentSkills = options.value.activeSkills ?? []
+    // 配列の比較（順序も考慮）
+    if (
+      currentSkills.length !== calculatedSkills.length ||
+      !currentSkills.every((skill, index) => skill === calculatedSkills[index])
+    ) {
+      options.value = {
+        ...options.value,
+        activeSkills: calculatedSkills,
+      }
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
