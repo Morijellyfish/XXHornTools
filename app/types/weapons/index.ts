@@ -4,3 +4,4 @@ export type { WeaponMelee } from './weaponMelee'
 
 // 武器型
 export type { HuntingHorn } from './huntingHorn'
+export type { LongSword } from './longSword'

@@ -1,4 +1,4 @@
-import type { LongSword } from '~/types/longSword'
+import type { LongSword } from '~/types/weapons'
 import { SharpnessColor } from '~/types/sharpness'
 
 export const longSwordsRX: LongSword[] = [

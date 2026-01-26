@@ -9,7 +9,7 @@ import { longSwordsR8 } from './longSword-r8'
 import { longSwordsR9 } from './longSword-r9'
 import { longSwordsR10 } from './longSword-r10'
 import { longSwordsRX } from './longSword-rx'
-import type { LongSword } from '~/types/longSword'
+import type { LongSword } from '~/types/weapons'
 
 // 全レア度の太刀データを統合
 export const allLongSwords: LongSword[] = [
