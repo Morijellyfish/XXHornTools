@@ -1,0 +1,245 @@
+import type { LongSword } from '~/types/longSword'
+import { SharpnessColor } from '~/types/sharpness'
+
+export const longSwordsR2: LongSword[] = [
+  {
+    name: '黒刀【参ノ型】9',
+    attack: 280,
+    defense: 10,
+    slots: 3,
+    affinity: 15,
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 30 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: 'キングビートセイバー6',
+    attack: 280,
+    defense: 20,
+    slots: 3,
+    affinity: 0,
+    statusAilment: {
+      type: '爆破',
+      value: 18,
+    },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: 'オメガニャイフ・熟成7',
+    attack: 290,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 50 },
+      plus1: { color: SharpnessColor.Purple, length: 50 },
+      plus2: { color: SharpnessColor.Purple, length: 50 },
+    },
+  },
+  {
+    name: '大雲羊鹿杖【夢破】6',
+    attack: 290,
+    defense: 0,
+    slots: 0,
+    affinity: 40,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: '無明刀【空諦】8',
+    attack: 290,
+    defense: 0,
+    slots: 2,
+    affinity: 45,
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 20 },
+      plus1: { color: SharpnessColor.Purple, length: 20 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: 'コイルドラックネイル7',
+    attack: 300,
+    defense: 10,
+    slots: 1,
+    affinity: 0,
+    statusAilment: {
+      type: '麻痺',
+      value: 17,
+    },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 30 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.White, length: 40 },
+    },
+  },
+  {
+    name: 'セフィーロ7',
+    attack: 300,
+    defense: 0,
+    slots: 3,
+    affinity: 15,
+    element: {
+      type: '火',
+      value: 22,
+    },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.White, length: 90 },
+    },
+  },
+  {
+    name: '鬼神斬破刀9',
+    attack: 300,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    element: {
+      type: '雷',
+      value: 56,
+    },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 50 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
+    },
+  },
+  {
+    name: '白猿薙【ドドドド】7',
+    attack: 310,
+    defense: 0,
+    slots: 0,
+    affinity: 15,
+    element: {
+      type: '氷',
+      value: 42,
+    },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 15 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
+    },
+  },
+  {
+    name: 'ヴァッサーファロス8',
+    attack: 320,
+    defense: 20,
+    slots: 2,
+    affinity: 0,
+    element: {
+      type: '水',
+      value: 26,
+    },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 15 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
+    },
+  },
+  {
+    name: 'ギガンテスカッター8',
+    attack: 320,
+    defense: 42,
+    slots: 2,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: '怨毒の大鎌威太刀6',
+    attack: 330,
+    defense: 0,
+    slots: 0,
+    affinity: -10,
+    statusAilment: {
+      type: '毒',
+      value: 28,
+    },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: '六花垂氷丸【瑞雪】7',
+    attack: 330,
+    defense: 0,
+    slots: 0,
+    affinity: 0,
+    element: {
+      type: '氷',
+      value: 36,
+    },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.White, length: 55 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: 'ヒキサキマクリ7',
+    attack: 340,
+    defense: 0,
+    slots: 1,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 60 },
+      plus1: { color: SharpnessColor.White, length: 85 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: '白兎棘刃イナバ9',
+    attack: 340,
+    defense: 0,
+    slots: 0,
+    affinity: -10,
+    element: {
+      type: '氷',
+      value: 38,
+    },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: '無双の骨刀9',
+    attack: 350,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.Green, length: 150 },
+      plus1: { color: SharpnessColor.Blue, length: 15 },
+      plus2: { color: SharpnessColor.Blue, length: 40 },
+    },
+  },
+  {
+    name: '鋸斬り匕首【直参】8',
+    attack: 350,
+    defense: 0,
+    slots: 1,
+    affinity: -10,
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 70 },
+      plus1: { color: SharpnessColor.White, length: 25 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
+    },
+  },
+]
