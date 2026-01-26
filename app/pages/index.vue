@@ -22,7 +22,7 @@ const tools: Tool[] = [
     description:
       'モンスターハンターXXの狩猟笛のステータスを比較し、様々なバフやスキルを組み合わせた際の期待値を計算できます。',
     icon: 'i-lucide-music',
-    to: '/horns',
+    to: '/huntingHorns',
     status: 'available',
     color: 'primary',
   },

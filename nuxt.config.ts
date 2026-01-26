@@ -16,7 +16,8 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/': { prerender: true },
-    '/horns': { prerender: true },
+    '/huntingHorns': { prerender: true },
+    '/longSwords': { prerender: true },
   },
 
   compatibilityDate: '2025-01-15',
@@ -24,7 +25,7 @@ export default defineNuxtConfig({
   // 静的サイト生成（SSG）の設定
   nitro: {
     prerender: {
-      routes: ['/', '/horns'],
+      routes: ['/', '/huntingHorns', '/longSwords'],
       crawlLinks: true,
     },
   },
