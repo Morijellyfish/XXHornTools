@@ -2,13 +2,13 @@
  * グループH: 狩猟笛旋律
  */
 import { attackBuff } from './attackBuff'
-import type { Horn } from '~/types/horn'
+import type { HuntingHorn } from '~/types/weapons'
 
 export class attackBuffH extends attackBuff {
   private attackMelody?: AttackMelody
-  private horn?: Horn
+  private horn?: HuntingHorn
 
-  constructor(attackMelody?: AttackMelody, horn?: Horn) {
+  constructor(attackMelody?: AttackMelody, horn?: HuntingHorn) {
     super('weapon_multiplier_multiply', 'H')
     this.attackMelody = attackMelody
     this.horn = horn

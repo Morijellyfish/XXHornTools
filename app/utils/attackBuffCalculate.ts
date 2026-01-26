@@ -1,6 +1,6 @@
 import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
 import type { attackBuff } from '~/types/attackBuff/attackBuff'
-import type { Horn } from '~/types/horn'
+import type { HuntingHorn } from '~/types/weapons'
 import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
 import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
 import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
@@ -22,7 +22,7 @@ type SharpnessType = 'normal' | 'plus1' | 'plus2'
 export const calculateAttackWithBuffs = (
   baseAttack: number,
   modifiers: AttackBuffs,
-  horn?: Horn,
+  horn?: HuntingHorn,
   selectedSharpness?: SharpnessType
 ): number => {
   const allModifiers: attackBuff[] = []

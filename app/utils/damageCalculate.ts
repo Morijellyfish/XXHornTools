@@ -1,4 +1,4 @@
-import type { Horn } from '~/types/horn'
+import type { HuntingHorn } from '~/types/weapons'
 import { SHARPNESS_MULTIPLIERS, type SharpnessColor } from '~/types/sharpness'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -74,7 +74,7 @@ const calculateCritical = (
  */
 export const calculateExpectedValue = (
   attack: number,
-  horn: Horn,
+  horn: HuntingHorn,
   selectedSharpness: SharpnessType,
   criticalBonus: number,
   hasCriticalBoost: boolean,

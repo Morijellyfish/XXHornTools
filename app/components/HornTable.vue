@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Horn } from '~/types/horn'
+import type { HuntingHorn } from '~/types/weapons'
 import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
@@ -10,7 +10,7 @@ type SharpnessType = 'normal' | 'plus1' | 'plus2'
 type CriticalMelody = 'none' | '15' | '20' | 'horn'
 
 interface Props {
-  horns: Horn[]
+  horns: HuntingHorn[]
   selectedSharpness?: SharpnessType
   criticalBonus?: number
   hasCriticalBoost?: boolean
@@ -110,7 +110,7 @@ const getSortIcon = (key: SortKey): string => {
 }
 
 // 会心強化旋律の補正値を取得（criticalMelodyの設定を考慮）
-const getCriticalMelodyBonus = (horn: Horn): number => {
+const getCriticalMelodyBonus = (horn: HuntingHorn): number => {
   // 笛依存の場合は、各狩猟笛の旋律を確認
   if (props.criticalMelody === 'horn') {
     return horn.notes.getMaxMelodyBonus_Critical()
@@ -120,13 +120,13 @@ const getCriticalMelodyBonus = (horn: Horn): number => {
 }
 
 // 会心率を計算（元の会心率 + 会心補正 + 会心強化旋律）
-const calculateAffinity = (horn: Horn): number => {
+const calculateAffinity = (horn: HuntingHorn): number => {
   const criticalMelodyBonus = getCriticalMelodyBonus(horn)
   return horn.affinity + props.criticalBonus + criticalMelodyBonus
 }
 
 // 期待値を計算
-const getExpectedValue = (horn: Horn): number => {
+const getExpectedValue = (horn: HuntingHorn): number => {
   // 補正済みの攻撃力を計算
   const attackWithBuffs = getAttackWithBuffs(horn)
   // 会心補正（会心補正 + 会心強化旋律）
@@ -144,7 +144,7 @@ const getExpectedValue = (horn: Horn): number => {
 }
 
 // 攻撃旋律の倍率を取得（attackMelodyの設定を考慮）
-const getAttackMelodyMultiplier = (horn: Horn): number => {
+const getAttackMelodyMultiplier = (horn: HuntingHorn): number => {
   if (props.attackModifiers.attackMelody !== 'horn') {
     return props.attackModifiers.attackMelodyMultiplier ?? 1.0
   }
@@ -152,12 +152,12 @@ const getAttackMelodyMultiplier = (horn: Horn): number => {
 }
 
 // 補正済みの攻撃力を計算
-const getAttackWithBuffs = (horn: Horn): number => {
+const getAttackWithBuffs = (horn: HuntingHorn): number => {
   return calculateAttackWithBuffs(horn.attack, props.attackModifiers, horn, props.selectedSharpness)
 }
 
 // 元の攻撃力を括弧で表示するかどうかを判定
-const isShowBaseAttack = (horn: Horn): boolean => {
+const isShowBaseAttack = (horn: HuntingHorn): boolean => {
   // 力の解放は攻撃力補正がないため除外
   const challengeSkill = props.attackModifiers.challengeSkill
   const hasAttackBuffFromChallengeSkill =

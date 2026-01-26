@@ -1,8 +1,8 @@
-import type { Horn } from '~/types/horn'
+import type { HuntingHorn } from '~/types/weapons'
 import { SharpnessColor } from '~/types/sharpness'
 import { Notes } from '~/types/notes'
 
-export const hornsR7: Horn[] = [
+export const hornsR7: HuntingHorn[] = [
   {
     name: '赫醒笛エディウス6',
     attack: 280,

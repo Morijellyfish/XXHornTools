@@ -8,10 +8,10 @@ import { hornsR7 } from './horns-r7'
 import { hornsR8 } from './horns-r8'
 import { hornsR10 } from './horns-r10'
 import { hornsRX } from './horns-rX'
-import type { Horn } from '~/types/horn'
+import type { HuntingHorn } from '~/types/weapons'
 
 // 全レア度の狩猟笛データを統合
-export const allHorns: Horn[] = [
+export const allHorns: HuntingHorn[] = [
   ...hornsR1,
   ...hornsR2,
   ...hornsR3,

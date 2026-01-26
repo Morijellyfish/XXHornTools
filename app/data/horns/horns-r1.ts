@@ -1,4 +1,4 @@
-import type { Horn } from '~/types/horn'
+import type { Horn } from '~/types/weapons'
 import { SharpnessColor } from '~/types/sharpness'
 import { Notes } from '~/types/notes'
 

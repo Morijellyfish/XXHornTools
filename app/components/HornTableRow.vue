@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Horn } from '~/types/horn'
+import type { HuntingHorn } from '~/types/weapons'
 import type { Note } from '~/types/notes'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import type { AttackMelody } from '~/types/attackBuff/attackBuffs'
@@ -9,7 +9,7 @@ type SharpnessType = 'normal' | 'plus1' | 'plus2'
 type CriticalMelody = 'none' | '15' | '20' | 'horn'
 
 interface Props {
-  horn: Horn
+  horn: HuntingHorn
   expectedValue: number
   attackWithBuffs: number
   baseAttack: number
@@ -34,7 +34,7 @@ const getNoteColor = (note: Note): string => {
 }
 
 // 属性・状態異常を文字列で表示
-const formatElementOrStatus = (horn: Horn): string => {
+const formatElementOrStatus = (horn: HuntingHorn): string => {
   if (horn.element) {
     return `${horn.element.type}${horn.element.value}`
   }
