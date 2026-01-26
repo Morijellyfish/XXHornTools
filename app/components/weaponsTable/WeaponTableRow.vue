@@ -1,6 +1,5 @@
 <script setup lang="ts" generic="T extends WeaponMelee">
 import type { WeaponMelee } from '~/types/weapons'
-import type { AttackMelody } from '~/types/attackBuff/attackBuffs'
 import { getSharpnessColor, SharpnessColor } from '~/types/sharpness'
 import type { SharpnessType } from '~/composables/useWeaponTable'
 

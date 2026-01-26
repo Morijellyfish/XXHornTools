@@ -7,7 +7,7 @@ interface Props extends TableBaseOption {
   longSwords: LongSword[]
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
   criticalBuffs: () => ({
     criticalBonus: 0,
@@ -27,10 +27,10 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <WeaponTable
-    :weapons="longSwords"
-    :selected-sharpness="selectedSharpness"
-    :critical-buffs="criticalBuffs"
-    :attack-modifiers="attackModifiers"
-    :sharpness-multiplier="sharpnessMultiplier"
+    :weapons="props.longSwords"
+    :selected-sharpness="props.selectedSharpness"
+    :critical-buffs="props.criticalBuffs"
+    :attack-modifiers="props.attackModifiers"
+    :sharpness-multiplier="props.sharpnessMultiplier"
   />
 </template>

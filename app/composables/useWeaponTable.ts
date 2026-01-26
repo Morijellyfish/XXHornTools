@@ -1,5 +1,5 @@
-import { ref, computed, type Ref } from 'vue'
-import type { WeaponMelee } from '~/types/weapons'
+import { ref, computed } from 'vue'
+import type { WeaponMelee, HuntingHorn } from '~/types/weapons'
 import type { TableBaseOption, SharpnessType } from '~/types/tableBaseOption'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
@@ -92,7 +92,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     const totalCriticalBonus = props.criticalBuffs?.criticalBonus ?? 0
     return calculateExpectedValue(
       attackWithBuffs,
-      weapon as any, // HuntingHorn として扱う（LongSword の場合は後で対応）
+      weapon as unknown as HuntingHorn, // HuntingHorn として扱う（LongSword の場合は後で対応）
       props.selectedSharpness ?? 'normal',
       totalCriticalBonus,
       props.criticalBuffs?.hasCriticalBoost ?? false,
@@ -106,13 +106,13 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return calculateAttackWithBuffs(
       weapon.attack,
       props.attackModifiers ?? {},
-      weapon as any, // HuntingHorn として扱う（LongSword の場合は後で対応）
+      weapon as unknown as HuntingHorn, // HuntingHorn として扱う（LongSword の場合は後で対応）
       props.selectedSharpness ?? 'normal'
     )
   }
 
   // 元の攻撃力を括弧で表示するかどうかを判定
-  const isShowBaseAttack = (weapon: T): boolean => {
+  const isShowBaseAttack = (_weapon: T): boolean => {
     const modifiers = props.attackModifiers ?? {}
     // 力の解放は攻撃力補正がないため除外
     const challengeSkill = modifiers.challengeSkill
@@ -138,7 +138,9 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       (modifiers.resentment ?? false) ||
       (modifiers.fortify && modifiers.fortify !== 'none') ||
       (modifiers.dragonInstinct ?? false) ||
-      (modifiers.attackMelody && modifiers.attackMelody !== 'none' && (modifiers.attackMelodyMultiplier ?? 1.0) !== 1.0)
+      (modifiers.attackMelody &&
+        modifiers.attackMelody !== 'none' &&
+        (modifiers.attackMelodyMultiplier ?? 1.0) !== 1.0)
     )
   }
 

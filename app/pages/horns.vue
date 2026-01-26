@@ -2,20 +2,13 @@
 import { allHorns } from '~/data/horns'
 import { melodyNames } from '~/data/melodies'
 import { ref, computed } from 'vue'
+import type { TableBaseOption } from '~/types/tableBaseOption'
+import { getChallengeSkillCriticalBonus } from '~/types/tableBaseOption'
 import type {
   AttackSkill,
-  AttackMelody,
-  PreparedBuff,
-  ShortTermBuff,
-  ShortHypnosis,
-  Adrenaline,
   ChallengeSkill,
   HunterSkill,
-  Bludgeoner,
-  Resuscitate,
-  Resentment,
   Fortify,
-  DragonInstinct,
 } from '~/types/attackBuff/attackBuffs'
 import {
   getPreparedBuffValue,
@@ -26,70 +19,49 @@ import {
   getHunterSkillValue,
   getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
-import SelectOption from '~/components/SelectOption.vue'
+import WeaponTableOptions from '~/components/WeaponTableOptions.vue'
 import MelodyFilter from '~/components/MelodyFilter.vue'
+import HornTable from '~/components/weaponsTable/HornTable.vue'
 
 useHead({
   title: '狩猟笛比較表',
 })
 
-// 事前準備
-const powerCharm = ref(false) // 力の護符（グループA）
-const powerTalon = ref(false) // 力の爪（グループB）
-const preparedBuff = ref<PreparedBuff>('none') // 鬼人薬・食事効果（グループC）
-const shortHypnosis = ref<ShortHypnosis>(false) // 短期催眠術（グループE）
-
-// 短期バフ
-const shortTermBuff = ref<ShortTermBuff>('none') // 短期バフ（グループD）
-
-// 攻撃スキル
-const attackSkill = ref<AttackSkill>('none')
-
-// 挑戦者・フルチャージ・力の解放
-const challengeSkill = ref<ChallengeSkill>('none') // 挑戦者・フルチャージ・力の解放（グループJ）
-
-// 北風/南風
-const hunterSkill = ref<HunterSkill>('none')
-
-// 鈍器使い
-const bludgeoner = ref<Bludgeoner>(false) // 鈍器使い（グループL）
-
-// 死中に活
-const resuscitate = ref<Resuscitate>(false) // 死中に活（グループM）
-
-// 逆恨み
-const resentment = ref<Resentment>(false) // 逆恨み（グループN）
-
-// 火事場系
-const adrenaline = ref<Adrenaline>('none') // 火事場力（グループG）
-const fortify = ref<Fortify>('none') // 不屈（グループI）
-const dragonInstinct = ref<DragonInstinct>(false) // 龍気活性（グループO）
-
-// 切れ味選択（通常、匠1、匠2）
-type SharpnessType = 'normal' | 'plus1' | 'plus2'
-const selectedSharpness = ref<SharpnessType>('normal')
-
-// 弱点特攻
-const hasWeaknessExploit = ref(false)
-
-// 連撃
-type RepeatOffensive = 'none' | '25' | '30'
-const repeatOffensive = ref<RepeatOffensive>('none')
-
-// 見切り（会心率）
-const criticalEye = ref(0)
-
-// 超会心
-const hasCriticalBoost = ref(false)
-
-// 裏会心
-const hasMadAffinity = ref(false)
-
-// 旋律オプション
-const attackMelody = ref<AttackMelody>('none')
-
-type CriticalMelody = 'none' | '15' | '20' | 'horn'
-const criticalMelody = ref<CriticalMelody>('none')
+// TableBaseOption にすべてのオプションを集約
+const tableOptions = ref<TableBaseOption>({
+  selectedSharpness: 'normal',
+  criticalBuffs: {
+    criticalBonus: 0,
+    hasCriticalBoost: false,
+    hasMadAffinity: false,
+  },
+  attackModifiers: {
+    powerCharm: false,
+    powerTalon: false,
+    preparedBuff: 'none',
+    shortTermBuff: 'none',
+    shortHypnosis: false,
+    attackSkill: 'none',
+    challengeSkill: 'none',
+    hunterSkill: 'none',
+    bludgeoner: false,
+    resuscitate: false,
+    resentment: false,
+    adrenaline: 'none',
+    fortify: 'none',
+    dragonInstinct: false,
+    attackMelody: 'none',
+    attackMelodyMultiplier: 1.0,
+  },
+  sharpnessMultiplier: 1.0,
+  hasWeaknessExploit: false,
+  repeatOffensive: 'none',
+  criticalEye: 0,
+  criticalMelody: 'none',
+  criticalMelodyBonus: 0,
+  attackMelody: 'none',
+  attackMelodyMultiplier: 1.0,
+})
 
 // フィルター: 旋律
 const selectedMelodyNames = ref<Set<string>>(new Set())
@@ -108,7 +80,7 @@ const toggleMelodyHighlight = (melodyName: string) => {
 }
 
 // 会心補正を計算
-const calculateCriticalBonus = (): number => {
+const calculateCriticalBonus = computed((): number => {
   let bonus = 0
   // 見切りの補正
   const criticalEyeBonus: Record<number, number> = {
@@ -121,55 +93,41 @@ const calculateCriticalBonus = (): number => {
     3: 30,
   }
 
-  bonus += criticalEyeBonus[criticalEye.value] ?? 0
+  bonus += criticalEyeBonus[tableOptions.value.criticalEye ?? 0] ?? 0
 
   // 弱点特攻の補正
-  if (hasWeaknessExploit.value) {
+  if (tableOptions.value.hasWeaknessExploit) {
     bonus += 50
   }
 
   // 連撃の補正
-  if (repeatOffensive.value === '25') {
+  if (tableOptions.value.repeatOffensive === '25') {
     bonus += 25
-  } else if (repeatOffensive.value === '30') {
+  } else if (tableOptions.value.repeatOffensive === '30') {
     bonus += 30
   }
 
   // 挑戦者・フルチャージ・力の解放の補正
-  bonus += getChallengeSkillCriticalBonus(challengeSkill.value)
+  bonus += getChallengeSkillCriticalBonus(
+    (tableOptions.value.attackModifiers?.challengeSkill ?? 'none') as ChallengeSkill
+  )
 
   // 短期バフの補正（鬼人会心弾）
-  if (shortTermBuff.value === 'demonCriticalBullet') {
+  if (tableOptions.value.attackModifiers?.shortTermBuff === 'demonCriticalBullet') {
     bonus += 10 // 鬼人会心弾: 会心率+10%
   }
 
   return bonus
-}
+})
 
-// 挑戦者・フルチャージ・力の解放の会心率補正値を取得
-const getChallengeSkillCriticalBonus = (skill: ChallengeSkill): number => {
-  switch (skill) {
-    case 'challenger1':
-      return 10 // 挑戦者+1: 会心率+10%
-    case 'challenger2':
-      return 15 // 挑戦者+2: 会心率+15%
-    case 'latentPower1':
-      return 30 // 力の解放+1: 会心率+30%
-    case 'latentPower2':
-      return 50 // 力の解放+2: 会心率+50%
-    case 'peakPerformance':
-    case 'none':
-    default:
-      return 0
-  }
-}
-
-// 会心補正値を計算
-const criticalBonus = computed(() => calculateCriticalBonus())
+// 会心補正値を計算（criticalBuffsに反映）
+const criticalBonus = computed(() => calculateCriticalBonus.value)
 
 // 攻撃旋律の倍率を計算（固定値の場合のみ）
 const attackMelodyMultiplier = computed(() => {
-  switch (attackMelody.value) {
+  const attackMelody =
+    tableOptions.value.attackMelody ?? tableOptions.value.attackModifiers?.attackMelody ?? 'none'
+  switch (attackMelody) {
     case '1.10':
       return 1.1
     case '1.15':
@@ -183,7 +141,7 @@ const attackMelodyMultiplier = computed(() => {
 
 // 会心強化旋律の補正値を計算（固定値の場合のみ）
 const criticalMelodyBonus = computed(() => {
-  switch (criticalMelody.value) {
+  switch (tableOptions.value.criticalMelody) {
     case '15':
       return 15
     case '20':
@@ -193,46 +151,57 @@ const criticalMelodyBonus = computed(() => {
   }
 })
 
+// criticalBuffsを更新（criticalBonusを反映）
+const criticalBuffs = computed(() => ({
+  ...tableOptions.value.criticalBuffs,
+  criticalBonus: criticalBonus.value,
+}))
+
 // 攻撃力加算バフの合計を計算
 const totalAttackAdd = computed(() => {
+  const modifiers = tableOptions.value.attackModifiers ?? {}
   let total = 0
-  if (powerCharm.value) total += 6 // 力の護符
-  if (powerTalon.value) total += 9 // 力の爪
-  if (preparedBuff.value !== 'none') {
-    total += getPreparedBuffValue(preparedBuff.value)
+  if (modifiers.powerCharm) total += 6 // 力の護符
+  if (modifiers.powerTalon) total += 9 // 力の爪
+  if (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') {
+    total += getPreparedBuffValue(modifiers.preparedBuff)
   }
-  if (shortTermBuff.value !== 'none') {
-    total += getShortTermBuffValue(shortTermBuff.value)
+  if (modifiers.shortTermBuff && modifiers.shortTermBuff !== 'none') {
+    total += getShortTermBuffValue(modifiers.shortTermBuff)
   }
-  if (shortHypnosis.value) total += 3 // 短期催眠術
-  if (attackSkill.value !== 'none') {
-    total += getAttackSkillValue(attackSkill.value)
+  if (modifiers.shortHypnosis) total += 3 // 短期催眠術
+  if (modifiers.attackSkill && modifiers.attackSkill !== 'none') {
+    total += getAttackSkillValue(modifiers.attackSkill)
   }
-  const challengeSkillValue = getChallengeSkillValue(challengeSkill.value)
+  const challengeSkillValue = getChallengeSkillValue(
+    (modifiers.challengeSkill ?? 'none') as ChallengeSkill
+  )
   if (challengeSkillValue > 0) {
     total += challengeSkillValue
   }
-  if (hunterSkill.value !== 'none') {
-    total += getHunterSkillValue(hunterSkill.value)
+  if (modifiers.hunterSkill && modifiers.hunterSkill !== 'none') {
+    total += getHunterSkillValue(modifiers.hunterSkill)
   }
-  if (resuscitate.value) total += 20 // 死中に活
-  if (resentment.value) total += 20 // 逆恨み
+  if (modifiers.resuscitate) total += 20 // 死中に活
+  if (modifiers.resentment) total += 20 // 逆恨み
   return total
 })
 
 // 攻撃力倍率（乗算バフ）の合計を計算
 const totalAttackMultiply = computed(() => {
+  const modifiers = tableOptions.value.attackModifiers ?? {}
   let multiplier = 1.0
-  if (adrenaline.value !== 'none') {
-    multiplier *= getAdrenalineMultiplier(adrenaline.value)
+  if (modifiers.adrenaline && modifiers.adrenaline !== 'none') {
+    multiplier *= getAdrenalineMultiplier(modifiers.adrenaline)
   }
-  if (fortify.value !== 'none') {
-    multiplier *= getFortifyMultiplier(fortify.value)
+  if (modifiers.fortify && modifiers.fortify !== 'none') {
+    multiplier *= getFortifyMultiplier(modifiers.fortify)
   }
-  if (dragonInstinct.value) {
+  if (modifiers.dragonInstinct) {
     multiplier *= 1.1 // 龍気活性
   }
-  if (attackMelody.value !== 'none' && attackMelody.value !== 'horn') {
+  const attackMelody = tableOptions.value.attackMelody ?? modifiers.attackMelody ?? 'none'
+  if (attackMelody !== 'none' && attackMelody !== 'horn') {
     multiplier *= attackMelodyMultiplier.value
   }
   // 鈍器使いと攻撃旋律（horn）は笛依存のため、ここでは計算しない
@@ -244,11 +213,18 @@ const totalCriticalBonus = computed(() => {
   return criticalBonus.value + criticalMelodyBonus.value
 })
 
+// 切れ味補正倍率を計算
+const sharpnessMultiplier = computed(() => {
+  const shortTermBuff = tableOptions.value.attackModifiers?.shortTermBuff
+  return shortTermBuff === 'demonBullet' || shortTermBuff === 'demonCriticalBullet' ? 1.1 : 1.0
+})
+
 // 発動スキルのリストを取得
 const activeSkills = computed(() => {
+  const modifiers = tableOptions.value.attackModifiers ?? {}
   const skills: string[] = []
 
-  if (attackSkill.value !== 'none') {
+  if (modifiers.attackSkill && modifiers.attackSkill !== 'none') {
     const skillNames: Record<AttackSkill, string> = {
       none: '',
       down_small: '攻撃力DOWN【小】',
@@ -258,10 +234,10 @@ const activeSkills = computed(() => {
       up_medium: '攻撃力UP【中】',
       up_large: '攻撃力UP【大】',
     }
-    skills.push(skillNames[attackSkill.value])
+    skills.push(skillNames[modifiers.attackSkill])
   }
 
-  if (challengeSkill.value !== 'none') {
+  if (modifiers.challengeSkill && modifiers.challengeSkill !== 'none') {
     const skillNames: Record<ChallengeSkill, string> = {
       none: '',
       challenger1: '挑戦者+1',
@@ -270,34 +246,38 @@ const activeSkills = computed(() => {
       latentPower1: '力の解放+1',
       latentPower2: '力の解放+2',
     }
-    skills.push(skillNames[challengeSkill.value])
+    skills.push(skillNames[modifiers.challengeSkill])
   }
 
-  if (hunterSkill.value !== 'none') {
+  if (modifiers.hunterSkill && modifiers.hunterSkill !== 'none') {
     const skillNames: Record<HunterSkill, string> = {
       none: '',
       cooler: '北風の狩人(非寒冷クーラー)',
       eitherBlooded: '北風の狩人/南風の狩人',
       polarCooler: '北風の狩人(寒冷クーラー)',
     }
-    skills.push(skillNames[hunterSkill.value])
+    skills.push(skillNames[modifiers.hunterSkill])
   }
 
-  if (bludgeoner.value) {
+  if (modifiers.bludgeoner) {
     skills.push('鈍器使い')
   }
 
-  if (resuscitate.value) {
+  if (modifiers.resuscitate) {
     skills.push('死中に活')
   }
 
-  if (resentment.value) {
+  if (modifiers.resentment) {
     skills.push('逆恨み')
   }
 
-  if (adrenaline.value !== 'none' && adrenaline.value !== 'catAdrenaline') {
+  if (
+    modifiers.adrenaline &&
+    modifiers.adrenaline !== 'none' &&
+    modifiers.adrenaline !== 'catAdrenaline'
+  ) {
     const skillName = (() => {
-      switch (adrenaline.value) {
+      switch (modifiers.adrenaline) {
         case 'worrywart':
           return '心配性'
         case 'adrenalinePlus2':
@@ -311,30 +291,30 @@ const activeSkills = computed(() => {
     }
   }
 
-  if (fortify.value !== 'none') {
+  if (modifiers.fortify && modifiers.fortify !== 'none') {
     const skillNames: Record<Fortify, string> = {
       none: '',
       fortify1: '不屈(1乙)',
       fortify2: '不屈(2乙)',
     }
-    skills.push(skillNames[fortify.value])
+    skills.push(skillNames[modifiers.fortify])
   }
 
-  if (dragonInstinct.value) {
+  if (modifiers.dragonInstinct) {
     skills.push('龍気活性')
   }
 
-  if (hasWeaknessExploit.value) {
+  if (tableOptions.value.hasWeaknessExploit) {
     skills.push('弱点特攻')
   }
 
-  if (repeatOffensive.value !== 'none') {
-    skills.push(`連撃の心得(${repeatOffensive.value}%)`)
+  if (tableOptions.value.repeatOffensive && tableOptions.value.repeatOffensive !== 'none') {
+    skills.push(`連撃の心得(${tableOptions.value.repeatOffensive}%)`)
   }
 
-  if (criticalEye.value !== 0) {
+  if (tableOptions.value.criticalEye !== 0) {
     const eyeName = (() => {
-      switch (criticalEye.value) {
+      switch (tableOptions.value.criticalEye) {
         case -3:
           return '見切り-3'
         case -2:
@@ -356,22 +336,22 @@ const activeSkills = computed(() => {
     }
   }
 
-  if (hasCriticalBoost.value) {
+  if (tableOptions.value.criticalBuffs?.hasCriticalBoost) {
     skills.push('超会心')
   }
 
-  if (hasMadAffinity.value) {
+  if (tableOptions.value.criticalBuffs?.hasMadAffinity) {
     skills.push('裏会心')
   }
 
   // 斬れ味レベル
-  if (selectedSharpness.value !== 'normal') {
-    const sharpnessNames: Record<SharpnessType, string> = {
+  if (tableOptions.value.selectedSharpness && tableOptions.value.selectedSharpness !== 'normal') {
+    const sharpnessNames: Record<'normal' | 'plus1' | 'plus2', string> = {
       normal: '',
       plus1: '斬れ味レベル+1',
       plus2: '斬れ味レベル+2',
     }
-    skills.push(sharpnessNames[selectedSharpness.value])
+    skills.push(sharpnessNames[tableOptions.value.selectedSharpness])
   }
 
   return skills
@@ -398,356 +378,7 @@ const filteredHorns = computed(() => {
     <UPageHero title="狩猟笛比較表" description="モンスターハンターXXの狩猟笛のステータス比較表" />
 
     <UPageSection>
-      <div class="mb-0 space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2">
-          <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
-            <label class="text-sm font-medium mb-2 block">事前準備:</label>
-            <div class="space-y-3">
-              <SelectOption
-                v-model="powerCharm"
-                label="力の護符 (A):"
-                :options="[
-                  { value: false, label: '無' },
-                  { value: true, label: '有 | +6' },
-                ]"
-              />
-              <SelectOption
-                v-model="powerTalon"
-                label="力の爪 (B):"
-                :options="[
-                  { value: false, label: '無' },
-                  { value: true, label: '有 | +9' },
-                ]"
-              />
-              <SelectOption
-                v-model="preparedBuff"
-                label="鬼人薬・食事効果 (C):"
-                :rows="[
-                  [
-                    { value: 'none', label: '無' },
-                    {
-                      value: 'demon_drug',
-                      label: `鬼人薬 | +${getPreparedBuffValue('demon_drug')}`,
-                    },
-                    {
-                      value: 'MegaDemondrug',
-                      label: `鬼人薬G | +${getPreparedBuffValue('MegaDemondrug')}`,
-                    },
-                  ],
-                  [
-                    {
-                      value: 'meal_attack_small',
-                      label: `食事【小】| +${getPreparedBuffValue('meal_attack_small')}`,
-                    },
-                    {
-                      value: 'meal_attack_medium',
-                      label: `食事【中】| +${getPreparedBuffValue('meal_attack_medium')}`,
-                    },
-                    {
-                      value: 'meal_attack_large',
-                      label: `食事【大】| +${getPreparedBuffValue('meal_attack_large')}`,
-                    },
-                  ],
-                ]"
-              />
-              <SelectOption
-                v-model="shortHypnosis"
-                label="短期催眠術 (E):"
-                :options="[
-                  { value: false, label: '無' },
-                  { value: true, label: '有 | +3' },
-                ]"
-              />
-            </div>
-            <div class="mt-4">
-              <label class="text-sm font-medium mb-2 block">短期バフ:</label>
-              <div class="space-y-3">
-                <SelectOption
-                  v-model="shortTermBuff"
-                  label="アイテム等 (D):"
-                  wrap
-                  :rows="[
-                    [
-                      { value: 'none', label: '無' },
-                      { value: 'seedOrHorn', label: '種/鬼人笛 | +10' },
-                      { value: 'pill', label: '丸薬 | +25' },
-                      { value: 'restOrDance', label: '休憩術/舞踏術 | +15' },
-                    ],
-                    [
-                      { value: 'demonBullet', label: '鬼人弾 | +10, 切れ味補正x1.1' },
-                      {
-                        value: 'demonCriticalBullet',
-                        label: '鬼人会心弾 | +15, +10%, 切れ味補正x1.1',
-                      },
-                    ],
-                  ]"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="pl-4">
-            <label class="text-sm font-medium mb-2 block">スキル:</label>
-            <div class="space-y-3">
-              <SelectOption
-                v-model="attackSkill"
-                label="攻撃 (F):"
-                :rows="[
-                  [
-                    { value: 'none', label: '無' },
-                    {
-                      value: 'down_small',
-                      label: `DOWN【小】| ${getAttackSkillValue('down_small')}`,
-                    },
-                    {
-                      value: 'down_medium',
-                      label: `DOWN【中】| ${getAttackSkillValue('down_medium')}`,
-                    },
-                    {
-                      value: 'down_large',
-                      label: `DOWN【大】| ${getAttackSkillValue('down_large')}`,
-                    },
-                  ],
-                  [
-                    { value: 'up_small', label: `UP【小】| +${getAttackSkillValue('up_small')}` },
-                    { value: 'up_medium', label: `UP【中】| +${getAttackSkillValue('up_medium')}` },
-                    { value: 'up_large', label: `UP【大】| +${getAttackSkillValue('up_large')}` },
-                  ],
-                ]"
-              />
-              <SelectOption
-                v-model="challengeSkill"
-                label="挑戦者・フルチャージ・力の解放 (J):"
-                wrap
-                :rows="[
-                  [
-                    { value: 'none', label: '無' },
-                    {
-                      value: 'challenger1',
-                      label: `挑戦者+1 | +${getChallengeSkillValue('challenger1')}, +${getChallengeSkillCriticalBonus('challenger1')}%`,
-                    },
-                    {
-                      value: 'challenger2',
-                      label: `挑戦者+2 | +${getChallengeSkillValue('challenger2')}, +${getChallengeSkillCriticalBonus('challenger2')}%`,
-                    },
-                    {
-                      value: 'peakPerformance',
-                      label: `フルチャージ | +${getChallengeSkillValue('peakPerformance')}`,
-                    },
-                  ],
-                  [
-                    {
-                      value: 'latentPower1',
-                      label: `力の解放+1 | +${getChallengeSkillCriticalBonus('latentPower1')}%`,
-                    },
-                    {
-                      value: 'latentPower2',
-                      label: `力の解放+2 | +${getChallengeSkillCriticalBonus('latentPower2')}%`,
-                    },
-                  ],
-                ]"
-              />
-              <SelectOption
-                v-model="hunterSkill"
-                label="北風/南風 (K):"
-                wrap
-                :options="[
-                  { value: 'none', label: '無' },
-                  { value: 'cooler', label: `クーラー | +${getHunterSkillValue('cooler')}` },
-                  {
-                    value: 'eitherBlooded',
-                    label: `北風/南風 | +${getHunterSkillValue('eitherBlooded')}`,
-                  },
-                  {
-                    value: 'polarCooler',
-                    label: `北風クーラー | +${getHunterSkillValue('polarCooler')}`,
-                  },
-                ]"
-              />
-              <div class="grid grid-cols-2">
-                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
-                  <SelectOption
-                    v-model="resuscitate"
-                    label="死中に活 (M):"
-                    :options="[
-                      { value: false, label: '無' },
-                      { value: true, label: '有 | +20' },
-                    ]"
-                  />
-                </div>
-                <div class="pl-4">
-                  <SelectOption
-                    v-model="resentment"
-                    label="逆恨み (N):"
-                    :options="[
-                      { value: false, label: '無' },
-                      { value: true, label: '有 | +20' },
-                    ]"
-                  />
-                </div>
-              </div>
-              <div class="grid grid-cols-2">
-                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
-                  <SelectOption
-                    v-model="selectedSharpness"
-                    label="斬れ味:"
-                    :options="[
-                      { value: 'normal', label: '通常' },
-                      { value: 'plus1', label: '匠1' },
-                      { value: 'plus2', label: '匠2' },
-                    ]"
-                  />
-                </div>
-                <div class="pl-4">
-                  <SelectOption
-                    v-model="bludgeoner"
-                    label="鈍器使い (L):"
-                    :options="[
-                      { value: false, label: '無' },
-                      { value: true, label: '有' },
-                    ]"
-                  />
-                </div>
-              </div>
-              <div class="grid grid-cols-2">
-                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
-                  <SelectOption
-                    v-model="hasWeaknessExploit"
-                    label="弱点特攻:"
-                    :options="[
-                      { value: false, label: '無' },
-                      { value: true, label: '有' },
-                    ]"
-                  />
-                </div>
-                <div class="pl-4">
-                  <SelectOption
-                    v-model="repeatOffensive"
-                    label="連撃:"
-                    :options="[
-                      { value: 'none', label: '無' },
-                      { value: '25', label: '25%' },
-                      { value: '30', label: '30%' },
-                    ]"
-                  />
-                </div>
-              </div>
-              <SelectOption
-                v-model="criticalEye"
-                label="見切り:"
-                :options="[
-                  { value: -3, label: '-3' },
-                  { value: -2, label: '-2' },
-                  { value: -1, label: '-1' },
-                  { value: 0, label: '0' },
-                  { value: 1, label: '+1' },
-                  { value: 2, label: '+2' },
-                  { value: 3, label: '+3' },
-                ]"
-              />
-              <div class="grid grid-cols-2">
-                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
-                  <SelectOption
-                    v-model="hasCriticalBoost"
-                    label="超会心:"
-                    :options="[
-                      { value: false, label: '無' },
-                      { value: true, label: '有' },
-                    ]"
-                  />
-                </div>
-                <div class="pl-4">
-                  <SelectOption
-                    v-model="hasMadAffinity"
-                    label="裏会心:"
-                    :options="[
-                      { value: false, label: '無' },
-                      { value: true, label: '有' },
-                    ]"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2">
-          <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
-            <label class="text-sm font-medium mb-2 block">旋律:</label>
-            <div class="space-y-3">
-              <SelectOption
-                v-model="attackMelody"
-                label="攻撃旋律 (H):"
-                :options="[
-                  { value: 'none', label: '無' },
-                  { value: '1.10', label: 'x1.10' },
-                  { value: '1.15', label: 'x1.15' },
-                  { value: '1.20', label: 'x1.20' },
-                  { value: 'horn', label: '笛依存' },
-                ]"
-              />
-              <SelectOption
-                v-model="criticalMelody"
-                label="会心旋律:"
-                :options="[
-                  { value: 'none', label: '無' },
-                  { value: '15', label: '15%' },
-                  { value: '20', label: '20%' },
-                  { value: 'horn', label: '笛依存' },
-                ]"
-              />
-            </div>
-          </div>
-          <div class="pl-4">
-            <label class="text-sm font-medium mb-2 block">火事場系:</label>
-            <div class="space-y-3">
-              <SelectOption
-                v-model="adrenaline"
-                label="火事場力 (G):"
-                wrap
-                :options="[
-                  { value: 'none', label: '無' },
-                  {
-                    value: 'worrywart',
-                    label: `心配性 | x${getAdrenalineMultiplier('worrywart')}`,
-                  },
-                  {
-                    value: 'adrenalinePlus2',
-                    label: `火事場+2 | x${getAdrenalineMultiplier('adrenalinePlus2')}`,
-                  },
-                  {
-                    value: 'catAdrenaline',
-                    label: `猫火事場 | x${getAdrenalineMultiplier('catAdrenaline')}`,
-                  },
-                ]"
-              />
-              <div class="grid grid-cols-2">
-                <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
-                  <SelectOption
-                    v-model="fortify"
-                    label="不屈 (I):"
-                    :options="[
-                      { value: 'none', label: '無' },
-                      { value: 'fortify1', label: `1乙 | x${getFortifyMultiplier('fortify1')}` },
-                      { value: 'fortify2', label: `2乙 | x${getFortifyMultiplier('fortify2')}` },
-                    ]"
-                  />
-                </div>
-                <div class="pl-4">
-                  <SelectOption
-                    v-model="dragonInstinct"
-                    label="龍気活性 (O):"
-                    :options="[
-                      { value: false, label: '無' },
-                      { value: true, label: '有 | x1.1' },
-                    ]"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <WeaponTableOptions v-model="tableOptions" :allow-horn-dependent-melody="true" />
 
       <!-- フィルター -->
       <MelodyFilter v-model="selectedMelodyNames" :melody-names="melodyNames" />
@@ -798,32 +429,11 @@ const filteredHorns = computed(() => {
 
       <HornTable
         :horns="filteredHorns"
-        :selected-sharpness="selectedSharpness"
-        :critical-bonus="criticalBonus"
-        :has-critical-boost="hasCriticalBoost"
-        :has-mad-affinity="hasMadAffinity"
-        :attack-modifiers="{
-          powerCharm,
-          powerTalon,
-          preparedBuff,
-          shortTermBuff,
-          shortHypnosis,
-          attackSkill,
-          adrenaline,
-          challengeSkill,
-          hunterSkill,
-          bludgeoner,
-          resuscitate,
-          resentment,
-          fortify,
-          dragonInstinct,
-          attackMelody,
-          attackMelodyMultiplier,
-        }"
-        :sharpness-multiplier="
-          shortTermBuff === 'demonBullet' || shortTermBuff === 'demonCriticalBullet' ? 1.1 : 1.0
-        "
-        :critical-melody="criticalMelody"
+        :selected-sharpness="tableOptions.selectedSharpness"
+        :critical-buffs="criticalBuffs"
+        :attack-modifiers="tableOptions.attackModifiers"
+        :sharpness-multiplier="sharpnessMultiplier"
+        :critical-melody="tableOptions.criticalMelody"
         :critical-melody-bonus="criticalMelodyBonus"
         :selected-melody-names="selectedMelodyNames"
         :highlighted-melody-names="highlightedMelodyNames"
