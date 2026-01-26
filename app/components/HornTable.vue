@@ -3,10 +3,10 @@ import type { HuntingHorn } from '~/types/weapons'
 import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
-import HornTableRow from './HornTableRow.vue'
-import { ref, computed } from 'vue'
+import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
+import type { SharpnessType } from '~/composables/useWeaponTable'
+import WeaponTable from './WeaponTable.vue'
 
-type SharpnessType = 'normal' | 'plus1' | 'plus2'
 type CriticalMelody = 'none' | '15' | '20' | 'horn'
 
 interface Props {
@@ -41,74 +41,6 @@ const props = withDefaults(defineProps<Props>(), {
   sharpnessMultiplier: 1.0,
 })
 
-// ソート状態
-type SortKey = 'expected' | 'attack' | 'defense' | 'slots' | 'affinity' | null
-type SortOrder = 'asc' | 'desc'
-
-const sortKey = ref<SortKey>('expected')
-const sortOrder = ref<SortOrder>('desc')
-
-// ソート処理
-const sortedHorns = computed(() => {
-  if (!sortKey.value) return props.horns
-
-  const sorted = [...props.horns].sort((a, b) => {
-    let aValue: number
-    let bValue: number
-
-    switch (sortKey.value) {
-      case 'expected':
-        aValue = getExpectedValue(a)
-        bValue = getExpectedValue(b)
-        break
-      case 'attack':
-        aValue = a.attack
-        bValue = b.attack
-        break
-      case 'defense':
-        aValue = a.defense
-        bValue = b.defense
-        break
-      case 'slots':
-        aValue = a.slots
-        bValue = b.slots
-        break
-      case 'affinity':
-        aValue = a.affinity
-        bValue = b.affinity
-        break
-      default:
-        return 0
-    }
-
-    if (sortOrder.value === 'asc') {
-      return aValue - bValue
-    } else {
-      return bValue - aValue
-    }
-  })
-
-  return sorted
-})
-
-// ソート切り替え
-const toggleSort = (key: SortKey) => {
-  if (sortKey.value === key) {
-    // 同じカラムをクリックした場合は昇順/降順を切り替え
-    sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
-  } else {
-    // 別のカラムをクリックした場合はそのカラムで昇順ソート
-    sortKey.value = key
-    sortOrder.value = 'asc'
-  }
-}
-
-// ソートアイコン表示
-const getSortIcon = (key: SortKey): string => {
-  if (sortKey.value !== key) return ''
-  return sortOrder.value === 'asc' ? '↑' : '↓'
-}
-
 // 会心強化旋律の補正値を取得（criticalMelodyの設定を考慮）
 const getCriticalMelodyBonus = (horn: HuntingHorn): number => {
   // 笛依存の場合は、各狩猟笛の旋律を確認
@@ -119,13 +51,15 @@ const getCriticalMelodyBonus = (horn: HuntingHorn): number => {
   return props.criticalMelodyBonus
 }
 
-// 会心率を計算（元の会心率 + 会心補正 + 会心強化旋律）
-const calculateAffinity = (horn: HuntingHorn): number => {
-  const criticalMelodyBonus = getCriticalMelodyBonus(horn)
-  return horn.affinity + props.criticalBonus + criticalMelodyBonus
+// 攻撃旋律の倍率を取得（attackMelodyの設定を考慮）
+const getAttackMelodyMultiplier = (horn: HuntingHorn): number => {
+  if (props.attackModifiers.attackMelody !== 'horn') {
+    return props.attackModifiers.attackMelodyMultiplier ?? 1.0
+  }
+  return horn.notes.getMaxMelodyMultiplier_Attack()
 }
 
-// 期待値を計算
+// 期待値を計算（HornTable固有のロジック）
 const getExpectedValue = (horn: HuntingHorn): number => {
   // 補正済みの攻撃力を計算
   const attackWithBuffs = getAttackWithBuffs(horn)
@@ -143,23 +77,27 @@ const getExpectedValue = (horn: HuntingHorn): number => {
   )
 }
 
-// 攻撃旋律の倍率を取得（attackMelodyの設定を考慮）
-const getAttackMelodyMultiplier = (horn: HuntingHorn): number => {
-  if (props.attackModifiers.attackMelody !== 'horn') {
-    return props.attackModifiers.attackMelodyMultiplier ?? 1.0
-  }
-  return horn.notes.getMaxMelodyMultiplier_Attack()
-}
-
 // 補正済みの攻撃力を計算
 const getAttackWithBuffs = (horn: HuntingHorn): number => {
-  return calculateAttackWithBuffs(horn.attack, props.attackModifiers, horn, props.selectedSharpness)
+  return calculateAttackWithBuffs(
+    horn.attack,
+    props.attackModifiers,
+    horn,
+    props.selectedSharpness
+  )
+}
+
+// 会心率を計算（元の会心率 + 会心補正 + 会心強化旋律）
+const calculateAffinity = (horn: HuntingHorn): number => {
+  const criticalMelodyBonus = getCriticalMelodyBonus(horn)
+  return horn.affinity + props.criticalBonus + criticalMelodyBonus
 }
 
 // 元の攻撃力を括弧で表示するかどうかを判定
 const isShowBaseAttack = (horn: HuntingHorn): boolean => {
+  const modifiers = props.attackModifiers
   // 力の解放は攻撃力補正がないため除外
-  const challengeSkill = props.attackModifiers.challengeSkill
+  const challengeSkill = modifiers.challengeSkill
   const hasAttackBuffFromChallengeSkill =
     challengeSkill &&
     challengeSkill !== 'none' &&
@@ -167,98 +105,79 @@ const isShowBaseAttack = (horn: HuntingHorn): boolean => {
     challengeSkill !== 'latentPower2'
 
   return (
-    props.attackModifiers.powerCharm ||
-    props.attackModifiers.powerTalon ||
-    (props.attackModifiers.preparedBuff && props.attackModifiers.preparedBuff !== 'none') ||
-    (props.attackModifiers.shortTermBuff && props.attackModifiers.shortTermBuff !== 'none') ||
-    props.attackModifiers.shortHypnosis ||
-    (props.attackModifiers.attackSkill ?? 'none') !== 'none' ||
-    (props.attackModifiers.adrenaline && props.attackModifiers.adrenaline !== 'none') ||
+    modifiers.powerCharm ||
+    modifiers.powerTalon ||
+    (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') ||
+    (modifiers.shortTermBuff && modifiers.shortTermBuff !== 'none') ||
+    modifiers.shortHypnosis ||
+    (modifiers.attackSkill ?? 'none') !== 'none' ||
+    (modifiers.adrenaline && modifiers.adrenaline !== 'none') ||
     hasAttackBuffFromChallengeSkill ||
-    (props.attackModifiers.hunterSkill && props.attackModifiers.hunterSkill !== 'none') ||
-    props.attackModifiers.bludgeoner ||
-    props.attackModifiers.resuscitate ||
-    props.attackModifiers.resentment ||
-    (props.attackModifiers.fortify && props.attackModifiers.fortify !== 'none') ||
-    props.attackModifiers.dragonInstinct ||
+    (modifiers.hunterSkill && modifiers.hunterSkill !== 'none') ||
+    modifiers.bludgeoner ||
+    modifiers.resuscitate ||
+    modifiers.resentment ||
+    (modifiers.fortify && modifiers.fortify !== 'none') ||
+    modifiers.dragonInstinct ||
     getAttackMelodyMultiplier(horn) !== 1.0
   )
 }
 </script>
 
 <template>
-  <div class="overflow-x-auto">
-    <table class="w-full border-collapse">
-      <thead>
-        <tr class="border-b">
-          <th class="text-left p-2">名称</th>
-          <th
-            class="text-left p-2 cursor-pointer hover:bg-gray-700 select-none"
-            @click="toggleSort('expected')"
+  <WeaponTable
+    :weapons="horns"
+    :selected-sharpness="selectedSharpness"
+    :critical-bonus="criticalBonus"
+    :has-critical-boost="hasCriticalBoost"
+    :has-mad-affinity="hasMadAffinity"
+    :attack-modifiers="attackModifiers"
+    :sharpness-multiplier="sharpnessMultiplier"
+  >
+    <template #header-columns>
+      <th class="text-left p-2">音色</th>
+      <th class="text-left p-2">旋律</th>
+    </template>
+    <template #row-columns="{ weapon: horn }">
+      <!-- 音色カラム -->
+      <td class="p-2">
+        <div class="flex items-center gap-1">
+          <span
+            v-for="(note, index) in [horn.notes.note1, horn.notes.note2, horn.notes.note3]"
+            :key="index"
+            :title="note"
+            class="inline-block w-5 h-5 rounded-full border-2 flex-shrink-0"
+            :style="{
+              background: NOTE_COLORS[note],
+              borderColor: getNoteBorderColor(note),
+            }"
+          />
+        </div>
+      </td>
+      <!-- 旋律カラム -->
+      <td class="p-2">
+        <div class="flex flex-col gap-1 text-sm">
+          <span
+            v-for="(name, index) in horn.notes.getMelodyNames()"
+            :key="index"
+            :class="{
+              'text-red-500':
+                ((attackModifiers.attackMelody ?? 'none') === 'horn' &&
+                  (name === '攻撃力強化【小】' || name === '攻撃力強化【大】')) ||
+                (criticalMelody === 'horn' && name === '会心率UP&体力回復【小】'),
+              'bg-blue-200 dark:bg-blue-900 px-1 rounded':
+                selectedMelodyNames && selectedMelodyNames.has(name),
+              'bg-yellow-300 dark:bg-yellow-700 px-1 rounded cursor-pointer hover:bg-yellow-400 dark:hover:bg-yellow-600':
+                highlightedMelodyNames && highlightedMelodyNames.has(name),
+              'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-1 rounded':
+                onMelodyClick && !(highlightedMelodyNames && highlightedMelodyNames.has(name)),
+            }"
+            @click="onMelodyClick && onMelodyClick(name)"
           >
-            <span class="inline-flex items-center gap-1">
-              期待値 <span class="w-4 text-center">{{ getSortIcon('expected') }}</span>
-            </span>
-          </th>
-          <th
-            class="text-left p-2 cursor-pointer hover:bg-gray-700 select-none"
-            @click="toggleSort('attack')"
-          >
-            <span class="inline-flex items-center gap-1">
-              攻撃 <span class="w-4 text-center">{{ getSortIcon('attack') }}</span>
-            </span>
-          </th>
-          <th
-            class="text-left p-2 cursor-pointer hover:bg-gray-700 select-none"
-            @click="toggleSort('defense')"
-          >
-            <span class="inline-flex items-center gap-1">
-              防御 <span class="w-4 text-center">{{ getSortIcon('defense') }}</span>
-            </span>
-          </th>
-          <th
-            class="text-left p-2 cursor-pointer hover:bg-gray-700 select-none w-25"
-            @click="toggleSort('slots')"
-          >
-            <span class="inline-flex items-center gap-1">
-              スロット <span class="w-4 text-center">{{ getSortIcon('slots') }}</span>
-            </span>
-          </th>
-          <th
-            class="text-left p-2 cursor-pointer hover:bg-gray-700 select-none"
-            @click="toggleSort('affinity')"
-          >
-            <span class="inline-flex items-center gap-1">
-              会心率 <span class="w-1 text-center">{{ getSortIcon('affinity') }}</span>
-            </span>
-          </th>
-          <th class="text-left p-2">属性・状態異常</th>
-          <th class="text-left p-2">音色</th>
-          <th class="text-left p-2">旋律</th>
-          <th class="text-left p-2">斬れ味</th>
-        </tr>
-      </thead>
-      <tbody>
-        <HornTableRow
-          v-for="horn in sortedHorns"
-          :key="horn.name"
-          :horn="horn"
-          :expected-value="getExpectedValue(horn)"
-          :attack-with-buffs="getAttackWithBuffs(horn)"
-          :base-attack="horn.attack"
-          :show-base-attack="isShowBaseAttack(horn)"
-          :affinity="calculateAffinity(horn)"
-          :base-affinity="horn.affinity"
-          :show-base-affinity="props.criticalBonus !== 0 || getCriticalMelodyBonus(horn) !== 0"
-          :selected-sharpness="props.selectedSharpness"
-          :attack-melody="props.attackModifiers.attackMelody ?? 'none'"
-          :critical-melody="props.criticalMelody"
-          :bludgeoner="props.attackModifiers.bludgeoner"
-          :selected-melody-names="props.selectedMelodyNames"
-          :highlighted-melody-names="props.highlightedMelodyNames"
-          :on-melody-click="props.onMelodyClick"
-        />
-      </tbody>
-    </table>
-  </div>
+            {{ name }}
+          </span>
+        </div>
+      </td>
+    </template>
+  </WeaponTable>
 </template>
