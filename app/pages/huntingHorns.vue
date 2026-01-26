@@ -34,16 +34,16 @@ const tableOptions = ref<TableBaseOption>({
     adrenaline: 'none',
     fortify: 'none',
     dragonInstinct: false,
-    attackMelody: 'none',
+    attackMelody: 0,
     attackMelodyMultiplier: 1.0,
   },
   sharpnessMultiplier: 1.0,
   hasWeaknessExploit: false,
   repeatOffensive: 'none',
   criticalEye: 0,
-  criticalMelody: 'none',
+  criticalMelody: 0,
   criticalMelodyBonus: 0,
-  attackMelody: 'none',
+  attackMelody: 0,
   attackMelodyMultiplier: 1.0,
 })
 
@@ -155,6 +155,7 @@ const filteredHorns = computed(() => {
         :critical-buffs="tableOptions.criticalBuffs"
         :attack-modifiers="tableOptions.attackModifiers"
         :sharpness-multiplier="tableOptions.sharpnessMultiplier"
+        :attack-melody="tableOptions.attackMelody"
         :critical-melody="tableOptions.criticalMelody"
         :critical-melody-bonus="tableOptions.criticalMelodyBonus"
         :selected-melody-names="selectedMelodyNames"

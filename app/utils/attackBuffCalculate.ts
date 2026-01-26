@@ -19,6 +19,7 @@ import { attackBuffO } from '~/types/attackBuff/attackBuff_O'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
 
+// 最終的な攻撃力を計算
 export const calculateAttackWithBuffs = (
   baseAttack: number,
   modifiers: AttackBuffs,
@@ -79,7 +80,7 @@ export const calculateAttackWithBuffs = (
     allModifiers.push(new attackBuffO())
   }
 
-  if (modifiers.attackMelody && modifiers.attackMelody !== 'none') {
+  if (modifiers.attackMelody && modifiers.attackMelody !== 0) {
     allModifiers.push(new attackBuffH(modifiers.attackMelody, horn))
   }
 

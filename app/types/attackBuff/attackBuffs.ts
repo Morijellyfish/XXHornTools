@@ -4,7 +4,6 @@ import type { PreparedBuff } from './attackBuff_C'
 import type { ShortTermBuff } from './attackBuff_D'
 import type { AttackSkill } from './attackBuff_F'
 import type { Adrenaline } from './attackBuff_G'
-import type { AttackMelody } from './attackBuff_H'
 import type { Fortify } from './attackBuff_I'
 import type { ChallengeSkill } from './attackBuff_J'
 import type { HunterSkill } from './attackBuff_K'
@@ -25,7 +24,6 @@ export type { AttackSkill } from './attackBuff_F'
 export { getAttackSkillValue } from './attackBuff_F'
 export type { Adrenaline } from './attackBuff_G'
 export { getAdrenalineMultiplier } from './attackBuff_G'
-export type { AttackMelody } from './attackBuff_H'
 export type { Fortify } from './attackBuff_I'
 export { getFortifyMultiplier } from './attackBuff_I'
 export type { ChallengeSkill } from './attackBuff_J'
@@ -53,7 +51,7 @@ export interface AttackBuffs {
   resentment?: Resentment
   fortify?: Fortify
   dragonInstinct?: DragonInstinct
-  attackMelody?: AttackMelody
+  attackMelody?: number
   attackMelodyMultiplier?: number
   [key: string]: unknown
 }

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue'
 import type { TableBaseOption, CriticalMelody } from '~/types/tableBaseOption'
-import type { AttackMelody } from '~/types/attackBuff/attackBuffs'
 import {
   calculateCriticalBonus,
   calculateAttackMelodyMultiplier,
@@ -571,25 +570,25 @@ watch(
         <label class="text-sm font-medium mb-2 block">旋律:</label>
         <div class="space-y-3">
           <SelectOption
-            :model-value="options.attackMelody ?? 'none'"
+            :model-value="options.attackMelody ?? 0"
             label="攻撃旋律 (H):"
             :options="[
-              { value: 'none', label: '無' },
-              { value: '1.10', label: 'x1.10' },
-              { value: '1.15', label: 'x1.15' },
-              { value: '1.20', label: 'x1.20' },
-              ...(allowHornDependentMelody ? [{ value: 'horn', label: '笛依存' }] : []),
+              { value: 0, label: '無' },
+              { value: 1, label: 'x1.10' },
+              { value: 2, label: 'x1.15' },
+              { value: 3, label: 'x1.20' },
+              ...(props.allowHornDependentMelody ? [{ value: 4, label: '笛依存' }] : []),
             ]"
-            @update:model-value="options = { ...options, attackMelody: $event as AttackMelody }"
+            @update:model-value="options = { ...options, attackMelody: $event as number }"
           />
           <SelectOption
-            :model-value="options.criticalMelody ?? 'none'"
+            :model-value="options.criticalMelody ?? 0"
             label="会心旋律:"
             :options="[
-              { value: 'none', label: '無' },
-              { value: '15', label: '15%' },
-              { value: '20', label: '20%' },
-              ...(allowHornDependentMelody ? [{ value: 'horn', label: '笛依存' }] : []),
+              { value: 0, label: '無' },
+              { value: 1, label: '15%' },
+              { value: 2, label: '20%' },
+              ...(props.allowHornDependentMelody ? [{ value: 3, label: '笛依存' }] : []),
             ]"
             @update:model-value="options = { ...options, criticalMelody: $event as CriticalMelody }"
           />

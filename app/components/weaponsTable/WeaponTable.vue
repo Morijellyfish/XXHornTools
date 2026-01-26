@@ -19,10 +19,13 @@ const props = withDefaults(defineProps<Props>(), {
     powerCharm: false,
     powerTalon: false,
     attackSkill: 'none',
-    attackMelody: 'none',
+    attackMelody: 0,
     attackMelodyMultiplier: 1.0,
   }),
   sharpnessMultiplier: 1.0,
+  attackMelody: 0,
+  criticalMelody: 0,
+  criticalMelodyBonus: 0,
 })
 
 const {
@@ -99,9 +102,13 @@ const {
           :show-base-attack="isShowBaseAttack(weapon)"
           :affinity="calculateAffinity(weapon)"
           :base-affinity="weapon.affinity"
-          :show-base-affinity="(criticalBuffs?.criticalBonus ?? 0) !== 0"
-          :selected-sharpness="selectedSharpness"
-          :bludgeoner="attackModifiers.bludgeoner"
+          :show-base-affinity="
+            (props.criticalBuffs?.criticalBonus ?? 0) !== 0 ||
+            (props.criticalMelody !== 3 && (props.criticalMelodyBonus ?? 0) !== 0) ||
+            props.criticalMelody === 3
+          "
+          :selected-sharpness="props.selectedSharpness"
+          :bludgeoner="props.attackModifiers?.bludgeoner"
         >
           <!-- 拡張用カラム -->
           <template #additional-columns="{ weapon: w }">

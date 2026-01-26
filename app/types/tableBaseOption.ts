@@ -1,6 +1,5 @@
 import type {
   AttackBuffs,
-  AttackMelody,
   ChallengeSkill,
   AttackSkill,
   HunterSkill,
@@ -23,8 +22,8 @@ export type SharpnessType = 'normal' | 'plus1' | 'plus2'
 /** 連撃の種類 */
 export type RepeatOffensive = 'none' | '25' | '30'
 
-/** 会心旋律の種類 */
-export type CriticalMelody = 'none' | '15' | '20' | 'horn'
+/** 会心旋律の種類（0: 無, 1: 15%, 2: 20%, 3: 笛依存） */
+export type CriticalMelody = 0 | 1 | 2 | 3
 
 /**
  * テーブルコンポーネントの基底オプション
@@ -45,12 +44,12 @@ export interface TableBaseOption {
   repeatOffensive?: RepeatOffensive
   /** 見切り（会心率）のレベル */
   criticalEye?: number
-  /** 会心旋律（HornTable以外では「笛依存」選択肢なし） */
+  /** 会心旋律（0: 無, 1: 15%, 2: 20%, 3: 笛依存） */
   criticalMelody?: CriticalMelody
   /** 会心旋律の固定値（criticalMelodyが固定値の場合のみ） */
   criticalMelodyBonus?: number
-  /** 攻撃旋律（HornTable以外では「笛依存」選択肢なし、AttackBuffsにも含まれるが、ここでも管理） */
-  attackMelody?: AttackMelody
+  /** 攻撃旋律（0: 無, 1: x1.10, 2: x1.15, 3: x1.20, 4: 笛依存） */
+  attackMelody?: number
   /** 攻撃旋律の倍率（AttackBuffsにも含まれるが、ここでも管理） */
   attackMelodyMultiplier?: number
   /** 攻撃力加算バフの合計（自動計算） */
@@ -134,14 +133,18 @@ export function calculateCriticalBonus(options: TableBaseOption): number {
  * @returns 攻撃旋律の倍率
  */
 export function calculateAttackMelodyMultiplier(options: TableBaseOption): number {
-  const attackMelody = options.attackMelody ?? options.attackModifiers?.attackMelody ?? 'none'
+  const attackMelody = options.attackMelody ?? options.attackModifiers?.attackMelody ?? 0
+
   switch (attackMelody) {
-    case '1.10':
+    case 1:
       return 1.1
-    case '1.15':
+    case 2:
       return 1.15
-    case '1.20':
+    case 3:
       return 1.2
+    case 4:
+      // 笛依存の場合は後で計算
+      return 1.0
     default:
       return 1.0
   }
@@ -153,11 +156,15 @@ export function calculateAttackMelodyMultiplier(options: TableBaseOption): numbe
  * @returns 会心強化旋律の補正値（%）
  */
 export function calculateCriticalMelodyBonus(options: TableBaseOption): number {
-  switch (options.criticalMelody) {
-    case '15':
+  const criticalMelody = options.criticalMelody ?? 0
+  switch (criticalMelody) {
+    case 1:
       return 15
-    case '20':
+    case 2:
       return 20
+    case 3:
+      // 笛依存の場合は後で計算
+      return 0
     default:
       return 0
   }
@@ -224,8 +231,8 @@ export function calculateTotalAttackMultiply(options: TableBaseOption): number {
   if (modifiers.dragonInstinct) {
     multiplier *= 1.1 // 龍気活性
   }
-  const attackMelody = options.attackMelody ?? modifiers.attackMelody ?? 'none'
-  if (attackMelody !== 'none' && attackMelody !== 'horn') {
+  const attackMelody = options.attackMelody ?? modifiers.attackMelody ?? 0
+  if (attackMelody !== 0 && attackMelody !== 4) {
     multiplier *= options.attackMelodyMultiplier ?? modifiers.attackMelodyMultiplier ?? 1.0
   }
   // 鈍器使いと攻撃旋律（horn）は笛依存のため、ここでは計算しない

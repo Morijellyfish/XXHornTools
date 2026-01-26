@@ -79,17 +79,39 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return sortOrder.value === 'asc' ? '↑' : '↓'
   }
 
-  // 会心率を計算（元の会心率 + 会心補正）
+  // 会心率を計算（元の会心率 + 会心補正 + 会心旋律補正）
   const calculateAffinity = (weapon: T): number => {
-    return weapon.affinity + (props.criticalBuffs?.criticalBonus ?? 0)
+    const criticalBonus = props.criticalBuffs?.criticalBonus ?? 0
+    let criticalMelodyBonus = props.criticalMelodyBonus ?? 0
+
+    // 笛依存（3）の場合は各武器の旋律から取得
+    if (props.criticalMelody === 3) {
+      const horn = weapon as unknown as HuntingHorn
+      if (horn && 'notes' in horn && typeof horn.notes.getMaxMelodyBonus_Critical === 'function') {
+        criticalMelodyBonus = horn.notes.getMaxMelodyBonus_Critical()
+      }
+    }
+
+    return weapon.affinity + criticalBonus + criticalMelodyBonus
   }
 
   // 期待値を計算
   const getExpectedValue = (weapon: T): number => {
     // 補正済みの攻撃力を計算
     const attackWithBuffs = getAttackWithBuffs(weapon)
-    // 会心補正
-    const totalCriticalBonus = props.criticalBuffs?.criticalBonus ?? 0
+    // 会心補正（会心補正 + 会心旋律補正）
+    const criticalBonus = props.criticalBuffs?.criticalBonus ?? 0
+    let criticalMelodyBonus = props.criticalMelodyBonus ?? 0
+
+    // 笛依存（3）の場合は各武器の旋律から取得
+    if (props.criticalMelody === 3) {
+      const horn = weapon as unknown as HuntingHorn
+      if (horn && 'notes' in horn && typeof horn.notes.getMaxMelodyBonus_Critical === 'function') {
+        criticalMelodyBonus = horn.notes.getMaxMelodyBonus_Critical()
+      }
+    }
+
+    const totalCriticalBonus = criticalBonus + criticalMelodyBonus
     return calculateExpectedValue(
       attackWithBuffs,
       weapon as unknown as HuntingHorn, // HuntingHorn として扱う（LongSword の場合は後で対応）
@@ -103,9 +125,22 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
 
   // 補正済みの攻撃力を計算
   const getAttackWithBuffs = (weapon: T): number => {
+    // TableBaseOptionのattackMelodyとattackModifiersのattackMelodyを統合
+    // 数値ベース（0: 無, 1: x1.10, 2: x1.15, 3: x1.20, 4: 笛依存）
+    const attackMelody = props.attackMelody ?? props.attackModifiers?.attackMelody ?? 0
+    const attackMelodyMultiplier =
+      props.attackMelodyMultiplier ?? props.attackModifiers?.attackMelodyMultiplier ?? 1.0
+
+    // attackModifiersにattackMelodyとattackMelodyMultiplierを含める
+    const modifiers = {
+      ...(props.attackModifiers ?? {}),
+      attackMelody,
+      attackMelodyMultiplier,
+    }
+
     return calculateAttackWithBuffs(
       weapon.attack,
-      props.attackModifiers ?? {},
+      modifiers,
       weapon as unknown as HuntingHorn, // HuntingHorn として扱う（LongSword の場合は後で対応）
       props.selectedSharpness ?? 'normal'
     )
@@ -123,6 +158,11 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       challengeSkill !== 'latentPower2'
     )
 
+    // TableBaseOptionのattackMelodyとattackModifiersのattackMelodyを統合
+    const attackMelody = props.attackMelody ?? modifiers.attackMelody ?? 0
+    const attackMelodyMultiplier =
+      props.attackMelodyMultiplier ?? modifiers.attackMelodyMultiplier ?? 1.0
+
     return Boolean(
       (modifiers.powerCharm ?? false) ||
       (modifiers.powerTalon ?? false) ||
@@ -138,9 +178,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       (modifiers.resentment ?? false) ||
       (modifiers.fortify && modifiers.fortify !== 'none') ||
       (modifiers.dragonInstinct ?? false) ||
-      (modifiers.attackMelody &&
-        modifiers.attackMelody !== 'none' &&
-        (modifiers.attackMelodyMultiplier ?? 1.0) !== 1.0)
+      (attackMelody !== 0 && attackMelodyMultiplier !== 1.0)
     )
   }
 

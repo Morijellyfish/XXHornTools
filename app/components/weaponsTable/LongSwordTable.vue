@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
     powerCharm: false,
     powerTalon: false,
     attackSkill: 'none',
-    attackMelody: 'none',
+    attackMelody: 0,
     attackMelodyMultiplier: 1.0,
   }),
   sharpnessMultiplier: 1.0,
@@ -32,5 +32,8 @@ const props = withDefaults(defineProps<Props>(), {
     :critical-buffs="props.criticalBuffs"
     :attack-modifiers="props.attackModifiers"
     :sharpness-multiplier="props.sharpnessMultiplier"
+    :attack-melody="props.attackMelody"
+    :critical-melody="props.criticalMelody"
+    :critical-melody-bonus="props.criticalMelodyBonus"
   />
 </template>
