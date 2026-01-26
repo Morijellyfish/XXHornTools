@@ -141,7 +141,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return calculateAttackWithBuffs(
       weapon.attack,
       modifiers,
-      weapon as unknown as HuntingHorn, // HuntingHorn として扱う（LongSword の場合は後で対応）
+      weapon, // WeaponMelee
       props.selectedSharpness ?? 'normal'
     )
   }

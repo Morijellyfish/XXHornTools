@@ -235,7 +235,8 @@ export function calculateTotalAttackMultiply(options: TableBaseOption): number {
   if (attackMelody !== 0 && attackMelody !== 4) {
     multiplier *= options.attackMelodyMultiplier ?? modifiers.attackMelodyMultiplier ?? 1.0
   }
-  // 鈍器使いと攻撃旋律（horn）は笛依存のため、ここでは計算しない
+  // 攻撃旋律（horn）は笛依存のため、ここでは計算しない
+  // 鈍器使いは各武器の切れ味に応じて計算されるため、ここでは計算しない
   return multiplier
 }
 
