@@ -8,10 +8,8 @@ import type { PartDurability } from './partDurability'
 export interface Monster {
   // モンスター名
   name: string
-  // 通常時の肉質データの配列
-  hitZonesNormal: HitZone[]
-  // 怒り時の肉質データの配列（オプショナル）
-  hitZonesEnraged?: HitZone[]
+  // 肉質データの配列
+  hitZones: HitZone[]
   // 部位耐久データの配列
   partDurabilities: PartDurability[]
 }

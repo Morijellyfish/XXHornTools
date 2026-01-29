@@ -6,7 +6,7 @@ import { PartDurability } from '~/types/monster/partDurability'
 
 export const rathian: Monster = {
   name: 'リオレイア',
-  hitZonesNormal: [
+  hitZones: [
     // 頭
     {
       name: '頭',
@@ -127,7 +127,6 @@ export const rathian: Monster = {
       stun: 0,
     },
   ],
-  // 怒り時の肉質変化はありません
   partDurabilities: [
     // 頭
     new PartDurability('頭', ['頭'], 190, 285),
