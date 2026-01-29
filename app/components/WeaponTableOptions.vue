@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { CriticalMelody, getChallengeSkillCriticalBonus } from '~/types/tableBaseOption'
+import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
+import {
+  getChallengeSkillAttackValue,
+  getChallengeSkillCriticalValue,
+} from '~/types/challengeSkill'
 import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
 import {
   getPreparedBuffValue,
   getAttackSkillValue,
   getAdrenalineMultiplier,
-  getChallengeSkillValue,
   getHunterSkillValue,
   getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
@@ -149,6 +152,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 options = {
                   ...options,
                   attackModifiers: { ...attackModifiers, shortTermBuff: $event },
+                  criticalBuffs: {
+                    ...criticalBuffs,
+                    demonCriticalBullet: $event === 'demonCriticalBullet',
+                  },
                 }
               "
             />
@@ -200,25 +207,25 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 { value: 'none', label: '無' },
                 {
                   value: 'challenger1',
-                  label: `挑戦者+1 | +${getChallengeSkillValue('challenger1')}, +${getChallengeSkillCriticalBonus('challenger1')}%`,
+                  label: `挑戦者+1 | +${getChallengeSkillAttackValue('challenger1')}, +${getChallengeSkillCriticalValue('challenger1')}%`,
                 },
                 {
                   value: 'challenger2',
-                  label: `挑戦者+2 | +${getChallengeSkillValue('challenger2')}, +${getChallengeSkillCriticalBonus('challenger2')}%`,
+                  label: `挑戦者+2 | +${getChallengeSkillAttackValue('challenger2')}, +${getChallengeSkillCriticalValue('challenger2')}%`,
                 },
                 {
                   value: 'peakPerformance',
-                  label: `フルチャージ | +${getChallengeSkillValue('peakPerformance')}`,
+                  label: `フルチャージ | +${getChallengeSkillAttackValue('peakPerformance')}`,
                 },
               ],
               [
                 {
                   value: 'latentPower1',
-                  label: `力の解放+1 | +${getChallengeSkillCriticalBonus('latentPower1')}%`,
+                  label: `力の解放+1 | +${getChallengeSkillCriticalValue('latentPower1')}%`,
                 },
                 {
                   value: 'latentPower2',
-                  label: `力の解放+2 | +${getChallengeSkillCriticalBonus('latentPower2')}%`,
+                  label: `力の解放+2 | +${getChallengeSkillCriticalValue('latentPower2')}%`,
                 },
               ],
             ]"
@@ -319,30 +326,40 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           <div class="grid grid-cols-2">
             <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
               <SelectOption
-                :model-value="options.hasWeaknessExploit ?? false"
+                :model-value="criticalBuffs.hasWeaknessExploit ?? false"
                 label="弱点特攻:"
                 :options="[
                   { value: false, label: '無' },
                   { value: true, label: '有' },
                 ]"
-                @update:model-value="options = { ...options, hasWeaknessExploit: $event }"
+                @update:model-value="
+                  options = {
+                    ...options,
+                    criticalBuffs: { ...criticalBuffs, hasWeaknessExploit: $event },
+                  }
+                "
               />
             </div>
             <div class="pl-4">
               <SelectOption
-                :model-value="options.repeatOffensive ?? 'none'"
+                :model-value="criticalBuffs.repeatOffensive ?? 'none'"
                 label="連撃:"
                 :options="[
                   { value: 'none', label: '無' },
                   { value: '25', label: '25%' },
                   { value: '30', label: '30%' },
                 ]"
-                @update:model-value="options = { ...options, repeatOffensive: $event }"
+                @update:model-value="
+                  options = {
+                    ...options,
+                    criticalBuffs: { ...criticalBuffs, repeatOffensive: $event },
+                  }
+                "
               />
             </div>
           </div>
           <SelectOption
-            :model-value="options.criticalEye ?? 0"
+            :model-value="criticalBuffs.criticalEye ?? 0"
             label="見切り:"
             :options="[
               { value: -3, label: '-3' },
@@ -353,7 +370,9 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
               { value: 2, label: '+2' },
               { value: 3, label: '+3' },
             ]"
-            @update:model-value="options = { ...options, criticalEye: $event }"
+            @update:model-value="
+              options = { ...options, criticalBuffs: { ...criticalBuffs, criticalEye: $event } }
+            "
           />
           <div class="grid grid-cols-2">
             <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
@@ -417,7 +436,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             "
           />
           <SelectOption
-            :model-value="options.criticalMelody ?? CriticalMelody.None"
+            :model-value="criticalBuffs.criticalMelody ?? CriticalMelody.None"
             label="会心旋律:"
             :options="[
               { value: CriticalMelody.None, label: '無' },
@@ -427,7 +446,12 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 ? [{ value: CriticalMelody.HornDependent, label: '笛依存' }]
                 : []),
             ]"
-            @update:model-value="options = { ...options, criticalMelody: $event as CriticalMelody }"
+            @update:model-value="
+              options = {
+                ...options,
+                criticalBuffs: { ...criticalBuffs, criticalMelody: $event as CriticalMelody },
+              }
+            "
           />
         </div>
       </div>

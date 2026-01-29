@@ -11,7 +11,6 @@ interface Props extends TableBaseOption {
 const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
   criticalBuffs: () => ({
-    criticalBonus: 0,
     hasCriticalBoost: false,
     hasMadAffinity: false,
   }),
@@ -33,6 +32,6 @@ const props = withDefaults(defineProps<Props>(), {
     :critical-buffs="props.criticalBuffs"
     :attack-modifiers="props.attackModifiers"
     :sharpness-multiplier="props.sharpnessMultiplier"
-    :critical-melody="props.criticalMelody"
+    :critical-melody="props.criticalBuffs?.criticalMelody"
   />
 </template>

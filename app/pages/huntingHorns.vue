@@ -3,8 +3,14 @@ import { allHorns } from '~/data/horns'
 import { melodyNames } from '~/data/melodies'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { CriticalMelody, getChallengeSkillCriticalBonus } from '~/types/tableBaseOption'
+import { CriticalMelody, criticalBuffD } from '~/types/criticalBuff/criticalBuff_D'
+import { getChallengeSkillAttackValue } from '~/types/challengeSkill'
 import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
+import { criticalBuffA } from '~/types/criticalBuff/criticalBuff_A'
+import { criticalBuffB } from '~/types/criticalBuff/criticalBuff_B'
+import { criticalBuffC } from '~/types/criticalBuff/criticalBuff_C'
+import { criticalBuffE } from '~/types/criticalBuff/criticalBuff_E'
+import { criticalBuffF } from '~/types/criticalBuff/criticalBuff_F'
 import type {
   AttackSkill,
   ChallengeSkill,
@@ -16,7 +22,6 @@ import {
   getShortTermBuffValue,
   getAttackSkillValue,
   getAdrenalineMultiplier,
-  getChallengeSkillValue,
   getHunterSkillValue,
   getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
@@ -32,9 +37,13 @@ useHead({
 const tableOptions = ref<TableBaseOption>({
   selectedSharpness: 'normal',
   criticalBuffs: {
-    criticalBonus: 0,
     hasCriticalBoost: false,
     hasMadAffinity: false,
+    hasWeaknessExploit: false,
+    repeatOffensive: 'none',
+    criticalEye: 0,
+    criticalMelody: CriticalMelody.None,
+    demonCriticalBullet: false,
   },
   attackModifiers: {
     powerCharm: false,
@@ -55,11 +64,6 @@ const tableOptions = ref<TableBaseOption>({
     attackMelodyMultiplier: 1.0,
   },
   sharpnessMultiplier: 1.0,
-  hasWeaknessExploit: false,
-  repeatOffensive: 'none',
-  criticalEye: 0,
-  criticalMelody: CriticalMelody.None,
-  criticalMelodyBonus: 0,
 })
 
 // フィルター: 旋律
@@ -78,49 +82,46 @@ const toggleMelodyHighlight = (melodyName: string) => {
   highlightedMelodyNames.value = new Set(highlightedMelodyNames.value)
 }
 
-// 会心補正を計算
+// 会心補正を計算（criticalBuffクラスを使用）
 const calculateCriticalBonus = computed((): number => {
+  const buffs = tableOptions.value.criticalBuffs
   let bonus = 0
+
   // 見切りの補正
-  const criticalEyeBonus: Record<number, number> = {
-    [-3]: -15,
-    [-2]: -10,
-    [-1]: -5,
-    0: 0,
-    1: 10,
-    2: 20,
-    3: 30,
+  if (buffs?.criticalEye !== undefined) {
+    bonus += new criticalBuffA(buffs.criticalEye).getValue()
   }
 
-  bonus += criticalEyeBonus[tableOptions.value.criticalEye ?? 0] ?? 0
-
   // 弱点特攻の補正
-  if (tableOptions.value.hasWeaknessExploit) {
-    bonus += 50
+  if (buffs?.hasWeaknessExploit !== undefined) {
+    bonus += new criticalBuffB(buffs.hasWeaknessExploit).getValue()
   }
 
   // 連撃の補正
-  if (tableOptions.value.repeatOffensive === '25') {
-    bonus += 25
-  } else if (tableOptions.value.repeatOffensive === '30') {
-    bonus += 30
+  if (buffs?.repeatOffensive) {
+    bonus += new criticalBuffC(buffs.repeatOffensive).getValue()
   }
 
   // 挑戦者・フルチャージ・力の解放の補正
-  bonus += getChallengeSkillCriticalBonus(
-    (tableOptions.value.attackModifiers?.challengeSkill ?? 'none') as ChallengeSkill
-  )
+  const challengeSkill = (tableOptions.value.attackModifiers?.challengeSkill ??
+    'none') as ChallengeSkill
+  bonus += new criticalBuffE(challengeSkill).getValue()
 
-  // 短期バフの補正（鬼人会心弾）
-  if (tableOptions.value.attackModifiers?.shortTermBuff === 'demonCriticalBullet') {
-    bonus += 10 // 鬼人会心弾: 会心率+10%
+  // 鬼人会心弾の補正
+  if (buffs?.demonCriticalBullet !== undefined) {
+    bonus += new criticalBuffF(buffs.demonCriticalBullet).getValue()
+  }
+
+  // 会心旋律の補正（固定値のみ、HornDependentは武器依存のため除外）
+  if (buffs?.criticalMelody !== undefined) {
+    const criticalMelody = buffs.criticalMelody
+    if (criticalMelody !== CriticalMelody.HornDependent) {
+      bonus += new criticalBuffD(criticalMelody).getValue()
+    }
   }
 
   return bonus
 })
-
-// 会心補正値を計算（criticalBuffsに反映）
-const criticalBonus = computed(() => calculateCriticalBonus.value)
 
 // 攻撃旋律の倍率を計算（固定値の場合のみ）
 const attackMelodyMultiplier = computed(() => {
@@ -137,23 +138,8 @@ const attackMelodyMultiplier = computed(() => {
   }
 })
 
-// 会心強化旋律の補正値を計算（固定値の場合のみ）
-const criticalMelodyBonus = computed(() => {
-  switch (tableOptions.value.criticalMelody) {
-    case CriticalMelody.Bonus15:
-      return 15
-    case CriticalMelody.Bonus20:
-      return 20
-    default:
-      return 0
-  }
-})
-
-// criticalBuffsを更新（criticalBonusを反映）
-const criticalBuffs = computed(() => ({
-  ...tableOptions.value.criticalBuffs,
-  criticalBonus: criticalBonus.value,
-}))
+// criticalBuffsをそのまま使用
+const criticalBuffs = computed(() => tableOptions.value.criticalBuffs)
 
 // 攻撃力加算バフの合計を計算
 const totalAttackAdd = computed(() => {
@@ -171,7 +157,7 @@ const totalAttackAdd = computed(() => {
   if (modifiers.attackSkill && modifiers.attackSkill !== 'none') {
     total += getAttackSkillValue(modifiers.attackSkill)
   }
-  const challengeSkillValue = getChallengeSkillValue(
+  const challengeSkillValue = getChallengeSkillAttackValue(
     (modifiers.challengeSkill ?? 'none') as ChallengeSkill
   )
   if (challengeSkillValue > 0) {
@@ -208,7 +194,7 @@ const totalAttackMultiply = computed(() => {
 
 // 会心率追加の合計を計算
 const totalCriticalBonus = computed(() => {
-  return criticalBonus.value + criticalMelodyBonus.value
+  return calculateCriticalBonus.value
 })
 
 // 切れ味補正倍率を計算
@@ -302,17 +288,18 @@ const activeSkills = computed(() => {
     skills.push('龍気活性')
   }
 
-  if (tableOptions.value.hasWeaknessExploit) {
+  const buffs = tableOptions.value.criticalBuffs
+  if (buffs?.hasWeaknessExploit) {
     skills.push('弱点特攻')
   }
 
-  if (tableOptions.value.repeatOffensive && tableOptions.value.repeatOffensive !== 'none') {
-    skills.push(`連撃の心得(${tableOptions.value.repeatOffensive}%)`)
+  if (buffs?.repeatOffensive && buffs.repeatOffensive !== 'none') {
+    skills.push(`連撃の心得(${buffs.repeatOffensive}%)`)
   }
 
-  if (tableOptions.value.criticalEye !== 0) {
+  if (buffs?.criticalEye !== undefined && buffs.criticalEye !== 0) {
     const eyeName = (() => {
-      switch (tableOptions.value.criticalEye) {
+      switch (buffs.criticalEye) {
         case -3:
           return '見切り-3'
         case -2:
@@ -431,8 +418,7 @@ const filteredHorns = computed(() => {
         :critical-buffs="criticalBuffs"
         :attack-modifiers="tableOptions.attackModifiers"
         :sharpness-multiplier="sharpnessMultiplier"
-        :critical-melody="tableOptions.criticalMelody"
-        :critical-melody-bonus="criticalMelodyBonus"
+        :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
         :selected-melody-names="selectedMelodyNames"
         :highlighted-melody-names="highlightedMelodyNames"
         :on-melody-click="toggleMelodyHighlight"

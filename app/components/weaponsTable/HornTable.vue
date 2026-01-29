@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import type { HuntingHorn } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { CriticalMelody } from '~/types/tableBaseOption'
+import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
 import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import WeaponTable from './WeaponTable.vue'
 
 interface Props extends TableBaseOption {
   horns: HuntingHorn[]
-  criticalMelody?: CriticalMelody
-  criticalMelodyBonus?: number
   selectedMelodyNames?: Set<string> // フィルターで選択されている旋律名
   highlightedMelodyNames?: Set<string> // ハイライトされている旋律名
   onMelodyClick?: (melodyName: string) => void // 旋律名クリック時のコールバック
@@ -18,7 +16,6 @@ interface Props extends TableBaseOption {
 const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
   criticalBuffs: () => ({
-    criticalBonus: 0,
     hasCriticalBoost: false,
     hasMadAffinity: false,
   }),
@@ -29,8 +26,6 @@ const props = withDefaults(defineProps<Props>(), {
     attackMelody: AttackMelody.None,
     attackMelodyMultiplier: 1.0,
   }),
-  criticalMelody: CriticalMelody.None,
-  criticalMelodyBonus: 0,
   sharpnessMultiplier: 1.0,
 })
 </script>
@@ -42,7 +37,7 @@ const props = withDefaults(defineProps<Props>(), {
     :critical-buffs="props.criticalBuffs"
     :attack-modifiers="props.attackModifiers"
     :sharpness-multiplier="props.sharpnessMultiplier"
-    :critical-melody="props.criticalMelody"
+    :critical-melody="props.criticalBuffs?.criticalMelody"
   >
     <template #header-columns>
       <th class="text-left p-2">音色</th>
@@ -75,7 +70,8 @@ const props = withDefaults(defineProps<Props>(), {
                 ((props.attackModifiers?.attackMelody ?? AttackMelody.None) ===
                   AttackMelody.HornDependent &&
                   (name === '攻撃力強化【小】' || name === '攻撃力強化【大】')) ||
-                (props.criticalMelody === CriticalMelody.HornDependent &&
+                ((props.criticalBuffs?.criticalMelody ?? CriticalMelody.None) ===
+                  CriticalMelody.HornDependent &&
                   name === '会心率UP&体力回復【小】'),
               'bg-blue-200 dark:bg-blue-900 px-1 rounded':
                 props.selectedMelodyNames && props.selectedMelodyNames.has(name),

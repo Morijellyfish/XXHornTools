@@ -3,7 +3,7 @@ import type { HuntingHorn } from '~/types/weapons'
 import type { Note } from '~/types/notes'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
-import { CriticalMelody } from '~/types/tableBaseOption'
+import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
 import type { SharpnessType } from '~/composables/useWeaponTable'
 import WeaponTableRow from './WeaponTableRow.vue'
 

@@ -12,7 +12,6 @@ interface Props extends TableBaseOption {
 const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
   criticalBuffs: () => ({
-    criticalBonus: 0,
     hasCriticalBoost: false,
     hasMadAffinity: false,
   }),
