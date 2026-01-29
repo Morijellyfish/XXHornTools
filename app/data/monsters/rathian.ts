@@ -23,6 +23,7 @@ export const rathian: Monster = {
         龍: 35,
       },
       stun: 100,
+      partDurabilityNames: ['頭'],
     },
     // 首
     {
@@ -40,6 +41,7 @@ export const rathian: Monster = {
         龍: 20,
       },
       stun: 0,
+      partDurabilityNames: ['首'],
     },
     // 背
     {
@@ -57,6 +59,7 @@ export const rathian: Monster = {
         龍: 25,
       },
       stun: 0,
+      partDurabilityNames: ['胴'],
     },
     // 腹
     {
@@ -74,6 +77,7 @@ export const rathian: Monster = {
         龍: 10,
       },
       stun: 0,
+      partDurabilityNames: ['胴'],
     },
     // 翼
     {
@@ -91,6 +95,7 @@ export const rathian: Monster = {
         龍: 20,
       },
       stun: 0,
+      partDurabilityNames: ['左翼', '右翼'],
     },
     // 脚
     {
@@ -108,6 +113,7 @@ export const rathian: Monster = {
         龍: 10,
       },
       stun: 0,
+      partDurabilityNames: ['左脚', '右脚'],
     },
     // 尻尾
     {
@@ -125,26 +131,27 @@ export const rathian: Monster = {
         龍: 25,
       },
       stun: 0,
+      partDurabilityNames: ['尻尾', '尻尾(破壊前)'],
     },
   ],
   partDurabilities: [
     // 頭
-    new PartDurability('頭', ['頭'], 190, 285),
+    new PartDurability('頭', 190, 285),
     // 首
-    new PartDurability('首', ['首'], 90, 135),
-    // 胴（背と腹の両方に対応）
-    new PartDurability('胴', ['背', '腹'], 140, 210),
+    new PartDurability('首', 90, 135),
+    // 胴
+    new PartDurability('胴', 140, 210),
     // 左翼
-    new PartDurability('左翼', ['翼'], 100, 150),
+    new PartDurability('左翼', 100, 150),
     // 右翼
-    new PartDurability('右翼', ['翼'], 100, 150),
+    new PartDurability('右翼', 100, 150),
     // 左脚
-    new PartDurability('左脚', ['脚'], 180, 270),
+    new PartDurability('左脚', 180, 270),
     // 右脚
-    new PartDurability('右脚', ['脚'], 180, 270),
+    new PartDurability('右脚', 180, 270),
     // 尻尾
-    new PartDurability('尻尾', ['尻尾'], 150, 225),
+    new PartDurability('尻尾', 150, 225),
     // 尻尾(破壊前)
-    new PartDurability('尻尾(破壊前)', ['尻尾'], 230),
+    new PartDurability('尻尾(破壊前)', 230),
   ],
 }

@@ -1,7 +1,7 @@
 // 属性の種類
 export type ElementType = '火' | '水' | '雷' | '氷' | '龍'
 
-export interface MelleeValues{
+export interface MelleeValues {
   slash: number
   impact: number
   shot: number
@@ -26,4 +26,6 @@ export interface HitZone {
   element: ElementValues
   // 気絶
   stun: number
+  // 対応する部位耐久名の配列（複数の部位耐久に対応可能）
+  partDurabilityNames: string[]
 }

@@ -22,6 +22,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 100,
+      partDurabilityNames: ['頭'],
     },
     // 頭(怒)
     {
@@ -39,6 +40,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 100,
+      partDurabilityNames: ['頭'],
     },
     // 首
     {
@@ -56,6 +58,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['胴'],
     },
     // 首(怒)
     {
@@ -73,6 +76,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['胴'],
     },
     // 胴
     {
@@ -90,6 +94,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['胴'],
     },
     // 胴(怒)
     {
@@ -107,6 +112,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['胴'],
     },
     // 翼
     {
@@ -124,6 +130,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['左翼', '右翼'],
     },
     // 翼(怒)
     {
@@ -141,6 +148,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['左翼', '右翼'],
     },
     // 翼脚
     {
@@ -158,6 +166,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['左前脚', '右前脚'],
     },
     // 前脚
     {
@@ -175,6 +184,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['左前脚', '右前脚'],
     },
     // 後脚
     {
@@ -192,6 +202,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['左前脚', '右前脚'],
     },
     // 後脚(怒)
     {
@@ -209,6 +220,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['左前脚', '右前脚'],
     },
     // 尻尾
     {
@@ -226,6 +238,7 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['尻尾', '尻尾(破壊前)'],
     },
     // 尻尾(怒)
     {
@@ -243,24 +256,25 @@ export const valstrax: Monster = {
         龍: 0,
       },
       stun: 0,
+      partDurabilityNames: ['尻尾', '尻尾(破壊前)'],
     },
   ],
   partDurabilities: [
     // 頭
-    new PartDurability('頭', ['頭'], 250),
+    new PartDurability('頭', 250),
     // 胴
-    new PartDurability('胴', ['胴'], 200),
+    new PartDurability('胴', 200),
     // 左翼
-    new PartDurability('左翼', ['翼'], 100),
+    new PartDurability('左翼', 100),
     // 右翼
-    new PartDurability('右翼', ['翼'], 100),
+    new PartDurability('右翼', 100),
     // 左前脚
-    new PartDurability('左前脚', ['前脚'], 150),
+    new PartDurability('左前脚', 150),
     // 右前脚
-    new PartDurability('右前脚', ['前脚'], 150),
+    new PartDurability('右前脚', 150),
     // 尻尾
-    new PartDurability('尻尾', ['尻尾'], 150),
+    new PartDurability('尻尾', 150),
     // 尻尾(破壊前)
-    new PartDurability('尻尾(破壊前)', ['尻尾'], 300),
+    new PartDurability('尻尾(破壊前)', 300),
   ],
 }
