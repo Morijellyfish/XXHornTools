@@ -3,15 +3,10 @@ import { allHorns } from '~/data/horns'
 import { melodyNames } from '~/data/melodies'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { getActiveSkills } from '~/types/tableBaseOption'
-import { CriticalMelody, criticalBuffD } from '~/types/criticalBuff/criticalBuff_D'
+import { getActiveSkills, calculateCriticalBonus } from '~/types/tableBaseOption'
 import { getChallengeSkillAttackValue } from '~/types/challengeSkill'
 import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
-import { criticalBuffA } from '~/types/criticalBuff/criticalBuff_A'
-import { criticalBuffB } from '~/types/criticalBuff/criticalBuff_B'
-import { criticalBuffC } from '~/types/criticalBuff/criticalBuff_C'
-import { criticalBuffE } from '~/types/criticalBuff/criticalBuff_E'
-import { criticalBuffF } from '~/types/criticalBuff/criticalBuff_F'
+import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
 import type { ChallengeSkill } from '~/types/attackBuff/attackBuffs'
 import {
   getPreparedBuffValue,
@@ -78,46 +73,8 @@ const toggleMelodyHighlight = (melodyName: string) => {
   highlightedMelodyNames.value = new Set(highlightedMelodyNames.value)
 }
 
-// 会心補正を計算（criticalBuffクラスを使用）
-const calculateCriticalBonus = computed((): number => {
-  const buffs = tableOptions.value.criticalBuffs
-  let bonus = 0
-
-  // 見切りの補正
-  if (buffs?.criticalEye !== undefined) {
-    bonus += new criticalBuffA(buffs.criticalEye).getValue()
-  }
-
-  // 弱点特攻の補正
-  if (buffs?.hasWeaknessExploit !== undefined) {
-    bonus += new criticalBuffB(buffs.hasWeaknessExploit).getValue()
-  }
-
-  // 連撃の補正
-  if (buffs?.repeatOffensive) {
-    bonus += new criticalBuffC(buffs.repeatOffensive).getValue()
-  }
-
-  // 挑戦者・フルチャージ・力の解放の補正
-  const challengeSkill = (tableOptions.value.attackModifiers?.challengeSkill ??
-    'none') as ChallengeSkill
-  bonus += new criticalBuffE(challengeSkill).getValue()
-
-  // 鬼人会心弾の補正
-  if (buffs?.demonCriticalBullet !== undefined) {
-    bonus += new criticalBuffF(buffs.demonCriticalBullet).getValue()
-  }
-
-  // 会心旋律の補正（固定値のみ、HornDependentは武器依存のため除外）
-  if (buffs?.criticalMelody !== undefined) {
-    const criticalMelody = buffs.criticalMelody
-    if (criticalMelody !== CriticalMelody.HornDependent) {
-      bonus += new criticalBuffD(criticalMelody).getValue()
-    }
-  }
-
-  return bonus
-})
+// 会心補正を計算
+const calculateCriticalBonusComputed = computed(() => calculateCriticalBonus(tableOptions.value))
 
 // 攻撃旋律の倍率を計算（固定値の場合のみ）
 const attackMelodyMultiplier = computed(() => {
@@ -190,7 +147,7 @@ const totalAttackMultiply = computed(() => {
 
 // 会心率追加の合計を計算
 const totalCriticalBonus = computed(() => {
-  return calculateCriticalBonus.value
+  return calculateCriticalBonusComputed.value
 })
 
 // 切れ味補正倍率を計算

@@ -6,6 +6,12 @@ import type {
   Fortify,
 } from './attackBuff/attackBuffs'
 import type { CriticalBuffs } from './criticalBuff/criticalBuffs'
+import { CriticalMelody, criticalBuffD } from './criticalBuff/criticalBuff_D'
+import { criticalBuffA } from './criticalBuff/criticalBuff_A'
+import { criticalBuffB } from './criticalBuff/criticalBuff_B'
+import { criticalBuffC } from './criticalBuff/criticalBuff_C'
+import { criticalBuffE } from './criticalBuff/criticalBuff_E'
+import { criticalBuffF } from './criticalBuff/criticalBuff_F'
 
 /** 切れ味の種類 */
 export type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -180,4 +186,48 @@ export function getActiveSkills(options: TableBaseOption): string[] {
   }
 
   return skills
+}
+
+/**
+ * 会心補正値を計算（固定値のみ、武器依存の会心旋律は除外）
+ * @param options テーブルオプション
+ * @returns 会心補正値（%）
+ */
+export function calculateCriticalBonus(options: TableBaseOption): number {
+  const buffs = options.criticalBuffs
+  let bonus = 0
+
+  // 見切りの補正
+  if (buffs?.criticalEye !== undefined) {
+    bonus += new criticalBuffA(buffs.criticalEye).getValue()
+  }
+
+  // 弱点特攻の補正
+  if (buffs?.hasWeaknessExploit !== undefined) {
+    bonus += new criticalBuffB(buffs.hasWeaknessExploit).getValue()
+  }
+
+  // 連撃の補正
+  if (buffs?.repeatOffensive) {
+    bonus += new criticalBuffC(buffs.repeatOffensive).getValue()
+  }
+
+  // 挑戦者・フルチャージ・力の解放の補正
+  const challengeSkill = (options.attackModifiers?.challengeSkill ?? 'none') as ChallengeSkill
+  bonus += new criticalBuffE(challengeSkill).getValue()
+
+  // 鬼人会心弾の補正
+  if (buffs?.demonCriticalBullet !== undefined) {
+    bonus += new criticalBuffF(buffs.demonCriticalBullet).getValue()
+  }
+
+  // 会心旋律の補正（固定値のみ、HornDependentは武器依存のため除外）
+  if (buffs?.criticalMelody !== undefined) {
+    const criticalMelody = buffs.criticalMelody
+    if (criticalMelody !== CriticalMelody.HornDependent) {
+      bonus += new criticalBuffD(criticalMelody).getValue()
+    }
+  }
+
+  return bonus
 }

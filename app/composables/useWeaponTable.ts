@@ -2,13 +2,8 @@ import { ref, computed } from 'vue'
 import type { WeaponMelee, HuntingHorn } from '~/types/weapons'
 import { isHuntingHorn } from '~/types/weapons'
 import type { TableBaseOption, SharpnessType } from '~/types/tableBaseOption'
-import { CriticalMelody, criticalBuffD } from '~/types/criticalBuff/criticalBuff_D'
-import { criticalBuffA } from '~/types/criticalBuff/criticalBuff_A'
-import { criticalBuffB } from '~/types/criticalBuff/criticalBuff_B'
-import { criticalBuffC } from '~/types/criticalBuff/criticalBuff_C'
-import { criticalBuffE } from '~/types/criticalBuff/criticalBuff_E'
-import { criticalBuffF } from '~/types/criticalBuff/criticalBuff_F'
-import type { ChallengeSkill } from '~/types/challengeSkill'
+import { calculateCriticalBonus } from '~/types/tableBaseOption'
+import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
 import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
@@ -88,55 +83,22 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return sortOrder.value === 'asc' ? '↑' : '↓'
   }
 
-  // 会心旋律の補正値を計算
-  const getCriticalMelodyBonus = (weapon: T): number => {
+  // 会心補正値を計算（武器依存の会心旋律も考慮）
+  const calculateCriticalBonusForWeapon = (weapon: T): number => {
+    // 固定値の会心補正を取得
+    let bonus = calculateCriticalBonus(props)
+    // 武器依存の会心旋律の補正を追加
     const criticalMelody = props.criticalBuffs?.criticalMelody ?? CriticalMelody.None
     if (criticalMelody === CriticalMelody.HornDependent && isHuntingHorn(weapon)) {
       // HornDependent の場合は武器依存のため、武器の旋律から取得
-      return weapon.notes.getMaxMelodyBonus_Critical()
+      bonus += weapon.notes.getMaxMelodyBonus_Critical()
     }
-    // 固定値の場合はcriticalBuffDクラスを使用
-    return new criticalBuffD(criticalMelody).getValue()
-  }
-
-  // 会心補正値を計算（各バフを個別に計算して合計）
-  const calculateCriticalBonus = (weapon: T): number => {
-    const buffs = props.criticalBuffs
-    let bonus = 0
-
-    // 見切りの補正
-    if (buffs?.criticalEye !== undefined) {
-      bonus += new criticalBuffA(buffs.criticalEye).getValue()
-    }
-
-    // 弱点特攻の補正
-    if (buffs?.hasWeaknessExploit !== undefined) {
-      bonus += new criticalBuffB(buffs.hasWeaknessExploit).getValue()
-    }
-
-    // 連撃の補正
-    if (buffs?.repeatOffensive) {
-      bonus += new criticalBuffC(buffs.repeatOffensive).getValue()
-    }
-
-    // 挑戦者・フルチャージ・力の解放の補正
-    const challengeSkill = (props.attackModifiers?.challengeSkill ?? 'none') as ChallengeSkill
-    bonus += new criticalBuffE(challengeSkill).getValue()
-
-    // 鬼人会心弾の補正
-    if (buffs?.demonCriticalBullet !== undefined) {
-      bonus += new criticalBuffF(buffs.demonCriticalBullet).getValue()
-    }
-
-    // 会心旋律の補正
-    bonus += getCriticalMelodyBonus(weapon)
-
     return bonus
   }
 
   // 会心率を計算（元の会心率 + 会心補正）
   const calculateAffinity = (weapon: T): number => {
-    return weapon.affinity + calculateCriticalBonus(weapon)
+    return weapon.affinity + calculateCriticalBonusForWeapon(weapon)
   }
 
   // 期待値を計算
@@ -144,7 +106,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     // 補正済みの攻撃力を計算
     const attackWithBuffs = getAttackWithBuffs(weapon)
     // 会心補正
-    const totalCriticalBonus = calculateCriticalBonus(weapon)
+    const totalCriticalBonus = calculateCriticalBonusForWeapon(weapon)
     return calculateExpectedValue(
       attackWithBuffs,
       weapon as unknown as HuntingHorn, // HuntingHorn として扱う（LongSword の場合は後で対応）
@@ -168,7 +130,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
 
   // 元の会心率を括弧で表示するかどうかを判定
   const isShowBaseAffinity = (weapon: T): boolean => {
-    const totalCriticalBonus = calculateCriticalBonus(weapon)
+    const totalCriticalBonus = calculateCriticalBonusForWeapon(weapon)
     return totalCriticalBonus !== 0
   }
 
