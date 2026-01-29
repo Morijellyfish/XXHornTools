@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: '狩りピTools - モンスターハンターXX ツール集',
+  title: 'トップ - 狩りピTools',
 })
 
 type ButtonColor = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'neutral'

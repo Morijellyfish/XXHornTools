@@ -9,7 +9,7 @@ import OptionMonitor from '~/components/OptionMonitor.vue'
 import LongSwordTable from '~/components/weaponsTable/LongSwordTable.vue'
 
 useHead({
-  title: '太刀比較表',
+  title: '太刀比較表 - 狩りピTools',
 })
 
 // TableBaseOption にすべてのオプションを集約

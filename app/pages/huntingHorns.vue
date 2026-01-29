@@ -11,7 +11,7 @@ import MelodyFilter from '~/components/MelodyFilter.vue'
 import HornTable from '~/components/weaponsTable/HornTable.vue'
 
 useHead({
-  title: '狩猟笛比較表',
+  title: '狩猟笛比較表 - 狩りピTools',
 })
 
 // TableBaseOption にすべてのオプションを集約
