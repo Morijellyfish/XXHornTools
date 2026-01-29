@@ -98,70 +98,21 @@ const updateTimer = (index: number, updates: Partial<TimerState>) => {
 
 // 他の旋律タイマーを延長する関数（全旋律効果延長用）
 const extendOtherMelodyTimers = (sourceIndex: number, extendDuration: number) => {
-  timers.value.forEach((otherTimer, otherIndex) => {
-    // 自分以外で、音色（notes）が設定されていて発動中のタイマー（timer > 0）のみ延長
-    if (
-      otherIndex !== sourceIndex &&
-      otherTimer.notes &&
-      otherTimer.notes.trim() !== '' &&
-      otherTimer.timer > 0
-    ) {
-      const oldTimer = otherTimer.timer
-      const newTimer = Math.min(otherTimer.effectDuration, otherTimer.timer + extendDuration)
-
-      // 延長できた場合はタイマーを更新
-      if (newTimer > oldTimer) {
-        updateTimer(otherIndex, { timer: newTimer })
-      }
-
-      // フィードバック用フラッシュ
-      updateTimer(otherIndex, { isFlashing: true })
-      setTimeout(() => {
-        updateTimer(otherIndex, { isFlashing: false })
-      }, 400)
-    }
+  timerRefs.value.forEach((ref, index) => {
+    if (index === sourceIndex || !ref) return
+    ref.addTimeByMelody(extendDuration)
   })
 }
 
-// タイマーを開始/延長する関数
-const addTime = (index: number) => {
-  const timer = timers.value[index]
-  if (!timer) return
+// コンポーネントのrefを保持
+type TimerRef = { addTime: () => void; addTimeByMelody: (extendDuration: number) => void } | null
+const timerRefs = ref<TimerRef[]>(Array.from({ length: 10 }, () => null))
 
-  // 延長時のフィードバック用フラッシュ
-  const triggerFlash = () => {
-    updateTimer(index, { isFlashing: true })
-    setTimeout(() => {
-      updateTimer(index, { isFlashing: false })
-    }, 400)
-  }
-
-  if (timer.timer === 0) {
-    // タイマーが0の場合は初回値を設定
-    // effectDurationが0の場合は延長時間を設定（全旋律効果延長用）
-    const initialDuration = timer.effectDuration > 0 ? timer.effectDuration : timer.extendDuration
-    if (initialDuration > 0) {
-      updateTimer(index, { timer: initialDuration })
-    }
-    triggerFlash()
-  } else {
-    // タイマーが動いている場合は延長時間を加算（上限はeffectDuration、ただし0の場合は延長時間を上限とする）
-    const oldTimer = timer.timer
-    const maxDuration = timer.effectDuration > 0 ? timer.effectDuration : timer.extendDuration
-    const newTimer = Math.min(maxDuration, timer.timer + timer.extendDuration)
-
-    // 延長できた場合はタイマーを更新
-    if (newTimer > oldTimer) {
-      updateTimer(index, { timer: newTimer })
-    }
-
-    // すべての場合でフィードバックを表示（延長できなくても光る）
-    triggerFlash()
-  }
-
-  // 全旋律効果延長の場合は、他の旋律タイマーも延長
-  if (timer.name === '全旋律効果延長') {
-    extendOtherMelodyTimers(index, timer.extendDuration)
+// キーボード入力でタイマーを開始/延長する関数
+const addTimeByKey = (index: number) => {
+  const timerRef = timerRefs.value[index]
+  if (timerRef) {
+    timerRef.addTime()
   }
 }
 
@@ -185,7 +136,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   const key = Number(e.key)
   // 0キーは10番目のタイマー（index 9）、1-9は1-9番目のタイマー（index 0-8）
   const timerIndex = key === 0 ? 9 : key - 1
-  addTime(timerIndex)
+  addTimeByKey(timerIndex)
 }
 
 // カウントダウン処理
@@ -293,6 +244,11 @@ onUnmounted(() => {
           <MelodyTimer
             v-for="(timer, index) in timers"
             :key="index"
+            :ref="
+              el => {
+                if (el) timerRefs[index] = el as unknown as TimerRef
+              }
+            "
             :index="index + 1"
             :name="timer.name"
             :effect-duration="timer.effectDuration"
@@ -304,8 +260,11 @@ onUnmounted(() => {
             @update:effect-duration="value => updateTimer(index, { effectDuration: value })"
             @update:extend-duration="value => updateTimer(index, { extendDuration: value })"
             @update:timer="value => updateTimer(index, { timer: value })"
+            @update:is-flashing="value => updateTimer(index, { isFlashing: value })"
             @reset="updateTimer(index, { timer: 0 })"
-            @extend="addTime(index)"
+            @extend-others="
+              (extendDuration: number) => extendOtherMelodyTimers(index, extendDuration)
+            "
           />
         </div>
       </div>

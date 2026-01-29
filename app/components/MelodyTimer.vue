@@ -27,8 +27,9 @@ const emit = defineEmits<{
   'update:effectDuration': [value: number]
   'update:extendDuration': [value: number]
   'update:timer': [value: number]
+  'update:isFlashing': [value: boolean]
   reset: []
-  extend: []
+  'extend-others': [extendDuration: number]
 }>()
 
 const localName = computed({
@@ -61,6 +62,56 @@ const handleReset = () => {
   emit('reset')
 }
 
+// タイマーを開始/延長する関数（外部からも呼び出し可能）
+const addTime = () => {
+  // 延長時のフィードバック用フラッシュ
+  emit('update:isFlashing', true)
+  setTimeout(() => {
+    emit('update:isFlashing', false)
+  }, 400)
+
+  if (props.timer === 0) {
+    // タイマーが0の場合は初回値を設定
+    // effectDurationが0の場合は延長時間を設定（全旋律効果延長用）
+    const initialDuration = props.effectDuration > 0 ? props.effectDuration : props.extendDuration
+    if (initialDuration > 0) {
+      emit('update:timer', initialDuration)
+    }
+  } else {
+    // タイマーが動いている場合は延長時間を加算（上限はeffectDuration、ただし0の場合は延長時間を上限とする）
+    const oldTimer = props.timer
+    const maxDuration = props.effectDuration > 0 ? props.effectDuration : props.extendDuration
+    const newTimer = Math.min(maxDuration, props.timer + props.extendDuration)
+
+    // 延長できた場合はタイマーを更新
+    if (newTimer > oldTimer) {
+      emit('update:timer', newTimer)
+    }
+  }
+
+  // 全旋律効果延長の場合は、他の旋律タイマーも延長
+  if (props.name === '全旋律効果延長') {
+    emit('extend-others', props.extendDuration)
+  }
+}
+
+// 指定された延長時間でタイマーを延長する関数（全旋律効果延長用）
+const addTimeByMelody = (extendDuration: number) => {
+  // 音色が設定されていて発動中のタイマーのみ延長
+  if (!props.notes?.trim() || props.timer === 0) {
+    return
+  }
+
+  const newTimer = Math.min(props.effectDuration, props.timer + extendDuration)
+  if (newTimer > props.timer) {
+    emit('update:timer', newTimer)
+  }
+
+  // フィードバック用フラッシュ
+  emit('update:isFlashing', true)
+  setTimeout(() => emit('update:isFlashing', false), 400)
+}
+
 const handleCardClick = (event: MouseEvent) => {
   // 入力フィールド、ボタン、リンクなどのクリックは無視
   const target = event.target as HTMLElement
@@ -72,8 +123,14 @@ const handleCardClick = (event: MouseEvent) => {
   ) {
     return
   }
-  emit('extend')
+  addTime()
 }
+
+// 外部から呼び出し可能にする
+defineExpose({
+  addTime,
+  addTimeByMelody,
+})
 </script>
 
 <template>
