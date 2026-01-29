@@ -26,6 +26,8 @@ useSeoMeta({
         <NuxtLink to="/" class="font-bold text-lg"> 狩りピTools </NuxtLink>
 
         <UButton to="/huntingHorns" variant="ghost" color="neutral"> 武器比較表 </UButton>
+
+        <UButton to="/melodyTimer" variant="ghost" color="neutral"> 旋律タイマー </UButton>
       </template>
     </UHeader>
 

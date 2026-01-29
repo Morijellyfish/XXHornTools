@@ -26,6 +26,16 @@ const tools: Tool[] = [
     status: 'available',
     color: 'primary',
   },
+  {
+    id: 'melody-timer',
+    title: '旋律タイマー',
+    description:
+      '狩猟笛のバフ管理に特化したタイマー。各旋律ごとにタイマーを設定し、キーボード入力で簡単に管理できます。',
+    icon: 'i-lucide-timer',
+    to: '/melodyTimer',
+    status: 'available',
+    color: 'success',
+  },
   // 将来的に他のツールを追加する場合は、ここに追加
   // {
   //   id: 'weapon-comparison',
