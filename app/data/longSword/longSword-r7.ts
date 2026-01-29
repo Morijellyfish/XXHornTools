@@ -150,7 +150,7 @@ export const longSwordsR7: LongSword[] = [
     name: '覇威刀イクセタンカム5',
     attack: 370,
     defense: 0,
-    slots: 1,
+    slots: 0,
     affinity: 30,
     sharpness: {
       normal: { color: SharpnessColor.Green, length: 60 },
