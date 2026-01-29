@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { CriticalMelody } from '~/types/criticalBuff'
+import { CriticalMelody, CriticalEye } from '~/types/criticalBuff'
 import {
   getChallengeSkillAttackValue,
   getChallengeSkillCriticalValue,
@@ -359,16 +359,16 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             </div>
           </div>
           <SelectOption
-            :model-value="criticalBuffs.criticalEye ?? 0"
+            :model-value="criticalBuffs.criticalEye ?? CriticalEye.Zero"
             label="見切り:"
             :options="[
-              { value: -3, label: '-3' },
-              { value: -2, label: '-2' },
-              { value: -1, label: '-1' },
-              { value: 0, label: '0' },
-              { value: 1, label: '+1' },
-              { value: 2, label: '+2' },
-              { value: 3, label: '+3' },
+              { value: CriticalEye.Minus3, label: '-3' },
+              { value: CriticalEye.Minus2, label: '-2' },
+              { value: CriticalEye.Minus1, label: '-1' },
+              { value: CriticalEye.Zero, label: '0' },
+              { value: CriticalEye.Plus1, label: '+1' },
+              { value: CriticalEye.Plus2, label: '+2' },
+              { value: CriticalEye.Plus3, label: '+3' },
             ]"
             @update:model-value="
               options = { ...options, criticalBuffs: { ...criticalBuffs, criticalEye: $event } }

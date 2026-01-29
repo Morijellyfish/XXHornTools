@@ -4,7 +4,7 @@ import { melodyNames } from '~/data/melodies'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/attackBuff'
-import { CriticalMelody } from '~/types/criticalBuff'
+import { CriticalMelody, CriticalEye } from '~/types/criticalBuff'
 import WeaponTableOptions from '~/components/WeaponTableOptions.vue'
 import OptionMonitor from '~/components/OptionMonitor.vue'
 import MelodyFilter from '~/components/MelodyFilter.vue'
@@ -22,7 +22,7 @@ const tableOptions = ref<TableBaseOption>({
     hasMadAffinity: false,
     hasWeaknessExploit: false,
     repeatOffensive: 'none',
-    criticalEye: 0,
+    criticalEye: CriticalEye.Zero,
     criticalMelody: CriticalMelody.None,
     demonCriticalBullet: false,
   },

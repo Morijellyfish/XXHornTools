@@ -32,6 +32,7 @@ import {
   criticalBuffE,
   criticalBuffF,
   CriticalMelody,
+  CriticalEye,
 } from './criticalBuff'
 
 /** 切れ味の種類 */
@@ -162,20 +163,20 @@ export function getActiveSkills(options: TableBaseOption): string[] {
   }
 
   // 見切り
-  if (buffs?.criticalEye !== undefined && buffs.criticalEye !== 0) {
+  if (buffs?.criticalEye !== undefined && buffs.criticalEye !== CriticalEye.Zero) {
     const eyeName = (() => {
       switch (buffs.criticalEye) {
-        case -3:
+        case CriticalEye.Minus3:
           return '見切り-3'
-        case -2:
+        case CriticalEye.Minus2:
           return '見切り-2'
-        case -1:
+        case CriticalEye.Minus1:
           return '見切り-1'
-        case 1:
+        case CriticalEye.Plus1:
           return '見切り+1'
-        case 2:
+        case CriticalEye.Plus2:
           return '見切り+2'
-        case 3:
+        case CriticalEye.Plus3:
           return '見切り+3'
         default:
           return null
