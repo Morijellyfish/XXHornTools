@@ -15,6 +15,7 @@ interface TimerState {
   extendDuration: number
   timer: number
   notes?: string
+  isFlashing?: boolean
 }
 
 const timers = ref<TimerState[]>(
@@ -24,6 +25,7 @@ const timers = ref<TimerState[]>(
     extendDuration: 90,
     timer: 0,
     notes: '',
+    isFlashing: false,
   }))
 )
 
@@ -65,6 +67,7 @@ const applyTemplate = () => {
           : melody.extendDuration,
         notes: melody.notes,
         timer: 0,
+        isFlashing: false,
       })
     } else {
       // テンプレートにない場合はデフォルト値にリセット
@@ -74,6 +77,7 @@ const applyTemplate = () => {
         extendDuration: 90,
         notes: '',
         timer: 0,
+        isFlashing: false,
       })
     }
   }
@@ -88,6 +92,7 @@ const updateTimer = (index: number, updates: Partial<TimerState>) => {
     extendDuration: updates.extendDuration ?? current.extendDuration,
     timer: updates.timer ?? current.timer,
     notes: updates.notes ?? current.notes,
+    isFlashing: updates.isFlashing ?? current.isFlashing,
   }
 }
 
@@ -96,13 +101,32 @@ const addTime = (index: number) => {
   const timer = timers.value[index]
   if (!timer) return
 
+  // 延長時のフィードバック用フラッシュ
+  const triggerFlash = () => {
+    updateTimer(index, { isFlashing: true })
+    setTimeout(() => {
+      updateTimer(index, { isFlashing: false })
+    }, 400)
+  }
+
   if (timer.timer === 0) {
     // タイマーが0の場合は初回値を設定
-    updateTimer(index, { timer: timer.effectDuration })
+    if (timer.effectDuration > 0) {
+      updateTimer(index, { timer: timer.effectDuration })
+    }
+    triggerFlash()
   } else {
     // タイマーが動いている場合は延長時間を加算（上限はeffectDuration）
+    const oldTimer = timer.timer
     const newTimer = Math.min(timer.effectDuration, timer.timer + timer.extendDuration)
-    updateTimer(index, { timer: newTimer })
+
+    // 延長できた場合はタイマーを更新
+    if (newTimer > oldTimer) {
+      updateTimer(index, { timer: newTimer })
+    }
+
+    // すべての場合でフィードバックを表示（延長できなくても光る）
+    triggerFlash()
   }
 }
 
@@ -240,6 +264,7 @@ onUnmounted(() => {
             :extend-duration="timer.extendDuration"
             :timer="timer.timer"
             :notes="timer.notes"
+            :is-flashing="timer.isFlashing ?? false"
             @update:name="value => updateTimer(index, { name: value })"
             @update:effect-duration="value => updateTimer(index, { effectDuration: value })"
             @update:extend-duration="value => updateTimer(index, { extendDuration: value })"

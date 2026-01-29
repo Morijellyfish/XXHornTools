@@ -10,6 +10,7 @@ interface Props {
   extendDuration?: number
   timer?: number
   notes?: string
+  isFlashing?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,6 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   extendDuration: 90,
   timer: 0,
   notes: '',
+  isFlashing: false,
 })
 
 const emit = defineEmits<{
@@ -44,7 +46,7 @@ const localExtendDuration = computed({
 })
 
 const isBlinking = computed(() => props.timer > 0 && props.timer <= 15)
-const isInactive = computed(() => props.timer === 0)
+const isInactive = computed(() => props.timer === 0 && !props.isFlashing)
 const isActive = computed(() => props.timer > 15)
 
 // ノートを配列に変換
@@ -65,6 +67,7 @@ const handleReset = () => {
       'timer-blinking': isBlinking,
       'timer-inactive': isInactive,
       'timer-active': isActive,
+      'timer-flashing': isFlashing,
     }"
     class="transition-all duration-200"
   >
@@ -178,6 +181,67 @@ const handleReset = () => {
   50% {
     background-color: rgba(191, 166, 0, 0.33);
     box-shadow: 0 0 16px 4px rgba(255, 224, 102, 0.13);
+  }
+}
+
+.timer-flashing {
+  animation: flash-timer 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+@keyframes flash-timer {
+  0% {
+    background-color: rgba(255, 251, 230, 0.9);
+    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.45), 0 0 36px 10px rgba(255, 224, 102, 0.25);
+    transform: scale(1.015);
+  }
+
+  25% {
+    background-color: rgba(255, 251, 230, 0.95);
+    box-shadow: 0 0 24px 8px rgba(255, 224, 102, 0.5), 0 0 40px 12px rgba(255, 224, 102, 0.3);
+    transform: scale(1.02);
+  }
+
+  50% {
+    background-color: rgba(255, 251, 230, 0.7);
+    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.4);
+    transform: scale(1.01);
+  }
+
+  100% {
+    background-color: var(--color-gray-50);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+  }
+}
+
+.dark .timer-flashing {
+  animation: flash-timer-dark 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes flash-timer-dark {
+  0% {
+    background-color: rgba(191, 166, 0, 0.55);
+    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.22), 0 0 36px 10px rgba(255, 224, 102, 0.12);
+    transform: scale(1.015);
+  }
+
+  25% {
+    background-color: rgba(191, 166, 0, 0.6);
+    box-shadow: 0 0 24px 8px rgba(255, 224, 102, 0.25), 0 0 40px 12px rgba(255, 224, 102, 0.15);
+    transform: scale(1.02);
+  }
+
+  50% {
+    background-color: rgba(191, 166, 0, 0.4);
+    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.2);
+    transform: scale(1.01);
+  }
+
+  100% {
+    background-color: var(--color-gray-900);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    transform: scale(1);
   }
 }
 </style>
