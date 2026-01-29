@@ -1039,8 +1039,8 @@ export const melodyEffects: MelodyEffectsMap = {
     },
     {
       name: '全旋律効果延長',
-      effectDuration: 0,
-      effectDurationWithSkill: 0,
+      effectDuration: 30,
+      effectDurationWithSkill: 40,
       extendDuration: 30,
       extendDurationWithSkill: 40,
       notes: '橙赤橙',

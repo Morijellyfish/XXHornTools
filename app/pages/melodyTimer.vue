@@ -96,6 +96,33 @@ const updateTimer = (index: number, updates: Partial<TimerState>) => {
   }
 }
 
+// 他の旋律タイマーを延長する関数（全旋律効果延長用）
+const extendOtherMelodyTimers = (sourceIndex: number, extendDuration: number) => {
+  timers.value.forEach((otherTimer, otherIndex) => {
+    // 自分以外で、音色（notes）が設定されていて発動中のタイマー（timer > 0）のみ延長
+    if (
+      otherIndex !== sourceIndex &&
+      otherTimer.notes &&
+      otherTimer.notes.trim() !== '' &&
+      otherTimer.timer > 0
+    ) {
+      const oldTimer = otherTimer.timer
+      const newTimer = Math.min(otherTimer.effectDuration, otherTimer.timer + extendDuration)
+
+      // 延長できた場合はタイマーを更新
+      if (newTimer > oldTimer) {
+        updateTimer(otherIndex, { timer: newTimer })
+      }
+
+      // フィードバック用フラッシュ
+      updateTimer(otherIndex, { isFlashing: true })
+      setTimeout(() => {
+        updateTimer(otherIndex, { isFlashing: false })
+      }, 400)
+    }
+  })
+}
+
 // タイマーを開始/延長する関数
 const addTime = (index: number) => {
   const timer = timers.value[index]
@@ -111,14 +138,17 @@ const addTime = (index: number) => {
 
   if (timer.timer === 0) {
     // タイマーが0の場合は初回値を設定
-    if (timer.effectDuration > 0) {
-      updateTimer(index, { timer: timer.effectDuration })
+    // effectDurationが0の場合は延長時間を設定（全旋律効果延長用）
+    const initialDuration = timer.effectDuration > 0 ? timer.effectDuration : timer.extendDuration
+    if (initialDuration > 0) {
+      updateTimer(index, { timer: initialDuration })
     }
     triggerFlash()
   } else {
-    // タイマーが動いている場合は延長時間を加算（上限はeffectDuration）
+    // タイマーが動いている場合は延長時間を加算（上限はeffectDuration、ただし0の場合は延長時間を上限とする）
     const oldTimer = timer.timer
-    const newTimer = Math.min(timer.effectDuration, timer.timer + timer.extendDuration)
+    const maxDuration = timer.effectDuration > 0 ? timer.effectDuration : timer.extendDuration
+    const newTimer = Math.min(maxDuration, timer.timer + timer.extendDuration)
 
     // 延長できた場合はタイマーを更新
     if (newTimer > oldTimer) {
@@ -127,6 +157,11 @@ const addTime = (index: number) => {
 
     // すべての場合でフィードバックを表示（延長できなくても光る）
     triggerFlash()
+  }
+
+  // 全旋律効果延長の場合は、他の旋律タイマーも延長
+  if (timer.name === '全旋律効果延長') {
+    extendOtherMelodyTimers(index, timer.extendDuration)
   }
 }
 
