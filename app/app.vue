@@ -37,9 +37,10 @@ useSeoMeta({
 
     <UFooter>
       <template #left>
-        <p class="text-sm text-muted">
-          モンスターハンターXX 狩猟笛比較表 • © {{ new Date().getFullYear() }}
-        </p>
+        <div class="text-sm text-muted space-y-1">
+          <p>狩りピTools • © {{ new Date().getFullYear() }}</p>
+          <p class="text-xs">本ツールは非公式です。モンスターハンターXXはカプコンの著作物です。</p>
+        </div>
       </template>
     </UFooter>
   </UApp>

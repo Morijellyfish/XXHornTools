@@ -15,6 +15,11 @@ interface Tool {
   color?: ButtonColor
 }
 
+interface ReferenceSite {
+  name: string
+  url: string
+}
+
 const tools: Tool[] = [
   {
     id: 'horns',
@@ -45,6 +50,17 @@ const tools: Tool[] = [
   //   to: '/weapons',
   //   status: 'coming-soon',
   // },
+]
+
+const referenceSites: ReferenceSite[] = [
+  {
+    name: 'MHXX ダメージ計算',
+    url: 'https://kuroyonhon.com/mhxx/d/dame.php',
+  },
+  {
+    name: 'MHXG Wiki',
+    url: 'http://wiki.mhxg.org/',
+  },
 ]
 </script>
 
@@ -130,6 +146,42 @@ const tools: Tool[] = [
         description="狩りピToolsは、モンスターハンターXXの狩猟笛をサポートするためのツール集です。いくつかのツールを追加予定です。"
         variant="subtle"
       />
+    </UPageSection>
+
+    <UPageSection
+      id="references"
+      title="参考にさせていただいたサイト"
+      description="以下のサイトを参考にさせていただきました。ありがとうございます。"
+    >
+      <div class="space-y-3">
+        <UCard
+          v-for="(site, index) in referenceSites"
+          :key="index"
+          class="hover:shadow-md transition-all duration-200"
+        >
+          <div class="flex items-start gap-4">
+            <UIcon name="i-lucide-external-link" class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+            <div class="flex-1">
+              <a
+                :href="site.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-lg font-semibold text-primary-600 dark:text-primary-400 hover:underline"
+              >
+                {{ site.name }}
+              </a>
+              <a
+                :href="site.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs text-gray-500 dark:text-gray-500 mt-1 block break-all"
+              >
+                {{ site.url }}
+              </a>
+            </div>
+          </div>
+        </UCard>
+      </div>
     </UPageSection>
   </div>
 </template>
