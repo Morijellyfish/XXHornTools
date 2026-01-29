@@ -1,4 +1,4 @@
-import type { AttackBuffs, AttackMelody, ChallengeSkill } from './attackBuff/attackBuffs'
+import type { AttackBuffs, ChallengeSkill } from './attackBuff/attackBuffs'
 import type { CriticalBuffs } from './criticalBuffs'
 
 /** 切れ味の種類 */
@@ -44,10 +44,6 @@ export interface TableBaseOption {
   criticalMelody?: CriticalMelody
   /** 会心旋律の固定値（criticalMelodyが固定値の場合のみ） */
   criticalMelodyBonus?: number
-  /** 攻撃旋律（HornTable以外では「笛依存」選択肢なし、AttackBuffsにも含まれるが、ここでも管理） */
-  attackMelody?: AttackMelody
-  /** 攻撃旋律の倍率（AttackBuffsにも含まれるが、ここでも管理） */
-  attackMelodyMultiplier?: number
 }
 
 /**

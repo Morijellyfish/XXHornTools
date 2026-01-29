@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { CriticalMelody } from '~/types/tableBaseOption'
+import { CriticalMelody, getChallengeSkillCriticalBonus } from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
 import {
   getPreparedBuffValue,
@@ -11,7 +11,6 @@ import {
   getHunterSkillValue,
   getFortifyMultiplier,
 } from '~/types/attackBuff/attackBuffs'
-import { getChallengeSkillCriticalBonus } from '~/types/tableBaseOption'
 import SelectOption from './SelectOption.vue'
 
 interface Props {
@@ -399,16 +398,23 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
         <label class="text-sm font-medium mb-2 block">旋律:</label>
         <div class="space-y-3">
           <SelectOption
-            :model-value="options.attackMelody ?? AttackMelody.None"
+            :model-value="attackModifiers.attackMelody ?? AttackMelody.None"
             label="攻撃旋律 (H):"
             :options="[
               { value: AttackMelody.None, label: '無' },
               { value: AttackMelody.Multiplier1_10, label: 'x1.10' },
               { value: AttackMelody.Multiplier1_15, label: 'x1.15' },
               { value: AttackMelody.Multiplier1_20, label: 'x1.20' },
-              ...(allowHornDependentMelody ? [{ value: AttackMelody.HornDependent, label: '笛依存' }] : []),
+              ...(allowHornDependentMelody
+                ? [{ value: AttackMelody.HornDependent, label: '笛依存' }]
+                : []),
             ]"
-            @update:model-value="options = { ...options, attackMelody: $event as AttackMelody }"
+            @update:model-value="
+              options = {
+                ...options,
+                attackModifiers: { ...attackModifiers, attackMelody: $event as AttackMelody },
+              }
+            "
           />
           <SelectOption
             :model-value="options.criticalMelody ?? CriticalMelody.None"
@@ -417,7 +423,9 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
               { value: CriticalMelody.None, label: '無' },
               { value: CriticalMelody.Bonus15, label: '15%' },
               { value: CriticalMelody.Bonus20, label: '20%' },
-              ...(allowHornDependentMelody ? [{ value: CriticalMelody.HornDependent, label: '笛依存' }] : []),
+              ...(allowHornDependentMelody
+                ? [{ value: CriticalMelody.HornDependent, label: '笛依存' }]
+                : []),
             ]"
             @update:model-value="options = { ...options, criticalMelody: $event as CriticalMelody }"
           />

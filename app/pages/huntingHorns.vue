@@ -60,8 +60,6 @@ const tableOptions = ref<TableBaseOption>({
   criticalEye: 0,
   criticalMelody: CriticalMelody.None,
   criticalMelodyBonus: 0,
-  attackMelody: AttackMelody.None,
-  attackMelodyMultiplier: 1.0,
 })
 
 // フィルター: 旋律
@@ -126,8 +124,7 @@ const criticalBonus = computed(() => calculateCriticalBonus.value)
 
 // 攻撃旋律の倍率を計算（固定値の場合のみ）
 const attackMelodyMultiplier = computed(() => {
-  const attackMelody =
-    tableOptions.value.attackMelody ?? tableOptions.value.attackModifiers?.attackMelody ?? AttackMelody.None
+  const attackMelody = tableOptions.value.attackModifiers?.attackMelody ?? AttackMelody.None
   switch (attackMelody) {
     case AttackMelody.Multiplier1_10:
       return 1.1
@@ -201,7 +198,7 @@ const totalAttackMultiply = computed(() => {
   if (modifiers.dragonInstinct) {
     multiplier *= 1.1 // 龍気活性
   }
-  const attackMelody = tableOptions.value.attackMelody ?? modifiers.attackMelody ?? AttackMelody.None
+  const attackMelody = modifiers.attackMelody ?? AttackMelody.None
   if (attackMelody !== AttackMelody.None && attackMelody !== AttackMelody.HornDependent) {
     multiplier *= attackMelodyMultiplier.value
   }
