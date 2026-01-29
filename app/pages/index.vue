@@ -160,7 +160,10 @@ const referenceSites: ReferenceSite[] = [
           class="hover:shadow-md transition-all duration-200"
         >
           <div class="flex items-start gap-4">
-            <UIcon name="i-lucide-external-link" class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+            <UIcon
+              name="i-lucide-external-link"
+              class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0"
+            />
             <div class="flex-1">
               <a
                 :href="site.url"
