@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import type { WeaponMelee, HuntingHorn } from '~/types/weapons'
+import type { WeaponMelee } from '~/types/weapons'
 import { isHuntingHorn } from '~/types/weapons'
 import type { TableBaseOption, SharpnessType } from '~/types/tableBaseOption'
 import { calculateCriticalBonus } from '~/types/tableBaseOption'
@@ -109,7 +109,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     const totalCriticalBonus = calculateCriticalBonusForWeapon(weapon)
     return calculateExpectedValue(
       attackWithBuffs,
-      weapon as unknown as HuntingHorn, // HuntingHorn として扱う（LongSword の場合は後で対応）
+      weapon,
       props.selectedSharpness ?? 'normal',
       totalCriticalBonus,
       props.criticalBuffs?.hasCriticalBoost ?? false,

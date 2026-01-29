@@ -1,4 +1,4 @@
-import type { HuntingHorn } from '~/types/weapons'
+import type { WeaponMelee } from '~/types/weapons'
 import { SHARPNESS_MULTIPLIERS, type SharpnessColor } from '~/types/sharpness'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -64,7 +64,7 @@ const calculateCritical = (
 /**
  * 期待値を計算（攻撃力 × 切れ味の物理補正 × 会心補正）
  * @param attack 攻撃力（攻撃旋律の倍率適用済み）
- * @param horn 狩猟笛データ
+ * @param weapon 武器データ
  * @param selectedSharpness 選択された切れ味（通常、匠1、匠2）
  * @param criticalBonus 会心補正値
  * @param hasCriticalBoost 超会心の有無
@@ -74,7 +74,7 @@ const calculateCritical = (
  */
 export const calculateExpectedValue = (
   attack: number,
-  horn: HuntingHorn,
+  weapon: WeaponMelee,
   selectedSharpness: SharpnessType,
   criticalBonus: number,
   hasCriticalBoost: boolean,
@@ -84,18 +84,18 @@ export const calculateExpectedValue = (
   // 選択された切れ味を取得
   let selectedSharpnessData
   if (selectedSharpness === 'normal') {
-    selectedSharpnessData = horn.sharpness.normal
+    selectedSharpnessData = weapon.sharpness.normal
   } else if (selectedSharpness === 'plus1') {
-    selectedSharpnessData = horn.sharpness.plus1!
+    selectedSharpnessData = weapon.sharpness.plus1!
   } else {
-    selectedSharpnessData = horn.sharpness.plus2!
+    selectedSharpnessData = weapon.sharpness.plus2!
   }
 
   // 切れ味補正を適用した攻撃力を計算
   const expectedValue = calculateSharpness(attack, selectedSharpnessData.color, sharpnessMultiplier)
 
   // 会心率を計算（元の会心率 + 会心補正）
-  const affinity = horn.affinity + criticalBonus
+  const affinity = weapon.affinity + criticalBonus
 
   // クリティカル期待値を計算
   return calculateCritical(expectedValue, affinity, hasCriticalBoost, hasMadAffinity)
