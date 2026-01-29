@@ -397,6 +397,7 @@ const activeSkills = computed(() => {
         :critical-buffs="criticalBuffs"
         :attack-modifiers="tableOptions.attackModifiers"
         :sharpness-multiplier="sharpnessMultiplier"
+        :critical-melody="tableOptions.criticalMelody"
       />
     </UPageSection>
   </div>

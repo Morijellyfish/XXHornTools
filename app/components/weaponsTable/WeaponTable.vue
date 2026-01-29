@@ -34,6 +34,7 @@ const {
   getExpectedValue,
   getAttackWithBuffs,
   isShowBaseAttack,
+  isShowBaseAffinity,
 } = useWeaponTable(props)
 </script>
 
@@ -100,7 +101,7 @@ const {
           :show-base-attack="isShowBaseAttack(weapon)"
           :affinity="calculateAffinity(weapon)"
           :base-affinity="weapon.affinity"
-          :show-base-affinity="(criticalBuffs?.criticalBonus ?? 0) !== 0"
+          :show-base-affinity="isShowBaseAffinity(weapon)"
           :selected-sharpness="selectedSharpness"
           :bludgeoner="attackModifiers.bludgeoner"
         >

@@ -33,5 +33,6 @@ const props = withDefaults(defineProps<Props>(), {
     :critical-buffs="props.criticalBuffs"
     :attack-modifiers="props.attackModifiers"
     :sharpness-multiplier="props.sharpnessMultiplier"
+    :critical-melody="props.criticalMelody"
   />
 </template>

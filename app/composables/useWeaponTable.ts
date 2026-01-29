@@ -139,6 +139,12 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     )
   }
 
+  // 元の会心率を括弧で表示するかどうかを判定
+  const isShowBaseAffinity = (weapon: T): boolean => {
+    const totalCriticalBonus = calculateCriticalBonus(weapon)
+    return totalCriticalBonus !== 0
+  }
+
   // 元の攻撃力を括弧で表示するかどうかを判定
   const isShowBaseAttack = (_weapon: T): boolean => {
     const modifiers = props.attackModifiers ?? {}
@@ -182,5 +188,6 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     getExpectedValue,
     getAttackWithBuffs,
     isShowBaseAttack,
+    isShowBaseAffinity,
   }
 }
