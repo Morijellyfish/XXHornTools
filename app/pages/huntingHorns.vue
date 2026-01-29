@@ -80,11 +80,6 @@ const totalAttackAdd = computed(() => calculateTotalAttackAdd(tableOptions.value
 // 攻撃力倍率（乗算バフ）の合計を計算
 const totalAttackMultiply = computed(() => calculateTotalAttackMultiply(tableOptions.value))
 
-// 会心率追加の合計を計算
-const totalCriticalBonus = computed(() => {
-  return calculateCriticalBonusComputed.value
-})
-
 // 切れ味補正倍率を計算
 const sharpnessMultiplier = computed(() => {
   const shortTermBuff = tableOptions.value.attackModifiers?.shortTermBuff
@@ -148,10 +143,14 @@ const filteredHorns = computed(() => {
             <span
               class="font-mono font-bold ml-2"
               :class="
-                totalCriticalBonus > 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-400'
+                calculateCriticalBonusComputed > 0
+                  ? 'text-green-600 dark:text-green-400'
+                  : 'text-gray-400'
               "
             >
-              {{ totalCriticalBonus > 0 ? `+${totalCriticalBonus}%` : '0%' }}
+              {{
+                calculateCriticalBonusComputed > 0 ? `+${calculateCriticalBonusComputed}%` : '0%'
+              }}
             </span>
           </div>
         </div>
