@@ -12,10 +12,14 @@ import { attackBuffC } from './attackBuff/attackBuff_C'
 import { attackBuffD } from './attackBuff/attackBuff_D'
 import { attackBuffE } from './attackBuff/attackBuff_E'
 import { attackBuffF } from './attackBuff/attackBuff_F'
+import { attackBuffG } from './attackBuff/attackBuff_G'
+import { attackBuffH, AttackMelody } from './attackBuff/attackBuff_H'
+import { attackBuffI } from './attackBuff/attackBuff_I'
 import { attackBuffJ } from './attackBuff/attackBuff_J'
 import { attackBuffK } from './attackBuff/attackBuff_K'
 import { attackBuffM } from './attackBuff/attackBuff_M'
 import { attackBuffN } from './attackBuff/attackBuff_N'
+import { attackBuffO } from './attackBuff/attackBuff_O'
 import type { CriticalBuffs } from './criticalBuff/criticalBuffs'
 import { CriticalMelody, criticalBuffD } from './criticalBuff/criticalBuff_D'
 import { criticalBuffA } from './criticalBuff/criticalBuff_A'
@@ -292,4 +296,44 @@ export function calculateTotalAttackAdd(options: TableBaseOption): number {
   }
 
   return total
+}
+
+/**
+ * 攻撃力倍率（乗算バフ）の合計を計算（attackBuffクラスを使用）
+ * @param options テーブルオプション
+ * @returns 攻撃力倍率（乗算バフの合計）
+ */
+export function calculateTotalAttackMultiply(options: TableBaseOption): number {
+  const modifiers = options.attackModifiers ?? {}
+  const multiplyModifiers: attackBuff[] = []
+
+  // 乗算バフのみを収集
+  if (modifiers.adrenaline && modifiers.adrenaline !== 'none') {
+    multiplyModifiers.push(new attackBuffG(modifiers.adrenaline))
+  }
+  if (modifiers.fortify && modifiers.fortify !== 'none') {
+    multiplyModifiers.push(new attackBuffI(modifiers.fortify))
+  }
+  if (modifiers.dragonInstinct) {
+    multiplyModifiers.push(new attackBuffO())
+  }
+  // 攻撃旋律（固定値のみ、HornDependentは武器依存のため除外）
+  const attackMelody = modifiers.attackMelody ?? AttackMelody.None
+  if (attackMelody !== AttackMelody.None && attackMelody !== AttackMelody.HornDependent) {
+    // attackBuffHのインスタンスを作成してvalueを設定
+    const attackMelodyBuff = new attackBuffH(attackMelody)
+    attackMelodyBuff.apply(1) // valueを設定
+    if (attackMelodyBuff.value !== 1.0) {
+      multiplyModifiers.push(attackMelodyBuff)
+    }
+  }
+
+  // 乗算バフの合計を計算（apply(1)でvalueを取得）
+  let multiplier = 1.0
+  for (const modifier of multiplyModifiers) {
+    modifier.apply(1) // valueを設定
+    multiplier *= modifier.value
+  }
+
+  return multiplier
 }

@@ -7,10 +7,10 @@ import {
   getActiveSkills,
   calculateCriticalBonus,
   calculateTotalAttackAdd,
+  calculateTotalAttackMultiply,
 } from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
 import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
-import { getAdrenalineMultiplier, getFortifyMultiplier } from '~/types/attackBuff/attackBuffs'
 import WeaponTableOptions from '~/components/WeaponTableOptions.vue'
 import MelodyFilter from '~/components/MelodyFilter.vue'
 import HornTable from '~/components/weaponsTable/HornTable.vue'
@@ -71,21 +71,6 @@ const toggleMelodyHighlight = (melodyName: string) => {
 // 会心補正を計算
 const calculateCriticalBonusComputed = computed(() => calculateCriticalBonus(tableOptions.value))
 
-// 攻撃旋律の倍率を計算（固定値の場合のみ）
-const attackMelodyMultiplier = computed(() => {
-  const attackMelody = tableOptions.value.attackModifiers?.attackMelody ?? AttackMelody.None
-  switch (attackMelody) {
-    case AttackMelody.Multiplier1_10:
-      return 1.1
-    case AttackMelody.Multiplier1_15:
-      return 1.15
-    case AttackMelody.Multiplier1_20:
-      return 1.2
-    default:
-      return 1.0
-  }
-})
-
 // criticalBuffsをそのまま使用
 const criticalBuffs = computed(() => tableOptions.value.criticalBuffs)
 
@@ -93,25 +78,7 @@ const criticalBuffs = computed(() => tableOptions.value.criticalBuffs)
 const totalAttackAdd = computed(() => calculateTotalAttackAdd(tableOptions.value))
 
 // 攻撃力倍率（乗算バフ）の合計を計算
-const totalAttackMultiply = computed(() => {
-  const modifiers = tableOptions.value.attackModifiers ?? {}
-  let multiplier = 1.0
-  if (modifiers.adrenaline && modifiers.adrenaline !== 'none') {
-    multiplier *= getAdrenalineMultiplier(modifiers.adrenaline)
-  }
-  if (modifiers.fortify && modifiers.fortify !== 'none') {
-    multiplier *= getFortifyMultiplier(modifiers.fortify)
-  }
-  if (modifiers.dragonInstinct) {
-    multiplier *= 1.1 // 龍気活性
-  }
-  const attackMelody = modifiers.attackMelody ?? AttackMelody.None
-  if (attackMelody !== AttackMelody.None && attackMelody !== AttackMelody.HornDependent) {
-    multiplier *= attackMelodyMultiplier.value
-  }
-  // 鈍器使いと攻撃旋律（horn）は笛依存のため、ここでは計算しない
-  return multiplier
-})
+const totalAttackMultiply = computed(() => calculateTotalAttackMultiply(tableOptions.value))
 
 // 会心率追加の合計を計算
 const totalCriticalBonus = computed(() => {
