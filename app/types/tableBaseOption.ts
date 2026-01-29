@@ -5,6 +5,17 @@ import type {
   HunterSkill,
   Fortify,
 } from './attackBuff/attackBuffs'
+import type { attackBuff } from './attackBuff/attackBuff'
+import { attackBuffA } from './attackBuff/attackBuff_A'
+import { attackBuffB } from './attackBuff/attackBuff_B'
+import { attackBuffC } from './attackBuff/attackBuff_C'
+import { attackBuffD } from './attackBuff/attackBuff_D'
+import { attackBuffE } from './attackBuff/attackBuff_E'
+import { attackBuffF } from './attackBuff/attackBuff_F'
+import { attackBuffJ } from './attackBuff/attackBuff_J'
+import { attackBuffK } from './attackBuff/attackBuff_K'
+import { attackBuffM } from './attackBuff/attackBuff_M'
+import { attackBuffN } from './attackBuff/attackBuff_N'
 import type { CriticalBuffs } from './criticalBuff/criticalBuffs'
 import { CriticalMelody, criticalBuffD } from './criticalBuff/criticalBuff_D'
 import { criticalBuffA } from './criticalBuff/criticalBuff_A'
@@ -230,4 +241,55 @@ export function calculateCriticalBonus(options: TableBaseOption): number {
   }
 
   return bonus
+}
+
+/**
+ * 攻撃力加算バフの合計を計算（attackBuffクラスを使用）
+ * @param options テーブルオプション
+ * @returns 攻撃力加算バフの合計値
+ */
+export function calculateTotalAttackAdd(options: TableBaseOption): number {
+  const modifiers = options.attackModifiers ?? {}
+  const addModifiers: attackBuff[] = []
+
+  // 加算バフのみを収集
+  if (modifiers.powerCharm) {
+    addModifiers.push(new attackBuffA())
+  }
+  if (modifiers.powerTalon) {
+    addModifiers.push(new attackBuffB())
+  }
+  if (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') {
+    addModifiers.push(new attackBuffC(modifiers.preparedBuff))
+  }
+  if (modifiers.shortTermBuff && modifiers.shortTermBuff !== 'none') {
+    addModifiers.push(new attackBuffD(modifiers.shortTermBuff))
+  }
+  if (modifiers.shortHypnosis) {
+    addModifiers.push(new attackBuffE())
+  }
+  if (modifiers.attackSkill && modifiers.attackSkill !== 'none') {
+    addModifiers.push(new attackBuffF(modifiers.attackSkill))
+  }
+  if (modifiers.challengeSkill && modifiers.challengeSkill !== 'none') {
+    addModifiers.push(new attackBuffJ(modifiers.challengeSkill))
+  }
+  if (modifiers.hunterSkill && modifiers.hunterSkill !== 'none') {
+    addModifiers.push(new attackBuffK(modifiers.hunterSkill))
+  }
+  if (modifiers.resuscitate) {
+    addModifiers.push(new attackBuffM())
+  }
+  if (modifiers.resentment) {
+    addModifiers.push(new attackBuffN())
+  }
+
+  // 加算バフの合計を計算（apply(0)でvalueを取得）
+  let total = 0
+  for (const modifier of addModifiers) {
+    modifier.apply(0) // valueを設定
+    total += modifier.value
+  }
+
+  return total
 }

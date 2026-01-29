@@ -2,19 +2,14 @@
 import { allLongSwords } from '~/data/longSword'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { getActiveSkills, calculateCriticalBonus } from '~/types/tableBaseOption'
-import { getChallengeSkillAttackValue } from '~/types/challengeSkill'
+import {
+  getActiveSkills,
+  calculateCriticalBonus,
+  calculateTotalAttackAdd,
+} from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
 import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
-import type { ChallengeSkill } from '~/types/attackBuff/attackBuffs'
-import {
-  getPreparedBuffValue,
-  getShortTermBuffValue,
-  getAttackSkillValue,
-  getAdrenalineMultiplier,
-  getHunterSkillValue,
-  getFortifyMultiplier,
-} from '~/types/attackBuff/attackBuffs'
+import { getAdrenalineMultiplier, getFortifyMultiplier } from '~/types/attackBuff/attackBuffs'
 import WeaponTableOptions from '~/components/WeaponTableOptions.vue'
 import LongSwordTable from '~/components/weaponsTable/LongSwordTable.vue'
 
@@ -77,34 +72,7 @@ const attackMelodyMultiplier = computed(() => {
 const criticalBuffs = computed(() => tableOptions.value.criticalBuffs)
 
 // 攻撃力加算バフの合計を計算
-const totalAttackAdd = computed(() => {
-  const modifiers = tableOptions.value.attackModifiers ?? {}
-  let total = 0
-  if (modifiers.powerCharm) total += 6 // 力の護符
-  if (modifiers.powerTalon) total += 9 // 力の爪
-  if (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') {
-    total += getPreparedBuffValue(modifiers.preparedBuff)
-  }
-  if (modifiers.shortTermBuff && modifiers.shortTermBuff !== 'none') {
-    total += getShortTermBuffValue(modifiers.shortTermBuff)
-  }
-  if (modifiers.shortHypnosis) total += 3 // 短期催眠術
-  if (modifiers.attackSkill && modifiers.attackSkill !== 'none') {
-    total += getAttackSkillValue(modifiers.attackSkill)
-  }
-  const challengeSkillValue = getChallengeSkillAttackValue(
-    (modifiers.challengeSkill ?? 'none') as ChallengeSkill
-  )
-  if (challengeSkillValue > 0) {
-    total += challengeSkillValue
-  }
-  if (modifiers.hunterSkill && modifiers.hunterSkill !== 'none') {
-    total += getHunterSkillValue(modifiers.hunterSkill)
-  }
-  if (modifiers.resuscitate) total += 20 // 死中に活
-  if (modifiers.resentment) total += 20 // 逆恨み
-  return total
-})
+const totalAttackAdd = computed(() => calculateTotalAttackAdd(tableOptions.value))
 
 // 攻撃力倍率（乗算バフ）の合計を計算
 const totalAttackMultiply = computed(() => {
