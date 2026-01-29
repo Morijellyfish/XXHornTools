@@ -3,7 +3,8 @@ import { allHorns } from '~/data/horns'
 import { melodyNames } from '~/data/melodies'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { getChallengeSkillCriticalBonus } from '~/types/tableBaseOption'
+import { CriticalMelody, getChallengeSkillCriticalBonus } from '~/types/tableBaseOption'
+import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
 import type {
   AttackSkill,
   ChallengeSkill,
@@ -50,16 +51,16 @@ const tableOptions = ref<TableBaseOption>({
     adrenaline: 'none',
     fortify: 'none',
     dragonInstinct: false,
-    attackMelody: 'none',
+    attackMelody: AttackMelody.None,
     attackMelodyMultiplier: 1.0,
   },
   sharpnessMultiplier: 1.0,
   hasWeaknessExploit: false,
   repeatOffensive: 'none',
   criticalEye: 0,
-  criticalMelody: 'none',
+  criticalMelody: CriticalMelody.None,
   criticalMelodyBonus: 0,
-  attackMelody: 'none',
+  attackMelody: AttackMelody.None,
   attackMelodyMultiplier: 1.0,
 })
 
@@ -126,13 +127,13 @@ const criticalBonus = computed(() => calculateCriticalBonus.value)
 // 攻撃旋律の倍率を計算（固定値の場合のみ）
 const attackMelodyMultiplier = computed(() => {
   const attackMelody =
-    tableOptions.value.attackMelody ?? tableOptions.value.attackModifiers?.attackMelody ?? 'none'
+    tableOptions.value.attackMelody ?? tableOptions.value.attackModifiers?.attackMelody ?? AttackMelody.None
   switch (attackMelody) {
-    case '1.10':
+    case AttackMelody.Multiplier1_10:
       return 1.1
-    case '1.15':
+    case AttackMelody.Multiplier1_15:
       return 1.15
-    case '1.20':
+    case AttackMelody.Multiplier1_20:
       return 1.2
     default:
       return 1.0
@@ -142,9 +143,9 @@ const attackMelodyMultiplier = computed(() => {
 // 会心強化旋律の補正値を計算（固定値の場合のみ）
 const criticalMelodyBonus = computed(() => {
   switch (tableOptions.value.criticalMelody) {
-    case '15':
+    case CriticalMelody.Bonus15:
       return 15
-    case '20':
+    case CriticalMelody.Bonus20:
       return 20
     default:
       return 0
@@ -200,8 +201,8 @@ const totalAttackMultiply = computed(() => {
   if (modifiers.dragonInstinct) {
     multiplier *= 1.1 // 龍気活性
   }
-  const attackMelody = tableOptions.value.attackMelody ?? modifiers.attackMelody ?? 'none'
-  if (attackMelody !== 'none' && attackMelody !== 'horn') {
+  const attackMelody = tableOptions.value.attackMelody ?? modifiers.attackMelody ?? AttackMelody.None
+  if (attackMelody !== AttackMelody.None && attackMelody !== AttackMelody.HornDependent) {
     multiplier *= attackMelodyMultiplier.value
   }
   // 鈍器使いと攻撃旋律（horn）は笛依存のため、ここでは計算しない

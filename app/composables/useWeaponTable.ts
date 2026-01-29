@@ -1,6 +1,8 @@
 import { ref, computed } from 'vue'
 import type { WeaponMelee, HuntingHorn } from '~/types/weapons'
+import { isHuntingHorn } from '~/types/weapons'
 import type { TableBaseOption, SharpnessType } from '~/types/tableBaseOption'
+import { CriticalMelody } from '~/types/tableBaseOption'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
 
@@ -79,9 +81,35 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return sortOrder.value === 'asc' ? '↑' : '↓'
   }
 
+  // 会心旋律の補正値を計算
+  const getCriticalMelodyBonus = (weapon: T): number => {
+    const criticalMelody = props.criticalMelody ?? CriticalMelody.None
+    if (criticalMelody === CriticalMelody.None) {
+      return 0
+    }
+    if (criticalMelody === CriticalMelody.Bonus15) {
+      return 15
+    }
+    if (criticalMelody === CriticalMelody.Bonus20) {
+      return 20
+    }
+    // CriticalMelody.HornDependent の場合
+    if (isHuntingHorn(weapon)) {
+      return weapon.notes.getMaxMelodyBonus_Critical()
+    }
+    return 0
+  }
+
+  // 会心補正値を計算（会心補正 + 会心旋律補正）
+  const calculateCriticalBonus = (weapon: T): number => {
+    const baseCriticalBonus = props.criticalBuffs?.criticalBonus ?? 0
+    const criticalMelodyBonus = getCriticalMelodyBonus(weapon)
+    return baseCriticalBonus + criticalMelodyBonus
+  }
+
   // 会心率を計算（元の会心率 + 会心補正）
   const calculateAffinity = (weapon: T): number => {
-    return weapon.affinity + (props.criticalBuffs?.criticalBonus ?? 0)
+    return weapon.affinity + calculateCriticalBonus(weapon)
   }
 
   // 期待値を計算
@@ -89,7 +117,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     // 補正済みの攻撃力を計算
     const attackWithBuffs = getAttackWithBuffs(weapon)
     // 会心補正
-    const totalCriticalBonus = props.criticalBuffs?.criticalBonus ?? 0
+    const totalCriticalBonus = calculateCriticalBonus(weapon)
     return calculateExpectedValue(
       attackWithBuffs,
       weapon as unknown as HuntingHorn, // HuntingHorn として扱う（LongSword の場合は後で対応）
@@ -106,7 +134,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return calculateAttackWithBuffs(
       weapon.attack,
       props.attackModifiers ?? {},
-      weapon as unknown as HuntingHorn, // HuntingHorn として扱う（LongSword の場合は後で対応）
+      weapon,
       props.selectedSharpness ?? 'normal'
     )
   }
@@ -138,8 +166,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       (modifiers.resentment ?? false) ||
       (modifiers.fortify && modifiers.fortify !== 'none') ||
       (modifiers.dragonInstinct ?? false) ||
-      (modifiers.attackMelody &&
-        modifiers.attackMelody !== 'none' &&
+      (modifiers.attackMelody !== undefined &&
+        modifiers.attackMelody !== 0 &&
         (modifiers.attackMelodyMultiplier ?? 1.0) !== 1.0)
     )
   }

@@ -1,6 +1,6 @@
 import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
 import type { attackBuff } from '~/types/attackBuff/attackBuff'
-import type { HuntingHorn } from '~/types/weapons'
+import type { WeaponMelee } from '~/types/weapons'
 import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
 import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
 import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
@@ -8,7 +8,7 @@ import { attackBuffD } from '~/types/attackBuff/attackBuff_D'
 import { attackBuffE } from '~/types/attackBuff/attackBuff_E'
 import { attackBuffF } from '~/types/attackBuff/attackBuff_F'
 import { attackBuffG } from '~/types/attackBuff/attackBuff_G'
-import { attackBuffH } from '~/types/attackBuff/attackBuff_H'
+import { attackBuffH, AttackMelody } from '~/types/attackBuff/attackBuff_H'
 import { attackBuffI } from '~/types/attackBuff/attackBuff_I'
 import { attackBuffJ } from '~/types/attackBuff/attackBuff_J'
 import { attackBuffK } from '~/types/attackBuff/attackBuff_K'
@@ -22,7 +22,7 @@ type SharpnessType = 'normal' | 'plus1' | 'plus2'
 export const calculateAttackWithBuffs = (
   baseAttack: number,
   modifiers: AttackBuffs,
-  horn?: HuntingHorn,
+  weapon?: WeaponMelee,
   selectedSharpness?: SharpnessType
 ): number => {
   const allModifiers: attackBuff[] = []
@@ -79,22 +79,24 @@ export const calculateAttackWithBuffs = (
     allModifiers.push(new attackBuffO())
   }
 
-  if (modifiers.attackMelody && modifiers.attackMelody !== 'none') {
-    allModifiers.push(new attackBuffH(modifiers.attackMelody, horn))
-  }
+  allModifiers.push(new attackBuffH(modifiers.attackMelody ?? AttackMelody.None, weapon))
 
   // 鈍器使いの補正（切れ味に応じた倍率）
-  if (modifiers.bludgeoner && horn && selectedSharpness) {
-    let sharpnessColor
-    if (selectedSharpness === 'normal') {
-      sharpnessColor = horn.sharpness.normal.color
-    } else if (selectedSharpness === 'plus1' && horn.sharpness.plus1) {
-      sharpnessColor = horn.sharpness.plus1.color
-    } else if (selectedSharpness === 'plus2' && horn.sharpness.plus2) {
-      sharpnessColor = horn.sharpness.plus2.color
+  if (modifiers.bludgeoner && weapon && selectedSharpness) {
+    let sharpnessData
+    switch (selectedSharpness) {
+      case 'normal':
+        sharpnessData = weapon.sharpness.normal
+        break
+      case 'plus1':
+        sharpnessData = weapon.sharpness.plus1
+        break
+      case 'plus2':
+        sharpnessData = weapon.sharpness.plus2
+        break
     }
-    if (sharpnessColor) {
-      allModifiers.push(new attackBuffL(sharpnessColor))
+    if (sharpnessData) {
+      allModifiers.push(new attackBuffL(sharpnessData.color))
     }
   }
 

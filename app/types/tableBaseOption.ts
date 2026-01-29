@@ -7,8 +7,19 @@ export type SharpnessType = 'normal' | 'plus1' | 'plus2'
 /** 連撃の種類 */
 export type RepeatOffensive = 'none' | '25' | '30'
 
-/** 会心旋律の種類 */
-export type CriticalMelody = 'none' | '15' | '20' | 'horn'
+/**
+ * 会心旋律の種類
+ * 0: 無
+ * 1: +15%
+ * 2: +20%
+ * 3: 笛依存
+ */
+export enum CriticalMelody {
+  None = 0,
+  Bonus15 = 1,
+  Bonus20 = 2,
+  HornDependent = 3,
+}
 
 /**
  * テーブルコンポーネントの基底オプション
