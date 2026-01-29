@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T extends WeaponMelee">
 import type { WeaponMelee } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
+import { AttackMelody } from '~/types/attackBuff'
 import { useWeaponTable } from '~/composables/useWeaponTable'
 import WeaponTableRow from './WeaponTableRow.vue'
 
@@ -20,7 +20,6 @@ const props = withDefaults(defineProps<Props>(), {
     powerTalon: false,
     attackSkill: 'none',
     attackMelody: AttackMelody.None,
-    attackMelodyMultiplier: 1.0,
   }),
   sharpnessMultiplier: 1.0,
 })

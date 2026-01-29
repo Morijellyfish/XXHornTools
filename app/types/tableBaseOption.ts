@@ -4,29 +4,35 @@ import type {
   ChallengeSkill,
   HunterSkill,
   Fortify,
-} from './attackBuff/attackBuffs'
-import type { attackBuff } from './attackBuff/attackBuff'
-import { attackBuffA } from './attackBuff/attackBuff_A'
-import { attackBuffB } from './attackBuff/attackBuff_B'
-import { attackBuffC } from './attackBuff/attackBuff_C'
-import { attackBuffD } from './attackBuff/attackBuff_D'
-import { attackBuffE } from './attackBuff/attackBuff_E'
-import { attackBuffF } from './attackBuff/attackBuff_F'
-import { attackBuffG } from './attackBuff/attackBuff_G'
-import { attackBuffH, AttackMelody } from './attackBuff/attackBuff_H'
-import { attackBuffI } from './attackBuff/attackBuff_I'
-import { attackBuffJ } from './attackBuff/attackBuff_J'
-import { attackBuffK } from './attackBuff/attackBuff_K'
-import { attackBuffM } from './attackBuff/attackBuff_M'
-import { attackBuffN } from './attackBuff/attackBuff_N'
-import { attackBuffO } from './attackBuff/attackBuff_O'
-import type { CriticalBuffs } from './criticalBuff/criticalBuffs'
-import { CriticalMelody, criticalBuffD } from './criticalBuff/criticalBuff_D'
-import { criticalBuffA } from './criticalBuff/criticalBuff_A'
-import { criticalBuffB } from './criticalBuff/criticalBuff_B'
-import { criticalBuffC } from './criticalBuff/criticalBuff_C'
-import { criticalBuffE } from './criticalBuff/criticalBuff_E'
-import { criticalBuffF } from './criticalBuff/criticalBuff_F'
+  attackBuff,
+} from './attackBuff'
+import {
+  attackBuffA,
+  attackBuffB,
+  attackBuffC,
+  attackBuffD,
+  attackBuffE,
+  attackBuffF,
+  attackBuffG,
+  attackBuffH,
+  attackBuffI,
+  attackBuffJ,
+  attackBuffK,
+  attackBuffM,
+  attackBuffN,
+  attackBuffO,
+  AttackMelody,
+} from './attackBuff'
+import type { CriticalBuffs } from './criticalBuff'
+import {
+  criticalBuffA,
+  criticalBuffB,
+  criticalBuffC,
+  criticalBuffD,
+  criticalBuffE,
+  criticalBuffF,
+  CriticalMelody,
+} from './criticalBuff'
 
 /** 切れ味の種類 */
 export type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -67,7 +73,7 @@ export function getActiveSkills(options: TableBaseOption): string[] {
       up_medium: '攻撃力UP【中】',
       up_large: '攻撃力UP【大】',
     }
-    skills.push(skillNames[modifiers.attackSkill])
+    skills.push(skillNames[modifiers.attackSkill as AttackSkill])
   }
 
   // 挑戦者・フルチャージ・力の解放
@@ -80,7 +86,7 @@ export function getActiveSkills(options: TableBaseOption): string[] {
       latentPower1: '力の解放+1',
       latentPower2: '力の解放+2',
     }
-    skills.push(skillNames[modifiers.challengeSkill])
+    skills.push(skillNames[modifiers.challengeSkill as ChallengeSkill])
   }
 
   // 北風/南風
@@ -91,7 +97,7 @@ export function getActiveSkills(options: TableBaseOption): string[] {
       eitherBlooded: '北風の狩人/南風の狩人',
       polarCooler: '北風の狩人(寒冷クーラー)',
     }
-    skills.push(skillNames[modifiers.hunterSkill])
+    skills.push(skillNames[modifiers.hunterSkill as HunterSkill])
   }
 
   // 鈍器使い
@@ -137,7 +143,7 @@ export function getActiveSkills(options: TableBaseOption): string[] {
       fortify1: '不屈(1乙)',
       fortify2: '不屈(2乙)',
     }
-    skills.push(skillNames[modifiers.fortify])
+    skills.push(skillNames[modifiers.fortify as Fortify])
   }
 
   // 龍気活性

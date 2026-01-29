@@ -1,21 +1,23 @@
-import type { AttackBuffs } from '~/types/attackBuff/attackBuffs'
-import type { attackBuff } from '~/types/attackBuff/attackBuff'
+import type { AttackBuffs, attackBuff } from '~/types/attackBuff'
 import type { WeaponMelee } from '~/types/weapons'
-import { attackBuffA } from '~/types/attackBuff/attackBuff_A'
-import { attackBuffB } from '~/types/attackBuff/attackBuff_B'
-import { attackBuffC } from '~/types/attackBuff/attackBuff_C'
-import { attackBuffD } from '~/types/attackBuff/attackBuff_D'
-import { attackBuffE } from '~/types/attackBuff/attackBuff_E'
-import { attackBuffF } from '~/types/attackBuff/attackBuff_F'
-import { attackBuffG } from '~/types/attackBuff/attackBuff_G'
-import { attackBuffH, AttackMelody } from '~/types/attackBuff/attackBuff_H'
-import { attackBuffI } from '~/types/attackBuff/attackBuff_I'
-import { attackBuffJ } from '~/types/attackBuff/attackBuff_J'
-import { attackBuffK } from '~/types/attackBuff/attackBuff_K'
-import { attackBuffL } from '~/types/attackBuff/attackBuff_L'
-import { attackBuffM } from '~/types/attackBuff/attackBuff_M'
-import { attackBuffN } from '~/types/attackBuff/attackBuff_N'
-import { attackBuffO } from '~/types/attackBuff/attackBuff_O'
+import {
+  attackBuffA,
+  attackBuffB,
+  attackBuffC,
+  attackBuffD,
+  attackBuffE,
+  attackBuffF,
+  attackBuffG,
+  attackBuffH,
+  attackBuffI,
+  attackBuffJ,
+  attackBuffK,
+  attackBuffL,
+  attackBuffM,
+  attackBuffN,
+  attackBuffO,
+  AttackMelody,
+} from '~/types/attackBuff'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
 

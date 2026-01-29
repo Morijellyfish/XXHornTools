@@ -9,8 +9,8 @@ import {
   calculateTotalAttackAdd,
   calculateTotalAttackMultiply,
 } from '~/types/tableBaseOption'
-import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
-import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
+import { AttackMelody } from '~/types/attackBuff'
+import { CriticalMelody } from '~/types/criticalBuff'
 import WeaponTableOptions from '~/components/WeaponTableOptions.vue'
 import MelodyFilter from '~/components/MelodyFilter.vue'
 import HornTable from '~/components/weaponsTable/HornTable.vue'
@@ -47,7 +47,6 @@ const tableOptions = ref<TableBaseOption>({
     fortify: 'none',
     dragonInstinct: false,
     attackMelody: AttackMelody.None,
-    attackMelodyMultiplier: 1.0,
   },
   sharpnessMultiplier: 1.0,
 })

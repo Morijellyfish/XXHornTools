@@ -4,18 +4,11 @@ import type { RepeatOffensive } from './criticalBuff_C'
 import type { CriticalMelody } from './criticalBuff_D'
 import type { DemonCriticalBullet } from './criticalBuff_F'
 
-export type { CriticalEye } from './criticalBuff_A'
-export type { WeaknessExploit } from './criticalBuff_B'
-export type { RepeatOffensive } from './criticalBuff_C'
-export { CriticalMelody } from './criticalBuff_D'
-export type { DemonCriticalBullet } from './criticalBuff_F'
-export { getChallengeSkillCriticalValue } from '~/types/challengeSkill'
-
 /**
  * 会心率関連のバフ設定
  * 会心補正、超会心、裏会心、弱点特攻、連撃、見切り、会心旋律などの設定をまとめた型
  */
-export interface CriticalBuffs {
+interface CriticalBuffs {
   // 会心補正のグループ
   /** 超会心の有無 */
   hasCriticalBoost?: boolean
@@ -34,3 +27,5 @@ export interface CriticalBuffs {
   /** 鬼人会心弾の有無 */
   demonCriticalBullet?: DemonCriticalBullet
 }
+
+export type { CriticalBuffs }

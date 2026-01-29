@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HuntingHorn } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
-import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
+import { CriticalMelody } from '~/types/criticalBuff'
+import { AttackMelody } from '~/types/attackBuff'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import WeaponTable from './WeaponTable.vue'
 
@@ -24,7 +24,6 @@ const props = withDefaults(defineProps<Props>(), {
     powerTalon: false,
     attackSkill: 'none',
     attackMelody: AttackMelody.None,
-    attackMelodyMultiplier: 1.0,
   }),
   sharpnessMultiplier: 1.0,
 })

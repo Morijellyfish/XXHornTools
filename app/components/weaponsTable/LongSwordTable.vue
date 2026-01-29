@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { LongSword } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
+import { AttackMelody } from '~/types/attackBuff'
 import WeaponTable from './WeaponTable.vue'
 
 interface Props extends TableBaseOption {
@@ -19,7 +19,6 @@ const props = withDefaults(defineProps<Props>(), {
     powerTalon: false,
     attackSkill: 'none',
     attackMelody: AttackMelody.None,
-    attackMelodyMultiplier: 1.0,
   }),
   sharpnessMultiplier: 1.0,
 })

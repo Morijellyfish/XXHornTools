@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { CriticalMelody } from '~/types/criticalBuff/criticalBuff_D'
+import { CriticalMelody } from '~/types/criticalBuff'
 import {
   getChallengeSkillAttackValue,
   getChallengeSkillCriticalValue,
 } from '~/types/challengeSkill'
-import { AttackMelody } from '~/types/attackBuff/attackBuff_H'
 import {
+  AttackMelody,
   getPreparedBuffValue,
   getAttackSkillValue,
   getAdrenalineMultiplier,
   getHunterSkillValue,
   getFortifyMultiplier,
-} from '~/types/attackBuff/attackBuffs'
+} from '~/types/attackBuff'
 import SelectOption from './SelectOption.vue'
 
 interface Props {
