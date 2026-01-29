@@ -15,7 +15,6 @@ interface TimerState {
   extendDuration: number
   timer: number
   notes?: string
-  isFlashing?: boolean
 }
 
 const timers = ref<TimerState[]>(
@@ -25,7 +24,6 @@ const timers = ref<TimerState[]>(
     extendDuration: 90,
     timer: 0,
     notes: '',
-    isFlashing: false,
   }))
 )
 
@@ -67,7 +65,6 @@ const applyTemplate = () => {
           : melody.extendDuration,
         notes: melody.notes,
         timer: 0,
-        isFlashing: false,
       })
     } else {
       // テンプレートにない場合はデフォルト値にリセット
@@ -77,7 +74,6 @@ const applyTemplate = () => {
         extendDuration: 90,
         notes: '',
         timer: 0,
-        isFlashing: false,
       })
     }
   }
@@ -92,7 +88,6 @@ const updateTimer = (index: number, updates: Partial<TimerState>) => {
     extendDuration: updates.extendDuration ?? current.extendDuration,
     timer: updates.timer ?? current.timer,
     notes: updates.notes ?? current.notes,
-    isFlashing: updates.isFlashing ?? current.isFlashing,
   }
 }
 
@@ -139,34 +134,12 @@ const handleKeyDown = (e: KeyboardEvent) => {
   addTimeByKey(timerIndex)
 }
 
-// カウントダウン処理
-let countdownInterval: ReturnType<typeof setInterval> | null = null
-
-const startCountdown = () => {
-  countdownInterval = setInterval(() => {
-    timers.value.forEach((timer, index) => {
-      if (timer.timer > 0) {
-        updateTimer(index, { timer: timer.timer - 1 })
-      }
-    })
-  }, 1000)
-}
-
-const stopCountdown = () => {
-  if (countdownInterval) {
-    clearInterval(countdownInterval)
-    countdownInterval = null
-  }
-}
-
 onMounted(() => {
   document.addEventListener('keydown', handleKeyDown)
-  startCountdown()
 })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeyDown)
-  stopCountdown()
 })
 </script>
 
@@ -255,12 +228,10 @@ onUnmounted(() => {
             :extend-duration="timer.extendDuration"
             :timer="timer.timer"
             :notes="timer.notes"
-            :is-flashing="timer.isFlashing ?? false"
             @update:name="value => updateTimer(index, { name: value })"
             @update:effect-duration="value => updateTimer(index, { effectDuration: value })"
             @update:extend-duration="value => updateTimer(index, { extendDuration: value })"
             @update:timer="value => updateTimer(index, { timer: value })"
-            @update:is-flashing="value => updateTimer(index, { isFlashing: value })"
             @reset="updateTimer(index, { timer: 0 })"
             @extend-others="
               (extendDuration: number) => extendOtherMelodyTimers(index, extendDuration)

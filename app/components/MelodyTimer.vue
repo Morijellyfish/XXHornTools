@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, watch, ref } from 'vue'
 import type { Note } from '~/types/notes'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 
@@ -10,7 +10,6 @@ interface Props {
   extendDuration?: number
   timer?: number
   notes?: string
-  isFlashing?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -19,15 +18,16 @@ const props = withDefaults(defineProps<Props>(), {
   extendDuration: 90,
   timer: 0,
   notes: '',
-  isFlashing: false,
 })
+
+// フラッシュ状態をコンポーネント側で管理
+const isFlashing = ref(false)
 
 const emit = defineEmits<{
   'update:name': [value: string]
   'update:effectDuration': [value: number]
   'update:extendDuration': [value: number]
   'update:timer': [value: number]
-  'update:isFlashing': [value: boolean]
   reset: []
   'extend-others': [extendDuration: number]
 }>()
@@ -48,7 +48,7 @@ const localExtendDuration = computed({
 })
 
 const isBlinking = computed(() => props.timer > 0 && props.timer <= 15)
-const isInactive = computed(() => props.timer === 0 && !props.isFlashing)
+const isInactive = computed(() => props.timer === 0 && !isFlashing.value)
 const isActive = computed(() => props.timer > 15)
 
 // ノートを配列に変換
@@ -65,9 +65,9 @@ const handleReset = () => {
 // タイマーを開始/延長する関数（外部からも呼び出し可能）
 const addTime = () => {
   // 延長時のフィードバック用フラッシュ
-  emit('update:isFlashing', true)
+  isFlashing.value = true
   setTimeout(() => {
-    emit('update:isFlashing', false)
+    isFlashing.value = false
   }, 400)
 
   if (props.timer === 0) {
@@ -108,10 +108,13 @@ const addTimeByMelody = (extendDuration: number) => {
   }
 
   // フィードバック用フラッシュ
-  emit('update:isFlashing', true)
-  setTimeout(() => emit('update:isFlashing', false), 400)
+  isFlashing.value = true
+  setTimeout(() => {
+    isFlashing.value = false
+  }, 400)
 }
 
+// カードクリック時の処理
 const handleCardClick = (event: MouseEvent) => {
   // 入力フィールド、ボタン、リンクなどのクリックは無視
   const target = event.target as HTMLElement
@@ -125,6 +128,49 @@ const handleCardClick = (event: MouseEvent) => {
   }
   addTime()
 }
+
+// カウントダウン処理
+let countdownInterval: ReturnType<typeof setInterval> | null = null
+
+const startCountdown = () => {
+  if (countdownInterval) return // 既に開始されている場合は何もしない
+
+  countdownInterval = setInterval(() => {
+    if (props.timer > 0) {
+      emit('update:timer', props.timer - 1)
+    }
+  }, 1000)
+}
+
+const stopCountdown = () => {
+  if (countdownInterval) {
+    clearInterval(countdownInterval)
+    countdownInterval = null
+  }
+}
+
+// タイマーが0になったらカウントダウンを停止
+watch(
+  () => props.timer,
+  newTimer => {
+    if (newTimer === 0) {
+      stopCountdown()
+    } else if (newTimer > 0 && !countdownInterval) {
+      startCountdown()
+    }
+  }
+)
+
+onMounted(() => {
+  // タイマーが既に動いている場合はカウントダウンを開始
+  if (props.timer > 0) {
+    startCountdown()
+  }
+})
+
+onUnmounted(() => {
+  stopCountdown()
+})
 
 // 外部から呼び出し可能にする
 defineExpose({
