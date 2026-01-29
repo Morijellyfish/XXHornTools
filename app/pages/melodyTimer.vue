@@ -270,6 +270,7 @@ onUnmounted(() => {
             @update:extend-duration="value => updateTimer(index, { extendDuration: value })"
             @update:timer="value => updateTimer(index, { timer: value })"
             @reset="updateTimer(index, { timer: 0 })"
+            @extend="addTime(index)"
           />
         </div>
       </div>

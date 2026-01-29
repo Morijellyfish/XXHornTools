@@ -28,6 +28,7 @@ const emit = defineEmits<{
   'update:extendDuration': [value: number]
   'update:timer': [value: number]
   reset: []
+  extend: []
 }>()
 
 const localName = computed({
@@ -59,6 +60,20 @@ const handleReset = () => {
   emit('update:timer', 0)
   emit('reset')
 }
+
+const handleCardClick = (event: MouseEvent) => {
+  // 入力フィールド、ボタン、リンクなどのクリックは無視
+  const target = event.target as HTMLElement
+  if (
+    target.tagName === 'INPUT' ||
+    target.tagName === 'BUTTON' ||
+    target.tagName === 'A' ||
+    target.closest('input, button, a')
+  ) {
+    return
+  }
+  emit('extend')
+}
 </script>
 
 <template>
@@ -69,7 +84,8 @@ const handleReset = () => {
       'timer-active': isActive,
       'timer-flashing': isFlashing,
     }"
-    class="transition-all duration-200"
+    class="transition-all duration-200 cursor-pointer"
+    @click="handleCardClick"
   >
     <div class="flex items-center gap-2 flex-wrap">
       <!-- インデックスと名称 -->
@@ -192,13 +208,17 @@ const handleReset = () => {
 @keyframes flash-timer {
   0% {
     background-color: rgba(255, 251, 230, 0.9);
-    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.45), 0 0 36px 10px rgba(255, 224, 102, 0.25);
+    box-shadow:
+      0 0 20px 6px rgba(255, 224, 102, 0.45),
+      0 0 36px 10px rgba(255, 224, 102, 0.25);
     transform: scale(1.015);
   }
 
   25% {
     background-color: rgba(255, 251, 230, 0.95);
-    box-shadow: 0 0 24px 8px rgba(255, 224, 102, 0.5), 0 0 40px 12px rgba(255, 224, 102, 0.3);
+    box-shadow:
+      0 0 24px 8px rgba(255, 224, 102, 0.5),
+      0 0 40px 12px rgba(255, 224, 102, 0.3);
     transform: scale(1.02);
   }
 
@@ -222,13 +242,17 @@ const handleReset = () => {
 @keyframes flash-timer-dark {
   0% {
     background-color: rgba(191, 166, 0, 0.55);
-    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.22), 0 0 36px 10px rgba(255, 224, 102, 0.12);
+    box-shadow:
+      0 0 20px 6px rgba(255, 224, 102, 0.22),
+      0 0 36px 10px rgba(255, 224, 102, 0.12);
     transform: scale(1.015);
   }
 
   25% {
     background-color: rgba(191, 166, 0, 0.6);
-    box-shadow: 0 0 24px 8px rgba(255, 224, 102, 0.25), 0 0 40px 12px rgba(255, 224, 102, 0.15);
+    box-shadow:
+      0 0 24px 8px rgba(255, 224, 102, 0.25),
+      0 0 40px 12px rgba(255, 224, 102, 0.15);
     transform: scale(1.02);
   }
 
