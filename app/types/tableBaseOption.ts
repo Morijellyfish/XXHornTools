@@ -34,6 +34,7 @@ import {
   CriticalMelody,
   CriticalEye,
 } from './criticalBuff'
+import type { TargetDamageSettings } from './targetDamage'
 
 /** 切れ味の種類 */
 export type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -51,6 +52,8 @@ export interface TableBaseOption {
   attackModifiers?: AttackBuffs
   /** 切れ味補正倍率（デフォルト: 1.0 = 補正なし） */
   sharpnessMultiplier?: number
+  /** 目標ダメージ設定 */
+  targetDamageSettings?: TargetDamageSettings
 }
 
 /**
