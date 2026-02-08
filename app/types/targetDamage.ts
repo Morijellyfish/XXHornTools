@@ -28,7 +28,9 @@ export function getDefaultTargetDamageSettings(): Required<TargetDamageSettings>
  * @param expectedValue 期待値（武器倍率 × 会心補正 × 斬れ味補正など、モーション値以外の補正を含む）
  * @returns 必要モーション値。設定が不完全な場合は undefined
  *
- * 計算式: モーション値 = ダメージ / (全体防御率 × (肉質/100) × 期待値)
+ * 計算式: ダメージ = 切捨(モーション値 ÷ 100 × 期待値 × 肉質 ÷ 100)
+ * 逆算: モーション値 = ダメージ × 100 ÷ (期待値 × 肉質 ÷ 100)
+ *                  = ダメージ × 10000 ÷ (期待値 × 肉質)
  */
 export function calculateRequiredMotionValue(
   settings: TargetDamageSettings,
@@ -48,5 +50,6 @@ export function calculateRequiredMotionValue(
     return undefined
   }
 
-  return settings.targetDamage / (overallDefenseRate * (hitzone / 100) * expectedValue)
+  // 計算式: モーション値 = ダメージ × 10000 ÷ (全体防御率 × 期待値 × 肉質)
+  return (settings.targetDamage * 10000) / (overallDefenseRate * expectedValue * hitzone)
 }
