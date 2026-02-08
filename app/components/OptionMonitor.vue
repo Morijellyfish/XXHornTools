@@ -9,22 +9,99 @@ import {
 } from '~/types/tableBaseOption'
 
 interface Props {
-  tableOptions: TableBaseOption
+  modelValue: TableBaseOption
 }
 
 const props = defineProps<Props>()
 
+const emit = defineEmits<{
+  'update:modelValue': [value: TableBaseOption]
+}>()
+
+const tableOptions = computed({
+  get: () => props.modelValue,
+  set: value => emit('update:modelValue', value),
+})
+
+const targetDamageSettings = computed(() => tableOptions.value.targetDamageSettings ?? {})
+
+const updateTargetDamage = (value: number | string | undefined) => {
+  const numValue = value === '' || value === undefined ? undefined : Number(value)
+  tableOptions.value = {
+    ...tableOptions.value,
+    targetDamageSettings: {
+      ...targetDamageSettings.value,
+      targetDamage: numValue,
+    },
+  }
+}
+
+const clampTargetDamage = () => {
+  const value = targetDamageSettings.value.targetDamage
+  if (value !== undefined && value < 0) {
+    updateTargetDamage(0)
+  }
+}
+
+const updateHitzone = (value: number | string | undefined) => {
+  const numValue = value === '' || value === undefined ? undefined : Number(value)
+  tableOptions.value = {
+    ...tableOptions.value,
+    targetDamageSettings: {
+      ...targetDamageSettings.value,
+      hitzone: numValue,
+    },
+  }
+}
+
+const clampHitzone = () => {
+  const value = targetDamageSettings.value.hitzone
+  if (value === undefined) {
+    return
+  }
+  let clampedValue = value
+  if (value < 0) {
+    clampedValue = 0
+  } else if (value > 1000) {
+    clampedValue = 1000
+  }
+  if (clampedValue !== value) {
+    updateHitzone(clampedValue)
+  }
+}
+
+const updateOverallDefenseRate = (value: number | string | undefined) => {
+  const numValue = value === '' || value === undefined ? undefined : Number(value)
+  tableOptions.value = {
+    ...tableOptions.value,
+    targetDamageSettings: {
+      ...targetDamageSettings.value,
+      overallDefenseRate: numValue,
+    },
+  }
+}
+
+const clampOverallDefenseRate = () => {
+  const value = targetDamageSettings.value.overallDefenseRate
+  if (value === undefined) {
+    return
+  }
+  if (value < 0) {
+    updateOverallDefenseRate(0)
+  }
+}
+
 // 会心補正を計算
-const criticalBonus = computed(() => calculateCriticalBonus(props.tableOptions))
+const criticalBonus = computed(() => calculateCriticalBonus(tableOptions.value))
 
 // 攻撃力加算バフの合計を計算
-const totalAttackAdd = computed(() => calculateTotalAttackAdd(props.tableOptions))
+const totalAttackAdd = computed(() => calculateTotalAttackAdd(tableOptions.value))
 
 // 攻撃力倍率（乗算バフ）の合計を計算
-const totalAttackMultiply = computed(() => calculateTotalAttackMultiply(props.tableOptions))
+const totalAttackMultiply = computed(() => calculateTotalAttackMultiply(tableOptions.value))
 
 // 発動スキルのリストを取得
-const activeSkills = computed(() => getActiveSkills(props.tableOptions))
+const activeSkills = computed(() => getActiveSkills(tableOptions.value))
 </script>
 
 <template>
@@ -66,6 +143,53 @@ const activeSkills = computed(() => getActiveSkills(props.tableOptions))
       <span v-else class="ml-2 text-gray-800 dark:text-gray-200">
         {{ activeSkills.join('、') }}
       </span>
+    </div>
+    <div class="mt-4 pt-4 border-t border-gray-300 dark:border-gray-600">
+      <div class="text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">目標ダメージ設定</div>
+      <div class="flex flex-wrap gap-4">
+        <div class="flex items-center gap-2">
+          <label class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap"
+            >目標ダメージ:</label
+          >
+          <UInput
+            :model-value="targetDamageSettings.targetDamage"
+            type="number"
+            :min="0"
+            class="w-24"
+            placeholder="10000"
+            @update:model-value="updateTargetDamage($event)"
+            @blur="clampTargetDamage"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">肉質:</label>
+          <UInput
+            :model-value="targetDamageSettings.hitzone"
+            type="number"
+            :min="0"
+            :max="1000"
+            class="w-20"
+            placeholder="45"
+            @update:model-value="updateHitzone($event)"
+            @blur="clampHitzone"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap"
+            >全体防御率:</label
+          >
+          <UInput
+            :model-value="targetDamageSettings.overallDefenseRate"
+            type="number"
+            :min="0"
+            :step="0.01"
+            class="w-20"
+            placeholder="1.0"
+            @update:model-value="updateOverallDefenseRate($event)"
+            @blur="clampOverallDefenseRate"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>

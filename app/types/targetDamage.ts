@@ -14,11 +14,10 @@ export interface TargetDamageSettings {
 /**
  * デフォルト値を持つTargetDamageSettingsを取得
  */
-export function getDefaultTargetDamageSettings(): Required<
-  Omit<TargetDamageSettings, 'targetDamage'>
-> {
+export function getDefaultTargetDamageSettings(): Required<TargetDamageSettings> {
   return {
-    hitzone: 100,
+    targetDamage: 1000,
+    hitzone: 45,
     overallDefenseRate: 1.0,
   }
 }

@@ -97,7 +97,7 @@ const filteredHorns = computed(() => {
       <!-- フィルター -->
       <MelodyFilter v-model="selectedMelodyNames" :melody-names="melodyNames" />
       <!-- オプションモニター -->
-      <OptionMonitor :table-options="tableOptions" />
+      <OptionMonitor v-model="tableOptions" />
 
       <HornTable
         :horns="filteredHorns"

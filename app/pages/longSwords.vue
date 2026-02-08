@@ -61,7 +61,7 @@ const sharpnessMultiplier = computed(() => {
     <UPageSection>
       <WeaponTableOptions v-model="tableOptions" />
       <!-- オプションモニター -->
-      <OptionMonitor :table-options="tableOptions" />
+      <OptionMonitor v-model="tableOptions" />
 
       <LongSwordTable
         :long-swords="allLongSwords"
