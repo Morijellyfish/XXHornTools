@@ -37,6 +37,7 @@ const props = withDefaults(defineProps<Props>(), {
     :attack-modifiers="props.attackModifiers"
     :sharpness-multiplier="props.sharpnessMultiplier"
     :critical-melody="props.criticalBuffs?.criticalMelody"
+    :target-damage-settings="props.targetDamageSettings"
   >
     <template #header-columns>
       <th class="text-left p-2">音色</th>

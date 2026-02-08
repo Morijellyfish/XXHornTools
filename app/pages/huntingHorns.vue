@@ -106,6 +106,7 @@ const filteredHorns = computed(() => {
         :attack-modifiers="tableOptions.attackModifiers"
         :sharpness-multiplier="sharpnessMultiplier"
         :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
+        :target-damage-settings="tableOptions.targetDamageSettings"
         :selected-melody-names="selectedMelodyNames"
         :highlighted-melody-names="highlightedMelodyNames"
         :on-melody-click="toggleMelodyHighlight"

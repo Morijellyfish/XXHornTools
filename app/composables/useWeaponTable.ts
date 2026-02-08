@@ -7,6 +7,7 @@ import { CriticalMelody } from '~/types/criticalBuff'
 import { AttackMelody } from '~/types/attackBuff'
 import { calculateExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
+import { calculateRequiredMotionValue, getDefaultTargetDamageSettings } from '~/types/targetDamage'
 
 // SharpnessType を再エクスポート（後方互換性のため）
 export type { SharpnessType }
@@ -128,6 +129,22 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     )
   }
 
+  // 必要モーション値を計算
+  const getRequiredMotionValue = (weapon: T): number | undefined => {
+    const defaults = getDefaultTargetDamageSettings()
+    const settings = props.targetDamageSettings ?? {}
+
+    // デフォルト値とマージ（未設定の値はデフォルト値を使用）
+    const mergedSettings = {
+      targetDamage: settings.targetDamage ?? defaults.targetDamage,
+      hitzone: settings.hitzone ?? defaults.hitzone,
+      overallDefenseRate: settings.overallDefenseRate ?? defaults.overallDefenseRate,
+    }
+
+    const expectedValue = getExpectedValue(weapon)
+    return calculateRequiredMotionValue(mergedSettings, expectedValue)
+  }
+
   // 元の会心率を括弧で表示するかどうかを判定
   const isShowBaseAffinity = (weapon: T): boolean => {
     const totalCriticalBonus = calculateCriticalBonusForWeapon(weapon)
@@ -190,6 +207,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     calculateAffinity,
     getExpectedValue,
     getAttackWithBuffs,
+    getRequiredMotionValue,
     isShowBaseAttack,
     isShowBaseAffinity,
   }

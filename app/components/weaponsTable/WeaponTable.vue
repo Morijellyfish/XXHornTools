@@ -31,6 +31,7 @@ const {
   calculateAffinity,
   getExpectedValue,
   getAttackWithBuffs,
+  getRequiredMotionValue,
   isShowBaseAttack,
   isShowBaseAffinity,
 } = useWeaponTable(props)
@@ -42,6 +43,7 @@ const {
       <thead>
         <tr class="border-b">
           <th class="text-left p-2">名称</th>
+          <th class="text-left p-2">必要モーション値</th>
           <th
             class="text-left p-2 cursor-pointer hover:bg-gray-700 select-none"
             @click="toggleSort('expected')"
@@ -93,6 +95,7 @@ const {
           v-for="weapon in sortedWeapons"
           :key="weapon.name"
           :weapon="weapon"
+          :required-motion-value="getRequiredMotionValue(weapon)"
           :expected-value="getExpectedValue(weapon)"
           :attack-with-buffs="getAttackWithBuffs(weapon)"
           :base-attack="weapon.attack"

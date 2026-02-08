@@ -5,6 +5,7 @@ import type { SharpnessType } from '~/composables/useWeaponTable'
 
 interface Props {
   weapon: T
+  requiredMotionValue?: number
   expectedValue: number
   attackWithBuffs: number
   baseAttack: number
@@ -54,6 +55,12 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
 <template>
   <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
     <td class="p-2">{{ weapon.name }}</td>
+    <td class="p-2 text-right">
+      <span v-if="requiredMotionValue !== undefined">
+        {{ requiredMotionValue.toFixed(1) }}
+      </span>
+      <span v-else class="text-gray-400">-</span>
+    </td>
     <td class="p-2">{{ expectedValue }}</td>
     <td class="p-2 text-right">
       <div class="flex flex-col">

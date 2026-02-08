@@ -70,6 +70,7 @@ const sharpnessMultiplier = computed(() => {
         :attack-modifiers="tableOptions.attackModifiers"
         :sharpness-multiplier="sharpnessMultiplier"
         :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
+        :target-damage-settings="tableOptions.targetDamageSettings"
       />
     </UPageSection>
   </div>
