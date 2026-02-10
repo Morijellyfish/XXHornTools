@@ -17,6 +17,7 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
+    "@fontsource/noto-sans-jp": "^5.2.9",
     "@primeuix/themes": "^2.0.3",
     "nuxt": "^4.2.2",
     "primevue": "^4.5.4"

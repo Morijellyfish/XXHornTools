@@ -50,7 +50,6 @@ export default defineNuxtPlugin(nuxtApp => {
           formField: {
             background: 'var(--mainpalette-surface-1)',
             borderColor: 'var(--mainpalette-border)',
-            // hoverで緑→focusでピンク、のような“色の飛び”を避けて一貫させる
             hoverBorderColor: 'var(--mainpalette-primary)',
             focusBorderColor: 'var(--mainpalette-primary)',
             color: 'var(--mainpalette-text)',

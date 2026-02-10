@@ -13,7 +13,6 @@
 }
 
 .p-inputtext:enabled:hover {
-  /* hover→focus が自然に見えるよう primary 系に統一 */
   border-color: color-mix(in srgb, var(--mainpalette-primary) 60%, var(--mainpalette-border));
 }
 
