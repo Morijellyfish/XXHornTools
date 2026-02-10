@@ -39,7 +39,7 @@ const {
 
 <template>
   <div class="overflow-x-auto">
-    <table class="w-full border-collapse">
+    <table class="weapon-table w-full border-collapse">
       <thead>
         <tr class="border-b">
           <th class="text-left p-2">名称</th>

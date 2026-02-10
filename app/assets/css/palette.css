@@ -9,6 +9,11 @@
     --mainpalette-blue-3: #9f7ceb;
     --mainpalette-blue-4: #70697d;
     --mainpalette-blue-5: #473e59;
+    /*
+     * surface-2用の中間ダーク（明るすぎる面を抑える）
+     * #251D34(37,29,52) と #473E59(71,62,89) の平均 = (54,45,70) = #362D46
+     */
+    --mainpalette-blue-5b: #362d46;
     --mainpalette-blue-6: #251d34;
     --mainpalette-blue-7: #1f1533;
     /*
@@ -25,7 +30,7 @@
      */
     --mainpalette-bg: var(--mainpalette-blue-7b);
     --mainpalette-surface-1: var(--mainpalette-blue-6);
-    --mainpalette-surface-2: var(--mainpalette-blue-5);
+    --mainpalette-surface-2: var(--mainpalette-blue-5b);
     --mainpalette-border: var(--mainpalette-blue-4);
     --mainpalette-text: var(--mainpalette-white);
     --mainpalette-text-muted: var(--mainpalette-blue-2);

@@ -69,3 +69,38 @@ body {
   border: 2px solid transparent;
   background-clip: content-box;
 }
+
+/* 武器比較表：読みやすさ改善（stickyヘッダー + ゼブラ + hover + 薄い縦罫線） */
+.weapon-table {
+  /* 見た目を安定させる */
+  border-collapse: collapse;
+}
+
+.weapon-table thead th {
+  /* 本文(行0)と同化しないように、主役色を少しだけ混ぜて“ヘッダー感”を出す */
+  background: color-mix(in srgb, var(--mainpalette-primary) 10%, var(--mainpalette-surface-1));
+  border-bottom: 1px solid var(--mainpalette-border);
+  box-shadow: inset 0 -1px 0 var(--mainpalette-border);
+}
+
+.weapon-table tbody tr:nth-child(odd) {
+  background: var(--mainpalette-surface-1);
+}
+
+.weapon-table tbody tr:nth-child(even) {
+  background: var(--mainpalette-surface-2);
+}
+
+.weapon-table tbody tr:hover {
+  background: color-mix(in srgb, var(--mainpalette-primary) 12%, var(--mainpalette-surface-2));
+}
+
+.weapon-table th,
+.weapon-table td {
+  border-right: 1px solid color-mix(in srgb, var(--mainpalette-border) 55%, transparent);
+}
+
+.weapon-table th:last-child,
+.weapon-table td:last-child {
+  border-right: 0;
+}

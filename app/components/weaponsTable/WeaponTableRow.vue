@@ -53,7 +53,7 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
 </script>
 
 <template>
-  <tr class="border-b border-[var(--mainpalette-border)] hover:bg-[var(--mainpalette-surface-2)]">
+  <tr class="border-b border-[var(--mainpalette-border)]">
     <td class="p-2">{{ weapon.name }}</td>
     <td class="p-2 text-right">
       <span v-if="requiredMotionValue !== undefined">
