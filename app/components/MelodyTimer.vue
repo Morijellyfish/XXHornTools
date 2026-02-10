@@ -187,7 +187,7 @@ defineExpose({
       'timer-active': isActive,
       'timer-flashing': isFlashing,
     }"
-    class="transition-all duration-200 cursor-pointer"
+    class="timer-card transition-all duration-200 cursor-pointer"
     @click="handleCardClick"
   >
     <template #content>
@@ -267,20 +267,22 @@ defineExpose({
 </template>
 
 <style scoped>
-.timer-inactive {
-  background-color: var(--color-gray-200) !important;
+.timer-card {
+  /* 背景(#323339)と同化しないように、常に薄い面＋境界線を付ける */
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  will-change: background-color, box-shadow, transform;
 }
 
-.dark .timer-inactive {
-  background-color: var(--color-gray-950) !important;
+.timer-inactive {
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 .timer-active {
-  background-color: var(--color-blue-50) !important;
-}
-
-.dark .timer-active {
-  background-color: var(--color-blue-950) !important;
+  /* 発動中が一目で分かる程度の薄いアクセント */
+  background-color: rgba(0, 220, 130, 0.08);
+  border-color: rgba(0, 220, 130, 0.22);
 }
 
 .timer-blinking {
@@ -290,30 +292,14 @@ defineExpose({
 @keyframes blink-timer {
   0%,
   100% {
-    background-color: var(--color-gray-50);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
   }
 
   50% {
-    background-color: rgba(255, 251, 230, 0.55);
-    box-shadow: 0 0 16px 4px rgba(255, 224, 102, 0.25);
-  }
-}
-
-.dark .timer-blinking {
-  animation: blink-timer-dark 1.2s ease-in-out infinite;
-}
-
-@keyframes blink-timer-dark {
-  0%,
-  100% {
-    background-color: var(--color-gray-900);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-  }
-
-  50% {
-    background-color: rgba(191, 166, 0, 0.33);
-    box-shadow: 0 0 16px 4px rgba(255, 224, 102, 0.13);
+    /* 暗背景でも「黄色い警告」として見えるが、眩しすぎない */
+    background-color: rgba(255, 193, 7, 0.16);
+    box-shadow: 0 0 12px 3px rgba(255, 193, 7, 0.22);
   }
 }
 
@@ -324,64 +310,30 @@ defineExpose({
 
 @keyframes flash-timer {
   0% {
-    background-color: rgba(255, 251, 230, 0.9);
+    background-color: rgba(255, 193, 7, 0.22);
     box-shadow:
-      0 0 20px 6px rgba(255, 224, 102, 0.45),
-      0 0 36px 10px rgba(255, 224, 102, 0.25);
+      0 0 16px 5px rgba(255, 193, 7, 0.28),
+      0 0 28px 8px rgba(255, 193, 7, 0.16);
     transform: scale(1.015);
   }
 
   25% {
-    background-color: rgba(255, 251, 230, 0.95);
+    background-color: rgba(255, 193, 7, 0.28);
     box-shadow:
-      0 0 24px 8px rgba(255, 224, 102, 0.5),
-      0 0 40px 12px rgba(255, 224, 102, 0.3);
+      0 0 18px 6px rgba(255, 193, 7, 0.32),
+      0 0 32px 10px rgba(255, 193, 7, 0.18);
     transform: scale(1.02);
   }
 
   50% {
-    background-color: rgba(255, 251, 230, 0.7);
-    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.4);
+    background-color: rgba(255, 193, 7, 0.18);
+    box-shadow: 0 0 16px 5px rgba(255, 193, 7, 0.25);
     transform: scale(1.01);
   }
 
   100% {
-    background-color: var(--color-gray-50);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    transform: scale(1);
-  }
-}
-
-.dark .timer-flashing {
-  animation: flash-timer-dark 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes flash-timer-dark {
-  0% {
-    background-color: rgba(191, 166, 0, 0.55);
-    box-shadow:
-      0 0 20px 6px rgba(255, 224, 102, 0.22),
-      0 0 36px 10px rgba(255, 224, 102, 0.12);
-    transform: scale(1.015);
-  }
-
-  25% {
-    background-color: rgba(191, 166, 0, 0.6);
-    box-shadow:
-      0 0 24px 8px rgba(255, 224, 102, 0.25),
-      0 0 40px 12px rgba(255, 224, 102, 0.15);
-    transform: scale(1.02);
-  }
-
-  50% {
-    background-color: rgba(191, 166, 0, 0.4);
-    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.2);
-    transform: scale(1.01);
-  }
-
-  100% {
-    background-color: var(--color-gray-900);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
     transform: scale(1);
   }
 }
