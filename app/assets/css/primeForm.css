@@ -13,7 +13,8 @@
 }
 
 .p-inputtext:enabled:hover {
-  border-color: var(--mainpalette-accent-2);
+  /* hover→focus が自然に見えるよう primary 系に統一 */
+  border-color: color-mix(in srgb, var(--mainpalette-primary) 60%, var(--mainpalette-border));
 }
 
 .p-inputtext:enabled:focus,
@@ -39,7 +40,7 @@
 }
 
 .p-checkbox:not(.p-disabled):hover .p-checkbox-box {
-  border-color: var(--mainpalette-accent-2);
+  border-color: color-mix(in srgb, var(--mainpalette-primary) 60%, var(--mainpalette-border));
 }
 
 .p-checkbox.p-focus .p-checkbox-box {
@@ -53,5 +54,5 @@
 }
 
 .p-checkbox-icon {
-  color: var(--mainpalette-surface-1);
+  color: var(--mainpalette-bg);
 }

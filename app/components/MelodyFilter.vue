@@ -106,7 +106,7 @@ const clearFilter = () => {
         <span class="mp-label mp-text">旋律フィルター</span>
         <span
           v-if="modelValue.size > 0"
-          class="px-2 py-0.5 mp-caption mp-bg-primary mp-on-surface-1 rounded-full"
+          class="px-2 py-0.5 mp-caption mp-bg-primary mp-on-primary rounded-full"
         >
           {{ modelValue.size }}件選択中
         </span>
@@ -139,7 +139,7 @@ const clearFilter = () => {
             class="px-3 py-1 mp-body rounded border transition-colors"
             :class="
               modelValue.has(melodyName)
-                ? 'mp-bg-primary mp-on-surface-1 mp-border-primary'
+                ? 'mp-bg-primary mp-on-primary mp-border-primary'
                 : 'mp-surface-1 mp-muted mp-border mp-hover-surface-2 mp-hover-text'
             "
             @click="toggleMelodyFilter(melodyName)"

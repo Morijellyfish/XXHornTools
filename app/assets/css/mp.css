@@ -121,6 +121,10 @@
     background-color: var(--mainpalette-primary);
   }
 
+  .mp-on-primary {
+    color: var(--mainpalette-bg);
+  }
+
   .mp-border-primary {
     border-color: var(--mainpalette-primary);
   }
@@ -208,7 +212,7 @@
 
   .mp-chip-primary {
     background-color: var(--mainpalette-primary);
-    color: var(--mainpalette-surface-1);
+    color: var(--mainpalette-bg);
     padding-inline: 0.25rem; /* Tailwind: px-1 */
     border-radius: 0.25rem; /* Tailwind: rounded */
   }

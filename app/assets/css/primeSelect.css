@@ -33,7 +33,7 @@
 }
 
 .p-select:hover {
-  border-color: var(--mainpalette-accent-2);
+  border-color: color-mix(in srgb, var(--mainpalette-primary) 60%, var(--mainpalette-border));
 }
 
 .p-select.p-focus {
@@ -67,11 +67,11 @@
 .p-select-option.p-select-option-selected,
 .p-select-option.p-select-option-selected.p-focus {
   background: var(--mainpalette-primary);
-  color: var(--mainpalette-surface-1);
+  color: var(--mainpalette-bg);
 }
 
 .p-select-option-check-icon {
-  color: var(--mainpalette-surface-1);
+  color: var(--mainpalette-bg);
 }
 
 .p-select-option-group {

@@ -17,7 +17,11 @@
 }
 
 .weapon-table tbody tr:nth-child(even) {
-  background: var(--mainpalette-surface-2);
+  /*
+   * ゼブラの明暗差を抑える（片側が明るすぎて“チカチカ”しないように）
+   * surface-1 に surface-2 を少しだけ混ぜる
+   */
+  background: color-mix(in srgb, var(--mainpalette-surface-2) 18%, var(--mainpalette-surface-1));
 }
 
 .weapon-table tbody tr:hover {
