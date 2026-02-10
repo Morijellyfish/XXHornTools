@@ -96,9 +96,7 @@ const clearFilter = () => {
 </script>
 
 <template>
-  <div
-    class="mb-0 bg-[var(--mainpalette-surface-1)] rounded-lg border border-[var(--mainpalette-border)]"
-  >
+  <div class="mb-0 mp-panel">
     <button
       type="button"
       class="w-full p-4 flex items-center justify-between hover:bg-[var(--mainpalette-surface-2)] transition-colors"
@@ -113,7 +111,7 @@ const clearFilter = () => {
           {{ modelValue.size }}件選択中
         </span>
       </div>
-      <span class="text-[var(--mainpalette-text-muted)]">
+      <span class="mp-muted">
         {{ isFilterExpanded ? '▼' : '▶' }}
       </span>
     </button>
@@ -121,15 +119,15 @@ const clearFilter = () => {
       <div
         v-for="category in categoryOrder"
         :key="category"
-        class="border-b border-[var(--mainpalette-border)] last:border-b-0 pb-3 last:pb-0"
+        class="border-b mp-border last:border-b-0 pb-3 last:pb-0"
       >
         <button
           type="button"
-          class="w-full flex items-center justify-between mb-2 text-sm font-medium text-[var(--mainpalette-text)] hover:text-[var(--mainpalette-text)]"
+          class="w-full flex items-center justify-between mb-2 text-sm font-medium mp-text hover:text-[var(--mainpalette-text)]"
           @click="toggleCategory(category)"
         >
           <span>{{ category }}</span>
-          <span class="text-[var(--mainpalette-text-muted)]">
+          <span class="mp-muted">
             {{ expandedCategories.has(category) ? '▼' : '▶' }}
           </span>
         </button>
@@ -150,7 +148,7 @@ const clearFilter = () => {
           </button>
         </div>
       </div>
-      <div v-if="modelValue.size > 0" class="mt-3 text-sm text-[var(--mainpalette-text-muted)]">
+      <div v-if="modelValue.size > 0" class="mt-3 text-sm mp-muted">
         <button
           type="button"
           class="text-[var(--mainpalette-primary)] hover:text-[var(--mainpalette-accent-2)] underline"
