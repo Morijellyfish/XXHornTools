@@ -44,7 +44,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
   <div class="mb-0 space-y-4">
     <div class="grid grid-cols-1 md:grid-cols-2">
       <div class="border-r mp-border pr-4">
-        <label class="text-sm font-medium mb-2 block">事前準備:</label>
+        <label class="mp-label mp-text mb-2 block">事前準備:</label>
         <div class="space-y-3">
           <SelectOption
             :model-value="attackModifiers.powerCharm ?? false"
@@ -127,7 +127,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           />
         </div>
         <div class="mt-4">
-          <label class="text-sm font-medium mb-2 block">短期バフ:</label>
+          <label class="mp-label mp-text mb-2 block">短期バフ:</label>
           <div class="space-y-3">
             <SelectOption
               :model-value="attackModifiers.shortTermBuff ?? 'none'"
@@ -164,7 +164,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
       </div>
 
       <div class="pl-4">
-        <label class="text-sm font-medium mb-2 block">スキル:</label>
+        <label class="mp-label mp-text mb-2 block">スキル:</label>
         <div class="space-y-3">
           <SelectOption
             :model-value="attackModifiers.attackSkill ?? 'none'"
@@ -414,7 +414,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
 
     <div class="grid grid-cols-1 md:grid-cols-2">
       <div class="border-r mp-border pr-4">
-        <label class="text-sm font-medium mb-2 block">旋律:</label>
+        <label class="mp-label mp-text mb-2 block">旋律:</label>
         <div class="space-y-3">
           <SelectOption
             :model-value="attackModifiers.attackMelody ?? AttackMelody.None"
@@ -456,7 +456,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
         </div>
       </div>
       <div class="pl-4">
-        <label class="text-sm font-medium mb-2 block">火事場系:</label>
+        <label class="mp-label mp-text mb-2 block">火事場系:</label>
         <div class="space-y-3">
           <SelectOption
             :model-value="attackModifiers.adrenaline ?? 'none'"

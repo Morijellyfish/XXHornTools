@@ -64,7 +64,7 @@ const getNoteColor = (note: Note): string => {
       </td>
       <!-- 旋律カラム -->
       <td class="p-2">
-        <div class="flex flex-col gap-1 text-sm">
+        <div class="flex flex-col gap-1 mp-body">
           <span
             v-for="(name, index) in horn.notes.getMelodyNames()"
             :key="index"

@@ -106,7 +106,7 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
 
 <template>
   <div class="mb-0 mp-panel mp-pad">
-    <div class="flex flex-wrap gap-4 text-sm">
+    <div class="flex flex-wrap gap-4 mp-body">
       <div>
         <span class="mp-muted">攻撃力加算:</span>
         <span
@@ -135,7 +135,7 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
         </span>
       </div>
     </div>
-    <div class="mt-3 text-sm">
+    <div class="mt-3 mp-body">
       <span class="mp-muted">発動スキル:</span>
       <span v-if="activeSkills.length === 0" class="ml-2 mp-muted"> なし </span>
       <span v-else class="ml-2 mp-text">
@@ -143,10 +143,10 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
       </span>
     </div>
     <div class="mt-4 pt-4 mp-divider-top">
-      <div class="text-sm font-medium mb-2 mp-text">目標ダメージ設定</div>
+      <div class="mp-label mb-2 mp-text">目標ダメージ設定</div>
       <div class="flex flex-wrap gap-4">
         <div class="flex items-center gap-2">
-          <label class="text-sm mp-muted whitespace-nowrap"> 目標ダメージ: </label>
+          <label class="mp-label mp-muted whitespace-nowrap"> 目標ダメージ: </label>
           <InputNumber
             :model-value="targetDamageSettings.targetDamage ?? null"
             :min="0"
@@ -159,7 +159,7 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
           />
         </div>
         <div class="flex items-center gap-2">
-          <label class="text-sm mp-muted whitespace-nowrap">肉質:</label>
+          <label class="mp-label mp-muted whitespace-nowrap">肉質:</label>
           <InputNumber
             :model-value="targetDamageSettings.hitzone ?? null"
             :min="0"
@@ -173,7 +173,7 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
           />
         </div>
         <div class="flex items-center gap-2">
-          <label class="text-sm mp-muted whitespace-nowrap"> 全体防御率: </label>
+          <label class="mp-label mp-muted whitespace-nowrap"> 全体防御率: </label>
           <InputNumber
             :model-value="targetDamageSettings.overallDefenseRate ?? null"
             :min="0"

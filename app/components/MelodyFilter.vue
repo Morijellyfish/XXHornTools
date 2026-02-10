@@ -103,10 +103,10 @@ const clearFilter = () => {
       @click="isFilterExpanded = !isFilterExpanded"
     >
       <div class="flex items-center gap-2">
-        <span class="text-sm font-medium">旋律フィルター</span>
+        <span class="mp-label mp-text">旋律フィルター</span>
         <span
           v-if="modelValue.size > 0"
-          class="px-2 py-0.5 text-xs mp-bg-primary mp-on-surface-1 rounded-full"
+          class="px-2 py-0.5 mp-caption mp-bg-primary mp-on-surface-1 rounded-full"
         >
           {{ modelValue.size }}件選択中
         </span>
@@ -123,7 +123,7 @@ const clearFilter = () => {
       >
         <button
           type="button"
-          class="w-full flex items-center justify-between mb-2 text-sm font-medium mp-text"
+          class="w-full flex items-center justify-between mb-2 mp-label mp-text"
           @click="toggleCategory(category)"
         >
           <span>{{ category }}</span>
@@ -136,7 +136,7 @@ const clearFilter = () => {
             v-for="melodyName in melodiesByCategory[category]"
             :key="melodyName"
             type="button"
-            class="px-3 py-1 text-sm rounded border transition-colors"
+            class="px-3 py-1 mp-body rounded border transition-colors"
             :class="
               modelValue.has(melodyName)
                 ? 'mp-bg-primary mp-on-surface-1 mp-border-primary'
@@ -148,7 +148,7 @@ const clearFilter = () => {
           </button>
         </div>
       </div>
-      <div v-if="modelValue.size > 0" class="mt-3 text-sm mp-muted">
+      <div v-if="modelValue.size > 0" class="mt-3 mp-body mp-muted">
         <button type="button" class="mp-link-primary" @click="clearFilter">クリア</button>
       </div>
     </div>

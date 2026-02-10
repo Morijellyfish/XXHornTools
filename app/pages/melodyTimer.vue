@@ -145,101 +145,93 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div>
-    <section class="py-10">
-      <div class="max-w-6xl mx-auto px-4">
-        <h1 class="text-3xl font-bold mp-text">旋律タイマー</h1>
-        <p class="mt-2 text-sm mp-muted">
-          モンスターハンターXXの狩猟笛のバフ管理に特化した、上限値・延長機能付きタイマー
-        </p>
-      </div>
+  <div class="px-4 sm:px-6 lg:px-8">
+    <section class="mx-auto max-w-6xl py-10 sm:py-14">
+      <h1 class="mp-page-title mp-text">旋律タイマー</h1>
+      <p class="mt-3 mp-body mp-muted">
+        モンスターハンターXXの狩猟笛のバフ管理に特化した、上限値・延長機能付きタイマー
+      </p>
     </section>
 
-    <section class="pb-12">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="space-y-4">
-          <div class="mb-4 text-sm mp-muted">
-            ※各タイマーごとに「初回値」「延長値」を変更できます。
-          </div>
+    <section class="mx-auto max-w-6xl pb-10 sm:pb-14 space-y-6">
+      <div class="mp-body mp-muted">※各タイマーごとに「初回値」「延長値」を変更できます。</div>
 
-          <!-- テンプレート選択UI -->
-          <Card class="template-select-card">
-            <template #content>
-              <div class="space-y-4">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8">
-                  <div class="flex items-center gap-3">
-                    <label class="text-sm font-medium whitespace-nowrap">狩猟笛テンプレート:</label>
-                    <Select
-                      v-model="selectedTemplate"
-                      :options="templateOptions"
-                      option-label="label"
-                      option-value="value"
-                      placeholder="--選択--"
-                      class="w-32"
-                    />
-                  </div>
-
-                  <div class="flex items-center gap-3">
-                    <div class="flex items-center gap-2">
-                      <Checkbox v-model="hasFuefukiSkill" binary />
-                      <label
-                        class="text-sm font-medium cursor-pointer"
-                        @click="hasFuefukiSkill = !hasFuefukiSkill"
-                      >
-                        笛吹き名人
-                      </label>
-                    </div>
-
-                    <Button :disabled="!selectedTemplate" @click="applyTemplate">適用</Button>
-                  </div>
-                </div>
-
-                <!-- 音色表示 -->
-                <div class="flex items-center gap-3 pt-2 mp-divider-top h-[3rem]">
-                  <span class="text-sm font-medium">音色:</span>
-                  <div class="flex items-center gap-2 w-[6.25rem] h-7">
-                    <span
-                      v-for="(color, index) in selectedHornColors"
-                      :key="index"
-                      :title="color"
-                      class="inline-block w-7 h-7 rounded-full border-2 flex-shrink-0"
-                      :style="{
-                        background: NOTE_COLORS[color],
-                        borderColor: getNoteBorderColor(color),
-                      }"
-                    />
-                  </div>
-                </div>
+      <!-- テンプレート選択UI -->
+      <Card class="template-select-card">
+        <template #content>
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8">
+              <div class="flex items-center gap-3">
+                <label class="mp-label mp-text whitespace-nowrap">狩猟笛テンプレート:</label>
+                <Select
+                  v-model="selectedTemplate"
+                  :options="templateOptions"
+                  option-label="label"
+                  option-value="value"
+                  placeholder="--選択--"
+                  class="w-32"
+                />
               </div>
-            </template>
-          </Card>
 
-          <div class="space-y-3">
-            <MelodyTimer
-              v-for="(timer, index) in timers"
-              :key="index"
-              :ref="
-                el => {
-                  if (el) timerRefs[index] = el as unknown as TimerRef
-                }
-              "
-              :index="index + 1"
-              :name="timer.name"
-              :effect-duration="timer.effectDuration"
-              :extend-duration="timer.extendDuration"
-              :timer="timer.timer"
-              :notes="timer.notes"
-              @update:name="value => updateTimer(index, { name: value })"
-              @update:effect-duration="value => updateTimer(index, { effectDuration: value })"
-              @update:extend-duration="value => updateTimer(index, { extendDuration: value })"
-              @update:timer="value => updateTimer(index, { timer: value })"
-              @reset="updateTimer(index, { timer: 0 })"
-              @extend-others="
-                (extendDuration: number) => extendOtherMelodyTimers(index, extendDuration)
-              "
-            />
+              <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2">
+                  <Checkbox v-model="hasFuefukiSkill" binary />
+                  <label
+                    class="mp-label mp-text cursor-pointer"
+                    @click="hasFuefukiSkill = !hasFuefukiSkill"
+                  >
+                    笛吹き名人
+                  </label>
+                </div>
+
+                <Button :disabled="!selectedTemplate" @click="applyTemplate">適用</Button>
+              </div>
+            </div>
+
+            <!-- 音色表示 -->
+            <div class="flex items-center gap-3 pt-2 mp-divider-top h-[3rem]">
+              <span class="mp-label mp-text">音色:</span>
+              <div class="flex items-center gap-2 w-[6.25rem] h-7">
+                <span
+                  v-for="(color, index) in selectedHornColors"
+                  :key="index"
+                  :title="color"
+                  class="inline-block w-7 h-7 rounded-full border-2 flex-shrink-0"
+                  :style="{
+                    background: NOTE_COLORS[color],
+                    borderColor: getNoteBorderColor(color),
+                  }"
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        </template>
+      </Card>
+
+      <div class="space-y-3">
+        <MelodyTimer
+          v-for="(timer, index) in timers"
+          :key="index"
+          :ref="
+            el => {
+              if (el) timerRefs[index] = el as unknown as TimerRef
+            }
+          "
+          :index="index + 1"
+          :name="timer.name"
+          :effect-duration="timer.effectDuration"
+          :extend-duration="timer.extendDuration"
+          :timer="timer.timer"
+          :notes="timer.notes"
+          @update:name="value => updateTimer(index, { name: value })"
+          @update:effect-duration="value => updateTimer(index, { effectDuration: value })"
+          @update:extend-duration="value => updateTimer(index, { extendDuration: value })"
+          @update:timer="value => updateTimer(index, { timer: value })"
+          @reset="updateTimer(index, { timer: 0 })"
+          @extend-others="
+            (extendDuration: number) => extendOtherMelodyTimers(index, extendDuration)
+          "
+        />
       </div>
     </section>
   </div>

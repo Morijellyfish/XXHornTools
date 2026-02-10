@@ -1,5 +1,86 @@
 @layer components {
   /* mainpalette: 共通ユーティリティ（記述量を減らすための規格クラス） */
+  /*
+   * Typography（ページごとにバラけやすいので規格化）
+   */
+  .mp-hero-title {
+    font-size: 1.875rem; /* text-3xl */
+    line-height: 2.25rem;
+    font-weight: 600;
+    letter-spacing: -0.025em; /* tracking-tight */
+  }
+
+  @media (min-width: 640px) {
+    .mp-hero-title {
+      font-size: 2.25rem; /* text-4xl */
+      line-height: 2.5rem;
+    }
+  }
+
+  .mp-page-title {
+    font-size: 1.5rem; /* text-2xl */
+    line-height: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  @media (min-width: 640px) {
+    .mp-page-title {
+      font-size: 1.875rem; /* text-3xl */
+      line-height: 2.25rem;
+    }
+  }
+
+  .mp-section-title {
+    font-size: 1.25rem; /* text-xl */
+    line-height: 1.75rem;
+    font-weight: 600;
+  }
+
+  @media (min-width: 640px) {
+    .mp-section-title {
+      font-size: 1.5rem; /* text-2xl */
+      line-height: 2rem;
+    }
+  }
+
+  /* だいたいの本文（text-sm → sm:text-base） */
+  .mp-body {
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .mp-body {
+      font-size: 1rem; /* text-base */
+      line-height: 1.75rem;
+    }
+  }
+
+  /* 先頭説明（text-base → sm:text-lg） */
+  .mp-lead {
+    font-size: 1rem; /* text-base */
+    line-height: 1.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .mp-lead {
+      font-size: 1.125rem; /* text-lg */
+      line-height: 1.75rem;
+    }
+  }
+
+  .mp-label {
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1.25rem;
+    font-weight: 500; /* font-medium */
+  }
+
+  .mp-caption {
+    font-size: 0.75rem; /* text-xs */
+    line-height: 1rem;
+  }
+
   .mp-text {
     color: var(--mainpalette-text);
   }

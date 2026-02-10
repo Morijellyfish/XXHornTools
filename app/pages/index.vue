@@ -58,16 +58,14 @@ const referenceSites: ReferenceSite[] = [
 <template>
   <div class="px-4 sm:px-6 lg:px-8">
     <section class="mx-auto max-w-6xl py-10 sm:py-14">
-      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight mp-text">狩りピTools</h1>
-      <p class="mt-3 text-base sm:text-lg mp-muted">
-        モンスターハンターXXのプレイをサポートする各種ツール集
-      </p>
+      <h1 class="mp-page-title mp-text">狩りピTools</h1>
+      <p class="mt-3 mp-lead mp-muted">モンスターハンターXXのプレイをサポートする各種ツール集</p>
     </section>
 
     <section id="tools" class="mx-auto max-w-6xl py-8 sm:py-10">
       <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-semibold mp-text">利用可能なツール</h2>
-        <p class="mt-2 text-sm sm:text-base mp-muted">
+        <h2 class="mp-section-title mp-text">利用可能なツール</h2>
+        <p class="mt-2 mp-body mp-muted">
           モンスターハンターXXのプレイに役立つツールを提供しています。
         </p>
       </div>
@@ -88,7 +86,7 @@ const referenceSites: ReferenceSite[] = [
               <span class="mp-text">{{ tool.title }}</span>
               <span
                 v-if="tool.status === 'coming-soon'"
-                class="text-xs px-2 py-1 rounded-full mp-surface-2 mp-text"
+                class="mp-caption px-2 py-1 rounded-full mp-surface-2 mp-text"
               >
                 準備中
               </span>
@@ -96,14 +94,14 @@ const referenceSites: ReferenceSite[] = [
           </template>
 
           <template #content>
-            <p class="mp-muted text-sm leading-relaxed">
+            <p class="mp-body mp-muted leading-relaxed">
               {{ tool.description }}
             </p>
           </template>
 
           <template v-if="tool.status === 'available'" #footer>
             <div class="mp-footer-divider flex justify-end">
-              <span class="text-xs font-medium tracking-wide mp-accent">ツールを開く</span>
+              <span class="mp-caption font-medium tracking-wide mp-accent">ツールを開く</span>
             </div>
           </template>
         </Card>
@@ -112,8 +110,8 @@ const referenceSites: ReferenceSite[] = [
 
     <section class="mx-auto max-w-6xl py-8 sm:py-10">
       <div class="mp-panel mp-pad-loose">
-        <h2 class="text-base sm:text-lg font-semibold mp-text">狩猟笛をより楽しむために</h2>
-        <p class="mt-2 mp-muted text-sm leading-relaxed">
+        <h2 class="mp-section-title mp-text">狩猟笛をより楽しむために</h2>
+        <p class="mt-2 mp-body mp-muted leading-relaxed">
           狩りピToolsは、モンスターハンターXXの狩猟笛をサポートするためのツール集です。いくつかのツールを追加予定です。
         </p>
       </div>
@@ -121,8 +119,8 @@ const referenceSites: ReferenceSite[] = [
 
     <section id="references" class="mx-auto max-w-6xl py-8 sm:py-10">
       <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-semibold mp-text">参考にさせていただいたサイト</h2>
-        <p class="mt-2 text-sm sm:text-base mp-muted">
+        <h2 class="mp-section-title mp-text">参考にさせていただいたサイト</h2>
+        <p class="mt-2 mp-body mp-muted">
           以下のサイトを参考にさせていただきました。ありがとうございます。
         </p>
       </div>
@@ -135,7 +133,7 @@ const referenceSites: ReferenceSite[] = [
                 :href="site.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-lg font-semibold mp-text hover:underline"
+                class="font-semibold mp-text hover:underline"
               >
                 {{ site.name }}
               </a>
@@ -143,7 +141,7 @@ const referenceSites: ReferenceSite[] = [
                 :href="site.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-xs mp-muted mt-1 block break-all"
+                class="mp-caption mp-muted mt-1 block break-all"
               >
                 {{ site.url }}
               </a>
