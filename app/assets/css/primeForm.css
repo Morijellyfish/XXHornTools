@@ -1,0 +1,57 @@
+/* PrimeVue フォーム系（InputText/InputNumber/Checkbox）をアプリのパレットに完全一致させる */
+
+/* ===== InputText / InputNumber ===== */
+.p-inputtext {
+  background: var(--mainpalette-surface-1);
+  border-color: var(--mainpalette-border);
+  color: var(--mainpalette-text);
+  border-radius: 0.375rem; /* rounded-md */
+}
+
+.p-inputtext::placeholder {
+  color: var(--mainpalette-text-muted);
+}
+
+.p-inputtext:enabled:hover {
+  border-color: var(--mainpalette-accent-2);
+}
+
+.p-inputtext:enabled:focus,
+.p-inputtext.p-focus {
+  border-color: var(--mainpalette-primary);
+  box-shadow: 0 0 0 2px var(--mainpalette-focus-ring);
+}
+
+/* ===== Select（枠/フォーカスだけここで共通化。中身の色は primeSelect.css 側）===== */
+.p-select {
+  border-radius: 0.375rem; /* rounded-md */
+}
+
+.p-select.p-focus {
+  box-shadow: 0 0 0 2px var(--mainpalette-focus-ring);
+}
+
+/* ===== Checkbox ===== */
+.p-checkbox-box {
+  background: var(--mainpalette-surface-1);
+  border-color: var(--mainpalette-border);
+  border-radius: 0.375rem; /* rounded-md */
+}
+
+.p-checkbox:not(.p-disabled):hover .p-checkbox-box {
+  border-color: var(--mainpalette-accent-2);
+}
+
+.p-checkbox.p-focus .p-checkbox-box {
+  border-color: var(--mainpalette-primary);
+  box-shadow: 0 0 0 2px var(--mainpalette-focus-ring);
+}
+
+.p-checkbox.p-highlight .p-checkbox-box {
+  background: var(--mainpalette-primary);
+  border-color: var(--mainpalette-primary);
+}
+
+.p-checkbox-icon {
+  color: var(--mainpalette-surface-1);
+}

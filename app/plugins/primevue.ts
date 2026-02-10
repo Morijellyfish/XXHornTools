@@ -49,8 +49,8 @@ export default defineNuxtPlugin(nuxtApp => {
           },
           formField: {
             background: 'var(--mainpalette-surface-1)',
-            borderColor: 'var(--mainpalette-surface-2)',
-            hoverBorderColor: 'var(--mainpalette-surface-2)',
+            borderColor: 'var(--mainpalette-border)',
+            hoverBorderColor: 'var(--mainpalette-accent-2)',
             focusBorderColor: 'var(--mainpalette-primary)',
             color: 'var(--mainpalette-text)',
             placeholderColor: 'var(--mainpalette-text-muted)',

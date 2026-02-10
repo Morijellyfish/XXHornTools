@@ -39,6 +39,9 @@
     /* PrimeVueの主役色（ボタン等）: 明るいミントは強すぎるので紫寄りへ */
     --mainpalette-primary: var(--mainpalette-blue-3);
 
+    /* 入力フォーカスのリング（強すぎない、でも見失わない） */
+    --mainpalette-focus-ring: color-mix(in srgb, var(--mainpalette-primary) 35%, transparent);
+
     /*
      * Alert colors (UIの意味を持つ例外色)
      * - 攻撃力強化旋律: 注意/強調（赤）
