@@ -126,28 +126,29 @@ const referenceSites: ReferenceSite[] = [
       </div>
 
       <div class="space-y-3">
-        <Card v-for="(site, index) in referenceSites" :key="index" class="hover:shadow-md">
-          <template #content>
-            <div class="flex-1">
-              <a
-                :href="site.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="font-semibold mp-text hover:underline"
-              >
-                {{ site.name }}
-              </a>
-              <a
-                :href="site.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="mp-caption mp-muted mt-1 block break-all"
-              >
-                {{ site.url }}
-              </a>
-            </div>
-          </template>
-        </Card>
+        <a
+          v-for="(site, index) in referenceSites"
+          :key="index"
+          :href="site.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block"
+          :aria-label="`${site.name} を開く`"
+          :title="site.url"
+        >
+          <Card class="transition-shadow hover:shadow-md cursor-pointer">
+            <template #content>
+              <div class="flex-1">
+                <div class="font-semibold mp-text hover:underline">
+                  {{ site.name }}
+                </div>
+                <div class="mp-caption mp-muted mt-1 block break-all">
+                  {{ site.url }}
+                </div>
+              </div>
+            </template>
+          </Card>
+        </a>
       </div>
     </section>
   </div>

@@ -13,6 +13,18 @@ import { style as inputtextStyle } from '@primeuix/styles/inputtext'
 import { style as selectStyle } from '@primeuix/styles/select'
 
 export default defineNuxtPlugin(nuxtApp => {
+  // PrimeVueのテーマCSSがクライアント側で後から注入され、アプリ側のCard見た目が負けることがある。
+  // 最後に差し込む上書きCSSを用意して、カードのアウトラインを安定させる。
+  const cardOverrideCss = `
+.p-card {
+  background-color: var(--mainpalette-surface-1);
+  border: 1px solid var(--mainpalette-border);
+}
+.p-card:hover {
+  border-color: var(--mainpalette-accent-2);
+}
+`.trim()
+
   const MhAura = definePreset(Aura, {
     semantic: {
       /**
@@ -131,7 +143,23 @@ export default defineNuxtPlugin(nuxtApp => {
           key: 'primevue-preload-css',
           innerHTML: preloadedCss,
         },
+        // PrimeVueテーマCSSに負けないよう、最後に上書きする（SSR時もアウトラインを安定させる）
+        {
+          key: 'app-primevue-overrides',
+          innerHTML: cardOverrideCss,
+        },
       ],
     })
+  }
+
+  // クライアント側はPrimeVueが後からCSSを注入するため、最後尾にstyleタグを追加する
+  if (import.meta.client) {
+    const id = 'app-primevue-overrides'
+    if (!document.getElementById(id)) {
+      const style = document.createElement('style')
+      style.id = id
+      style.textContent = cardOverrideCss
+      document.head.appendChild(style)
+    }
   }
 })

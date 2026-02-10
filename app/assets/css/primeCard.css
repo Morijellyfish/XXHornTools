@@ -1,13 +1,14 @@
 @layer components {
   /* PrimeVue Card: 全体で薄いアウトラインを付与 */
   .p-card {
-    background-color: var(--mainpalette-surface-1);
-    border: 1px solid var(--mainpalette-border);
+    /* PrimeVueテーマ側で上書きされることがあるので、アプリ側の見た目を優先 */
+    background-color: var(--mainpalette-surface-1) !important;
+    border: 1px solid var(--mainpalette-border) !important;
   }
 
   /* 触れる要素は少しだけ強調（やりすぎない） */
   .p-card:hover {
-    border-color: var(--mainpalette-accent-2);
+    border-color: var(--mainpalette-accent-2) !important;
   }
 
   /* テンプレート選択UI（PrimeVue Card）のpaddingを小さく */
