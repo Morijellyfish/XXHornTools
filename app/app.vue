@@ -11,6 +11,10 @@ useHead({
 const title = '狩猟笛比較表'
 const description = 'モンスターハンターXXの狩猟笛の攻撃力比較表'
 
+const authorXUrl = 'https://x.com/mori_jellyfish'
+const repoUrl = 'https://github.com/Morijellyfish/XXHornTools'
+const issuesUrl = 'https://github.com/Morijellyfish/XXHornTools/issues'
+
 useSeoMeta({
   title,
   description,
@@ -45,11 +49,35 @@ useSeoMeta({
 
     <footer class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
-        <div class="space-y-1">
-          <p class="text-sm mp-muted">狩りピTools • © {{ new Date().getFullYear() }}</p>
-          <p class="text-xs mp-muted">
-            本ツールは非公式です。モンスターハンターXXはカプコンの著作物です。
-          </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div class="space-y-1">
+            <p class="text-sm mp-muted">狩りピTools • © {{ new Date().getFullYear() }}</p>
+            <p class="text-xs mp-muted">
+              本ツールは非公式です。モンスターハンターXXはカプコンの著作物です。
+            </p>
+          </div>
+
+          <nav class="flex flex-wrap items-center gap-1 -mx-2">
+            <a
+              :href="authorXUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs mp-navlink"
+            >
+              X: @mori_jellyfish
+            </a>
+            <a :href="repoUrl" target="_blank" rel="noopener noreferrer" class="text-xs mp-navlink">
+              GitHub
+            </a>
+            <a
+              :href="issuesUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs mp-navlink"
+            >
+              Issue / 要望・不具合
+            </a>
+          </nav>
         </div>
       </div>
     </footer>
