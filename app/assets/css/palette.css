@@ -45,8 +45,8 @@
      * - 攻撃力強化旋律: 注意/強調（赤）
      * - 鈍器使い: 注意（黄）
      */
-    --mainpalette-alert-attack: #ff4d6d;
-    --mainpalette-alert-bludgeoner: #fbbf24;
+    --mainpalette-alert-attack: #e65b73;
+    --mainpalette-alert-bludgeoner: #d9b45d;
 
     /* AppLogo.vue が参照している変数（未定義だと色が抜けるため、テーマアクセントに紐づけ） */
     --ui-primary: var(--mainpalette-accent);
