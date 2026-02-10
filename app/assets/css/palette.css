@@ -32,6 +32,9 @@
     --mh-accent: var(--mh-blue-8);
     --mh-accent-2: var(--mh-blue-3);
 
+    /* PrimeVueの主役色（ボタン等）: 明るいミントは強すぎるので紫寄りへ */
+    --mh-primary: var(--mh-blue-3);
+
     /* AppLogo.vue が参照している変数（未定義だと色が抜けるため、テーマアクセントに紐づけ） */
     --ui-primary: var(--mh-accent);
   }

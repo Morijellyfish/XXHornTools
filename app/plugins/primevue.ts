@@ -20,17 +20,17 @@ export default defineNuxtPlugin(nuxtApp => {
        * - primary.*: アクセント（ボタン等）
        */
       primary: {
-        50: 'var(--mh-accent)',
-        100: 'var(--mh-accent)',
-        200: 'var(--mh-accent)',
-        300: 'var(--mh-accent)',
-        400: 'var(--mh-accent)',
-        500: 'var(--mh-accent)',
-        600: 'var(--mh-accent)',
-        700: 'var(--mh-accent)',
-        800: 'var(--mh-accent)',
-        900: 'var(--mh-accent)',
-        950: 'var(--mh-accent)',
+        50: 'var(--mh-primary)',
+        100: 'var(--mh-primary)',
+        200: 'var(--mh-primary)',
+        300: 'var(--mh-primary)',
+        400: 'var(--mh-primary)',
+        500: 'var(--mh-primary)',
+        600: 'var(--mh-primary)',
+        700: 'var(--mh-primary)',
+        800: 'var(--mh-primary)',
+        900: 'var(--mh-primary)',
+        950: 'var(--mh-primary)',
       },
       colorScheme: {
         dark: {
@@ -50,7 +50,7 @@ export default defineNuxtPlugin(nuxtApp => {
             background: 'var(--mh-surface-1)',
             borderColor: 'var(--mh-surface-2)',
             hoverBorderColor: 'var(--mh-surface-2)',
-            focusBorderColor: 'var(--mh-accent)',
+            focusBorderColor: 'var(--mh-primary)',
             color: 'var(--mh-text)',
             placeholderColor: 'var(--mh-text-muted)',
           },
