@@ -1,0 +1,30 @@
+@layer base {
+  :root {
+    /*
+     * BlueTheme palette (source: Adobe Color Wheel)
+     * 基本はこの8色 + 白のみでUIを構成する前提
+     */
+    --mh-blue-1: #9a85c6;
+    --mh-blue-2: #8d84a2;
+    --mh-blue-3: #9f7ceb;
+    --mh-blue-4: #70697d;
+    --mh-blue-5: #473e59;
+    --mh-blue-6: #251d34;
+    --mh-blue-7: #1f1533;
+    --mh-blue-8: #76f3cc;
+    --mh-white: #ffffff;
+
+    /*
+     * Role tokens (必要になったら増やす)
+     * 例: background, surface, border, text, accent
+     */
+    --mh-bg: var(--mh-blue-7);
+    --mh-surface-1: var(--mh-blue-6);
+    --mh-surface-2: var(--mh-blue-5);
+    --mh-border: var(--mh-blue-4);
+    --mh-text: var(--mh-white);
+    --mh-text-muted: var(--mh-blue-2);
+    --mh-accent: var(--mh-blue-8);
+    --mh-accent-2: var(--mh-blue-3);
+  }
+}
