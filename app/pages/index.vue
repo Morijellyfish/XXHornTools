@@ -58,16 +58,18 @@ const referenceSites: ReferenceSite[] = [
 <template>
   <div class="px-4 sm:px-6 lg:px-8">
     <section class="mx-auto max-w-6xl py-10 sm:py-14">
-      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-white">狩りピTools</h1>
-      <p class="mt-3 text-base sm:text-lg text-gray-300">
+      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-[var(--mh-text)]">
+        狩りピTools
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-[var(--mh-text-muted)]">
         モンスターハンターXXのプレイをサポートする各種ツール集
       </p>
     </section>
 
     <section id="tools" class="mx-auto max-w-6xl py-8 sm:py-10">
       <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-semibold text-white">利用可能なツール</h2>
-        <p class="mt-2 text-sm sm:text-base text-gray-300">
+        <h2 class="text-xl sm:text-2xl font-semibold text-[var(--mh-text)]">利用可能なツール</h2>
+        <p class="mt-2 text-sm sm:text-base text-[var(--mh-text-muted)]">
           モンスターハンターXXのプレイに役立つツールを提供しています。
         </p>
       </div>
@@ -76,7 +78,7 @@ const referenceSites: ReferenceSite[] = [
         <Card
           v-for="tool in tools"
           :key="tool.id"
-          class="transition-shadow"
+          class="tool-card h-full transition-shadow"
           :class="{
             'hover:shadow-lg cursor-pointer': tool.status === 'available',
             'opacity-75': tool.status === 'coming-soon',
@@ -85,10 +87,10 @@ const referenceSites: ReferenceSite[] = [
         >
           <template #title>
             <div class="flex items-center justify-between gap-3">
-              <span class="text-white">{{ tool.title }}</span>
+              <span class="text-[var(--mh-text)]">{{ tool.title }}</span>
               <span
                 v-if="tool.status === 'coming-soon'"
-                class="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-200"
+                class="text-xs px-2 py-1 rounded-full bg-[var(--mh-surface-2)] text-[var(--mh-text)]"
               >
                 準備中
               </span>
@@ -96,14 +98,16 @@ const referenceSites: ReferenceSite[] = [
           </template>
 
           <template #content>
-            <p class="text-gray-300 text-sm leading-relaxed">
+            <p class="text-[var(--mh-text-muted)] text-sm leading-relaxed">
               {{ tool.description }}
             </p>
           </template>
 
           <template v-if="tool.status === 'available'" #footer>
-            <div class="flex justify-end">
-              <Button size="small" outlined @click.stop="navigateTo(tool.to)">ツールを開く</Button>
+            <div class="mt-3 pt-3 border-t border-[var(--mh-border)] flex justify-end">
+              <span class="text-xs font-medium tracking-wide text-[var(--mh-accent)]">
+                ツールを開く
+              </span>
             </div>
           </template>
         </Card>
@@ -111,22 +115,22 @@ const referenceSites: ReferenceSite[] = [
     </section>
 
     <section class="mx-auto max-w-6xl py-8 sm:py-10">
-      <Card>
-        <template #title>
-          <span class="text-white">狩猟笛をより楽しむために</span>
-        </template>
-        <template #content>
-          <p class="text-gray-300 text-sm leading-relaxed">
-            狩りピToolsは、モンスターハンターXXの狩猟笛をサポートするためのツール集です。いくつかのツールを追加予定です。
-          </p>
-        </template>
-      </Card>
+      <div class="bg-[var(--mh-surface-1)] border border-[var(--mh-border)] rounded-md p-5 sm:p-6">
+        <h2 class="text-base sm:text-lg font-semibold text-[var(--mh-text)]">
+          狩猟笛をより楽しむために
+        </h2>
+        <p class="mt-2 text-[var(--mh-text-muted)] text-sm leading-relaxed">
+          狩りピToolsは、モンスターハンターXXの狩猟笛をサポートするためのツール集です。いくつかのツールを追加予定です。
+        </p>
+      </div>
     </section>
 
     <section id="references" class="mx-auto max-w-6xl py-8 sm:py-10">
       <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-semibold text-white">参考にさせていただいたサイト</h2>
-        <p class="mt-2 text-sm sm:text-base text-gray-300">
+        <h2 class="text-xl sm:text-2xl font-semibold text-[var(--mh-text)]">
+          参考にさせていただいたサイト
+        </h2>
+        <p class="mt-2 text-sm sm:text-base text-[var(--mh-text-muted)]">
           以下のサイトを参考にさせていただきました。ありがとうございます。
         </p>
       </div>
@@ -139,7 +143,7 @@ const referenceSites: ReferenceSite[] = [
                 :href="site.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-lg font-semibold text-white hover:underline"
+                class="text-lg font-semibold text-[var(--mh-text)] hover:underline"
               >
                 {{ site.name }}
               </a>
@@ -147,7 +151,7 @@ const referenceSites: ReferenceSite[] = [
                 :href="site.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-xs text-gray-400 mt-1 block break-all"
+                class="text-xs text-[var(--mh-text-muted)] mt-1 block break-all"
               >
                 {{ site.url }}
               </a>

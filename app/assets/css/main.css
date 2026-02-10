@@ -10,9 +10,36 @@
 
 body {
   background-color: var(--mh-bg);
+  color: var(--mh-text);
 }
 
 /* テンプレート選択UI（PrimeVue Card）のpaddingを小さく */
 .template-select-card .p-card-body {
   padding: 0.75rem 1rem;
+}
+
+/* PrimeVue Card: 全体で薄いアウトラインを付与 */
+.p-card {
+  background-color: var(--mh-surface-1);
+  border: 1px solid var(--mh-border);
+}
+
+/* 触れる要素は少しだけ強調（やりすぎない） */
+.p-card:hover {
+  border-color: var(--mh-accent-2);
+}
+
+/* indexのツールカード：フッターを常に下部へ固定 */
+.tool-card .p-card-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-card .p-card-content {
+  flex: 1 1 auto;
+}
+
+.tool-card .p-card-footer {
+  margin-top: auto;
 }

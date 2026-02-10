@@ -1,7 +1,7 @@
 import PrimeVue from 'primevue/config'
 import Ripple from 'primevue/ripple'
 import Aura from '@primeuix/themes/aura'
-import { Theme, dt, evaluateDtExpressions } from '@primeuix/styled'
+import { Theme, definePreset, dt, evaluateDtExpressions } from '@primeuix/styled'
 
 // FOUC対策用：このアプリで今使っているPrimeVueコンポーネントの構造CSSだけを先読み
 import { style as baseStyle } from '@primeuix/styles/base'
@@ -12,9 +12,66 @@ import { style as inputnumberStyle } from '@primeuix/styles/inputnumber'
 import { style as inputtextStyle } from '@primeuix/styles/inputtext'
 
 export default defineNuxtPlugin(nuxtApp => {
+  const MhAura = definePreset(Aura, {
+    semantic: {
+      /**
+       * アプリ側のCSS変数（--mh-*）にPrimeVueの色トークンを接続する
+       * - surface.*: 背景/面/境界線など
+       * - primary.*: アクセント（ボタン等）
+       */
+      primary: {
+        50: 'var(--mh-accent)',
+        100: 'var(--mh-accent)',
+        200: 'var(--mh-accent)',
+        300: 'var(--mh-accent)',
+        400: 'var(--mh-accent)',
+        500: 'var(--mh-accent)',
+        600: 'var(--mh-accent)',
+        700: 'var(--mh-accent)',
+        800: 'var(--mh-accent)',
+        900: 'var(--mh-accent)',
+        950: 'var(--mh-accent)',
+      },
+      colorScheme: {
+        dark: {
+          surface: {
+            0: 'var(--mh-white)',
+            400: 'var(--mh-text-muted)',
+            700: 'var(--mh-surface-2)',
+            800: 'var(--mh-surface-2)',
+            900: 'var(--mh-surface-1)',
+            950: 'var(--mh-bg)',
+          },
+          text: {
+            color: 'var(--mh-text)',
+            mutedColor: 'var(--mh-text-muted)',
+          },
+          formField: {
+            background: 'var(--mh-surface-1)',
+            borderColor: 'var(--mh-surface-2)',
+            hoverBorderColor: 'var(--mh-surface-2)',
+            focusBorderColor: 'var(--mh-accent)',
+            color: 'var(--mh-text)',
+            placeholderColor: 'var(--mh-text-muted)',
+          },
+          content: {
+            background: 'var(--mh-surface-1)',
+            borderColor: 'var(--mh-surface-2)',
+            color: 'var(--mh-text)',
+            hoverColor: 'var(--mh-text)',
+          },
+        },
+      },
+    },
+  })
+
   nuxtApp.vueApp.use(PrimeVue, {
     theme: {
-      preset: Aura,
+      preset: MhAura,
+      options: {
+        // 常にダーク固定（htmlに`class=dark`を付ける運用）
+        darkModeSelector: '.dark',
+      },
     },
     ripple: true,
   })
