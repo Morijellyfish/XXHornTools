@@ -4,6 +4,7 @@ import MelodyTimer from '~/components/MelodyTimer.vue'
 import { melodyEffects } from '~/data/melodies'
 import type { Note } from '~/types/notes'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
+import Select from 'primevue/select'
 
 useHead({
   title: '旋律タイマー - 狩りピTools',
@@ -147,8 +148,8 @@ onUnmounted(() => {
   <div>
     <section class="py-10">
       <div class="max-w-6xl mx-auto px-4">
-        <h1 class="text-3xl font-bold text-white">旋律タイマー</h1>
-        <p class="mt-2 text-sm text-gray-300">
+        <h1 class="text-3xl font-bold text-[var(--mainpalette-text)]">旋律タイマー</h1>
+        <p class="mt-2 text-sm text-[var(--mainpalette-text-muted)]">
           モンスターハンターXXの狩猟笛のバフ管理に特化した、上限値・延長機能付きタイマー
         </p>
       </div>
@@ -157,7 +158,7 @@ onUnmounted(() => {
     <section class="pb-12">
       <div class="max-w-6xl mx-auto px-4">
         <div class="space-y-4">
-          <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
+          <div class="mb-4 text-sm text-[var(--mainpalette-text-muted)]">
             ※各タイマーごとに「初回値」「延長値」を変更できます。
           </div>
 
@@ -168,19 +169,20 @@ onUnmounted(() => {
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8">
                   <div class="flex items-center gap-3">
                     <label class="text-sm font-medium whitespace-nowrap">狩猟笛テンプレート:</label>
-                    <select
+                    <Select
                       v-model="selectedTemplate"
-                      class="w-32 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    >
-                      <option value="">--選択--</option>
-                      <option
-                        v-for="option in templateOptions"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.label }}
-                      </option>
-                    </select>
+                      :options="templateOptions"
+                      option-label="label"
+                      option-value="value"
+                      placeholder="--選択--"
+                      class="w-32"
+                      :pt="{
+                        overlay: {
+                          style:
+                            'background: var(--mainpalette-surface-1); border: 1px solid var(--mainpalette-border);',
+                        },
+                      }"
+                    />
                   </div>
 
                   <div class="flex items-center gap-3">
@@ -200,7 +202,7 @@ onUnmounted(() => {
 
                 <!-- 音色表示 -->
                 <div
-                  class="flex items-center gap-3 pt-2 border-t border-gray-200 dark:border-gray-700 h-[3rem]"
+                  class="flex items-center gap-3 pt-2 border-t border-[var(--mainpalette-border)] h-[3rem]"
                 >
                   <span class="text-sm font-medium">音色:</span>
                   <div class="flex items-center gap-2 w-[6.25rem] h-7">

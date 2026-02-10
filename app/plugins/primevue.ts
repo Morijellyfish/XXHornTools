@@ -10,6 +10,7 @@ import { style as cardStyle } from '@primeuix/styles/card'
 import { style as checkboxStyle } from '@primeuix/styles/checkbox'
 import { style as inputnumberStyle } from '@primeuix/styles/inputnumber'
 import { style as inputtextStyle } from '@primeuix/styles/inputtext'
+import { style as selectStyle } from '@primeuix/styles/select'
 
 export default defineNuxtPlugin(nuxtApp => {
   const MhAura = definePreset(Aura, {
@@ -84,7 +85,14 @@ export default defineNuxtPlugin(nuxtApp => {
      * SSR/SSG時点で最低限のPrimeVueテーマCSSをheadへ先に差し込む
      */
     const common = Theme.getCommon('primevue', {})
-    const initialComponents = ['button', 'card', 'inputtext', 'inputnumber', 'checkbox'] as const
+    const initialComponents = [
+      'button',
+      'card',
+      'inputtext',
+      'inputnumber',
+      'checkbox',
+      'select',
+    ] as const
     const componentCss = initialComponents
       .map(name => {
         const preset = Theme.getComponent(name, {})
@@ -94,9 +102,15 @@ export default defineNuxtPlugin(nuxtApp => {
 
     // 構造CSS（.p-card等）をdt()解決して先出し（いま使っている分だけ）
     const structuralCss = evaluateDtExpressions(
-      [baseStyle, buttonStyle, cardStyle, checkboxStyle, inputtextStyle, inputnumberStyle].join(
-        '\n'
-      ),
+      [
+        baseStyle,
+        buttonStyle,
+        cardStyle,
+        checkboxStyle,
+        inputtextStyle,
+        inputnumberStyle,
+        selectStyle,
+      ].join('\n'),
       dt
     )
 

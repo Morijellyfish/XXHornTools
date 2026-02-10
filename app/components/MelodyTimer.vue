@@ -195,7 +195,7 @@ defineExpose({
         <!-- インデックスと名称 -->
         <div class="flex items-center gap-2 shrink-0 min-w-[12rem]">
           <div class="flex items-center gap-1 w-10 shrink-0">
-            <span class="text-sm font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap"
+            <span class="text-sm font-medium text-[var(--mainpalette-text-muted)] whitespace-nowrap"
               >[{{ index }}]</span
             >
           </div>
@@ -207,7 +207,7 @@ defineExpose({
         <!-- 効果時間と延長時間 -->
         <div class="flex items-center gap-2 shrink-0">
           <div class="flex items-center gap-1 shrink-0">
-            <label class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap"
+            <label class="text-sm text-[var(--mainpalette-text-muted)] whitespace-nowrap"
               >効果時間:</label
             >
             <InputNumber
@@ -219,7 +219,7 @@ defineExpose({
             />
           </div>
           <div class="flex items-center gap-1 shrink-0">
-            <label class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap"
+            <label class="text-sm text-[var(--mainpalette-text-muted)] whitespace-nowrap"
               >延長時間:</label
             >
             <InputNumber
@@ -238,12 +238,12 @@ defineExpose({
             <span
               class="text-xl font-bold tabular-nums min-w-[3rem] text-right"
               :class="{
-                'text-yellow-500 dark:text-yellow-400': isBlinking,
+                'text-[var(--mainpalette-alert-bludgeoner)]': isBlinking,
               }"
             >
               {{ timer }}
             </span>
-            <span class="text-sm text-gray-500 dark:text-gray-400">秒</span>
+            <span class="text-sm text-[var(--mainpalette-text-muted)]">秒</span>
           </div>
           <Button outlined size="small" @click.stop="handleReset">リセット</Button>
         </div>
@@ -269,20 +269,20 @@ defineExpose({
 <style scoped>
 .timer-card {
   /* 背景(#323339)と同化しないように、常に薄い面＋境界線を付ける */
-  background-color: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: var(--mainpalette-surface-1);
+  border: 1px solid var(--mainpalette-border);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   will-change: background-color, box-shadow, transform;
 }
 
 .timer-inactive {
-  background-color: rgba(255, 255, 255, 0.02);
+  background-color: var(--mainpalette-surface-1);
 }
 
 .timer-active {
   /* 発動中が一目で分かる程度の薄いアクセント */
-  background-color: rgba(0, 220, 130, 0.08);
-  border-color: rgba(0, 220, 130, 0.22);
+  background-color: color-mix(in srgb, var(--mainpalette-accent) 18%, var(--mainpalette-surface-1));
+  border-color: color-mix(in srgb, var(--mainpalette-accent) 55%, var(--mainpalette-border));
 }
 
 .timer-blinking {
@@ -292,14 +292,19 @@ defineExpose({
 @keyframes blink-timer {
   0%,
   100% {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: var(--mainpalette-surface-1);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
   }
 
   50% {
     /* 暗背景でも「黄色い警告」として見えるが、眩しすぎない */
-    background-color: rgba(255, 193, 7, 0.16);
-    box-shadow: 0 0 12px 3px rgba(255, 193, 7, 0.22);
+    background-color: color-mix(
+      in srgb,
+      var(--mainpalette-alert-bludgeoner) 22%,
+      var(--mainpalette-surface-1)
+    );
+    box-shadow: 0 0 12px 3px
+      color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 30%, transparent);
   }
 }
 
@@ -310,29 +315,42 @@ defineExpose({
 
 @keyframes flash-timer {
   0% {
-    background-color: rgba(255, 193, 7, 0.22);
+    background-color: color-mix(
+      in srgb,
+      var(--mainpalette-alert-bludgeoner) 28%,
+      var(--mainpalette-surface-1)
+    );
     box-shadow:
-      0 0 16px 5px rgba(255, 193, 7, 0.28),
-      0 0 28px 8px rgba(255, 193, 7, 0.16);
+      0 0 16px 5px color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 35%, transparent),
+      0 0 28px 8px color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 22%, transparent);
     transform: scale(1.015);
   }
 
   25% {
-    background-color: rgba(255, 193, 7, 0.28);
+    background-color: color-mix(
+      in srgb,
+      var(--mainpalette-alert-bludgeoner) 34%,
+      var(--mainpalette-surface-1)
+    );
     box-shadow:
-      0 0 18px 6px rgba(255, 193, 7, 0.32),
-      0 0 32px 10px rgba(255, 193, 7, 0.18);
+      0 0 18px 6px color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 40%, transparent),
+      0 0 32px 10px color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 24%, transparent);
     transform: scale(1.02);
   }
 
   50% {
-    background-color: rgba(255, 193, 7, 0.18);
-    box-shadow: 0 0 16px 5px rgba(255, 193, 7, 0.25);
+    background-color: color-mix(
+      in srgb,
+      var(--mainpalette-alert-bludgeoner) 22%,
+      var(--mainpalette-surface-1)
+    );
+    box-shadow: 0 0 16px 5px
+      color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 30%, transparent);
     transform: scale(1.01);
   }
 
   100% {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: var(--mainpalette-surface-1);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
     transform: scale(1);
   }
