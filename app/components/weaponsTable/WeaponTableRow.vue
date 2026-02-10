@@ -53,7 +53,7 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
 </script>
 
 <template>
-  <tr class="border-b border-[var(--mainpalette-border)]">
+  <tr class="border-b mp-border">
     <td class="p-2">
       <span class="mp-clamp-2">{{ weapon.name }}</span>
     </td>
@@ -61,15 +61,13 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
       <span v-if="requiredMotionValue !== undefined">
         {{ requiredMotionValue.toFixed(1) }}
       </span>
-      <span v-else class="text-[var(--mainpalette-text-muted)]">-</span>
+      <span v-else class="mp-muted">-</span>
     </td>
     <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ expectedValue }}</td>
     <td class="p-2 text-right tabular-nums whitespace-nowrap">
       <div class="flex flex-col items-end leading-tight">
         <span>{{ attackWithBuffs }}</span>
-        <span v-if="showBaseAttack" class="text-xs text-[var(--mainpalette-text-muted)]">
-          ({{ baseAttack }})
-        </span>
+        <span v-if="showBaseAttack" class="text-xs mp-muted">({{ baseAttack }})</span>
       </div>
     </td>
     <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ weapon.defense }}</td>
@@ -84,12 +82,12 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
       <div class="flex flex-col items-end leading-tight">
         <span
           :class="{
-            'text-[var(--mainpalette-alert-attack)]': affinity > 100,
+            'mp-alert-attack': affinity > 100,
           }"
         >
           {{ formatAffinity(affinity) }}
         </span>
-        <span v-if="showBaseAffinity" class="text-xs text-[var(--mainpalette-text-muted)]">
+        <span v-if="showBaseAffinity" class="text-xs mp-muted">
           ({{ formatAffinity(baseAffinity) }})
         </span>
       </div>
@@ -108,22 +106,20 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
           <span
             class="text-xs w-7"
             :class="{
-              'text-[var(--mainpalette-alert-bludgeoner)]':
-                bludgeoner && isGreenOrBelow(weapon.sharpness.normal.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.normal.color),
             }"
           >
             通常:
           </span>
           <span
-            class="inline-block w-4 h-4 border border-[var(--mainpalette-border)]"
+            class="inline-block w-4 h-4 border mp-border"
             :style="{ background: getSharpnessColor(weapon.sharpness.normal.color) }"
             :title="String(weapon.sharpness.normal.length)"
           />
           <div
             class="text-xs font-mono w-5 text-right"
             :class="{
-              'text-[var(--mainpalette-alert-bludgeoner)]':
-                bludgeoner && isGreenOrBelow(weapon.sharpness.normal.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.normal.color),
             }"
           >
             {{ weapon.sharpness.normal.length }}
@@ -137,22 +133,20 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
           <span
             class="text-xs w-7"
             :class="{
-              'text-[var(--mainpalette-alert-bludgeoner)]':
-                bludgeoner && isGreenOrBelow(weapon.sharpness.plus1.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.plus1.color),
             }"
           >
             匠1:
           </span>
           <span
-            class="inline-block w-4 h-4 border border-[var(--mainpalette-border)]"
+            class="inline-block w-4 h-4 border mp-border"
             :style="{ background: getSharpnessColor(weapon.sharpness.plus1.color) }"
             :title="String(weapon.sharpness.plus1.length)"
           />
           <div
             class="text-xs font-mono w-5 text-right"
             :class="{
-              'text-[var(--mainpalette-alert-bludgeoner)]':
-                bludgeoner && isGreenOrBelow(weapon.sharpness.plus1.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.plus1.color),
             }"
           >
             {{ weapon.sharpness.plus1.length }}
@@ -166,22 +160,20 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
           <span
             class="text-xs w-7"
             :class="{
-              'text-[var(--mainpalette-alert-bludgeoner)]':
-                bludgeoner && isGreenOrBelow(weapon.sharpness.plus2.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.plus2.color),
             }"
           >
             匠2:
           </span>
           <span
-            class="inline-block w-4 h-4 border border-[var(--mainpalette-border)]"
+            class="inline-block w-4 h-4 border mp-border"
             :style="{ background: getSharpnessColor(weapon.sharpness.plus2.color) }"
             :title="String(weapon.sharpness.plus2.length)"
           />
           <div
             class="text-xs font-mono w-5 text-right"
             :class="{
-              'text-[var(--mainpalette-alert-bludgeoner)]':
-                bludgeoner && isGreenOrBelow(weapon.sharpness.plus2.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.plus2.color),
             }"
           >
             {{ weapon.sharpness.plus2.length }}

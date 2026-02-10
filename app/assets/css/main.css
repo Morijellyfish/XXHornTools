@@ -24,6 +24,22 @@ body {
   color: var(--mainpalette-text-muted);
 }
 
+.mp-accent {
+  color: var(--mainpalette-accent);
+}
+
+.mp-primary {
+  color: var(--mainpalette-primary);
+}
+
+.mp-alert-attack {
+  color: var(--mainpalette-alert-attack);
+}
+
+.mp-alert-bludgeoner {
+  color: var(--mainpalette-alert-bludgeoner);
+}
+
 .mp-bg {
   background-color: var(--mainpalette-bg);
 }
@@ -34,6 +50,18 @@ body {
 
 .mp-surface-2 {
   background-color: var(--mainpalette-surface-2);
+}
+
+.mp-bg-primary {
+  background-color: var(--mainpalette-primary);
+}
+
+.mp-border-primary {
+  border-color: var(--mainpalette-primary);
+}
+
+.mp-on-surface-1 {
+  color: var(--mainpalette-surface-1);
 }
 
 .mp-border {
@@ -66,6 +94,37 @@ body {
 .mp-navlink:hover {
   color: var(--mainpalette-text);
   background-color: color-mix(in srgb, var(--mainpalette-text) 6%, transparent);
+}
+
+.mp-hover-text:hover {
+  color: var(--mainpalette-text);
+}
+
+.mp-link-primary {
+  color: var(--mainpalette-primary);
+  text-decoration: underline;
+}
+
+.mp-link-primary:hover {
+  color: var(--mainpalette-accent-2);
+}
+
+.mp-hover-surface-2:hover {
+  background-color: var(--mainpalette-surface-2);
+}
+
+.mp-chip-primary {
+  background-color: var(--mainpalette-primary);
+  color: var(--mainpalette-surface-1);
+  padding-inline: 0.25rem; /* Tailwind: px-1 */
+  border-radius: 0.25rem; /* Tailwind: rounded */
+}
+
+.mp-chip-accent {
+  background-color: var(--mainpalette-accent);
+  color: var(--mainpalette-surface-1);
+  padding-inline: 0.25rem; /* Tailwind: px-1 */
+  border-radius: 0.25rem; /* Tailwind: rounded */
 }
 
 /* テンプレート選択UI（PrimeVue Card）のpaddingを小さく */

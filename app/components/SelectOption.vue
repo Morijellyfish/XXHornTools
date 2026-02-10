@@ -34,7 +34,7 @@ const hasRows = computed(() => props.rows.length > 0)
 
 <template>
   <div>
-    <label class="text-xs text-[var(--mainpalette-text-muted)] mb-1 block">{{ label }}</label>
+    <label class="text-xs mp-muted mb-1 block">{{ label }}</label>
     <div v-if="hasRows" class="space-y-2">
       <div
         v-for="(row, rowIndex) in rows"

@@ -111,11 +111,7 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
         <span class="mp-muted">攻撃力加算:</span>
         <span
           class="font-mono font-bold ml-2"
-          :class="
-            totalAttackAdd > 0
-              ? 'text-[var(--mainpalette-accent)]'
-              : 'text-[var(--mainpalette-text-muted)]'
-          "
+          :class="totalAttackAdd > 0 ? 'mp-accent' : 'mp-muted'"
         >
           {{ totalAttackAdd > 0 ? `+${totalAttackAdd}` : '0' }}
         </span>
@@ -124,11 +120,7 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
         <span class="mp-muted">攻撃力倍率:</span>
         <span
           class="font-mono font-bold ml-2"
-          :class="
-            totalAttackMultiply !== 1.0
-              ? 'text-[var(--mainpalette-accent)]'
-              : 'text-[var(--mainpalette-text-muted)]'
-          "
+          :class="totalAttackMultiply !== 1.0 ? 'mp-accent' : 'mp-muted'"
         >
           x{{ totalAttackMultiply.toFixed(2) }}
         </span>
@@ -137,11 +129,7 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
         <span class="mp-muted">会心率追加:</span>
         <span
           class="font-mono font-bold ml-2"
-          :class="
-            criticalBonus > 0
-              ? 'text-[var(--mainpalette-accent)]'
-              : 'text-[var(--mainpalette-text-muted)]'
-          "
+          :class="criticalBonus > 0 ? 'mp-accent' : 'mp-muted'"
         >
           {{ criticalBonus > 0 ? `+${criticalBonus}%` : '0%' }}
         </span>

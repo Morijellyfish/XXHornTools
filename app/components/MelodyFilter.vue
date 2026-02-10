@@ -99,14 +99,14 @@ const clearFilter = () => {
   <div class="mb-0 mp-panel">
     <button
       type="button"
-      class="w-full p-4 flex items-center justify-between hover:bg-[var(--mainpalette-surface-2)] transition-colors"
+      class="w-full p-4 flex items-center justify-between mp-hover-surface-2 transition-colors"
       @click="isFilterExpanded = !isFilterExpanded"
     >
       <div class="flex items-center gap-2">
         <span class="text-sm font-medium">旋律フィルター</span>
         <span
           v-if="modelValue.size > 0"
-          class="px-2 py-0.5 text-xs bg-[var(--mainpalette-primary)] text-[var(--mainpalette-surface-1)] rounded-full"
+          class="px-2 py-0.5 text-xs mp-bg-primary mp-on-surface-1 rounded-full"
         >
           {{ modelValue.size }}件選択中
         </span>
@@ -123,7 +123,7 @@ const clearFilter = () => {
       >
         <button
           type="button"
-          class="w-full flex items-center justify-between mb-2 text-sm font-medium mp-text hover:text-[var(--mainpalette-text)]"
+          class="w-full flex items-center justify-between mb-2 text-sm font-medium mp-text"
           @click="toggleCategory(category)"
         >
           <span>{{ category }}</span>
@@ -139,8 +139,8 @@ const clearFilter = () => {
             class="px-3 py-1 text-sm rounded border transition-colors"
             :class="
               modelValue.has(melodyName)
-                ? 'bg-[var(--mainpalette-primary)] text-[var(--mainpalette-surface-1)] border-[var(--mainpalette-primary)]'
-                : 'bg-[var(--mainpalette-surface-1)] text-[var(--mainpalette-text-muted)] border-[var(--mainpalette-border)] hover:bg-[var(--mainpalette-surface-2)] hover:text-[var(--mainpalette-text)]'
+                ? 'mp-bg-primary mp-on-surface-1 mp-border-primary'
+                : 'mp-surface-1 mp-muted mp-border mp-hover-surface-2 mp-hover-text'
             "
             @click="toggleMelodyFilter(melodyName)"
           >
@@ -149,13 +149,7 @@ const clearFilter = () => {
         </div>
       </div>
       <div v-if="modelValue.size > 0" class="mt-3 text-sm mp-muted">
-        <button
-          type="button"
-          class="text-[var(--mainpalette-primary)] hover:text-[var(--mainpalette-accent-2)] underline"
-          @click="clearFilter"
-        >
-          クリア
-        </button>
+        <button type="button" class="mp-link-primary" @click="clearFilter">クリア</button>
       </div>
     </div>
   </div>

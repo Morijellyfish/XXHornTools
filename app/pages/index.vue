@@ -103,9 +103,7 @@ const referenceSites: ReferenceSite[] = [
 
           <template v-if="tool.status === 'available'" #footer>
             <div class="mt-3 pt-3 mp-divider-top flex justify-end">
-              <span class="text-xs font-medium tracking-wide text-[var(--mainpalette-accent)]">
-                ツールを開く
-              </span>
+              <span class="text-xs font-medium tracking-wide mp-accent">ツールを開く</span>
             </div>
           </template>
         </Card>

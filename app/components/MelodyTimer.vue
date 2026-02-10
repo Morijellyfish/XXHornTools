@@ -195,9 +195,7 @@ defineExpose({
         <!-- インデックスと名称 -->
         <div class="flex items-center gap-2 shrink-0 min-w-[12rem]">
           <div class="flex items-center gap-1 w-10 shrink-0">
-            <span class="text-sm font-medium text-[var(--mainpalette-text-muted)] whitespace-nowrap"
-              >[{{ index }}]</span
-            >
+            <span class="text-sm font-medium mp-muted whitespace-nowrap">[{{ index }}]</span>
           </div>
           <div class="flex items-center gap-2 flex-1 min-w-0">
             <InputText v-model="localName" placeholder="名称" class="w-full" />
@@ -207,9 +205,7 @@ defineExpose({
         <!-- 効果時間と延長時間 -->
         <div class="flex items-center gap-2 shrink-0">
           <div class="flex items-center gap-1 shrink-0">
-            <label class="text-sm text-[var(--mainpalette-text-muted)] whitespace-nowrap"
-              >効果時間:</label
-            >
+            <label class="text-sm mp-muted whitespace-nowrap">効果時間:</label>
             <InputNumber
               v-model="localEffectDuration"
               :min="1"
@@ -219,9 +215,7 @@ defineExpose({
             />
           </div>
           <div class="flex items-center gap-1 shrink-0">
-            <label class="text-sm text-[var(--mainpalette-text-muted)] whitespace-nowrap"
-              >延長時間:</label
-            >
+            <label class="text-sm mp-muted whitespace-nowrap">延長時間:</label>
             <InputNumber
               v-model="localExtendDuration"
               :min="1"
@@ -238,12 +232,12 @@ defineExpose({
             <span
               class="text-xl font-bold tabular-nums min-w-[3rem] text-right"
               :class="{
-                'text-[var(--mainpalette-alert-bludgeoner)]': isBlinking,
+                'mp-alert-bludgeoner': isBlinking,
               }"
             >
               {{ timer }}
             </span>
-            <span class="text-sm text-[var(--mainpalette-text-muted)]">秒</span>
+            <span class="text-sm mp-muted">秒</span>
           </div>
           <Button outlined size="small" @click.stop="handleReset">リセット</Button>
         </div>

@@ -45,7 +45,7 @@ const {
           <th class="text-left p-2 whitespace-nowrap">名称</th>
           <th class="text-right p-2 whitespace-nowrap">必要モーション値</th>
           <th
-            class="text-right p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap"
+            class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
             @click="toggleSort('expected')"
           >
             <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
@@ -53,7 +53,7 @@ const {
             </span>
           </th>
           <th
-            class="text-right p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap"
+            class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
             @click="toggleSort('attack')"
           >
             <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
@@ -61,7 +61,7 @@ const {
             </span>
           </th>
           <th
-            class="text-right p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap"
+            class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
             @click="toggleSort('defense')"
           >
             <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
@@ -69,7 +69,7 @@ const {
             </span>
           </th>
           <th
-            class="text-center p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap w-20"
+            class="text-center p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap w-20"
             @click="toggleSort('slots')"
           >
             <span class="inline-flex items-center gap-1 justify-center w-full whitespace-nowrap">
@@ -77,7 +77,7 @@ const {
             </span>
           </th>
           <th
-            class="text-right p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap"
+            class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
             @click="toggleSort('affinity')"
           >
             <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
