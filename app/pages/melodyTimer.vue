@@ -148,8 +148,8 @@ onUnmounted(() => {
   <div>
     <section class="py-10">
       <div class="max-w-6xl mx-auto px-4">
-        <h1 class="text-3xl font-bold text-[var(--mainpalette-text)]">旋律タイマー</h1>
-        <p class="mt-2 text-sm text-[var(--mainpalette-text-muted)]">
+        <h1 class="text-3xl font-bold mp-text">旋律タイマー</h1>
+        <p class="mt-2 text-sm mp-muted">
           モンスターハンターXXの狩猟笛のバフ管理に特化した、上限値・延長機能付きタイマー
         </p>
       </div>
@@ -158,7 +158,7 @@ onUnmounted(() => {
     <section class="pb-12">
       <div class="max-w-6xl mx-auto px-4">
         <div class="space-y-4">
-          <div class="mb-4 text-sm text-[var(--mainpalette-text-muted)]">
+          <div class="mb-4 text-sm mp-muted">
             ※各タイマーごとに「初回値」「延長値」を変更できます。
           </div>
 
@@ -195,9 +195,7 @@ onUnmounted(() => {
                 </div>
 
                 <!-- 音色表示 -->
-                <div
-                  class="flex items-center gap-3 pt-2 border-t border-[var(--mainpalette-border)] h-[3rem]"
-                >
+                <div class="flex items-center gap-3 pt-2 mp-divider-top h-[3rem]">
                   <span class="text-sm font-medium">音色:</span>
                   <div class="flex items-center gap-2 w-[6.25rem] h-7">
                     <span

@@ -21,8 +21,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="bg-[var(--mainpalette-bg)] min-h-screen flex flex-col">
-    <header class="bg-[var(--mainpalette-surface-1)] border-b border-white/10">
+  <div class="mp-bg min-h-screen flex flex-col">
+    <header class="mp-surface-1 border-b mp-border">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div class="h-14 flex items-center justify-between gap-4">
           <div class="flex items-center gap-4">
@@ -31,18 +31,8 @@ useSeoMeta({
             </NuxtLink>
 
             <nav class="hidden sm:flex items-center gap-2">
-              <NuxtLink
-                to="/huntingHorns"
-                class="text-sm text-gray-200 hover:text-white px-3 py-2 rounded hover:bg-white/5 transition"
-              >
-                武器比較表
-              </NuxtLink>
-              <NuxtLink
-                to="/melodyTimer"
-                class="text-sm text-gray-200 hover:text-white px-3 py-2 rounded hover:bg-white/5 transition"
-              >
-                旋律タイマー
-              </NuxtLink>
+              <NuxtLink to="/huntingHorns" class="text-sm mp-navlink">武器比較表</NuxtLink>
+              <NuxtLink to="/melodyTimer" class="text-sm mp-navlink">旋律タイマー</NuxtLink>
             </nav>
           </div>
         </div>
@@ -56,8 +46,8 @@ useSeoMeta({
     <footer class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
         <div class="space-y-1">
-          <p class="text-sm text-gray-300">狩りピTools • © {{ new Date().getFullYear() }}</p>
-          <p class="text-xs text-gray-400">
+          <p class="text-sm mp-muted">狩りピTools • © {{ new Date().getFullYear() }}</p>
+          <p class="text-xs mp-muted">
             本ツールは非公式です。モンスターハンターXXはカプコンの著作物です。
           </p>
         </div>
