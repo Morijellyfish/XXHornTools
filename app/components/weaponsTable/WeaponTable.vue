@@ -38,80 +38,82 @@ const {
 </script>
 
 <template>
-  <div class="overflow-x-auto">
-    <table class="weapon-table w-full border-collapse">
-      <thead>
-        <tr class="border-b">
-          <th class="text-left p-2 whitespace-nowrap">名称</th>
-          <th class="text-right p-2 whitespace-nowrap">必要モーション値</th>
-          <th
-            class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
-            @click="toggleSort('expected')"
+  <div class="mp-panel overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="weapon-table w-full min-w-max">
+        <thead>
+          <tr class="border-b">
+            <th class="text-left p-2 whitespace-nowrap">名称</th>
+            <th class="text-right p-2 whitespace-nowrap">必要モーション値</th>
+            <th
+              class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
+              @click="toggleSort('expected')"
+            >
+              <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
+                期待値 <span class="w-4 text-center">{{ getSortIcon('expected') }}</span>
+              </span>
+            </th>
+            <th
+              class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
+              @click="toggleSort('attack')"
+            >
+              <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
+                攻撃 <span class="w-4 text-center">{{ getSortIcon('attack') }}</span>
+              </span>
+            </th>
+            <th
+              class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
+              @click="toggleSort('defense')"
+            >
+              <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
+                防御 <span class="w-4 text-center">{{ getSortIcon('defense') }}</span>
+              </span>
+            </th>
+            <th
+              class="text-center p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap w-20"
+              @click="toggleSort('slots')"
+            >
+              <span class="inline-flex items-center gap-1 justify-center w-full whitespace-nowrap">
+                スロット <span class="w-4 text-center">{{ getSortIcon('slots') }}</span>
+              </span>
+            </th>
+            <th
+              class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
+              @click="toggleSort('affinity')"
+            >
+              <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
+                会心率 <span class="w-1 text-center">{{ getSortIcon('affinity') }}</span>
+              </span>
+            </th>
+            <th class="text-left p-2 whitespace-nowrap">属性・状態異常</th>
+            <!-- 拡張用ヘッダー -->
+            <slot name="header-columns" />
+            <th class="text-left p-2 whitespace-nowrap">斬れ味</th>
+          </tr>
+        </thead>
+        <tbody>
+          <WeaponTableRow
+            v-for="weapon in sortedWeapons"
+            :key="weapon.name"
+            :weapon="weapon"
+            :required-motion-value="getRequiredMotionValue(weapon)"
+            :expected-value="getExpectedValue(weapon)"
+            :attack-with-buffs="getAttackWithBuffs(weapon)"
+            :base-attack="weapon.attack"
+            :show-base-attack="isShowBaseAttack(weapon)"
+            :affinity="calculateAffinity(weapon)"
+            :base-affinity="weapon.affinity"
+            :show-base-affinity="isShowBaseAffinity(weapon)"
+            :selected-sharpness="selectedSharpness"
+            :bludgeoner="attackModifiers.bludgeoner"
           >
-            <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
-              期待値 <span class="w-4 text-center">{{ getSortIcon('expected') }}</span>
-            </span>
-          </th>
-          <th
-            class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
-            @click="toggleSort('attack')"
-          >
-            <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
-              攻撃 <span class="w-4 text-center">{{ getSortIcon('attack') }}</span>
-            </span>
-          </th>
-          <th
-            class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
-            @click="toggleSort('defense')"
-          >
-            <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
-              防御 <span class="w-4 text-center">{{ getSortIcon('defense') }}</span>
-            </span>
-          </th>
-          <th
-            class="text-center p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap w-20"
-            @click="toggleSort('slots')"
-          >
-            <span class="inline-flex items-center gap-1 justify-center w-full whitespace-nowrap">
-              スロット <span class="w-4 text-center">{{ getSortIcon('slots') }}</span>
-            </span>
-          </th>
-          <th
-            class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
-            @click="toggleSort('affinity')"
-          >
-            <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
-              会心率 <span class="w-1 text-center">{{ getSortIcon('affinity') }}</span>
-            </span>
-          </th>
-          <th class="text-left p-2 whitespace-nowrap">属性・状態異常</th>
-          <!-- 拡張用ヘッダー -->
-          <slot name="header-columns" />
-          <th class="text-left p-2 whitespace-nowrap">斬れ味</th>
-        </tr>
-      </thead>
-      <tbody>
-        <WeaponTableRow
-          v-for="weapon in sortedWeapons"
-          :key="weapon.name"
-          :weapon="weapon"
-          :required-motion-value="getRequiredMotionValue(weapon)"
-          :expected-value="getExpectedValue(weapon)"
-          :attack-with-buffs="getAttackWithBuffs(weapon)"
-          :base-attack="weapon.attack"
-          :show-base-attack="isShowBaseAttack(weapon)"
-          :affinity="calculateAffinity(weapon)"
-          :base-affinity="weapon.affinity"
-          :show-base-affinity="isShowBaseAffinity(weapon)"
-          :selected-sharpness="selectedSharpness"
-          :bludgeoner="attackModifiers.bludgeoner"
-        >
-          <!-- 拡張用カラム -->
-          <template #additional-columns="{ weapon: w }">
-            <slot name="row-columns" :weapon="w" />
-          </template>
-        </WeaponTableRow>
-      </tbody>
-    </table>
+            <!-- 拡張用カラム -->
+            <template #additional-columns="{ weapon: w }">
+              <slot name="row-columns" :weapon="w" />
+            </template>
+          </WeaponTableRow>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>

@@ -45,7 +45,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
     <div class="grid grid-cols-1 md:grid-cols-2">
       <div class="border-r mp-border pr-4">
         <label class="mp-label mp-text mb-2 block">事前準備:</label>
-        <div class="space-y-3">
+        <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.powerCharm ?? false"
             label="力の護符 (A):"
@@ -128,7 +128,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
         </div>
         <div class="mt-4">
           <label class="mp-label mp-text mb-2 block">短期バフ:</label>
-          <div class="space-y-3">
+          <div class="space-y-4">
             <SelectOption
               :model-value="attackModifiers.shortTermBuff ?? 'none'"
               label="アイテム等 (D):"
@@ -165,7 +165,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
 
       <div class="pl-4">
         <label class="mp-label mp-text mb-2 block">スキル:</label>
-        <div class="space-y-3">
+        <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.attackSkill ?? 'none'"
             label="攻撃 (F):"
@@ -415,7 +415,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
     <div class="grid grid-cols-1 md:grid-cols-2">
       <div class="border-r mp-border pr-4">
         <label class="mp-label mp-text mb-2 block">旋律:</label>
-        <div class="space-y-3">
+        <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.attackMelody ?? AttackMelody.None"
             label="攻撃旋律 (H):"
@@ -457,7 +457,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
       </div>
       <div class="pl-4">
         <label class="mp-label mp-text mb-2 block">火事場系:</label>
-        <div class="space-y-3">
+        <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.adrenaline ?? 'none'"
             label="火事場力 (G):"
