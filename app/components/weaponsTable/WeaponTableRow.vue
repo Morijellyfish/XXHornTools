@@ -65,10 +65,12 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
     </td>
     <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ expectedValue }}</td>
     <td class="p-2 text-right tabular-nums whitespace-nowrap">
-      <span>{{ attackWithBuffs }}</span>
-      <span v-if="showBaseAttack" class="text-xs text-[var(--mainpalette-text-muted)]">
-        ({{ baseAttack }})
-      </span>
+      <div class="flex flex-col items-end leading-tight">
+        <span>{{ attackWithBuffs }}</span>
+        <span v-if="showBaseAttack" class="text-xs text-[var(--mainpalette-text-muted)]">
+          ({{ baseAttack }})
+        </span>
+      </div>
     </td>
     <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ weapon.defense }}</td>
     <td class="p-2 whitespace-nowrap">
@@ -79,16 +81,18 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
       </div>
     </td>
     <td class="p-2 text-right tabular-nums whitespace-nowrap">
-      <span
-        :class="{
-          'text-[var(--mainpalette-alert-attack)]': affinity > 100,
-        }"
-      >
-        {{ formatAffinity(affinity) }}
-      </span>
-      <span v-if="showBaseAffinity" class="text-xs text-[var(--mainpalette-text-muted)]">
-        ({{ formatAffinity(baseAffinity) }})
-      </span>
+      <div class="flex flex-col items-end leading-tight">
+        <span
+          :class="{
+            'text-[var(--mainpalette-alert-attack)]': affinity > 100,
+          }"
+        >
+          {{ formatAffinity(affinity) }}
+        </span>
+        <span v-if="showBaseAffinity" class="text-xs text-[var(--mainpalette-text-muted)]">
+          ({{ formatAffinity(baseAffinity) }})
+        </span>
+      </div>
     </td>
     <td class="p-2">
       <span class="whitespace-nowrap">{{ formatElementOrStatus(weapon) }}</span>
