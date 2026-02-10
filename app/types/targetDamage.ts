@@ -53,3 +53,28 @@ export function calculateRequiredMotionValue(
   // 計算式: モーション値 = ダメージ × 10000 ÷ (全体防御率 × 期待値 × 肉質)
   return (settings.targetDamage * 10000) / (overallDefenseRate * expectedValue * hitzone)
 }
+
+/**
+ * 期待値と肉質からダメージを計算
+ * @param motionValue モーション値
+ * @param expectedValue 期待値（武器倍率 × 会心補正 × 斬れ味補正など、モーション値以外の補正を含む）
+ * @param hitzone 肉質（デフォルト: 100）
+ * @param overallDefenseRate 全体防御率（デフォルト: 1.0）
+ * @returns 計算されたダメージ（切り捨て）。無効な値の場合は undefined
+ *
+ * 計算式: ダメージ = 切捨(モーション値 ÷ 100 × 期待値 × 肉質 ÷ 100 × 全体防御率)
+ */
+export function calculateDamage(
+  motionValue: number,
+  expectedValue: number,
+  hitzone: number = 100,
+  overallDefenseRate: number = 1.0
+): number | undefined {
+  if (motionValue <= 0 || expectedValue <= 0 || hitzone <= 0 || overallDefenseRate <= 0) {
+    return undefined
+  }
+
+  // 計算式: ダメージ = 切捨(モーション値 ÷ 100 × 期待値 × 肉質 ÷ 100 × 全体防御率)
+  const damage = (motionValue / 100) * expectedValue * (hitzone / 100) * overallDefenseRate
+  return Math.floor(damage)
+}
