@@ -42,52 +42,52 @@ const {
     <table class="weapon-table w-full border-collapse">
       <thead>
         <tr class="border-b">
-          <th class="text-left p-2">名称</th>
-          <th class="text-left p-2">必要モーション値</th>
+          <th class="text-left p-2 whitespace-nowrap">名称</th>
+          <th class="text-right p-2 whitespace-nowrap">必要モーション値</th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none"
+            class="text-right p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap"
             @click="toggleSort('expected')"
           >
-            <span class="inline-flex items-center gap-1">
+            <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
               期待値 <span class="w-4 text-center">{{ getSortIcon('expected') }}</span>
             </span>
           </th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none"
+            class="text-right p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap"
             @click="toggleSort('attack')"
           >
-            <span class="inline-flex items-center gap-1">
+            <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
               攻撃 <span class="w-4 text-center">{{ getSortIcon('attack') }}</span>
             </span>
           </th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none"
+            class="text-right p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap"
             @click="toggleSort('defense')"
           >
-            <span class="inline-flex items-center gap-1">
+            <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
               防御 <span class="w-4 text-center">{{ getSortIcon('defense') }}</span>
             </span>
           </th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none w-25"
+            class="text-center p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap w-20"
             @click="toggleSort('slots')"
           >
-            <span class="inline-flex items-center gap-1">
+            <span class="inline-flex items-center gap-1 justify-center w-full whitespace-nowrap">
               スロット <span class="w-4 text-center">{{ getSortIcon('slots') }}</span>
             </span>
           </th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none"
+            class="text-right p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none whitespace-nowrap"
             @click="toggleSort('affinity')"
           >
-            <span class="inline-flex items-center gap-1">
+            <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
               会心率 <span class="w-1 text-center">{{ getSortIcon('affinity') }}</span>
             </span>
           </th>
-          <th class="text-left p-2">属性・状態異常</th>
+          <th class="text-left p-2 whitespace-nowrap">属性・状態異常</th>
           <!-- 拡張用ヘッダー -->
           <slot name="header-columns" />
-          <th class="text-left p-2">斬れ味</th>
+          <th class="text-left p-2 whitespace-nowrap">斬れ味</th>
         </tr>
       </thead>
       <tbody>

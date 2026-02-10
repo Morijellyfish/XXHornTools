@@ -104,3 +104,12 @@ body {
 .weapon-table td:last-child {
   border-right: 0;
 }
+
+/* 2行までで省略（表のセル向け） */
+.mp-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-clamp: 2;
+}

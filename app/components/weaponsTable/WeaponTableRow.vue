@@ -54,45 +54,45 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
 
 <template>
   <tr class="border-b border-[var(--mainpalette-border)]">
-    <td class="p-2">{{ weapon.name }}</td>
-    <td class="p-2 text-right">
+    <td class="p-2">
+      <span class="mp-clamp-2">{{ weapon.name }}</span>
+    </td>
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">
       <span v-if="requiredMotionValue !== undefined">
         {{ requiredMotionValue.toFixed(1) }}
       </span>
       <span v-else class="text-[var(--mainpalette-text-muted)]">-</span>
     </td>
-    <td class="p-2">{{ expectedValue }}</td>
-    <td class="p-2 text-right">
-      <div class="flex flex-col">
-        <span>{{ attackWithBuffs }}</span>
-        <span v-if="showBaseAttack" class="text-xs text-[var(--mainpalette-text-muted)]">
-          ({{ baseAttack }})
-        </span>
-      </div>
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ expectedValue }}</td>
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">
+      <span>{{ attackWithBuffs }}</span>
+      <span v-if="showBaseAttack" class="text-xs text-[var(--mainpalette-text-muted)]">
+        ({{ baseAttack }})
+      </span>
     </td>
-    <td class="p-2">{{ weapon.defense }}</td>
-    <td class="p-2">
-      <div class="flex gap-0">
-        <span v-for="i in 3" :key="i" class="flex-1 text-center">
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ weapon.defense }}</td>
+    <td class="p-2 whitespace-nowrap">
+      <div class="inline-flex items-center">
+        <span v-for="i in 3" :key="i" class="w-5 text-center">
           {{ getSlotValue(weapon.slots, i - 1) }}
         </span>
       </div>
     </td>
-    <td class="p-2 text-right">
-      <div class="flex flex-col">
-        <span
-          :class="{
-            'text-[var(--mainpalette-alert-attack)]': affinity > 100,
-          }"
-        >
-          {{ formatAffinity(affinity) }}
-        </span>
-        <span v-if="showBaseAffinity" class="text-xs text-[var(--mainpalette-text-muted)]">
-          ({{ formatAffinity(baseAffinity) }})
-        </span>
-      </div>
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">
+      <span
+        :class="{
+          'text-[var(--mainpalette-alert-attack)]': affinity > 100,
+        }"
+      >
+        {{ formatAffinity(affinity) }}
+      </span>
+      <span v-if="showBaseAffinity" class="text-xs text-[var(--mainpalette-text-muted)]">
+        ({{ formatAffinity(baseAffinity) }})
+      </span>
     </td>
-    <td class="p-2">{{ formatElementOrStatus(weapon) }}</td>
+    <td class="p-2">
+      <span class="whitespace-nowrap">{{ formatElementOrStatus(weapon) }}</span>
+    </td>
     <!-- 拡張用スロット -->
     <slot name="additional-columns" :weapon="weapon" />
     <td class="p-2">
