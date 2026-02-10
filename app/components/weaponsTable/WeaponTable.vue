@@ -40,7 +40,7 @@ const {
 <template>
   <div class="mp-panel overflow-hidden">
     <div class="overflow-x-auto">
-      <table class="weapon-table w-full min-w-max">
+      <table class="weapon-table w-full">
         <thead>
           <tr class="border-b">
             <th class="text-left p-2 whitespace-nowrap">名称</th>

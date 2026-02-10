@@ -41,4 +41,7 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   line-clamp: 2;
+  /* テーブル幅を押し広げないために、長い文字列を折り返せるようにする */
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
