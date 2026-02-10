@@ -69,18 +69,18 @@ const getNoteColor = (note: Note): string => {
             v-for="(name, index) in horn.notes.getMelodyNames()"
             :key="index"
             :class="{
-              'text-[var(--mh-alert-attack)]':
+              'text-[var(--mainpalette-alert-attack)]':
                 (attackMelody === AttackMelody.HornDependent &&
                   (name === '攻撃力強化【小】' || name === '攻撃力強化【大】')) ||
                 (criticalMelody === CriticalMelody.HornDependent &&
                   name === '会心率UP&体力回復【小】'),
-              'bg-[var(--mh-primary)] text-[var(--mh-surface-1)] px-1 rounded':
+              'bg-[var(--mainpalette-primary)] text-[var(--mainpalette-surface-1)] px-1 rounded':
                 selectedMelodyNames &&
                 selectedMelodyNames.has(name) &&
                 !(highlightedMelodyNames && highlightedMelodyNames.has(name)),
-              'bg-[var(--mh-accent)] text-[var(--mh-surface-1)] px-1 rounded cursor-pointer hover:opacity-90':
+              'bg-[var(--mainpalette-accent)] text-[var(--mainpalette-surface-1)] px-1 rounded cursor-pointer hover:opacity-90':
                 highlightedMelodyNames && highlightedMelodyNames.has(name),
-              'cursor-pointer hover:bg-[var(--mh-surface-2)] px-1 rounded':
+              'cursor-pointer hover:bg-[var(--mainpalette-surface-2)] px-1 rounded':
                 onMelodyClick && !(highlightedMelodyNames && highlightedMelodyNames.has(name)),
             }"
             @click="onMelodyClick && onMelodyClick(name)"

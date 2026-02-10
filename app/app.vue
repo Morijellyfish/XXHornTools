@@ -21,8 +21,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="bg-[var(--mh-bg)] min-h-screen flex flex-col">
-    <header class="bg-[var(--mh-surface-1)] border-b border-white/10">
+  <div class="bg-[var(--mainpalette-bg)] min-h-screen flex flex-col">
+    <header class="bg-[var(--mainpalette-surface-1)] border-b border-white/10">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div class="h-14 flex items-center justify-between gap-4">
           <div class="flex items-center gap-4">

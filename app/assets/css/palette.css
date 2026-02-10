@@ -4,46 +4,46 @@
      * BlueTheme palette (source: Adobe Color Wheel)
      * 基本はこの8色 + 白のみでUIを構成する前提
      */
-    --mh-blue-1: #9a85c6;
-    --mh-blue-2: #8d84a2;
-    --mh-blue-3: #9f7ceb;
-    --mh-blue-4: #70697d;
-    --mh-blue-5: #473e59;
-    --mh-blue-6: #251d34;
-    --mh-blue-7: #1f1533;
+    --mainpalette-blue-1: #9a85c6;
+    --mainpalette-blue-2: #8d84a2;
+    --mainpalette-blue-3: #9f7ceb;
+    --mainpalette-blue-4: #70697d;
+    --mainpalette-blue-5: #473e59;
+    --mainpalette-blue-6: #251d34;
+    --mainpalette-blue-7: #1f1533;
     /*
      * 背景用の追加ダーク（紫を弱めるための中間色）
      * #1F1533(31,21,51) と #18181B(24,24,27) の平均 = (28,23,39) = #1C1727
      */
-    --mh-blue-7b: #1c1727;
-    --mh-blue-8: #76f3cc;
-    --mh-white: #ffffff;
+    --mainpalette-blue-7b: #1c1727;
+    --mainpalette-blue-8: #76f3cc;
+    --mainpalette-white: #ffffff;
 
     /*
      * Role tokens (必要になったら増やす)
      * 例: background, surface, border, text, accent
      */
-    --mh-bg: var(--mh-blue-7b);
-    --mh-surface-1: var(--mh-blue-6);
-    --mh-surface-2: var(--mh-blue-5);
-    --mh-border: var(--mh-blue-4);
-    --mh-text: var(--mh-white);
-    --mh-text-muted: var(--mh-blue-2);
-    --mh-accent: var(--mh-blue-8);
-    --mh-accent-2: var(--mh-blue-3);
+    --mainpalette-bg: var(--mainpalette-blue-7b);
+    --mainpalette-surface-1: var(--mainpalette-blue-6);
+    --mainpalette-surface-2: var(--mainpalette-blue-5);
+    --mainpalette-border: var(--mainpalette-blue-4);
+    --mainpalette-text: var(--mainpalette-white);
+    --mainpalette-text-muted: var(--mainpalette-blue-2);
+    --mainpalette-accent: var(--mainpalette-blue-8);
+    --mainpalette-accent-2: var(--mainpalette-blue-3);
 
     /* PrimeVueの主役色（ボタン等）: 明るいミントは強すぎるので紫寄りへ */
-    --mh-primary: var(--mh-blue-3);
+    --mainpalette-primary: var(--mainpalette-blue-3);
 
     /*
      * Alert colors (UIの意味を持つ例外色)
      * - 攻撃力強化旋律: 注意/強調（赤）
      * - 鈍器使い: 注意（黄）
      */
-    --mh-alert-attack: #ff4d6d;
-    --mh-alert-bludgeoner: #fbbf24;
+    --mainpalette-alert-attack: #ff4d6d;
+    --mainpalette-alert-bludgeoner: #fbbf24;
 
     /* AppLogo.vue が参照している変数（未定義だと色が抜けるため、テーマアクセントに紐づけ） */
-    --ui-primary: var(--mh-accent);
+    --ui-primary: var(--mainpalette-accent);
   }
 }

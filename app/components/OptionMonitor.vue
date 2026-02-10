@@ -105,50 +105,66 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
 </script>
 
 <template>
-  <div class="mb-0 p-4 bg-[var(--mh-surface-1)] border border-[var(--mh-border)] rounded-lg">
+  <div
+    class="mb-0 p-4 bg-[var(--mainpalette-surface-1)] border border-[var(--mainpalette-border)] rounded-lg"
+  >
     <div class="flex flex-wrap gap-4 text-sm">
       <div>
-        <span class="text-[var(--mh-text-muted)]">攻撃力加算:</span>
+        <span class="text-[var(--mainpalette-text-muted)]">攻撃力加算:</span>
         <span
           class="font-mono font-bold ml-2"
-          :class="totalAttackAdd > 0 ? 'text-[var(--mh-accent)]' : 'text-[var(--mh-text-muted)]'"
+          :class="
+            totalAttackAdd > 0
+              ? 'text-[var(--mainpalette-accent)]'
+              : 'text-[var(--mainpalette-text-muted)]'
+          "
         >
           {{ totalAttackAdd > 0 ? `+${totalAttackAdd}` : '0' }}
         </span>
       </div>
       <div>
-        <span class="text-[var(--mh-text-muted)]">攻撃力倍率:</span>
+        <span class="text-[var(--mainpalette-text-muted)]">攻撃力倍率:</span>
         <span
           class="font-mono font-bold ml-2"
           :class="
-            totalAttackMultiply !== 1.0 ? 'text-[var(--mh-accent)]' : 'text-[var(--mh-text-muted)]'
+            totalAttackMultiply !== 1.0
+              ? 'text-[var(--mainpalette-accent)]'
+              : 'text-[var(--mainpalette-text-muted)]'
           "
         >
           x{{ totalAttackMultiply.toFixed(2) }}
         </span>
       </div>
       <div>
-        <span class="text-[var(--mh-text-muted)]">会心率追加:</span>
+        <span class="text-[var(--mainpalette-text-muted)]">会心率追加:</span>
         <span
           class="font-mono font-bold ml-2"
-          :class="criticalBonus > 0 ? 'text-[var(--mh-accent)]' : 'text-[var(--mh-text-muted)]'"
+          :class="
+            criticalBonus > 0
+              ? 'text-[var(--mainpalette-accent)]'
+              : 'text-[var(--mainpalette-text-muted)]'
+          "
         >
           {{ criticalBonus > 0 ? `+${criticalBonus}%` : '0%' }}
         </span>
       </div>
     </div>
     <div class="mt-3 text-sm">
-      <span class="text-[var(--mh-text-muted)]">発動スキル:</span>
-      <span v-if="activeSkills.length === 0" class="ml-2 text-[var(--mh-text-muted)]">なし</span>
-      <span v-else class="ml-2 text-[var(--mh-text)]">
+      <span class="text-[var(--mainpalette-text-muted)]">発動スキル:</span>
+      <span v-if="activeSkills.length === 0" class="ml-2 text-[var(--mainpalette-text-muted)]">
+        なし
+      </span>
+      <span v-else class="ml-2 text-[var(--mainpalette-text)]">
         {{ activeSkills.join('、') }}
       </span>
     </div>
-    <div class="mt-4 pt-4 border-t border-[var(--mh-border)]">
-      <div class="text-sm font-medium mb-2 text-[var(--mh-text)]">目標ダメージ設定</div>
+    <div class="mt-4 pt-4 border-t border-[var(--mainpalette-border)]">
+      <div class="text-sm font-medium mb-2 text-[var(--mainpalette-text)]">目標ダメージ設定</div>
       <div class="flex flex-wrap gap-4">
         <div class="flex items-center gap-2">
-          <label class="text-sm text-[var(--mh-text-muted)] whitespace-nowrap">目標ダメージ:</label>
+          <label class="text-sm text-[var(--mainpalette-text-muted)] whitespace-nowrap">
+            目標ダメージ:
+          </label>
           <InputNumber
             :model-value="targetDamageSettings.targetDamage ?? null"
             :min="0"
@@ -161,7 +177,9 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
           />
         </div>
         <div class="flex items-center gap-2">
-          <label class="text-sm text-[var(--mh-text-muted)] whitespace-nowrap">肉質:</label>
+          <label class="text-sm text-[var(--mainpalette-text-muted)] whitespace-nowrap"
+            >肉質:</label
+          >
           <InputNumber
             :model-value="targetDamageSettings.hitzone ?? null"
             :min="0"
@@ -175,7 +193,9 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
           />
         </div>
         <div class="flex items-center gap-2">
-          <label class="text-sm text-[var(--mh-text-muted)] whitespace-nowrap">全体防御率:</label>
+          <label class="text-sm text-[var(--mainpalette-text-muted)] whitespace-nowrap">
+            全体防御率:
+          </label>
           <InputNumber
             :model-value="targetDamageSettings.overallDefenseRate ?? null"
             :min="0"

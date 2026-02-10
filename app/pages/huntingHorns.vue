@@ -90,10 +90,10 @@ const filteredHorns = computed(() => {
 <template>
   <div class="px-4 sm:px-6 lg:px-8">
     <section class="mx-auto max-w-6xl py-10 sm:py-14">
-      <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--mh-text)]">
+      <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--mainpalette-text)]">
         狩猟笛比較表
       </h1>
-      <p class="mt-3 text-sm sm:text-base text-[var(--mh-text-muted)]">
+      <p class="mt-3 text-sm sm:text-base text-[var(--mainpalette-text-muted)]">
         モンスターハンターXXの狩猟笛のステータス比較表
       </p>
     </section>

@@ -9,8 +9,8 @@
 }
 
 body {
-  background-color: var(--mh-bg);
-  color: var(--mh-text);
+  background-color: var(--mainpalette-bg);
+  color: var(--mainpalette-text);
 }
 
 /* テンプレート選択UI（PrimeVue Card）のpaddingを小さく */
@@ -20,13 +20,13 @@ body {
 
 /* PrimeVue Card: 全体で薄いアウトラインを付与 */
 .p-card {
-  background-color: var(--mh-surface-1);
-  border: 1px solid var(--mh-border);
+  background-color: var(--mainpalette-surface-1);
+  border: 1px solid var(--mainpalette-border);
 }
 
 /* 触れる要素は少しだけ強調（やりすぎない） */
 .p-card:hover {
-  border-color: var(--mh-accent-2);
+  border-color: var(--mainpalette-accent-2);
 }
 
 /* indexのツールカード：フッターを常に下部へ固定 */

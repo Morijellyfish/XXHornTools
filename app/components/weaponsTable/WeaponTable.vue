@@ -45,7 +45,7 @@ const {
           <th class="text-left p-2">名称</th>
           <th class="text-left p-2">必要モーション値</th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mh-surface-2)] select-none"
+            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none"
             @click="toggleSort('expected')"
           >
             <span class="inline-flex items-center gap-1">
@@ -53,7 +53,7 @@ const {
             </span>
           </th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mh-surface-2)] select-none"
+            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none"
             @click="toggleSort('attack')"
           >
             <span class="inline-flex items-center gap-1">
@@ -61,7 +61,7 @@ const {
             </span>
           </th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mh-surface-2)] select-none"
+            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none"
             @click="toggleSort('defense')"
           >
             <span class="inline-flex items-center gap-1">
@@ -69,7 +69,7 @@ const {
             </span>
           </th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mh-surface-2)] select-none w-25"
+            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none w-25"
             @click="toggleSort('slots')"
           >
             <span class="inline-flex items-center gap-1">
@@ -77,7 +77,7 @@ const {
             </span>
           </th>
           <th
-            class="text-left p-2 cursor-pointer hover:bg-[var(--mh-surface-2)] select-none"
+            class="text-left p-2 cursor-pointer hover:bg-[var(--mainpalette-surface-2)] select-none"
             @click="toggleSort('affinity')"
           >
             <span class="inline-flex items-center gap-1">
