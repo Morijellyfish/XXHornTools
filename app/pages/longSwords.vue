@@ -2,10 +2,8 @@
 import { allLongSwords } from '~/data/longSword'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { AttackMelody } from '~/types/attackBuff'
-import { CriticalMelody, CriticalEye } from '~/types/criticalBuff'
-import WeaponTableOptions from '~/components/WeaponTableOptions.vue'
-import OptionMonitor from '~/components/OptionMonitor.vue'
+import { createDefaultTableOptions } from '~/utils/tableOptions'
+import WeaponCompareShell from '~/components/layout/WeaponCompareShell.vue'
 import LongSwordTable from '~/components/weaponsTable/LongSwordTable.vue'
 
 useHead({
@@ -13,36 +11,7 @@ useHead({
 })
 
 // TableBaseOption にすべてのオプションを集約
-const tableOptions = ref<TableBaseOption>({
-  selectedSharpness: 'normal',
-  criticalBuffs: {
-    hasCriticalBoost: false,
-    hasMadAffinity: false,
-    hasWeaknessExploit: false,
-    repeatOffensive: 'none',
-    criticalEye: CriticalEye.Zero,
-    criticalMelody: CriticalMelody.None,
-    demonCriticalBullet: false,
-  },
-  attackModifiers: {
-    powerCharm: false,
-    powerTalon: false,
-    preparedBuff: 'none',
-    shortTermBuff: 'none',
-    shortHypnosis: false,
-    attackSkill: 'none',
-    challengeSkill: 'none',
-    hunterSkill: 'none',
-    bludgeoner: false,
-    resuscitate: false,
-    resentment: false,
-    adrenaline: 'none',
-    fortify: 'none',
-    dragonInstinct: false,
-    attackMelody: AttackMelody.None,
-  },
-  sharpnessMultiplier: 1.0,
-})
+const tableOptions = ref<TableBaseOption>(createDefaultTableOptions())
 
 // criticalBuffsをそのまま使用
 const criticalBuffs = computed(() => tableOptions.value.criticalBuffs)
@@ -55,26 +24,19 @@ const sharpnessMultiplier = computed(() => {
 </script>
 
 <template>
-  <div class="px-4 sm:px-6 lg:px-8">
-    <section class="mx-auto max-w-6xl py-10 sm:py-14">
-      <h1 class="mp-page-title mp-text">太刀比較表</h1>
-      <p class="mt-3 mp-body mp-muted">モンスターハンターXXの太刀のステータス比較表</p>
-    </section>
-
-    <section class="mx-auto max-w-6xl pb-10 sm:pb-14 space-y-6">
-      <WeaponTableOptions v-model="tableOptions" />
-      <!-- オプションモニター -->
-      <OptionMonitor v-model="tableOptions" />
-
-      <LongSwordTable
-        :long-swords="allLongSwords"
-        :selected-sharpness="tableOptions.selectedSharpness"
-        :critical-buffs="criticalBuffs"
-        :attack-modifiers="tableOptions.attackModifiers"
-        :sharpness-multiplier="sharpnessMultiplier"
-        :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
-        :target-damage-settings="tableOptions.targetDamageSettings"
-      />
-    </section>
-  </div>
+  <WeaponCompareShell
+    v-model="tableOptions"
+    title="太刀比較表"
+    description="モンスターハンターXXの太刀のステータス比較表"
+  >
+    <LongSwordTable
+      :long-swords="allLongSwords"
+      :selected-sharpness="tableOptions.selectedSharpness"
+      :critical-buffs="criticalBuffs"
+      :attack-modifiers="tableOptions.attackModifiers"
+      :sharpness-multiplier="sharpnessMultiplier"
+      :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
+      :target-damage-settings="tableOptions.targetDamageSettings"
+    />
+  </WeaponCompareShell>
 </template>
