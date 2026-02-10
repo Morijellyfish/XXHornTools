@@ -102,7 +102,7 @@ const referenceSites: ReferenceSite[] = [
           </template>
 
           <template v-if="tool.status === 'available'" #footer>
-            <div class="mt-3 pt-3 mp-divider-top flex justify-end">
+            <div class="mp-footer-divider flex justify-end">
               <span class="text-xs font-medium tracking-wide mp-accent">ツールを開く</span>
             </div>
           </template>
@@ -111,7 +111,7 @@ const referenceSites: ReferenceSite[] = [
     </section>
 
     <section class="mx-auto max-w-6xl py-8 sm:py-10">
-      <div class="mp-panel p-5 sm:p-6">
+      <div class="mp-panel mp-pad-loose">
         <h2 class="text-base sm:text-lg font-semibold mp-text">狩猟笛をより楽しむために</h2>
         <p class="mt-2 mp-muted text-sm leading-relaxed">
           狩りピToolsは、モンスターハンターXXの狩猟笛をサポートするためのツール集です。いくつかのツールを追加予定です。

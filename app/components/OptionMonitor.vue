@@ -105,7 +105,7 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
 </script>
 
 <template>
-  <div class="mb-0 p-4 mp-panel">
+  <div class="mb-0 mp-panel mp-pad">
     <div class="flex flex-wrap gap-4 text-sm">
       <div>
         <span class="mp-muted">攻撃力加算:</span>

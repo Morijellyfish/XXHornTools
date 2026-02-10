@@ -1,0 +1,10 @@
+@layer base {
+  :root {
+    --font-sans: 'Public Sans', sans-serif;
+  }
+
+  body {
+    background-color: var(--mainpalette-bg);
+    color: var(--mainpalette-text);
+  }
+}

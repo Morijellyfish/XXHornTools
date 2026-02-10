@@ -99,7 +99,7 @@ const clearFilter = () => {
   <div class="mb-0 mp-panel">
     <button
       type="button"
-      class="w-full p-4 flex items-center justify-between mp-hover-surface-2 transition-colors"
+      class="w-full mp-pad-header flex items-center justify-between mp-hover-surface-2 transition-colors"
       @click="isFilterExpanded = !isFilterExpanded"
     >
       <div class="flex items-center gap-2">
@@ -115,7 +115,7 @@ const clearFilter = () => {
         {{ isFilterExpanded ? '▼' : '▶' }}
       </span>
     </button>
-    <div v-show="isFilterExpanded" class="px-4 pb-4 space-y-4">
+    <div v-show="isFilterExpanded" class="mp-pad-body space-y-4">
       <div
         v-for="category in categoryOrder"
         :key="category"

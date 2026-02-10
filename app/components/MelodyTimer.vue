@@ -187,7 +187,7 @@ defineExpose({
       'timer-active': isActive,
       'timer-flashing': isFlashing,
     }"
-    class="timer-card transition-all duration-200 cursor-pointer"
+    class="timer-card mp-card-body-pad transition-all duration-200 cursor-pointer"
     @click="handleCardClick"
   >
     <template #content>
