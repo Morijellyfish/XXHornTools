@@ -176,12 +176,6 @@ onUnmounted(() => {
                       option-value="value"
                       placeholder="--選択--"
                       class="w-32"
-                      :pt="{
-                        overlay: {
-                          style:
-                            'background: var(--mainpalette-surface-1); border: 1px solid var(--mainpalette-border);',
-                        },
-                      }"
                     />
                   </div>
 

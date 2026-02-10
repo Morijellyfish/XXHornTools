@@ -1,7 +1,6 @@
 @layer base {
   :root {
     /*
-     * BlueTheme palette (source: Adobe Color Wheel)
      * 基本はこの8色 + 白のみでUIを構成する前提
      */
     --mainpalette-blue-1: #9a85c6;
