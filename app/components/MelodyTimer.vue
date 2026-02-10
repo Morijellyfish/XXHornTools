@@ -180,7 +180,7 @@ defineExpose({
 </script>
 
 <template>
-  <UCard
+  <Card
     :class="{
       'timer-blinking': isBlinking,
       'timer-inactive': isInactive,
@@ -190,66 +190,80 @@ defineExpose({
     class="transition-all duration-200 cursor-pointer"
     @click="handleCardClick"
   >
-    <div class="flex items-center gap-2 flex-wrap">
-      <!-- インデックスと名称 -->
-      <div class="flex items-center gap-2 shrink-0 min-w-[12rem]">
-        <div class="flex items-center gap-1 w-10 shrink-0">
-          <span class="text-sm font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap"
-            >[{{ index }}]</span
-          >
+    <template #content>
+      <div class="flex items-center gap-2 flex-wrap">
+        <!-- インデックスと名称 -->
+        <div class="flex items-center gap-2 shrink-0 min-w-[12rem]">
+          <div class="flex items-center gap-1 w-10 shrink-0">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap"
+              >[{{ index }}]</span
+            >
+          </div>
+          <div class="flex items-center gap-2 flex-1 min-w-0">
+            <InputText v-model="localName" placeholder="名称" class="w-full" />
+          </div>
         </div>
-        <div class="flex items-center gap-2 flex-1 min-w-0">
-          <UInput v-model="localName" placeholder="名称" class="w-full" />
-        </div>
-      </div>
 
-      <!-- 効果時間と延長時間 -->
-      <div class="flex items-center gap-2 shrink-0">
-        <div class="flex items-center gap-1 shrink-0">
-          <label class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap"
-            >効果時間:</label
-          >
-          <UInput v-model.number="localEffectDuration" type="number" :min="1" class="w-20" />
-        </div>
-        <div class="flex items-center gap-1 shrink-0">
-          <label class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap"
-            >延長時間:</label
-          >
-          <UInput v-model.number="localExtendDuration" type="number" :min="1" class="w-20" />
-        </div>
-      </div>
-
-      <!-- タイマー表示とリセットボタン -->
-      <div class="flex items-center gap-2 shrink-0">
+        <!-- 効果時間と延長時間 -->
         <div class="flex items-center gap-2 shrink-0">
-          <span
-            class="text-xl font-bold tabular-nums min-w-[3rem] text-right"
-            :class="{
-              'text-yellow-500 dark:text-yellow-400': isBlinking,
-            }"
-          >
-            {{ timer }}
-          </span>
-          <span class="text-sm text-gray-500 dark:text-gray-400">秒</span>
+          <div class="flex items-center gap-1 shrink-0">
+            <label class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap"
+              >効果時間:</label
+            >
+            <InputNumber
+              v-model="localEffectDuration"
+              :min="1"
+              :use-grouping="false"
+              :allow-empty="false"
+              input-class="w-20"
+            />
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <label class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap"
+              >延長時間:</label
+            >
+            <InputNumber
+              v-model="localExtendDuration"
+              :min="1"
+              :use-grouping="false"
+              :allow-empty="false"
+              input-class="w-20"
+            />
+          </div>
         </div>
-        <UButton variant="outline" size="sm" @click="handleReset"> リセット </UButton>
-      </div>
 
-      <!-- ノート表示（常に同じサイズ） -->
-      <div class="flex items-center gap-1 shrink-0 w-[5.5rem]">
-        <span
-          v-for="(note, noteIndex) in noteArray"
-          :key="noteIndex"
-          :title="note"
-          class="inline-block w-5 h-5 rounded-full border-2 flex-shrink-0"
-          :style="{
-            background: NOTE_COLORS[note],
-            borderColor: getNoteBorderColor(note),
-          }"
-        />
+        <!-- タイマー表示とリセットボタン -->
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="flex items-center gap-2 shrink-0">
+            <span
+              class="text-xl font-bold tabular-nums min-w-[3rem] text-right"
+              :class="{
+                'text-yellow-500 dark:text-yellow-400': isBlinking,
+              }"
+            >
+              {{ timer }}
+            </span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">秒</span>
+          </div>
+          <Button outlined size="small" @click.stop="handleReset">リセット</Button>
+        </div>
+
+        <!-- ノート表示（常に同じサイズ） -->
+        <div class="flex items-center gap-1 shrink-0 w-[5.5rem]">
+          <span
+            v-for="(note, noteIndex) in noteArray"
+            :key="noteIndex"
+            :title="note"
+            class="inline-block w-5 h-5 rounded-full border-2 flex-shrink-0"
+            :style="{
+              background: NOTE_COLORS[note],
+              borderColor: getNoteBorderColor(note),
+            }"
+          />
+        </div>
       </div>
-    </div>
-  </UCard>
+    </template>
+  </Card>
 </template>
 
 <style scoped>

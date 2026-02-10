@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import Components from 'unplugin-vue-components/vite'
+import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
+
 export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxt/ui'],
 
@@ -29,6 +32,15 @@ export default defineNuxtConfig({
       routes: ['/', '/huntingHorns', '/longSwords', '/melodyTimer'],
       crawlLinks: true,
     },
+  },
+
+  vite: {
+    plugins: [
+      Components({
+        // PrimeVueのコンポーネントをテンプレート利用時に自動import
+        resolvers: [PrimeVueResolver()],
+      }),
+    ],
   },
 
   eslint: {
