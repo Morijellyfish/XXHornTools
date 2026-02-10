@@ -55,10 +55,15 @@ const sharpnessMultiplier = computed(() => {
 </script>
 
 <template>
-  <div>
-    <UPageHero title="太刀比較表" description="モンスターハンターXXの太刀のステータス比較表" />
+  <div class="px-4 sm:px-6 lg:px-8">
+    <section class="mx-auto max-w-6xl py-10 sm:py-14">
+      <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white">太刀比較表</h1>
+      <p class="mt-3 text-sm sm:text-base text-gray-300">
+        モンスターハンターXXの太刀のステータス比較表
+      </p>
+    </section>
 
-    <UPageSection>
+    <section class="mx-auto max-w-6xl pb-10 sm:pb-14 space-y-6">
       <WeaponTableOptions v-model="tableOptions" />
       <!-- オプションモニター -->
       <OptionMonitor v-model="tableOptions" />
@@ -72,6 +77,6 @@ const sharpnessMultiplier = computed(() => {
         :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
         :target-damage-settings="tableOptions.targetDamageSettings"
       />
-    </UPageSection>
+    </section>
   </div>
 </template>

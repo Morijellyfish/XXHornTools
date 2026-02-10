@@ -1,6 +1,6 @@
-@import 'tailwindcss';
-@import '@nuxt/ui';
-@import 'primeicons/primeicons.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --font-sans: 'Public Sans', sans-serif;
@@ -22,16 +22,7 @@ body {
   background-color: #323339;
 }
 
-/* UPageHeroの高さを半分に調整 */
-[data-slot='root'][data-orientation='vertical'] [data-slot='container'] {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
-}
-
-/* テンプレート選択UIのUCardのbody paddingを小さく */
-.template-select-card [data-slot='body'] {
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
+/* テンプレート選択UI（PrimeVue Card）のpaddingを小さく */
+.template-select-card .p-card-body {
+  padding: 0.75rem 1rem;
 }

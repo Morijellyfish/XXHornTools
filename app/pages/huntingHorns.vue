@@ -88,10 +88,15 @@ const filteredHorns = computed(() => {
 </script>
 
 <template>
-  <div>
-    <UPageHero title="狩猟笛比較表" description="モンスターハンターXXの狩猟笛のステータス比較表" />
+  <div class="px-4 sm:px-6 lg:px-8">
+    <section class="mx-auto max-w-6xl py-10 sm:py-14">
+      <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white">狩猟笛比較表</h1>
+      <p class="mt-3 text-sm sm:text-base text-gray-300">
+        モンスターハンターXXの狩猟笛のステータス比較表
+      </p>
+    </section>
 
-    <UPageSection>
+    <section class="mx-auto max-w-6xl pb-10 sm:pb-14 space-y-6">
       <WeaponTableOptions v-model="tableOptions" :allow-horn-dependent-melody="true" />
 
       <!-- フィルター -->
@@ -111,6 +116,6 @@ const filteredHorns = computed(() => {
         :highlighted-melody-names="highlightedMelodyNames"
         :on-melody-click="toggleMelodyHighlight"
       />
-    </UPageSection>
+    </section>
   </div>
 </template>

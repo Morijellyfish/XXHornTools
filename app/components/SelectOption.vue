@@ -42,25 +42,27 @@ const hasRows = computed(() => props.rows.length > 0)
         class="flex gap-2"
         :class="{ 'flex-wrap': wrap }"
       >
-        <UButton
+        <Button
           v-for="option in row"
           :key="String(option.value)"
-          :variant="modelValue === option.value ? 'solid' : 'outline'"
+          :outlined="modelValue !== option.value"
+          size="small"
           @click="updateValue(option.value)"
         >
           {{ option.label }}
-        </UButton>
+        </Button>
       </div>
     </div>
     <div v-else class="flex gap-2" :class="{ 'flex-wrap': wrap }">
-      <UButton
+      <Button
         v-for="option in options"
         :key="String(option.value)"
-        :variant="modelValue === option.value ? 'solid' : 'outline'"
+        :outlined="modelValue !== option.value"
+        size="small"
         @click="updateValue(option.value)"
       >
         {{ option.label }}
-      </UButton>
+      </Button>
     </div>
   </div>
 </template>

@@ -20,28 +20,47 @@ useSeoMeta({
 </script>
 
 <template>
-  <UApp class="bg-[#323339] min-h-screen">
-    <UHeader class="bg-[#1e1f23]">
-      <template #left>
-        <NuxtLink to="/" class="font-bold text-lg"> 狩りピTools </NuxtLink>
+  <div class="bg-[#323339] min-h-screen flex flex-col">
+    <header class="bg-[#1e1f23] border-b border-white/10">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="h-14 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <NuxtLink to="/" class="font-semibold text-lg text-white hover:text-white/90">
+              狩りピTools
+            </NuxtLink>
 
-        <UButton to="/huntingHorns" variant="ghost" color="neutral"> 武器比較表 </UButton>
-
-        <UButton to="/melodyTimer" variant="ghost" color="neutral"> 旋律タイマー </UButton>
-      </template>
-    </UHeader>
-
-    <UMain>
-      <NuxtPage />
-    </UMain>
-
-    <UFooter>
-      <template #left>
-        <div class="text-sm text-muted space-y-1">
-          <p>狩りピTools • © {{ new Date().getFullYear() }}</p>
-          <p class="text-xs">本ツールは非公式です。モンスターハンターXXはカプコンの著作物です。</p>
+            <nav class="hidden sm:flex items-center gap-2">
+              <NuxtLink
+                to="/huntingHorns"
+                class="text-sm text-gray-200 hover:text-white px-3 py-2 rounded hover:bg-white/5 transition"
+              >
+                武器比較表
+              </NuxtLink>
+              <NuxtLink
+                to="/melodyTimer"
+                class="text-sm text-gray-200 hover:text-white px-3 py-2 rounded hover:bg-white/5 transition"
+              >
+                旋律タイマー
+              </NuxtLink>
+            </nav>
+          </div>
         </div>
-      </template>
-    </UFooter>
-  </UApp>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <NuxtPage />
+    </main>
+
+    <footer class="border-t border-white/10">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
+        <div class="space-y-1">
+          <p class="text-sm text-gray-300">狩りピTools • © {{ new Date().getFullYear() }}</p>
+          <p class="text-xs text-gray-400">
+            本ツールは非公式です。モンスターハンターXXはカプコンの著作物です。
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
 </template>

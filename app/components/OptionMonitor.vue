@@ -25,8 +25,8 @@ const tableOptions = computed({
 
 const targetDamageSettings = computed(() => tableOptions.value.targetDamageSettings ?? {})
 
-const updateTargetDamage = (value: number | string | undefined) => {
-  const numValue = value === '' || value === undefined ? undefined : Number(value)
+const updateTargetDamage = (value: number | null | undefined) => {
+  const numValue = value === null || value === undefined ? undefined : Number(value)
   tableOptions.value = {
     ...tableOptions.value,
     targetDamageSettings: {
@@ -43,8 +43,8 @@ const clampTargetDamage = () => {
   }
 }
 
-const updateHitzone = (value: number | string | undefined) => {
-  const numValue = value === '' || value === undefined ? undefined : Number(value)
+const updateHitzone = (value: number | null | undefined) => {
+  const numValue = value === null || value === undefined ? undefined : Number(value)
   tableOptions.value = {
     ...tableOptions.value,
     targetDamageSettings: {
@@ -70,8 +70,8 @@ const clampHitzone = () => {
   }
 }
 
-const updateOverallDefenseRate = (value: number | string | undefined) => {
-  const numValue = value === '' || value === undefined ? undefined : Number(value)
+const updateOverallDefenseRate = (value: number | null | undefined) => {
+  const numValue = value === null || value === undefined ? undefined : Number(value)
   tableOptions.value = {
     ...tableOptions.value,
     targetDamageSettings: {
@@ -151,25 +151,27 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
           <label class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap"
             >目標ダメージ:</label
           >
-          <UInput
-            :model-value="targetDamageSettings.targetDamage"
-            type="number"
+          <InputNumber
+            :model-value="targetDamageSettings.targetDamage ?? null"
             :min="0"
             class="w-24"
             placeholder="10000"
+            input-class="w-full"
+            :use-grouping="false"
             @update:model-value="updateTargetDamage($event)"
             @blur="clampTargetDamage"
           />
         </div>
         <div class="flex items-center gap-2">
           <label class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">肉質:</label>
-          <UInput
-            :model-value="targetDamageSettings.hitzone"
-            type="number"
+          <InputNumber
+            :model-value="targetDamageSettings.hitzone ?? null"
             :min="0"
             :max="1000"
             class="w-20"
             placeholder="45"
+            input-class="w-full"
+            :use-grouping="false"
             @update:model-value="updateHitzone($event)"
             @blur="clampHitzone"
           />
@@ -178,13 +180,16 @@ const activeSkills = computed(() => getActiveSkills(tableOptions.value))
           <label class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap"
             >全体防御率:</label
           >
-          <UInput
-            :model-value="targetDamageSettings.overallDefenseRate"
-            type="number"
+          <InputNumber
+            :model-value="targetDamageSettings.overallDefenseRate ?? null"
             :min="0"
             :step="0.01"
             class="w-20"
             placeholder="1.0"
+            input-class="w-full"
+            :use-grouping="false"
+            :min-fraction-digits="0"
+            :max-fraction-digits="2"
             @update:model-value="updateOverallDefenseRate($event)"
             @blur="clampOverallDefenseRate"
           />
