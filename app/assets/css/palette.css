@@ -35,6 +35,14 @@
     /* PrimeVueの主役色（ボタン等）: 明るいミントは強すぎるので紫寄りへ */
     --mh-primary: var(--mh-blue-3);
 
+    /*
+     * Alert colors (UIの意味を持つ例外色)
+     * - 攻撃力強化旋律: 注意/強調（赤）
+     * - 鈍器使い: 注意（黄）
+     */
+    --mh-alert-attack: #ff4d6d;
+    --mh-alert-bludgeoner: #fbbf24;
+
     /* AppLogo.vue が参照している変数（未定義だと色が抜けるため、テーマアクセントに紐づけ） */
     --ui-primary: var(--mh-accent);
   }
