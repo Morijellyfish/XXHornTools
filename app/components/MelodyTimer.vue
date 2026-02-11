@@ -281,12 +281,27 @@ defineExpose({
 
 .timer-blinking {
   animation: blink-timer 1.2s ease-in-out infinite;
+  /* 0%/100%でsurfaceに戻ると「未発動」に見えるので、常に薄く警告色を残す */
+  background-color: color-mix(
+    in srgb,
+    var(--mainpalette-alert-bludgeoner) 14%,
+    var(--mainpalette-surface-1)
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--mainpalette-alert-bludgeoner) 58%,
+    var(--mainpalette-border)
+  );
 }
 
 @keyframes blink-timer {
   0%,
   100% {
-    background-color: var(--mainpalette-surface-1);
+    background-color: color-mix(
+      in srgb,
+      var(--mainpalette-alert-bludgeoner) 14%,
+      var(--mainpalette-surface-1)
+    );
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
   }
 
@@ -294,7 +309,7 @@ defineExpose({
     /* 暗背景でも「黄色い警告」として見えるが、眩しすぎない */
     background-color: color-mix(
       in srgb,
-      var(--mainpalette-alert-bludgeoner) 22%,
+      var(--mainpalette-alert-bludgeoner) 28%,
       var(--mainpalette-surface-1)
     );
     box-shadow: 0 0 12px 3px
