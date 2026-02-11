@@ -8,7 +8,8 @@ import {
 } from '~/types/challengeSkill'
 import {
   AttackMelody,
-  getPreparedBuffValue,
+  getDemonDrugBuffValue,
+  getMealAttackBuffValue,
   getAttackSkillValue,
   getAdrenalineMultiplier,
   getHunterSkillValue,
@@ -75,39 +76,49 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             "
           />
           <SelectOption
-            :model-value="attackModifiers.preparedBuff ?? 'none'"
-            label="鬼人薬・食事効果 (C):"
+            :model-value="attackModifiers.demonDrugBuff ?? 'none'"
+            label="鬼人薬 (C):"
             :rows="[
               [
                 { value: 'none', label: '無' },
-                {
-                  value: 'demon_drug',
-                  label: `鬼人薬 | +${getPreparedBuffValue('demon_drug')}`,
-                },
+                { value: 'demon_drug', label: `鬼人薬 | +${getDemonDrugBuffValue('demon_drug')}` },
                 {
                   value: 'MegaDemondrug',
-                  label: `鬼人薬G | +${getPreparedBuffValue('MegaDemondrug')}`,
-                },
-              ],
-              [
-                {
-                  value: 'meal_attack_small',
-                  label: `食事【小】| +${getPreparedBuffValue('meal_attack_small')}`,
-                },
-                {
-                  value: 'meal_attack_medium',
-                  label: `食事【中】| +${getPreparedBuffValue('meal_attack_medium')}`,
-                },
-                {
-                  value: 'meal_attack_large',
-                  label: `食事【大】| +${getPreparedBuffValue('meal_attack_large')}`,
+                  label: `鬼人薬G | +${getDemonDrugBuffValue('MegaDemondrug')}`,
                 },
               ],
             ]"
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, preparedBuff: $event },
+                attackModifiers: { ...attackModifiers, demonDrugBuff: $event },
+              }
+            "
+          />
+          <SelectOption
+            :model-value="attackModifiers.mealAttackBuff ?? 'none'"
+            label="食事効果 (P):"
+            :rows="[
+              [
+                { value: 'none', label: '無' },
+                {
+                  value: 'meal_attack_small',
+                  label: `食事【小】| +${getMealAttackBuffValue('meal_attack_small')}`,
+                },
+                {
+                  value: 'meal_attack_medium',
+                  label: `食事【中】| +${getMealAttackBuffValue('meal_attack_medium')}`,
+                },
+                {
+                  value: 'meal_attack_large',
+                  label: `食事【大】| +${getMealAttackBuffValue('meal_attack_large')}`,
+                },
+              ],
+            ]"
+            @update:model-value="
+              options = {
+                ...options,
+                attackModifiers: { ...attackModifiers, mealAttackBuff: $event },
               }
             "
           />

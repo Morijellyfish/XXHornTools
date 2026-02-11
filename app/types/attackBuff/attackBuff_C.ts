@@ -1,44 +1,35 @@
 /**
- * グループC: 鬼人薬・食事効果（効果が高いものが優先）
+ * グループC: 鬼人薬
  */
 import { attackBuff } from './attackBuff'
 
 export class attackBuffC extends attackBuff {
-  private preparedBuffValue: number = 0
+  private buffValue: number = 0
 
-  constructor(preparedBuff?: PreparedBuff) {
+  constructor(demonDrugBuff?: DemonDrugBuff) {
     super('weapon_multiplier_add', 'C')
-    if (preparedBuff) {
-      this.preparedBuffValue = getPreparedBuffValue(preparedBuff)
+    if (demonDrugBuff) {
+      this.buffValue = getDemonDrugBuffValue(demonDrugBuff)
     }
   }
 
   override apply(attack: number): number {
-    this.value = this.preparedBuffValue
+    this.value = this.buffValue
     return super.apply(attack)
   }
 }
 
-export type PreparedBuff =
+export type DemonDrugBuff =
   | 'none'
   | 'demon_drug' // 鬼人薬
   | 'MegaDemondrug' // 鬼人薬G
-  | 'meal_attack_small' // 食事攻撃小
-  | 'meal_attack_medium' // 食事攻撃中
-  | 'meal_attack_large' // 食事攻撃大
 
-export const getPreparedBuffValue = (preparedBuff: PreparedBuff): number => {
-  switch (preparedBuff) {
+export const getDemonDrugBuffValue = (demonDrugBuff: DemonDrugBuff): number => {
+  switch (demonDrugBuff) {
     case 'demon_drug':
       return 5 // 鬼人薬: +5
     case 'MegaDemondrug':
       return 7 // 鬼人薬G: +7
-    case 'meal_attack_small':
-      return 3 // 食事攻撃小: +3
-    case 'meal_attack_medium':
-      return 5 // 食事攻撃中: +5
-    case 'meal_attack_large':
-      return 7 // 食事攻撃大: +7
     case 'none':
     default:
       return 0

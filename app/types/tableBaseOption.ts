@@ -10,6 +10,7 @@ import {
   attackBuffA,
   attackBuffB,
   attackBuffC,
+  attackBuffP,
   attackBuffD,
   attackBuffE,
   attackBuffF,
@@ -273,8 +274,11 @@ export function calculateTotalAttackAdd(options: TableBaseOption): number {
   if (modifiers.powerTalon) {
     addModifiers.push(new attackBuffB())
   }
-  if (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') {
-    addModifiers.push(new attackBuffC(modifiers.preparedBuff))
+  if (modifiers.demonDrugBuff && modifiers.demonDrugBuff !== 'none') {
+    addModifiers.push(new attackBuffC(modifiers.demonDrugBuff))
+  }
+  if (modifiers.mealAttackBuff && modifiers.mealAttackBuff !== 'none') {
+    addModifiers.push(new attackBuffP(modifiers.mealAttackBuff))
   }
   if (modifiers.shortTermBuff && modifiers.shortTermBuff !== 'none') {
     addModifiers.push(new attackBuffD(modifiers.shortTermBuff))

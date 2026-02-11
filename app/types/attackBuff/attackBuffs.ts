@@ -1,6 +1,7 @@
 import type { PowerCharm } from './attackBuff_A'
 import type { PowerTalon } from './attackBuff_B'
-import type { PreparedBuff } from './attackBuff_C'
+import type { DemonDrugBuff } from './attackBuff_C'
+import type { MealAttackBuff } from './attackBuff_P'
 import type { ShortTermBuff } from './attackBuff_D'
 import type { AttackSkill } from './attackBuff_F'
 import type { Adrenaline } from './attackBuff_G'
@@ -17,7 +18,8 @@ import type { ShortHypnosis } from './attackBuff_E'
 interface AttackBuffs {
   powerCharm?: PowerCharm
   powerTalon?: PowerTalon
-  preparedBuff?: PreparedBuff
+  demonDrugBuff?: DemonDrugBuff
+  mealAttackBuff?: MealAttackBuff
   shortTermBuff?: ShortTermBuff
   shortHypnosis?: ShortHypnosis
   attackSkill?: AttackSkill

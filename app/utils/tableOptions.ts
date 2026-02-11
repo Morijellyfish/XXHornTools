@@ -21,7 +21,8 @@ export function createDefaultTableOptions(): TableBaseOption {
     attackModifiers: {
       powerCharm: false,
       powerTalon: false,
-      preparedBuff: 'none',
+      demonDrugBuff: 'none',
+      mealAttackBuff: 'none',
       shortTermBuff: 'none',
       shortHypnosis: false,
       attackSkill: 'none',

@@ -182,7 +182,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return Boolean(
       (modifiers.powerCharm ?? false) ||
       (modifiers.powerTalon ?? false) ||
-      (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') ||
+      (modifiers.demonDrugBuff && modifiers.demonDrugBuff !== 'none') ||
+      (modifiers.mealAttackBuff && modifiers.mealAttackBuff !== 'none') ||
       (modifiers.shortTermBuff && modifiers.shortTermBuff !== 'none') ||
       (modifiers.shortHypnosis ?? false) ||
       (modifiers.attackSkill ?? 'none') !== 'none' ||

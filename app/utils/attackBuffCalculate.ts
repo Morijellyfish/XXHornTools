@@ -4,6 +4,7 @@ import {
   attackBuffA,
   attackBuffB,
   attackBuffC,
+  attackBuffP,
   attackBuffD,
   attackBuffE,
   attackBuffF,
@@ -37,8 +38,12 @@ export const calculateAttackWithBuffs = (
     allModifiers.push(new attackBuffB())
   }
 
-  if (modifiers.preparedBuff && modifiers.preparedBuff !== 'none') {
-    allModifiers.push(new attackBuffC(modifiers.preparedBuff))
+  if (modifiers.demonDrugBuff && modifiers.demonDrugBuff !== 'none') {
+    allModifiers.push(new attackBuffC(modifiers.demonDrugBuff))
+  }
+
+  if (modifiers.mealAttackBuff && modifiers.mealAttackBuff !== 'none') {
+    allModifiers.push(new attackBuffP(modifiers.mealAttackBuff))
   }
 
   if (modifiers.shortTermBuff && modifiers.shortTermBuff !== 'none') {
