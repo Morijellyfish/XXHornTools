@@ -122,6 +122,12 @@ const selectedHitzonePartName = ref<string>('')
 const selectedDurabilityPartKey = ref<string>('')
 const selectedHitzoneType = ref<'slash' | 'impact' | 'shot'>('impact')
 
+// 目標テンプレート側の補助入力（将来の適用ロジック用）
+const templateFlinchMultiplier = ref<number | null>(null)
+const templateDefenseMultiplier = ref<number | null>(null)
+const templateStunMultiplier = ref<number | null>(null)
+const templateFatigueMultiplier = ref<number | null>(null)
+
 const monsterOptions = computed(() => {
   return getMonsterList(allMonsters)
 })
@@ -196,13 +202,21 @@ const applyTemplate = () => {
   const hitzone = getSelectedHitzoneValue()
   const targetDamage = getSelectedDurabilityValue()
 
-  // 2回emitすると後勝ちで片方が消えるので、1回の更新でまとめて反映する
+  const flinchMultiplier = templateFlinchMultiplier.value ?? 1.0
+  const defenseMultiplier = templateDefenseMultiplier.value ?? 1.0
+
+  const nextTargetDamage = targetDamage !== undefined ? targetDamage * flinchMultiplier : undefined
+
+  const baseOverallDefenseRate = targetDamageSettings.value.overallDefenseRate ?? 1.0
+  const nextOverallDefenseRate = baseOverallDefenseRate * defenseMultiplier
+
   tableOptions.value = {
     ...tableOptions.value,
     targetDamageSettings: {
       ...targetDamageSettings.value,
       ...(hitzone !== undefined ? { hitzone } : {}),
-      ...(targetDamage !== undefined ? { targetDamage } : {}),
+      ...(nextTargetDamage !== undefined ? { targetDamage: nextTargetDamage } : {}),
+      overallDefenseRate: nextOverallDefenseRate,
     },
   }
 }
@@ -316,7 +330,68 @@ watch(
               placeholder="切/打/弾"
               class="w-28"
             />
-            <Button :disabled="!canApplyTemplate" @click="applyTemplate">適用</Button>
+          </div>
+
+          <div class="mt-3 flex flex-wrap items-center gap-4">
+            <div class="flex items-center gap-2">
+              <label class="mp-label mp-muted whitespace-nowrap">怯み:</label>
+              <InputNumber
+                v-model="templateFlinchMultiplier"
+                :min="0"
+                :step="0.01"
+                class="w-24"
+                placeholder="1.0"
+                input-class="w-full"
+                :use-grouping="false"
+                :min-fraction-digits="0"
+                :max-fraction-digits="2"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="mp-label mp-muted whitespace-nowrap">防御力:</label>
+              <InputNumber
+                v-model="templateDefenseMultiplier"
+                :min="0"
+                :step="0.01"
+                class="w-24"
+                placeholder="1.0"
+                input-class="w-full"
+                :use-grouping="false"
+                :min-fraction-digits="0"
+                :max-fraction-digits="2"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="mp-label mp-muted whitespace-nowrap">気絶:</label>
+              <InputNumber
+                v-model="templateStunMultiplier"
+                :min="0"
+                :step="0.01"
+                class="w-24"
+                placeholder="1.0"
+                input-class="w-full"
+                :use-grouping="false"
+                :min-fraction-digits="0"
+                :max-fraction-digits="2"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="mp-label mp-muted whitespace-nowrap">疲れ:</label>
+              <InputNumber
+                v-model="templateFatigueMultiplier"
+                :min="0"
+                :step="0.01"
+                class="w-24"
+                placeholder="1.0"
+                input-class="w-full"
+                :use-grouping="false"
+                :min-fraction-digits="0"
+                :max-fraction-digits="2"
+              />
+            </div>
+            <div class="flex items-center">
+              <Button :disabled="!canApplyTemplate" @click="applyTemplate">適用</Button>
+            </div>
           </div>
         </div>
 
