@@ -24,8 +24,14 @@ export interface HitZone {
   mellee: MelleeValues
   // 属性（火、水、雷、氷、龍）
   element: ElementValues
-  // 気絶
+  // 気絶（KO / Stun）
   stun: number
-  // 対応する部位耐久名の配列（複数の部位耐久に対応可能）
-  partDurabilityNames: string[]
+  // 減気（Exhaust）
+  exhaust: number
+}
+
+// 肉質バリアント（例: 通常時 / 怒り時 / 獰猛時 など）
+export interface HitZoneVariant {
+  name: string
+  hitZones: HitZone[]
 }
