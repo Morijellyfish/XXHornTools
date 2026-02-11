@@ -1,0 +1,83 @@
+/* PrimeVue Select（プルダウン）固有の見た目 */
+
+/* スクロールバーをテーマに馴染ませる */
+.p-select-overlay .p-select-list-container {
+  /* 候補が多いときだけスクロールが必要になる。最大高さは少し広めに */
+  max-height: min(60vh, 24rem);
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--mainpalette-border) transparent;
+}
+
+/* Chromium / WebKit */
+.p-select-overlay .p-select-list-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.p-select-overlay .p-select-list-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.p-select-overlay .p-select-list-container::-webkit-scrollbar-thumb {
+  background-color: var(--mainpalette-border);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* メニュー内も含めてパレットに完全一致させる */
+.p-select {
+  background: var(--mainpalette-surface-1);
+  border-color: var(--mainpalette-border);
+}
+
+.p-select:hover {
+  border-color: color-mix(in srgb, var(--mainpalette-primary) 60%, var(--mainpalette-border));
+}
+
+.p-select.p-focus {
+  border-color: var(--mainpalette-primary);
+}
+
+.p-select-label {
+  color: var(--mainpalette-text);
+}
+
+.p-select-label.p-placeholder {
+  color: var(--mainpalette-text-muted);
+}
+
+.p-select-overlay {
+  background: var(--mainpalette-surface-1);
+  border-color: var(--mainpalette-border);
+  color: var(--mainpalette-text);
+}
+
+.p-select-option {
+  color: var(--mainpalette-text-muted);
+}
+
+.p-select-option:not(.p-select-option-selected):not(.p-disabled):hover,
+.p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus {
+  background: var(--mainpalette-surface-2);
+  color: var(--mainpalette-text);
+}
+
+.p-select-option.p-select-option-selected,
+.p-select-option.p-select-option-selected.p-focus {
+  background: var(--mainpalette-primary);
+  color: var(--mainpalette-bg);
+}
+
+.p-select-option-check-icon {
+  color: var(--mainpalette-bg);
+}
+
+.p-select-option-group {
+  color: var(--mainpalette-text-muted);
+}
+
+.p-select-empty-message {
+  color: var(--mainpalette-text-muted);
+}

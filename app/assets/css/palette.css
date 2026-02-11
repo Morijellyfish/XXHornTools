@@ -1,0 +1,43 @@
+@layer base {
+  :root {
+    /*
+     * Base palette（参照用）
+     * - 実際にUIへ適用する色は、下の Role tokens（--mainpalette-bg/surface/text...）を使う
+     */
+    --mainpalette-blue-1: #f2f7f3; /* foreground（明るい本文色の参照） */
+    --mainpalette-blue-2: #6272a4; /* muted/border（補助文字・境界の参照） */
+    --mainpalette-blue-4: #3b3d4e; /* surface（暗い面/ストライプの参照） */
+    --mainpalette-blue-6: #141014; /* background（アプリ背景） */
+    --mainpalette-blue-8: #25d6d8; /* accent（シアン系アクセント参照） */
+    --mainpalette-white: #ffffff;
+
+    /*
+     * Role tokens（実際にUIが参照するトークン）
+     * - 画面上の役割に対して色を割り当てる
+     */
+    --mainpalette-bg: var(--mainpalette-blue-6); /* アプリ全体の背景 */
+    --mainpalette-surface-1: #1a121a; /* カード/パネル/入力の面 */
+    --mainpalette-surface-2: var(--mainpalette-blue-4); /* ゼブラ/hover等の面差分 */
+    --mainpalette-border: var(--mainpalette-blue-2); /* 境界線 */
+    --mainpalette-text: var(--mainpalette-blue-1); /* 本文 */
+    --mainpalette-text-muted: #c5b9df; /* 補助テキスト（読みやすさ優先で明るめ） */
+    --mainpalette-accent: var(--mainpalette-blue-8); /* サブアクセント（ミント/シアン系） */
+    --mainpalette-accent-2: #50fa7b; /* 追加アクセント（緑系） */
+    /* 主役色（ボタン/選択/強調） */
+    --mainpalette-primary: #b38cf2;
+
+    /* 入力フォーカスのリング */
+    --mainpalette-focus-ring: color-mix(in srgb, var(--mainpalette-primary) 28%, transparent);
+
+    /*
+     * Alert colors (UIの意味を持つ例外色)
+     * - 攻撃力強化旋律: 注意/強調（赤）
+     * - 鈍器使い: 注意（黄）
+     */
+    --mainpalette-alert-attack: #ff6e6e;
+    --mainpalette-alert-bludgeoner: #e6e08a;
+
+    /* AppLogo.vue が参照している変数（未定義だと色が抜けるため、テーマアクセントに紐づけ） */
+    --ui-primary: var(--mainpalette-accent);
+  }
+}

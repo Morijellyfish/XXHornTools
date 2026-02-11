@@ -1,0 +1,38 @@
+@layer components {
+  /* PrimeVue Card: 全体で薄いアウトラインを付与 */
+  .p-card {
+    /* PrimeVueテーマ側で上書きされることがあるので、アプリ側の見た目を優先 */
+    background-color: var(--mainpalette-surface-1) !important;
+    border: 1px solid var(--mainpalette-border) !important;
+  }
+
+  /* 触れる要素は少しだけ強調（やりすぎない） */
+  .p-card:hover {
+    border-color: var(--mainpalette-accent-2) !important;
+  }
+
+  /* テンプレート選択UI（PrimeVue Card）のpaddingを小さく */
+  .template-select-card .p-card-body {
+    padding: 0.75rem 1rem;
+  }
+
+  /* indexのツールカード：フッターを常に下部へ固定 */
+  .tool-card .p-card-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tool-card .p-card-content {
+    flex: 1 1 auto;
+  }
+
+  .tool-card .p-card-footer {
+    margin-top: auto;
+  }
+
+  /* Cardのbody padding を規格化したい場面用 */
+  .mp-card-body-pad .p-card-body {
+    padding: 1rem; /* 16px */
+  }
+}

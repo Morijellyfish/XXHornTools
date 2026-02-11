@@ -83,7 +83,8 @@ Twitter(自称X)（[@mori_jellyfish](https://twitter.com/mori_jellyfish)）へ�
 ### 技術スタック
 
 - **フレームワーク**: [Nuxt 4](https://nuxt.com/)
-- **UIライブラリ**: [Nuxt UI](https://ui.nuxt.com/)
+- **UIコンポーネント**: [PrimeVue](https://primevue.org/)
+- **スタイル**: Tailwind CSS（[@nuxtjs/tailwindcss](https://tailwindcss.nuxtjs.org/)）
 - **言語**: TypeScript
 - **パッケージマネージャー**: pnpm
 
@@ -146,11 +147,11 @@ pnpm typecheck
 ### プロジェクト構造
 
 ```
-XXHornList/
+XXHornTools/
 ├── app/
 │   ├── components/    # Vueコンポーネント
 │   ├── data/          # データファイル
-│   ├── pages/          # ページコンポーネント
+│   ├── pages/         # ページコンポーネント
 │   ├── types/         # TypeScript型定義
 │   └── utils/         # ユーティリティ関数
 ├── public/            # 静的ファイル

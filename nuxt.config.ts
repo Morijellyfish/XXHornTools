@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import Components from 'unplugin-vue-components/vite'
+import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
+
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui'],
+  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss'],
 
   devtools: {
     enabled: true,
@@ -12,7 +15,8 @@ export default defineNuxtConfig({
     buildAssetsDir: '/_nuxt/',
   },
 
-  css: ['~/assets/css/main.css'],
+  // Tailwind + アプリ固有CSSはmain.cssに一本化して、@nuxtjs/tailwindcss経由で読み込む
+  css: [],
 
   routeRules: {
     '/': { prerender: true },
@@ -31,6 +35,15 @@ export default defineNuxtConfig({
     },
   },
 
+  vite: {
+    plugins: [
+      Components({
+        // PrimeVueのコンポーネントをテンプレート利用時に自動import
+        resolvers: [PrimeVueResolver()],
+      }),
+    ],
+  },
+
   eslint: {
     config: {
       stylistic: {
@@ -38,5 +51,10 @@ export default defineNuxtConfig({
         braceStyle: '1tbs',
       },
     },
+  },
+
+  tailwindcss: {
+    cssPath: '~/assets/css/main.css',
+    configPath: 'tailwind.config.cjs',
   },
 })

@@ -180,93 +180,103 @@ defineExpose({
 </script>
 
 <template>
-  <UCard
+  <Card
     :class="{
       'timer-blinking': isBlinking,
       'timer-inactive': isInactive,
       'timer-active': isActive,
       'timer-flashing': isFlashing,
     }"
-    class="transition-all duration-200 cursor-pointer"
+    class="timer-card mp-card-body-pad transition-all duration-200 cursor-pointer"
     @click="handleCardClick"
   >
-    <div class="flex items-center gap-2 flex-wrap">
-      <!-- インデックスと名称 -->
-      <div class="flex items-center gap-2 shrink-0 min-w-[12rem]">
-        <div class="flex items-center gap-1 w-10 shrink-0">
-          <span class="text-sm font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap"
-            >[{{ index }}]</span
-          >
+    <template #content>
+      <div class="flex items-center gap-2 flex-wrap">
+        <!-- インデックスと名称 -->
+        <div class="flex items-center gap-2 shrink-0 min-w-[12rem]">
+          <div class="flex items-center gap-1 w-10 shrink-0">
+            <span class="mp-label mp-muted whitespace-nowrap">[{{ index }}]</span>
+          </div>
+          <div class="flex items-center gap-2 flex-1 min-w-0">
+            <InputText v-model="localName" placeholder="名称" class="w-full" />
+          </div>
         </div>
-        <div class="flex items-center gap-2 flex-1 min-w-0">
-          <UInput v-model="localName" placeholder="名称" class="w-full" />
-        </div>
-      </div>
 
-      <!-- 効果時間と延長時間 -->
-      <div class="flex items-center gap-2 shrink-0">
-        <div class="flex items-center gap-1 shrink-0">
-          <label class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap"
-            >効果時間:</label
-          >
-          <UInput v-model.number="localEffectDuration" type="number" :min="1" class="w-20" />
-        </div>
-        <div class="flex items-center gap-1 shrink-0">
-          <label class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap"
-            >延長時間:</label
-          >
-          <UInput v-model.number="localExtendDuration" type="number" :min="1" class="w-20" />
-        </div>
-      </div>
-
-      <!-- タイマー表示とリセットボタン -->
-      <div class="flex items-center gap-2 shrink-0">
+        <!-- 効果時間と延長時間 -->
         <div class="flex items-center gap-2 shrink-0">
-          <span
-            class="text-xl font-bold tabular-nums min-w-[3rem] text-right"
-            :class="{
-              'text-yellow-500 dark:text-yellow-400': isBlinking,
-            }"
-          >
-            {{ timer }}
-          </span>
-          <span class="text-sm text-gray-500 dark:text-gray-400">秒</span>
+          <div class="flex items-center gap-1 shrink-0">
+            <label class="mp-label mp-muted whitespace-nowrap">効果時間:</label>
+            <InputNumber
+              v-model="localEffectDuration"
+              :min="1"
+              :use-grouping="false"
+              :allow-empty="false"
+              input-class="w-20"
+            />
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <label class="mp-label mp-muted whitespace-nowrap">延長時間:</label>
+            <InputNumber
+              v-model="localExtendDuration"
+              :min="1"
+              :use-grouping="false"
+              :allow-empty="false"
+              input-class="w-20"
+            />
+          </div>
         </div>
-        <UButton variant="outline" size="sm" @click="handleReset"> リセット </UButton>
-      </div>
 
-      <!-- ノート表示（常に同じサイズ） -->
-      <div class="flex items-center gap-1 shrink-0 w-[5.5rem]">
-        <span
-          v-for="(note, noteIndex) in noteArray"
-          :key="noteIndex"
-          :title="note"
-          class="inline-block w-5 h-5 rounded-full border-2 flex-shrink-0"
-          :style="{
-            background: NOTE_COLORS[note],
-            borderColor: getNoteBorderColor(note),
-          }"
-        />
+        <!-- タイマー表示とリセットボタン -->
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="flex items-center gap-2 shrink-0">
+            <span
+              class="text-xl font-bold tabular-nums min-w-[3rem] text-right"
+              :class="{
+                'mp-alert-bludgeoner': isBlinking,
+              }"
+            >
+              {{ timer }}
+            </span>
+            <span class="mp-label mp-muted">秒</span>
+          </div>
+          <Button outlined size="small" @click.stop="handleReset">リセット</Button>
+        </div>
+
+        <!-- ノート表示（常に同じサイズ） -->
+        <div class="flex items-center gap-1 shrink-0 w-[5.5rem]">
+          <span
+            v-for="(note, noteIndex) in noteArray"
+            :key="noteIndex"
+            :title="note"
+            class="inline-block w-5 h-5 rounded-full border-2 flex-shrink-0"
+            :style="{
+              background: NOTE_COLORS[note],
+              borderColor: getNoteBorderColor(note),
+            }"
+          />
+        </div>
       </div>
-    </div>
-  </UCard>
+    </template>
+  </Card>
 </template>
 
 <style scoped>
-.timer-inactive {
-  background-color: var(--color-gray-200) !important;
+.timer-card {
+  /* 背景(#323339)と同化しないように、常に薄い面＋境界線を付ける */
+  background-color: var(--mainpalette-surface-1);
+  border: 1px solid var(--mainpalette-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  will-change: background-color, box-shadow, transform;
 }
 
-.dark .timer-inactive {
-  background-color: var(--color-gray-950) !important;
+.timer-inactive {
+  background-color: var(--mainpalette-surface-1);
 }
 
 .timer-active {
-  background-color: var(--color-blue-50) !important;
-}
-
-.dark .timer-active {
-  background-color: var(--color-blue-950) !important;
+  /* 発動中が一目で分かる程度の薄いアクセント */
+  background-color: color-mix(in srgb, var(--mainpalette-accent) 18%, var(--mainpalette-surface-1));
+  border-color: color-mix(in srgb, var(--mainpalette-accent) 55%, var(--mainpalette-border));
 }
 
 .timer-blinking {
@@ -276,30 +286,19 @@ defineExpose({
 @keyframes blink-timer {
   0%,
   100% {
-    background-color: var(--color-gray-50);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    background-color: var(--mainpalette-surface-1);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
   }
 
   50% {
-    background-color: rgba(255, 251, 230, 0.55);
-    box-shadow: 0 0 16px 4px rgba(255, 224, 102, 0.25);
-  }
-}
-
-.dark .timer-blinking {
-  animation: blink-timer-dark 1.2s ease-in-out infinite;
-}
-
-@keyframes blink-timer-dark {
-  0%,
-  100% {
-    background-color: var(--color-gray-900);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-  }
-
-  50% {
-    background-color: rgba(191, 166, 0, 0.33);
-    box-shadow: 0 0 16px 4px rgba(255, 224, 102, 0.13);
+    /* 暗背景でも「黄色い警告」として見えるが、眩しすぎない */
+    background-color: color-mix(
+      in srgb,
+      var(--mainpalette-alert-bludgeoner) 22%,
+      var(--mainpalette-surface-1)
+    );
+    box-shadow: 0 0 12px 3px
+      color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 30%, transparent);
   }
 }
 
@@ -310,64 +309,43 @@ defineExpose({
 
 @keyframes flash-timer {
   0% {
-    background-color: rgba(255, 251, 230, 0.9);
+    background-color: color-mix(
+      in srgb,
+      var(--mainpalette-alert-bludgeoner) 28%,
+      var(--mainpalette-surface-1)
+    );
     box-shadow:
-      0 0 20px 6px rgba(255, 224, 102, 0.45),
-      0 0 36px 10px rgba(255, 224, 102, 0.25);
+      0 0 16px 5px color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 35%, transparent),
+      0 0 28px 8px color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 22%, transparent);
     transform: scale(1.015);
   }
 
   25% {
-    background-color: rgba(255, 251, 230, 0.95);
+    background-color: color-mix(
+      in srgb,
+      var(--mainpalette-alert-bludgeoner) 34%,
+      var(--mainpalette-surface-1)
+    );
     box-shadow:
-      0 0 24px 8px rgba(255, 224, 102, 0.5),
-      0 0 40px 12px rgba(255, 224, 102, 0.3);
+      0 0 18px 6px color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 40%, transparent),
+      0 0 32px 10px color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 24%, transparent);
     transform: scale(1.02);
   }
 
   50% {
-    background-color: rgba(255, 251, 230, 0.7);
-    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.4);
+    background-color: color-mix(
+      in srgb,
+      var(--mainpalette-alert-bludgeoner) 22%,
+      var(--mainpalette-surface-1)
+    );
+    box-shadow: 0 0 16px 5px
+      color-mix(in srgb, var(--mainpalette-alert-bludgeoner) 30%, transparent);
     transform: scale(1.01);
   }
 
   100% {
-    background-color: var(--color-gray-50);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    transform: scale(1);
-  }
-}
-
-.dark .timer-flashing {
-  animation: flash-timer-dark 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes flash-timer-dark {
-  0% {
-    background-color: rgba(191, 166, 0, 0.55);
-    box-shadow:
-      0 0 20px 6px rgba(255, 224, 102, 0.22),
-      0 0 36px 10px rgba(255, 224, 102, 0.12);
-    transform: scale(1.015);
-  }
-
-  25% {
-    background-color: rgba(191, 166, 0, 0.6);
-    box-shadow:
-      0 0 24px 8px rgba(255, 224, 102, 0.25),
-      0 0 40px 12px rgba(255, 224, 102, 0.15);
-    transform: scale(1.02);
-  }
-
-  50% {
-    background-color: rgba(191, 166, 0, 0.4);
-    box-shadow: 0 0 20px 6px rgba(255, 224, 102, 0.2);
-    transform: scale(1.01);
-  }
-
-  100% {
-    background-color: var(--color-gray-900);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    background-color: var(--mainpalette-surface-1);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
     transform: scale(1);
   }
 }

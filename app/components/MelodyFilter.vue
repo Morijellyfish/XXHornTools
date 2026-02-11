@@ -96,40 +96,38 @@ const clearFilter = () => {
 </script>
 
 <template>
-  <div
-    class="mb-0 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700"
-  >
+  <div class="mb-0 mp-panel">
     <button
       type="button"
-      class="w-full p-4 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      class="w-full mp-pad-header flex items-center justify-between mp-hover-surface-2 transition-colors"
       @click="isFilterExpanded = !isFilterExpanded"
     >
       <div class="flex items-center gap-2">
-        <span class="text-sm font-medium">旋律フィルター</span>
+        <span class="mp-label mp-text">旋律フィルター</span>
         <span
           v-if="modelValue.size > 0"
-          class="px-2 py-0.5 text-xs bg-blue-500 text-white rounded-full"
+          class="px-2 py-0.5 mp-caption mp-bg-primary mp-on-primary rounded-full"
         >
           {{ modelValue.size }}件選択中
         </span>
       </div>
-      <span class="text-gray-500 dark:text-gray-400">
+      <span class="mp-muted">
         {{ isFilterExpanded ? '▼' : '▶' }}
       </span>
     </button>
-    <div v-show="isFilterExpanded" class="px-4 pb-4 space-y-4">
+    <div v-show="isFilterExpanded" class="mp-pad-body space-y-4">
       <div
         v-for="category in categoryOrder"
         :key="category"
-        class="border-b border-gray-200 dark:border-gray-700 last:border-b-0 pb-3 last:pb-0"
+        class="border-b mp-border last:border-b-0 pb-3 last:pb-0"
       >
         <button
           type="button"
-          class="w-full flex items-center justify-between mb-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+          class="w-full flex items-center justify-between mb-2 mp-label mp-text"
           @click="toggleCategory(category)"
         >
           <span>{{ category }}</span>
-          <span class="text-gray-500 dark:text-gray-400">
+          <span class="mp-muted">
             {{ expandedCategories.has(category) ? '▼' : '▶' }}
           </span>
         </button>
@@ -138,11 +136,11 @@ const clearFilter = () => {
             v-for="melodyName in melodiesByCategory[category]"
             :key="melodyName"
             type="button"
-            class="px-3 py-1 text-sm rounded border transition-colors"
+            class="px-3 py-1 mp-body rounded border transition-colors"
             :class="
               modelValue.has(melodyName)
-                ? 'bg-blue-500 text-white border-blue-600 dark:bg-blue-600 dark:border-blue-700'
-                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700'
+                ? 'mp-bg-primary mp-on-primary mp-border-primary'
+                : 'mp-surface-1 mp-muted mp-border mp-hover-surface-2 mp-hover-text'
             "
             @click="toggleMelodyFilter(melodyName)"
           >
@@ -150,14 +148,8 @@ const clearFilter = () => {
           </button>
         </div>
       </div>
-      <div v-if="modelValue.size > 0" class="mt-3 text-sm text-gray-600 dark:text-gray-400">
-        <button
-          type="button"
-          class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
-          @click="clearFilter"
-        >
-          クリア
-        </button>
+      <div v-if="modelValue.size > 0" class="mt-3 mp-body mp-muted">
+        <button type="button" class="mp-link-primary" @click="clearFilter">クリア</button>
       </div>
     </div>
   </div>

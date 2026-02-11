@@ -43,9 +43,9 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
 <template>
   <div class="mb-0 space-y-4">
     <div class="grid grid-cols-1 md:grid-cols-2">
-      <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
-        <label class="text-sm font-medium mb-2 block">事前準備:</label>
-        <div class="space-y-3">
+      <div class="border-r mp-border pr-4">
+        <label class="mp-label mp-text mb-2 block">事前準備:</label>
+        <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.powerCharm ?? false"
             label="力の護符 (A):"
@@ -127,8 +127,8 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           />
         </div>
         <div class="mt-4">
-          <label class="text-sm font-medium mb-2 block">短期バフ:</label>
-          <div class="space-y-3">
+          <label class="mp-label mp-text mb-2 block">短期バフ:</label>
+          <div class="space-y-4">
             <SelectOption
               :model-value="attackModifiers.shortTermBuff ?? 'none'"
               label="アイテム等 (D):"
@@ -164,8 +164,8 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
       </div>
 
       <div class="pl-4">
-        <label class="text-sm font-medium mb-2 block">スキル:</label>
-        <div class="space-y-3">
+        <label class="mp-label mp-text mb-2 block">スキル:</label>
+        <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.attackSkill ?? 'none'"
             label="攻撃 (F):"
@@ -260,7 +260,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             "
           />
           <div class="grid grid-cols-2">
-            <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+            <div class="border-r mp-border pr-4">
               <SelectOption
                 :model-value="attackModifiers.resuscitate ?? false"
                 label="死中に活 (M):"
@@ -294,7 +294,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             </div>
           </div>
           <div class="grid grid-cols-2">
-            <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+            <div class="border-r mp-border pr-4">
               <SelectOption
                 :model-value="options.selectedSharpness ?? 'normal'"
                 label="斬れ味:"
@@ -324,7 +324,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             </div>
           </div>
           <div class="grid grid-cols-2">
-            <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+            <div class="border-r mp-border pr-4">
               <SelectOption
                 :model-value="criticalBuffs.hasWeaknessExploit ?? false"
                 label="弱点特攻:"
@@ -375,7 +375,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             "
           />
           <div class="grid grid-cols-2">
-            <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+            <div class="border-r mp-border pr-4">
               <SelectOption
                 :model-value="criticalBuffs.hasCriticalBoost ?? false"
                 label="超会心:"
@@ -413,9 +413,9 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2">
-      <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
-        <label class="text-sm font-medium mb-2 block">旋律:</label>
-        <div class="space-y-3">
+      <div class="border-r mp-border pr-4">
+        <label class="mp-label mp-text mb-2 block">旋律:</label>
+        <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.attackMelody ?? AttackMelody.None"
             label="攻撃旋律 (H):"
@@ -456,8 +456,8 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
         </div>
       </div>
       <div class="pl-4">
-        <label class="text-sm font-medium mb-2 block">火事場系:</label>
-        <div class="space-y-3">
+        <label class="mp-label mp-text mb-2 block">火事場系:</label>
+        <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.adrenaline ?? 'none'"
             label="火事場力 (G):"
@@ -485,7 +485,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             "
           />
           <div class="grid grid-cols-2">
-            <div class="border-r border-gray-300 dark:border-gray-600 pr-4">
+            <div class="border-r mp-border pr-4">
               <SelectOption
                 :model-value="attackModifiers.fortify ?? 'none'"
                 label="不屈 (I):"

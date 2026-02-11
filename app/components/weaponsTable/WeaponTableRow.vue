@@ -5,6 +5,7 @@ import type { SharpnessType } from '~/composables/useWeaponTable'
 
 interface Props {
   weapon: T
+  requiredMotionValue?: number
   expectedValue: number
   attackWithBuffs: number
   baseAttack: number
@@ -52,38 +53,48 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
 </script>
 
 <template>
-  <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
-    <td class="p-2">{{ weapon.name }}</td>
-    <td class="p-2">{{ expectedValue }}</td>
-    <td class="p-2 text-right">
-      <div class="flex flex-col">
+  <tr class="border-b mp-border">
+    <td class="p-2">
+      <span class="mp-clamp-2">{{ weapon.name }}</span>
+    </td>
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">
+      <span v-if="requiredMotionValue !== undefined">
+        {{ requiredMotionValue.toFixed(1) }}
+      </span>
+      <span v-else class="mp-muted">-</span>
+    </td>
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ expectedValue }}</td>
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">
+      <div class="flex flex-col items-end leading-tight">
         <span>{{ attackWithBuffs }}</span>
-        <span v-if="showBaseAttack" class="text-xs text-gray-400"> ({{ baseAttack }}) </span>
+        <span v-if="showBaseAttack" class="text-xs mp-muted">({{ baseAttack }})</span>
       </div>
     </td>
-    <td class="p-2">{{ weapon.defense }}</td>
-    <td class="p-2">
-      <div class="flex gap-0">
-        <span v-for="i in 3" :key="i" class="flex-1 text-center">
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ weapon.defense }}</td>
+    <td class="p-2 whitespace-nowrap">
+      <div class="inline-flex items-center">
+        <span v-for="i in 3" :key="i" class="w-5 text-center">
           {{ getSlotValue(weapon.slots, i - 1) }}
         </span>
       </div>
     </td>
-    <td class="p-2 text-right">
-      <div class="flex flex-col">
+    <td class="p-2 text-right tabular-nums whitespace-nowrap">
+      <div class="flex flex-col items-end leading-tight">
         <span
           :class="{
-            'text-red-500': affinity > 100,
+            'mp-alert-attack': affinity > 100,
           }"
         >
           {{ formatAffinity(affinity) }}
         </span>
-        <span v-if="showBaseAffinity" class="text-xs text-gray-400">
+        <span v-if="showBaseAffinity" class="text-xs mp-muted">
           ({{ formatAffinity(baseAffinity) }})
         </span>
       </div>
     </td>
-    <td class="p-2">{{ formatElementOrStatus(weapon) }}</td>
+    <td class="p-2">
+      <span class="whitespace-nowrap">{{ formatElementOrStatus(weapon) }}</span>
+    </td>
     <!-- 拡張用スロット -->
     <slot name="additional-columns" :weapon="weapon" />
     <td class="p-2">
@@ -95,20 +106,20 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
           <span
             class="text-xs w-7"
             :class="{
-              'text-yellow-500': bludgeoner && isGreenOrBelow(weapon.sharpness.normal.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.normal.color),
             }"
           >
             通常:
           </span>
           <span
-            class="inline-block w-4 h-4 border border-gray-600"
+            class="inline-block w-4 h-4 border mp-border"
             :style="{ background: getSharpnessColor(weapon.sharpness.normal.color) }"
             :title="String(weapon.sharpness.normal.length)"
           />
           <div
             class="text-xs font-mono w-5 text-right"
             :class="{
-              'text-yellow-500': bludgeoner && isGreenOrBelow(weapon.sharpness.normal.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.normal.color),
             }"
           >
             {{ weapon.sharpness.normal.length }}
@@ -122,20 +133,20 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
           <span
             class="text-xs w-7"
             :class="{
-              'text-yellow-500': bludgeoner && isGreenOrBelow(weapon.sharpness.plus1.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.plus1.color),
             }"
           >
             匠1:
           </span>
           <span
-            class="inline-block w-4 h-4 border border-gray-600"
+            class="inline-block w-4 h-4 border mp-border"
             :style="{ background: getSharpnessColor(weapon.sharpness.plus1.color) }"
             :title="String(weapon.sharpness.plus1.length)"
           />
           <div
             class="text-xs font-mono w-5 text-right"
             :class="{
-              'text-yellow-500': bludgeoner && isGreenOrBelow(weapon.sharpness.plus1.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.plus1.color),
             }"
           >
             {{ weapon.sharpness.plus1.length }}
@@ -149,20 +160,20 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
           <span
             class="text-xs w-7"
             :class="{
-              'text-yellow-500': bludgeoner && isGreenOrBelow(weapon.sharpness.plus2.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.plus2.color),
             }"
           >
             匠2:
           </span>
           <span
-            class="inline-block w-4 h-4 border border-gray-600"
+            class="inline-block w-4 h-4 border mp-border"
             :style="{ background: getSharpnessColor(weapon.sharpness.plus2.color) }"
             :title="String(weapon.sharpness.plus2.length)"
           />
           <div
             class="text-xs font-mono w-5 text-right"
             :class="{
-              'text-yellow-500': bludgeoner && isGreenOrBelow(weapon.sharpness.plus2.color),
+              'mp-alert-bludgeoner': bludgeoner && isGreenOrBelow(weapon.sharpness.plus2.color),
             }"
           >
             {{ weapon.sharpness.plus2.length }}

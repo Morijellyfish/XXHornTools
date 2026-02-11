@@ -3,16 +3,12 @@ useHead({
   title: 'トップ - 狩りピTools',
 })
 
-type ButtonColor = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'neutral'
-
 interface Tool {
   id: string
   title: string
   description: string
-  icon: string
   to: string
   status: 'available' | 'coming-soon'
-  color?: ButtonColor
 }
 
 interface ReferenceSite {
@@ -26,27 +22,22 @@ const tools: Tool[] = [
     title: '狩猟笛比較表',
     description:
       'モンスターハンターXXの狩猟笛のステータスを比較し、様々なバフやスキルを組み合わせた際の期待値を計算できます。',
-    icon: 'i-lucide-music',
     to: '/huntingHorns',
     status: 'available',
-    color: 'primary',
   },
   {
     id: 'melody-timer',
     title: '旋律タイマー',
     description:
       '狩猟笛のバフ管理に特化したタイマー。各旋律ごとにタイマーを設定し、キーボード入力で簡単に管理できます。',
-    icon: 'i-lucide-timer',
     to: '/melodyTimer',
     status: 'available',
-    color: 'success',
   },
   // 将来的に他のツールを追加する場合は、ここに追加
   // {
   //   id: 'weapon-comparison',
   //   title: '武器比較表',
   //   description: '他の武器種の比較表',
-  //   icon: 'i-lucide-sword',
   //   to: '/weapons',
   //   status: 'coming-soon',
   // },
@@ -65,126 +56,100 @@ const referenceSites: ReferenceSite[] = [
 </script>
 
 <template>
-  <div>
-    <UPageHero
-      title="狩りピTools"
-      description="モンスターハンターXXのプレイをサポートする各種ツール集"
-    />
+  <div class="px-4 sm:px-6 lg:px-8">
+    <section class="mx-auto max-w-6xl py-10 sm:py-14">
+      <h1 class="mp-page-title mp-text">狩りピTools</h1>
+      <p class="mt-3 mp-lead mp-muted">モンスターハンターXXのプレイをサポートする各種ツール集</p>
+    </section>
 
-    <UPageSection
-      id="tools"
-      title="利用可能なツール"
-      description="モンスターハンターXXのプレイに役立つツールを提供しています。"
-    >
+    <section id="tools" class="mx-auto max-w-6xl py-8 sm:py-10">
+      <div class="mb-6">
+        <h2 class="mp-section-title mp-text">利用可能なツール</h2>
+        <p class="mt-2 mp-body mp-muted">
+          モンスターハンターXXのプレイに役立つツールを提供しています。
+        </p>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <UCard
+        <Card
           v-for="tool in tools"
           :key="tool.id"
-          :to="tool.status === 'available' ? tool.to : undefined"
-          class="hover:shadow-lg transition-all duration-200 p-6"
+          class="tool-card h-full transition-shadow"
           :class="{
-            'cursor-pointer': tool.status === 'available',
+            'hover:shadow-lg cursor-pointer': tool.status === 'available',
             'opacity-75': tool.status === 'coming-soon',
-            'ring-2 ring-primary-500 dark:ring-primary-400': tool.status === 'available',
           }"
+          @click="tool.status === 'available' && navigateTo(tool.to)"
         >
-          <template #header>
-            <div class="flex items-center gap-3">
-              <div
-                class="p-2 rounded-lg"
-                :class="
-                  tool.status === 'available'
-                    ? 'bg-primary-100 dark:bg-primary-900/30'
-                    : 'bg-gray-100 dark:bg-gray-800'
-                "
+          <template #title>
+            <div class="flex items-center justify-between gap-3">
+              <span class="mp-text">{{ tool.title }}</span>
+              <span
+                v-if="tool.status === 'coming-soon'"
+                class="mp-caption px-2 py-1 rounded-full mp-surface-2 mp-text"
               >
-                <UIcon
-                  :name="tool.icon"
-                  class="w-6 h-6"
-                  :class="
-                    tool.status === 'available' ? 'text-primary-600 dark:text-primary-400' : ''
-                  "
-                />
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold">{{ tool.title }}</h3>
-                <UBadge
-                  v-if="tool.status === 'coming-soon'"
-                  color="neutral"
-                  variant="subtle"
-                  size="xs"
-                  class="mt-1"
-                >
-                  準備中
-                </UBadge>
-              </div>
+                準備中
+              </span>
             </div>
           </template>
 
-          <p class="text-gray-600 dark:text-gray-400 mt-2">{{ tool.description }}</p>
+          <template #content>
+            <p class="mp-body mp-muted leading-relaxed">
+              {{ tool.description }}
+            </p>
+          </template>
 
           <template v-if="tool.status === 'available'" #footer>
-            <div class="flex items-center justify-between">
-              <UButton
-                :to="tool.to"
-                :color="tool.color || 'primary'"
-                variant="ghost"
-                trailing-icon="i-lucide-arrow-right"
-                size="sm"
-              >
-                ツールを開く
-              </UButton>
+            <div class="mp-footer-divider flex justify-end">
+              <span class="mp-caption font-medium tracking-wide mp-accent">ツールを開く</span>
             </div>
           </template>
-        </UCard>
+        </Card>
       </div>
-    </UPageSection>
+    </section>
 
-    <UPageSection>
-      <UPageCTA
-        title="狩猟笛をより楽しむために"
-        description="狩りピToolsは、モンスターハンターXXの狩猟笛をサポートするためのツール集です。いくつかのツールを追加予定です。"
-        variant="subtle"
-      />
-    </UPageSection>
+    <section class="mx-auto max-w-6xl py-8 sm:py-10">
+      <div class="mp-panel mp-pad-loose">
+        <h2 class="mp-section-title mp-text">狩猟笛をより楽しむために</h2>
+        <p class="mt-2 mp-body mp-muted leading-relaxed">
+          狩りピToolsは、モンスターハンターXXの狩猟笛をサポートするためのツール集です。いくつかのツールを追加予定です。
+        </p>
+      </div>
+    </section>
 
-    <UPageSection
-      id="references"
-      title="参考にさせていただいたサイト"
-      description="以下のサイトを参考にさせていただきました。ありがとうございます。"
-    >
+    <section id="references" class="mx-auto max-w-6xl py-8 sm:py-10">
+      <div class="mb-6">
+        <h2 class="mp-section-title mp-text">参考にさせていただいたサイト</h2>
+        <p class="mt-2 mp-body mp-muted">
+          以下のサイトを参考にさせていただきました。ありがとうございます。
+        </p>
+      </div>
+
       <div class="space-y-3">
-        <UCard
+        <a
           v-for="(site, index) in referenceSites"
           :key="index"
-          class="hover:shadow-md transition-all duration-200"
+          :href="site.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block"
+          :aria-label="`${site.name} を開く`"
+          :title="site.url"
         >
-          <div class="flex items-start gap-4">
-            <UIcon
-              name="i-lucide-external-link"
-              class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0"
-            />
-            <div class="flex-1">
-              <a
-                :href="site.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-lg font-semibold text-primary-600 dark:text-primary-400 hover:underline"
-              >
-                {{ site.name }}
-              </a>
-              <a
-                :href="site.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-xs text-gray-500 dark:text-gray-500 mt-1 block break-all"
-              >
-                {{ site.url }}
-              </a>
-            </div>
-          </div>
-        </UCard>
+          <Card class="transition-shadow hover:shadow-md cursor-pointer">
+            <template #content>
+              <div class="flex-1">
+                <div class="font-semibold mp-text hover:underline">
+                  {{ site.name }}
+                </div>
+                <div class="mp-caption mp-muted mt-1 block break-all">
+                  {{ site.url }}
+                </div>
+              </div>
+            </template>
+          </Card>
+        </a>
       </div>
-    </UPageSection>
+    </section>
   </div>
 </template>

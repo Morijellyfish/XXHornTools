@@ -37,6 +37,7 @@ const props = withDefaults(defineProps<Props>(), {
     :attack-modifiers="props.attackModifiers"
     :sharpness-multiplier="props.sharpnessMultiplier"
     :critical-melody="props.criticalBuffs?.criticalMelody"
+    :target-damage-settings="props.targetDamageSettings"
   >
     <template #header-columns>
       <th class="text-left p-2">音色</th>
@@ -60,23 +61,25 @@ const props = withDefaults(defineProps<Props>(), {
       </td>
       <!-- 旋律カラム -->
       <td class="p-2">
-        <div class="flex flex-col gap-1 text-sm">
+        <div class="flex flex-col gap-1 mp-body">
           <span
             v-for="(name, index) in horn.notes.getMelodyNames()"
             :key="index"
             :class="{
-              'text-red-500':
+              'mp-alert-attack':
                 ((props.attackModifiers?.attackMelody ?? AttackMelody.None) ===
                   AttackMelody.HornDependent &&
                   (name === '攻撃力強化【小】' || name === '攻撃力強化【大】')) ||
                 ((props.criticalBuffs?.criticalMelody ?? CriticalMelody.None) ===
                   CriticalMelody.HornDependent &&
                   name === '会心率UP&体力回復【小】'),
-              'bg-blue-200 dark:bg-blue-900 px-1 rounded':
-                props.selectedMelodyNames && props.selectedMelodyNames.has(name),
-              'bg-yellow-300 dark:bg-yellow-700 px-1 rounded cursor-pointer hover:bg-yellow-400 dark:hover:bg-yellow-600':
+              'mp-chip-primary':
+                props.selectedMelodyNames &&
+                props.selectedMelodyNames.has(name) &&
+                !(props.highlightedMelodyNames && props.highlightedMelodyNames.has(name)),
+              'mp-chip-accent cursor-pointer hover:opacity-90':
                 props.highlightedMelodyNames && props.highlightedMelodyNames.has(name),
-              'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-1 rounded':
+              'cursor-pointer mp-hover-surface-2 px-1 rounded':
                 props.onMelodyClick &&
                 !(props.highlightedMelodyNames && props.highlightedMelodyNames.has(name)),
             }"

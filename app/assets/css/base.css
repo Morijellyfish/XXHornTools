@@ -1,0 +1,13 @@
+@layer base {
+  :root {
+    --font-sans:
+      'Noto Sans JP', system-ui, -apple-system, 'Segoe UI', roboto, 'Helvetica Neue', arial,
+      'Noto Sans', 'Liberation Sans', sans-serif;
+  }
+
+  body {
+    background-color: var(--mainpalette-bg);
+    color: var(--mainpalette-text);
+    font-family: var(--font-sans);
+  }
+}

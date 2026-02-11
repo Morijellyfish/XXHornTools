@@ -1,0 +1,14 @@
+/* PrimeVue Button */
+
+.p-button {
+  font-weight: 600;
+}
+
+.p-button:not(.p-button-outlined):not(.p-button-text):not(.p-button-link) {
+  color: var(--mainpalette-bg);
+}
+
+.p-button:not(.p-button-outlined):not(.p-button-text):not(.p-button-link) .p-button-label,
+.p-button:not(.p-button-outlined):not(.p-button-text):not(.p-button-link) .p-button-icon {
+  color: inherit;
+}
