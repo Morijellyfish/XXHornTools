@@ -49,7 +49,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
         <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.powerCharm ?? false"
-            label="力の護符 (A):"
+            label="力の護符:"
             :options="[
               { value: false, label: '無' },
               { value: true, label: '有 | +6' },
@@ -63,7 +63,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           />
           <SelectOption
             :model-value="attackModifiers.powerTalon ?? false"
-            label="力の爪 (B):"
+            label="力の爪:"
             :options="[
               { value: false, label: '無' },
               { value: true, label: '有 | +9' },
@@ -77,7 +77,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           />
           <SelectOption
             :model-value="attackModifiers.demonDrugBuff ?? 'none'"
-            label="鬼人薬 (C):"
+            label="鬼人薬:"
             :rows="[
               [
                 { value: 'none', label: '無' },
@@ -97,7 +97,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           />
           <SelectOption
             :model-value="attackModifiers.mealAttackBuff ?? 'none'"
-            label="食事効果 (P):"
+            label="食事効果:"
             :rows="[
               [
                 { value: 'none', label: '無' },
@@ -124,7 +124,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           />
           <SelectOption
             :model-value="attackModifiers.shortHypnosis ?? false"
-            label="短期催眠術 (E):"
+            label="短期催眠術:"
             :options="[
               { value: false, label: '無' },
               { value: true, label: '有 | +3' },
@@ -142,7 +142,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           <div class="space-y-4">
             <SelectOption
               :model-value="attackModifiers.shortTermBuff ?? 'none'"
-              label="アイテム等 (D):"
+              label="アイテム等:"
               wrap
               :rows="[
                 [
@@ -179,7 +179,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
         <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.attackSkill ?? 'none'"
-            label="攻撃 (F):"
+            label="攻撃:"
             :rows="[
               [
                 { value: 'none', label: '無' },
@@ -211,7 +211,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           />
           <SelectOption
             :model-value="attackModifiers.challengeSkill ?? 'none'"
-            label="挑戦者・フルチャージ・力の解放 (J):"
+            label="挑戦者・フルチャージ・力の解放:"
             wrap
             :rows="[
               [
@@ -249,7 +249,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
           />
           <SelectOption
             :model-value="attackModifiers.hunterSkill ?? 'none'"
-            label="北風/南風 (K):"
+            label="北風/南風:"
             wrap
             :options="[
               { value: 'none', label: '無' },
@@ -274,7 +274,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             <div class="border-r mp-border pr-4">
               <SelectOption
                 :model-value="attackModifiers.resuscitate ?? false"
-                label="死中に活 (M):"
+                label="死中に活:"
                 :options="[
                   { value: false, label: '無' },
                   { value: true, label: '有 | +20' },
@@ -290,7 +290,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             <div class="pl-4">
               <SelectOption
                 :model-value="attackModifiers.resentment ?? false"
-                label="逆恨み (N):"
+                label="逆恨み:"
                 :options="[
                   { value: false, label: '無' },
                   { value: true, label: '有 | +20' },
@@ -320,7 +320,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             <div class="pl-4">
               <SelectOption
                 :model-value="attackModifiers.bludgeoner ?? false"
-                label="鈍器使い (L):"
+                label="鈍器使い:"
                 :options="[
                   { value: false, label: '無' },
                   { value: true, label: '有' },
@@ -429,7 +429,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
         <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.attackMelody ?? AttackMelody.None"
-            label="攻撃旋律 (H):"
+            label="攻撃旋律:"
             :options="[
               { value: AttackMelody.None, label: '無' },
               { value: AttackMelody.Multiplier1_10, label: 'x1.10' },
@@ -471,7 +471,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
         <div class="space-y-4">
           <SelectOption
             :model-value="attackModifiers.adrenaline ?? 'none'"
-            label="火事場力 (G):"
+            label="火事場力:"
             wrap
             :options="[
               { value: 'none', label: '無' },
@@ -499,7 +499,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             <div class="border-r mp-border pr-4">
               <SelectOption
                 :model-value="attackModifiers.fortify ?? 'none'"
-                label="不屈 (I):"
+                label="不屈:"
                 :options="[
                   { value: 'none', label: '無' },
                   { value: 'fortify1', label: `1乙 | x${getFortifyMultiplier('fortify1')}` },
@@ -516,7 +516,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             <div class="pl-4">
               <SelectOption
                 :model-value="attackModifiers.dragonInstinct ?? false"
-                label="龍気活性 (O):"
+                label="龍気活性:"
                 :options="[
                   { value: false, label: '無' },
                   { value: true, label: '有 | x1.1' },
