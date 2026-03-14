@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/huntingHorns': { prerender: true },
     '/longSwords': { prerender: true },
+    '/lances': { prerender: true },
     '/melodyTimer': { prerender: true },
   },
 
@@ -30,7 +31,7 @@ export default defineNuxtConfig({
   // 静的サイト生成（SSG）の設定
   nitro: {
     prerender: {
-      routes: ['/', '/huntingHorns', '/longSwords', '/melodyTimer'],
+      routes: ['/', '/huntingHorns', '/longSwords', '/lances', '/melodyTimer'],
       crawlLinks: true,
     },
   },
