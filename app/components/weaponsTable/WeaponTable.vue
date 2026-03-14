@@ -33,12 +33,12 @@ const {
   sortedWeapons,
   toggleSort,
   getSortIcon,
-  calculateAffinity,
+  getAffinity,
   getExpectedValue,
   getPhysicalExpectedValue,
   getElementExpectedValue,
-  getAttackWithBuffs,
-  getElementWithBuffs,
+  getAttack,
+  getElement,
   getRequiredMotionValue,
   getRequiredMotionValueElementInfo,
   getElementDamage,
@@ -150,12 +150,12 @@ const {
             :physical-expected-value="getPhysicalExpectedValue(weapon)"
             :element-expected-value="getElementExpectedValue(weapon)"
             :element-damage="getElementDamage(weapon)"
-            :attack-with-buffs="getAttackWithBuffs(weapon)"
+            :attack-with-buffs="getAttack(weapon)"
             :base-attack="weapon.attack"
             :show-base-attack="isShowBaseAttack(weapon)"
-            :element-with-buffs="getElementWithBuffs(weapon)"
+            :element-with-buffs="getElement(weapon)"
             :show-base-element="isShowBaseElement(weapon)"
-            :affinity="calculateAffinity(weapon)"
+            :affinity="getAffinity(weapon)"
             :base-affinity="weapon.affinity"
             :show-base-affinity="isShowBaseAffinity(weapon)"
             :selected-sharpness="props.selectedSharpness"
