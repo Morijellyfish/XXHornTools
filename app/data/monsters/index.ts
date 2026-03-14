@@ -1,6 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
 
 // モンスターの統合データをここにインポート
+import { arzuros } from './arzuros'
 import { astalos } from './astalos'
 import { chameleos } from './chameleos'
 import { glavenus } from './glavenus'
@@ -13,6 +14,7 @@ import { valstrax } from './valstrax'
 
 // すべてのモンスターの統合データを統合
 export const allMonsters: Monster[] = [
+  arzuros,
   astalos,
   chameleos,
   glavenus,
