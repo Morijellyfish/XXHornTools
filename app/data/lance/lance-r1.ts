@@ -9,9 +9,9 @@ export const lancesR1: Lance[] = [
     slots: 0,
     affinity: -70,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Yellow, length: 20 },
+      plus1: { color: SharpnessColor.Yellow, length: 45 },
+      plus2: { color: SharpnessColor.Green, length: 20 },
     },
   },
   {
@@ -21,9 +21,9 @@ export const lancesR1: Lance[] = [
     slots: 3,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.White, length: 90 },
     },
   },
   {
@@ -33,9 +33,9 @@ export const lancesR1: Lance[] = [
     slots: 2,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.White, length: 55 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
     },
   },
   {
@@ -45,9 +45,9 @@ export const lancesR1: Lance[] = [
     slots: 1,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.White, length: 45 },
+      plus2: { color: SharpnessColor.White, length: 70 },
     },
   },
   {
@@ -57,9 +57,9 @@ export const lancesR1: Lance[] = [
     slots: 2,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Blue, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.White, length: 40 },
     },
   },
   {
@@ -69,9 +69,9 @@ export const lancesR1: Lance[] = [
     slots: 2,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 35 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
     },
   },
   {
@@ -81,9 +81,9 @@ export const lancesR1: Lance[] = [
     slots: 0,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Blue, length: 20 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.White, length: 40 },
     },
   },
   {
@@ -93,9 +93,9 @@ export const lancesR1: Lance[] = [
     slots: 0,
     affinity: -15,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
     },
   },
   {
@@ -105,9 +105,9 @@ export const lancesR1: Lance[] = [
     slots: 2,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Green, length: 180 },
+      plus1: { color: SharpnessColor.Blue, length: 25 },
+      plus2: { color: SharpnessColor.White, length: 20 },
     },
   },
   {
@@ -117,9 +117,9 @@ export const lancesR1: Lance[] = [
     slots: 0,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Blue, length: 50 },
+      plus1: { color: SharpnessColor.White, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -129,9 +129,9 @@ export const lancesR1: Lance[] = [
     slots: 0,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Blue, length: 60 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.White, length: 40 },
     },
   },
 ]

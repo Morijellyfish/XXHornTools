@@ -10,9 +10,9 @@ export const lancesR9: Lance[] = [
     affinity: 15,
     element: { type: '龍', value: 30 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Purple, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 30 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
     },
   },
 ]

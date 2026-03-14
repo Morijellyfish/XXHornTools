@@ -10,9 +10,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     statusAilment: { type: '毒', value: 48 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Purple, length: 20 },
+      plus1: { color: SharpnessColor.Purple, length: 20 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -23,9 +23,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     element: { type: '水', value: 42 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Purple, length: 20 },
+      plus1: { color: SharpnessColor.Purple, length: 20 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -36,9 +36,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     statusAilment: { type: '睡眠', value: 27 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 60 },
+      plus1: { color: SharpnessColor.White, length: 85 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -49,9 +49,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     statusAilment: { type: '麻痺', value: 36 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 35 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -62,9 +62,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     statusAilment: { type: '麻痺', value: 26 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Purple, length: 20 },
+      plus1: { color: SharpnessColor.Purple, length: 20 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -75,9 +75,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     element: { type: '火', value: 12 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Purple, length: 40 },
+      plus1: { color: SharpnessColor.Purple, length: 40 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
     },
   },
   {
@@ -87,9 +87,9 @@ export const lancesR2: Lance[] = [
     slots: 2,
     affinity: 40,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Purple, length: 20 },
+      plus1: { color: SharpnessColor.Purple, length: 20 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -100,9 +100,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     statusAilment: { type: '麻痺', value: 32 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Green, length: 160 },
+      plus1: { color: SharpnessColor.Blue, length: 25 },
+      plus2: { color: SharpnessColor.White, length: 20 },
     },
   },
   {
@@ -112,9 +112,9 @@ export const lancesR2: Lance[] = [
     slots: 3,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 50 },
+      plus1: { color: SharpnessColor.Purple, length: 25 },
+      plus2: { color: SharpnessColor.Purple, length: 50 },
     },
   },
   {
@@ -125,9 +125,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     statusAilment: { type: '睡眠', value: 24 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
     },
   },
   {
@@ -138,9 +138,9 @@ export const lancesR2: Lance[] = [
     affinity: -10,
     statusAilment: { type: '麻痺', value: 18 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 35 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -151,9 +151,9 @@ export const lancesR2: Lance[] = [
     affinity: 15,
     statusAilment: { type: '毒', value: 46 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.White, length: 45 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -164,9 +164,9 @@ export const lancesR2: Lance[] = [
     affinity: 15,
     element: { type: '雷', value: 18 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.Purple, length: 15 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
     },
   },
   {
@@ -177,9 +177,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     element: { type: '水', value: 35 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
     },
   },
   {
@@ -190,9 +190,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     element: { type: '氷', value: 15 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.White, length: 90 },
     },
   },
   {
@@ -202,9 +202,9 @@ export const lancesR2: Lance[] = [
     slots: 3,
     affinity: 10,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Blue, length: 90 },
+      plus1: { color: SharpnessColor.White, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -215,9 +215,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     statusAilment: { type: '爆破', value: 18 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Blue, length: 70 },
+      plus1: { color: SharpnessColor.White, length: 25 },
+      plus2: { color: SharpnessColor.White, length: 50 },
     },
   },
   {
@@ -227,9 +227,9 @@ export const lancesR2: Lance[] = [
     slots: 2,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -239,9 +239,9 @@ export const lancesR2: Lance[] = [
     slots: 1,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 60 },
+      plus1: { color: SharpnessColor.White, length: 85 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
     },
   },
   {
@@ -252,9 +252,9 @@ export const lancesR2: Lance[] = [
     affinity: 0,
     element: { type: '水', value: 18 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.Purple, length: 15 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
     },
   },
 ]

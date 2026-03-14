@@ -10,9 +10,9 @@ export const lancesR8: Lance[] = [
     affinity: 0,
     statusAilment: { type: '麻痺', value: 7 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Purple, length: 40 },
+      plus1: { color: SharpnessColor.Purple, length: 40 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
     },
   },
   {
@@ -23,9 +23,9 @@ export const lancesR8: Lance[] = [
     affinity: 0,
     statusAilment: { type: '睡眠', value: 16 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Purple, length: 40 },
+      plus1: { color: SharpnessColor.Purple, length: 40 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
     },
   },
   {
@@ -36,9 +36,9 @@ export const lancesR8: Lance[] = [
     affinity: 0,
     statusAilment: { type: '睡眠', value: 22 },
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Blue, length: 70 },
+      plus1: { color: SharpnessColor.White, length: 25 },
+      plus2: { color: SharpnessColor.White, length: 50 },
     },
   },
   {
@@ -48,9 +48,9 @@ export const lancesR8: Lance[] = [
     slots: 0,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.White, length: 70 },
+      plus1: { color: SharpnessColor.White, length: 70 },
+      plus2: { color: SharpnessColor.White, length: 70 },
     },
   },
   {
@@ -60,9 +60,9 @@ export const lancesR8: Lance[] = [
     slots: 3,
     affinity: 0,
     sharpness: {
-      normal: { color: SharpnessColor.Red, length: 10 },
-      plus1: { color: SharpnessColor.Red, length: 10 },
-      plus2: { color: SharpnessColor.Red, length: 10 },
+      normal: { color: SharpnessColor.Green, length: 160 },
+      plus1: { color: SharpnessColor.Blue, length: 25 },
+      plus2: { color: SharpnessColor.White, length: 20 },
     },
   },
 ]
