@@ -4,6 +4,7 @@ import type { TableBaseOption } from '~/types/tableBaseOption'
 import { isColumnVisible } from '~/types/tableBaseOption'
 import { CriticalMelody } from '~/types/criticalBuff'
 import { AttackMelody } from '~/types/attackBuff'
+import { ElementMelody } from '~/types/elementBuff'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import WeaponTable from './WeaponTable.vue'
 
@@ -25,6 +26,9 @@ const props = withDefaults(defineProps<Props>(), {
     powerTalon: false,
     attackSkill: 'none',
     attackMelody: AttackMelody.None,
+  }),
+  elementModifiers: () => ({
+    elementMelody: ElementMelody.None,
   }),
   sharpnessMultiplier: 1.0,
 })
@@ -74,7 +78,10 @@ const props = withDefaults(defineProps<Props>(), {
                   (name === '攻撃力強化【小】' || name === '攻撃力強化【大】')) ||
                 ((props.criticalBuffs?.criticalMelody ?? CriticalMelody.None) ===
                   CriticalMelody.HornDependent &&
-                  name === '会心率UP&体力回復【小】'),
+                  name === '会心率UP&体力回復【小】') ||
+                ((props.elementModifiers?.elementMelody ?? ElementMelody.None) ===
+                  ElementMelody.HornDependent &&
+                  name === '属性攻撃力強化'),
               'mp-chip-primary':
                 props.selectedMelodyNames &&
                 props.selectedMelodyNames.has(name) &&
