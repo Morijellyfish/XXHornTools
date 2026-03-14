@@ -22,11 +22,6 @@ export class elementBuff {
     this.group = group
   }
 
-  /**
-   * 属性値に補正を適用
-   * @param elementValue 補正前の属性値
-   * @returns 補正後の属性値（切り捨て）
-   */
   apply(elementValue: number): number {
     if (this.type === 'element_multiplier') {
       return Math.round(elementValue * this.value)

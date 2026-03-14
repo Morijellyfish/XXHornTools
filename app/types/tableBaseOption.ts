@@ -37,6 +37,7 @@ import {
 } from './criticalBuff'
 import type { TargetDamageSettings } from './targetDamage'
 import type { ElementBuffs } from './elementBuff'
+import { ElementMelody } from './elementBuff'
 
 /** 切れ味の種類 */
 export type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -256,6 +257,18 @@ export function getActiveSkills(options: TableBaseOption): string[] {
   // 裏会心
   if (buffs?.hasMadAffinity) {
     skills.push('裏会心')
+  }
+
+  // 属性旋律（固定値のみ、笛依存は武器依存のため除外）
+  const elementMelody = options.elementModifiers?.elementMelody ?? ElementMelody.None
+  if (elementMelody !== ElementMelody.None && elementMelody !== ElementMelody.HornDependent) {
+    const melodyNames: Record<ElementMelody, string> = {
+      [ElementMelody.None]: '',
+      [ElementMelody.Bonus8]: '属性旋律(+8%)',
+      [ElementMelody.Bonus10]: '属性旋律(+10%)',
+      [ElementMelody.HornDependent]: '',
+    }
+    skills.push(melodyNames[elementMelody])
   }
 
   // 斬れ味レベル

@@ -4,6 +4,7 @@ import type { WeaponMelee } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { isColumnVisible } from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/attackBuff'
+import { ElementMelody } from '~/types/elementBuff'
 import { useWeaponTable } from '~/composables/useWeaponTable'
 import WeaponTableRow from './WeaponTableRow.vue'
 
@@ -23,6 +24,9 @@ const props = withDefaults(defineProps<Props>(), {
     attackSkill: 'none',
     attackMelody: AttackMelody.None,
   }),
+  elementModifiers: () => ({
+    elementMelody: ElementMelody.None,
+  }),
   sharpnessMultiplier: 1.0,
 })
 
@@ -37,12 +41,14 @@ const {
   getPhysicalExpectedValue,
   getElementExpectedValue,
   getAttackWithBuffs,
+  getElementWithBuffs,
   getRequiredMotionValue,
   getRequiredMotionValueElementInfo,
   getElementDamage,
   getAttackCount,
   isShowBaseAttack,
   isShowBaseAffinity,
+  isShowBaseElement,
 } = useWeaponTable(props)
 </script>
 
@@ -150,6 +156,8 @@ const {
             :attack-with-buffs="getAttackWithBuffs(weapon)"
             :base-attack="weapon.attack"
             :show-base-attack="isShowBaseAttack(weapon)"
+            :element-with-buffs="getElementWithBuffs(weapon)"
+            :show-base-element="isShowBaseElement(weapon)"
             :affinity="calculateAffinity(weapon)"
             :base-affinity="weapon.affinity"
             :show-base-affinity="isShowBaseAffinity(weapon)"

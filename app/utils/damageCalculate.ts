@@ -103,18 +103,21 @@ export const calculateExpectedValue = (
 
 /**
  * 属性期待値を計算（属性値 × 斬れ味によるダメージ補正（属性用））
- * 属性会心は未実装のため考慮しない
  * @param weapon 武器データ
  * @param selectedSharpness 選択された切れ味（通常、匠1、匠2）
  * @param sharpnessMultiplier 切れ味補正倍率
+ * @param baseElementValue 属性値（属性旋律の倍率適用済み）
  * @returns 属性期待値。属性なしの場合は 0
  */
 export const calculateElementExpectedValue = (
   weapon: WeaponMelee,
   selectedSharpness: SharpnessType,
-  sharpnessMultiplier: number
+  sharpnessMultiplier: number,
+  baseElementValue?: number
 ): number => {
-  if (!weapon.element || weapon.element.type === '無') {
+  const elementValue =
+    baseElementValue ?? (weapon.element && weapon.element.type !== '無' ? weapon.element.value : 0)
+  if (elementValue <= 0) {
     return 0
   }
 
@@ -129,5 +132,5 @@ export const calculateElementExpectedValue = (
 
   const elementalMultiplier =
     SHARPNESS_MULTIPLIERS[selectedSharpnessData.color].elemental * sharpnessMultiplier
-  return Math.round(weapon.element.value * elementalMultiplier)
+  return Math.round(elementValue * elementalMultiplier)
 }

@@ -37,6 +37,7 @@ const sharpnessMultiplier = computed(() => {
       :selected-sharpness="tableOptions.selectedSharpness"
       :critical-buffs="criticalBuffs"
       :attack-modifiers="tableOptions.attackModifiers"
+      :element-modifiers="tableOptions.elementModifiers"
       :sharpness-multiplier="sharpnessMultiplier"
       :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
       :target-damage-settings="tableOptions.targetDamageSettings"

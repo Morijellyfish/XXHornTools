@@ -5,8 +5,10 @@ import type { TableBaseOption, SharpnessType } from '~/types/tableBaseOption'
 import { calculateCriticalBonus } from '~/types/tableBaseOption'
 import { CriticalMelody } from '~/types/criticalBuff'
 import { AttackMelody } from '~/types/attackBuff'
+import { ElementMelody } from '~/types/elementBuff'
 import { calculateExpectedValue, calculateElementExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
+import { calculateElementWithBuffs } from '~/utils/elementBuffCalculate'
 import {
   calculateRequiredMotionValue,
   calculateElementDamage,
@@ -134,10 +136,12 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
 
   // 属性期待値を計算
   const getElementExpectedValue = (weapon: T): number => {
+    const elementWithBuffs = getElementWithBuffs(weapon)
     return calculateElementExpectedValue(
       weapon,
       props.selectedSharpness ?? 'normal',
-      props.sharpnessMultiplier ?? 1.0
+      props.sharpnessMultiplier ?? 1.0,
+      elementWithBuffs
     )
   }
 
@@ -154,6 +158,14 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       weapon,
       props.selectedSharpness ?? 'normal'
     )
+  }
+
+  // 補正済みの属性値を計算
+  const getElementWithBuffs = (weapon: T): number => {
+    if (!weapon.element || weapon.element.type === '無') {
+      return 0
+    }
+    return calculateElementWithBuffs(weapon.element.value, props.elementModifiers ?? {}, weapon)
   }
 
   // 必要モーション値を計算（属性だけで目標を超える場合は0を返す）
@@ -238,6 +250,16 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     )
   }
 
+  // 元の属性値を括弧で表示するかどうかを判定
+  const isShowBaseElement = (weapon: T): boolean => {
+    const elementMelody = props.elementModifiers?.elementMelody ?? ElementMelody.None
+    if (elementMelody === ElementMelody.None) return false
+    if (elementMelody === ElementMelody.HornDependent) {
+      return isHuntingHorn(weapon) && weapon.notes.getMaxMelodyMultiplier_Element() !== 1.0
+    }
+    return true
+  }
+
   // 属性ダメージを計算（1 hitあたり）
   const getElementDamage = (weapon: T): number => {
     const elementExpectedValue = getElementExpectedValue(weapon)
@@ -282,11 +304,13 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     getPhysicalExpectedValue,
     getElementExpectedValue,
     getAttackWithBuffs,
+    getElementWithBuffs,
     getRequiredMotionValue,
     getRequiredMotionValueElementInfo,
     getElementDamage,
     getAttackCount,
     isShowBaseAttack,
     isShowBaseAffinity,
+    isShowBaseElement,
   }
 }

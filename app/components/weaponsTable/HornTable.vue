@@ -42,6 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
     :attack-modifiers="props.attackModifiers"
     :sharpness-multiplier="props.sharpnessMultiplier"
     :critical-melody="props.criticalBuffs?.criticalMelody"
+    :element-modifiers="props.elementModifiers"
     :target-damage-settings="props.targetDamageSettings"
     :visible-columns="props.visibleColumns"
   >

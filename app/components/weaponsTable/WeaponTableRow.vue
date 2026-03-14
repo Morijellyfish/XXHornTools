@@ -17,6 +17,8 @@ interface Props {
   attackWithBuffs: number
   baseAttack: number
   showBaseAttack: boolean
+  elementWithBuffs?: number
+  showBaseElement?: boolean
   affinity: number
   baseAffinity: number
   showBaseAffinity: boolean
@@ -28,9 +30,10 @@ interface Props {
 const props = defineProps<Props>()
 
 // 属性・状態異常を文字列で表示
-const formatElementOrStatus = (weapon: WeaponMelee): string => {
+const formatElementOrStatus = (weapon: WeaponMelee, elementWithBuffs?: number): string => {
   if (weapon.element) {
-    return `${weapon.element.type}${weapon.element.value}`
+    const displayValue = elementWithBuffs ?? weapon.element.value
+    return `${weapon.element.type}${displayValue}`
   }
   if (weapon.statusAilment) {
     return `${weapon.statusAilment.type}${weapon.statusAilment.value}`
@@ -140,7 +143,14 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
       </div>
     </td>
     <td v-if="isColumnVisible(props.visibleColumns, 'elementStatus')" class="p-2">
-      <span class="whitespace-nowrap">{{ formatElementOrStatus(weapon) }}</span>
+      <div class="flex flex-col items-start leading-tight">
+        <span class="whitespace-nowrap">{{
+          formatElementOrStatus(weapon, props.elementWithBuffs)
+        }}</span>
+        <span v-if="props.showBaseElement && weapon.element" class="text-xs mp-muted">
+          ({{ weapon.element.type }}{{ weapon.element.value }})
+        </span>
+      </div>
     </td>
     <!-- 拡張用スロット -->
     <slot name="additional-columns" :weapon="weapon" />

@@ -2,6 +2,7 @@
 import type { LongSword } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/attackBuff'
+import { ElementMelody } from '~/types/elementBuff'
 import WeaponTable from './WeaponTable.vue'
 
 interface Props extends TableBaseOption {
@@ -20,6 +21,9 @@ const props = withDefaults(defineProps<Props>(), {
     attackSkill: 'none',
     attackMelody: AttackMelody.None,
   }),
+  elementModifiers: () => ({
+    elementMelody: ElementMelody.None,
+  }),
   sharpnessMultiplier: 1.0,
 })
 </script>
@@ -32,6 +36,7 @@ const props = withDefaults(defineProps<Props>(), {
     :attack-modifiers="props.attackModifiers"
     :sharpness-multiplier="props.sharpnessMultiplier"
     :critical-melody="props.criticalBuffs?.criticalMelody"
+    :element-modifiers="props.elementModifiers"
     :target-damage-settings="props.targetDamageSettings"
     :visible-columns="props.visibleColumns"
   />
