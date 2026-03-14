@@ -107,12 +107,15 @@ const updateAttackCount = (value: number | null | undefined) => {
 
 const clampAttackCount = () => {
   const value = targetDamageSettings.value.attackCount
-  if (value === undefined) {
-    return
-  }
-  if (value < 1) {
+  if (value === undefined || value < 1) {
     updateAttackCount(1)
   }
+}
+
+const onAttackCountInput = (e: Event) => {
+  const target = e.target as HTMLInputElement
+  const parsed = Number.parseInt(target.value, 10)
+  updateAttackCount(Number.isNaN(parsed) ? undefined : parsed)
 }
 
 const clampElementHitzone = (element: ElementType) => {
@@ -319,14 +322,13 @@ const onTemplateApply = (payload: {
         <div class="mt-3 flex flex-wrap items-center gap-4">
           <div class="flex items-center gap-2">
             <label class="mp-label mp-muted whitespace-nowrap">攻撃回数:</label>
-            <InputNumber
-              :model-value="targetDamageSettings.attackCount ?? null"
-              :min="1"
-              class="w-20"
+            <input
+              type="number"
+              :value="targetDamageSettings.attackCount ?? 1"
+              min="1"
+              class="w-20 p-inputtext"
               placeholder="1"
-              input-class="w-full"
-              :use-grouping="false"
-              @update:model-value="updateAttackCount($event)"
+              @input="onAttackCountInput($event)"
               @blur="clampAttackCount"
             />
           </div>
