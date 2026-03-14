@@ -4,7 +4,7 @@
 export interface Quest {
   /** クエスト名称 */
   name: string
-  /** 体力倍率 */
+  /** 体力（HP絶対値） */
   health: number
   /** 怯み倍率 */
   flinch: number

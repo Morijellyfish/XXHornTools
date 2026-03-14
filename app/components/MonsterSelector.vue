@@ -241,7 +241,7 @@ watch(
           option-label="label"
           option-value="value"
           placeholder="クエスト"
-          class="min-w-64 max-w-md"
+          class="w-[28rem]"
           :disabled="!selectedMonsterName || questOptions.length === 0"
           show-clear
         />
