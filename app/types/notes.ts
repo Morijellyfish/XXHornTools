@@ -68,6 +68,17 @@ export class Notes {
     return 1.0
   }
 
+  // 属性旋律の確認（属性攻撃力強化 = x1.10）
+  getMaxMelodyMultiplier_Element(): number {
+    const melodyNames = this.getMelodyNames()
+
+    if (melodyNames.includes('属性攻撃力強化')) {
+      return 1.1
+    }
+
+    return 1.0
+  }
+
   // 会心旋律の確認
   getMaxMelodyBonus_Critical(): number {
     const melodyNames = this.getMelodyNames()

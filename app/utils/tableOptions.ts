@@ -1,6 +1,7 @@
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { DEFAULT_VISIBLE_COLUMNS } from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/attackBuff'
+import { ElementMelody } from '~/types/elementBuff'
 import { CriticalEye, CriticalMelody } from '~/types/criticalBuff'
 
 /**
@@ -36,6 +37,9 @@ export function createDefaultTableOptions(): TableBaseOption {
       fortify: 'none',
       dragonInstinct: false,
       attackMelody: AttackMelody.None,
+    },
+    elementModifiers: {
+      elementMelody: ElementMelody.None,
     },
     sharpnessMultiplier: 1.0,
     visibleColumns: { ...DEFAULT_VISIBLE_COLUMNS },

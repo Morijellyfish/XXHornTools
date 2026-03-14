@@ -15,6 +15,7 @@ import {
   getHunterSkillValue,
   getFortifyMultiplier,
 } from '~/types/attackBuff'
+import { ElementMelody } from '~/types/elementBuff'
 import SelectOption from './SelectOption.vue'
 
 interface Props {
@@ -38,6 +39,7 @@ const options = computed({
 
 // 各プロパティへのアクセスを簡潔にするための computed
 const attackModifiers = computed(() => options.value.attackModifiers ?? {})
+const elementModifiers = computed(() => options.value.elementModifiers ?? {})
 const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
 </script>
 
@@ -461,6 +463,24 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
               options = {
                 ...options,
                 criticalBuffs: { ...criticalBuffs, criticalMelody: $event as CriticalMelody },
+              }
+            "
+          />
+          <SelectOption
+            :model-value="elementModifiers.elementMelody ?? ElementMelody.None"
+            label="属性旋律:"
+            :options="[
+              { value: ElementMelody.None, label: '無' },
+              { value: ElementMelody.Bonus8, label: '+8%' },
+              { value: ElementMelody.Bonus10, label: '+10%' },
+              ...(allowHornDependentMelody
+                ? [{ value: ElementMelody.HornDependent, label: '笛依存' }]
+                : []),
+            ]"
+            @update:model-value="
+              options = {
+                ...options,
+                elementModifiers: { ...elementModifiers, elementMelody: $event as ElementMelody },
               }
             "
           />

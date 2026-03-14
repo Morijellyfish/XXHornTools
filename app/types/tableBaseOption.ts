@@ -36,6 +36,7 @@ import {
   CriticalEye,
 } from './criticalBuff'
 import type { TargetDamageSettings } from './targetDamage'
+import type { ElementBuffs } from './elementBuff'
 
 /** 切れ味の種類 */
 export type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -103,6 +104,8 @@ export interface TableBaseOption {
   criticalBuffs?: CriticalBuffs
   /** 攻撃バフの設定 */
   attackModifiers?: AttackBuffs
+  /** 属性バフの設定 */
+  elementModifiers?: ElementBuffs
   /** 切れ味補正倍率（デフォルト: 1.0 = 補正なし） */
   sharpnessMultiplier?: number
   /** 目標ダメージ設定 */
