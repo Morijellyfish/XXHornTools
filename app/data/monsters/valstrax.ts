@@ -1,5 +1,6 @@
 import type { Monster } from '~/types/monster/monster'
 import { PartDurability } from '~/types/monster/partDurability'
+import { valstraxQuests } from '../quest/valstrax'
 
 export const valstrax: Monster = {
   name: 'バルファルク',
@@ -137,4 +138,5 @@ export const valstrax: Monster = {
     new PartDurability('尻尾', 150, 300),
     new PartDurability('後脚', 150),
   ],
+  quests: valstraxQuests,
 }

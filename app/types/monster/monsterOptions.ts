@@ -132,3 +132,11 @@ export function getDefaultDurabilityPartKey(monster?: Monster): DurabilityPartKe
   const first = monster?.partDurabilities?.[0]?.name
   return first ? `${first}::normal` : ''
 }
+
+/**
+ * クエスト選択用リストを作成
+ */
+export function getQuestList(monster?: Monster): LabeledValue[] {
+  const quests = monster?.quests ?? []
+  return quests.map(q => ({ label: q.name, value: q.name }))
+}

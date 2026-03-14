@@ -14,6 +14,7 @@ import {
   getHitZonePartListWithValue,
   getHitZoneVariantList,
   getMonsterList,
+  getQuestList,
 } from '~/types/monster/monsterOptions'
 
 interface Props {
@@ -38,6 +39,7 @@ const selectedMonsterName = ref<string>('')
 const selectedVariantName = ref<string>('')
 const selectedHitzonePartName = ref<string>('')
 const selectedDurabilityPartKey = ref<string>('')
+const selectedQuestName = ref<string>('')
 const selectedHitzoneType = ref<MelleeType>(props.defaultHitzoneType)
 
 const expanded = ref(false)
@@ -69,6 +71,13 @@ const hitzonePartOptions = computed(() => {
 const durabilityPartOptions = computed(() => {
   if (!selectedMonster.value) return getDurabilityList(selectedMonster.value)
   return getDurabilityListWithValue(selectedMonster.value, isFrenziedVariant.value)
+})
+
+const questOptions = computed(() => getQuestList(selectedMonster.value))
+
+const selectedQuest = computed(() => {
+  if (!selectedMonster.value || !selectedQuestName.value) return undefined
+  return selectedMonster.value.quests?.find(q => q.name === selectedQuestName.value)
 })
 
 const hitzoneTypeOptions: { label: string; value: MelleeType }[] = [
@@ -137,6 +146,7 @@ const apply = () => {
 watch(
   () => selectedMonsterName.value,
   () => {
+    selectedQuestName.value = ''
     selectedVariantName.value = getDefaultVariantName(selectedMonster.value)
     selectedHitzonePartName.value = getDefaultHitZonePartName(
       selectedMonster.value,
@@ -144,6 +154,18 @@ watch(
     )
     selectedDurabilityPartKey.value = getDefaultDurabilityPartKey(selectedMonster.value)
   }
+)
+
+watch(
+  () => selectedQuest.value,
+  quest => {
+    if (!quest) return
+    templateFlinchMultiplier.value = quest.flinch
+    templateDefenseMultiplier.value = quest.defense
+    templateStunMultiplier.value = quest.stun
+    templateFatigueMultiplier.value = quest.fatigue
+  },
+  { immediate: true }
 )
 
 watch(
@@ -210,6 +232,18 @@ watch(
           option-value="value"
           placeholder="切/打/弾"
           class="w-28"
+        />
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-3">
+        <Select
+          v-model="selectedQuestName"
+          :options="questOptions"
+          option-label="label"
+          option-value="value"
+          placeholder="クエスト"
+          class="min-w-64 max-w-md"
+          :disabled="!selectedMonsterName || questOptions.length === 0"
+          show-clear
         />
       </div>
       <div class="mt-3 flex flex-wrap items-center gap-4">

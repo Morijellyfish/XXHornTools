@@ -1,5 +1,6 @@
 import type { HitZoneVariant } from './hitZone'
 import type { PartDurability } from './partDurability'
+import type { Quest } from '../quest/quest'
 
 /**
  * モンスターのデータ
@@ -12,4 +13,6 @@ export interface Monster {
   hitZoneVariants: HitZoneVariant[]
   // 部位耐久データの配列
   partDurabilities: PartDurability[]
+  /** クエスト一覧 */
+  quests: Quest[]
 }

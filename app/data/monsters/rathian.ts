@@ -1,5 +1,6 @@
 import type { Monster } from '~/types/monster/monster'
 import { PartDurability } from '~/types/monster/partDurability'
+import { rathianQuests } from '../quest/rathian'
 
 export const rathian: Monster = {
   name: 'リオレイア',
@@ -71,4 +72,5 @@ export const rathian: Monster = {
     new PartDurability('右脚', 180, undefined, 270),
     new PartDurability('尻尾', 150, 230, 225, 225),
   ],
+  quests: rathianQuests,
 }
