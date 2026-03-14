@@ -100,3 +100,34 @@ export const calculateExpectedValue = (
   // クリティカル期待値を計算
   return calculateCritical(expectedValue, affinity, hasCriticalBoost, hasMadAffinity)
 }
+
+/**
+ * 属性期待値を計算（属性値 × 斬れ味によるダメージ補正（属性用））
+ * 属性会心は未実装のため考慮しない
+ * @param weapon 武器データ
+ * @param selectedSharpness 選択された切れ味（通常、匠1、匠2）
+ * @param sharpnessMultiplier 切れ味補正倍率
+ * @returns 属性期待値。属性なしの場合は 0
+ */
+export const calculateElementExpectedValue = (
+  weapon: WeaponMelee,
+  selectedSharpness: SharpnessType,
+  sharpnessMultiplier: number
+): number => {
+  if (!weapon.element || weapon.element.type === '無') {
+    return 0
+  }
+
+  let selectedSharpnessData
+  if (selectedSharpness === 'normal') {
+    selectedSharpnessData = weapon.sharpness.normal
+  } else if (selectedSharpness === 'plus1') {
+    selectedSharpnessData = weapon.sharpness.plus1!
+  } else {
+    selectedSharpnessData = weapon.sharpness.plus2!
+  }
+
+  const elementalMultiplier =
+    SHARPNESS_MULTIPLIERS[selectedSharpnessData.color].elemental * sharpnessMultiplier
+  return Math.round(weapon.element.value * elementalMultiplier)
+}

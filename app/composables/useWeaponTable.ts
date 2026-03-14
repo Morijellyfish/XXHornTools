@@ -5,7 +5,7 @@ import type { TableBaseOption, SharpnessType } from '~/types/tableBaseOption'
 import { calculateCriticalBonus } from '~/types/tableBaseOption'
 import { CriticalMelody } from '~/types/criticalBuff'
 import { AttackMelody } from '~/types/attackBuff'
-import { calculateExpectedValue } from '~/utils/damageCalculate'
+import { calculateExpectedValue, calculateElementExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
 import { calculateRequiredMotionValue, getDefaultTargetDamageSettings } from '~/types/targetDamage'
 
@@ -33,8 +33,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
 
       switch (sortKey.value) {
         case 'expected':
-          aValue = getExpectedValue(a)
-          bValue = getExpectedValue(b)
+          aValue = getPhysicalExpectedValue(a)
+          bValue = getPhysicalExpectedValue(b)
           break
         case 'attack':
           aValue = a.attack
@@ -102,11 +102,9 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return weapon.affinity + calculateCriticalBonusForWeapon(weapon)
   }
 
-  // 期待値を計算
-  const getExpectedValue = (weapon: T): number => {
-    // 補正済みの攻撃力を計算
+  // 物理期待値を計算
+  const getPhysicalExpectedValue = (weapon: T): number => {
     const attackWithBuffs = getAttackWithBuffs(weapon)
-    // 会心補正
     const totalCriticalBonus = calculateCriticalBonusForWeapon(weapon)
     return calculateExpectedValue(
       attackWithBuffs,
@@ -117,6 +115,20 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       props.criticalBuffs?.hasMadAffinity ?? false,
       props.sharpnessMultiplier ?? 1.0
     )
+  }
+
+  // 属性期待値を計算
+  const getElementExpectedValue = (weapon: T): number => {
+    return calculateElementExpectedValue(
+      weapon,
+      props.selectedSharpness ?? 'normal',
+      props.sharpnessMultiplier ?? 1.0
+    )
+  }
+
+  // 期待値（物理+属性の合計）を計算
+  const getExpectedValue = (weapon: T): number => {
+    return getPhysicalExpectedValue(weapon) + getElementExpectedValue(weapon)
   }
 
   // 補正済みの攻撃力を計算
@@ -141,8 +153,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       overallDefenseRate: settings.overallDefenseRate ?? defaults.overallDefenseRate,
     }
 
-    const expectedValue = getExpectedValue(weapon)
-    return calculateRequiredMotionValue(mergedSettings, expectedValue)
+    const physicalExpectedValue = getPhysicalExpectedValue(weapon)
+    return calculateRequiredMotionValue(mergedSettings, physicalExpectedValue)
   }
 
   // 元の会心率を括弧で表示するかどうかを判定
@@ -207,6 +219,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     getSortIcon,
     calculateAffinity,
     getExpectedValue,
+    getPhysicalExpectedValue,
+    getElementExpectedValue,
     getAttackWithBuffs,
     getRequiredMotionValue,
     isShowBaseAttack,

@@ -34,6 +34,8 @@ const {
   getSortIcon,
   calculateAffinity,
   getExpectedValue,
+  getPhysicalExpectedValue,
+  getElementExpectedValue,
   getAttackWithBuffs,
   getRequiredMotionValue,
   isShowBaseAttack,
@@ -127,6 +129,8 @@ const {
             :weapon="weapon"
             :required-motion-value="getRequiredMotionValue(weapon)"
             :expected-value="getExpectedValue(weapon)"
+            :physical-expected-value="getPhysicalExpectedValue(weapon)"
+            :element-expected-value="getElementExpectedValue(weapon)"
             :attack-with-buffs="getAttackWithBuffs(weapon)"
             :base-attack="weapon.attack"
             :show-base-attack="isShowBaseAttack(weapon)"

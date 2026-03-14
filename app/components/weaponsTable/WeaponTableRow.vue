@@ -9,6 +9,8 @@ interface Props {
   weapon: T
   requiredMotionValue?: number
   expectedValue: number
+  physicalExpectedValue: number
+  elementExpectedValue: number
   attackWithBuffs: number
   baseAttack: number
   showBaseAttack: boolean
@@ -73,7 +75,12 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
       v-if="isColumnVisible(props.visibleColumns, 'expected')"
       class="p-2 text-right tabular-nums whitespace-nowrap"
     >
-      {{ expectedValue }}
+      <div class="flex flex-col items-end leading-tight">
+        <span>{{ expectedValue }}</span>
+        <span v-if="elementExpectedValue > 0 && weapon.element" class="text-xs mp-muted">
+          ({{ physicalExpectedValue }}+{{ weapon.element.type }}{{ elementExpectedValue }})
+        </span>
+      </div>
     </td>
     <td
       v-if="isColumnVisible(props.visibleColumns, 'attack')"
