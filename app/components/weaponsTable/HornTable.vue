@@ -2,9 +2,9 @@
 import type { HuntingHorn } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { isColumnVisible } from '~/types/tableBaseOption'
-import { CriticalMelody } from '~/types/criticalBuff'
-import { AttackMelody } from '~/types/attackBuff'
-import { ElementMelody } from '~/types/elementBuff'
+import { CriticalMelody } from '~/types/Buffs/criticalBuff'
+import { AttackMelody } from '~/types/Buffs/attackBuff'
+import { ElementMelody } from '~/types/Buffs/elementBuff'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import WeaponTable from './WeaponTable.vue'
 

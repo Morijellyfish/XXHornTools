@@ -1,4 +1,4 @@
-import type { AttackBuffs, attackBuff } from '~/types/attackBuff'
+import type { AttackBuffs, attackBuff } from '~/types/Buffs/attackBuff'
 import type { WeaponMelee } from '~/types/weapons'
 import {
   attackBuffA,
@@ -18,7 +18,7 @@ import {
   attackBuffN,
   attackBuffO,
   AttackMelody,
-} from '~/types/attackBuff'
+} from '~/types/Buffs/attackBuff'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
 

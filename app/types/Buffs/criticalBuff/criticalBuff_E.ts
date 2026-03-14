@@ -2,8 +2,8 @@
  * グループE: 挑戦者・フルチャージ・力の解放（会心率補正）
  */
 import { criticalBuff } from './criticalBuff'
-import type { ChallengeSkill } from '~/types/challengeSkill'
-import { getChallengeSkillCriticalValue } from '~/types/challengeSkill'
+import type { ChallengeSkill } from '~/types/Buffs/challengeSkill'
+import { getChallengeSkillCriticalValue } from '~/types/Buffs/challengeSkill'
 
 export class criticalBuffE extends criticalBuff {
   constructor(challengeSkill: ChallengeSkill) {
@@ -13,4 +13,4 @@ export class criticalBuffE extends criticalBuff {
   }
 }
 
-export { getChallengeSkillCriticalValue } from '~/types/challengeSkill'
+export { getChallengeSkillCriticalValue } from '~/types/Buffs/challengeSkill'

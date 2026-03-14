@@ -15,7 +15,7 @@ export type { Bludgeoner } from './attackBuff_L'
 export type { Resuscitate } from './attackBuff_M'
 export type { Resentment } from './attackBuff_N'
 export type { DragonInstinct } from './attackBuff_O'
-export type { ChallengeSkill } from '~/types/challengeSkill'
+export type { ChallengeSkill } from '~/types/Buffs/challengeSkill'
 
 // クラスと関数の再エクスポート
 export { attackBuff } from './attackBuff'

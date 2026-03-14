@@ -1,8 +1,8 @@
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { DEFAULT_VISIBLE_COLUMNS } from '~/types/tableBaseOption'
-import { AttackMelody } from '~/types/attackBuff'
-import { ElementMelody } from '~/types/elementBuff'
-import { CriticalEye, CriticalMelody } from '~/types/criticalBuff'
+import { AttackMelody } from '~/types/Buffs/attackBuff'
+import { ElementMelody } from '~/types/Buffs/elementBuff'
+import { CriticalEye, CriticalMelody } from '~/types/Buffs/criticalBuff'
 
 /**
  * 武器比較表のオプション初期値

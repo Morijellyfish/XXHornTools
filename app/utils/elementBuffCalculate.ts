@@ -1,6 +1,6 @@
-import type { ElementBuffs, elementBuff } from '~/types/elementBuff'
+import type { ElementBuffs, elementBuff } from '~/types/Buffs/elementBuff'
 import type { WeaponMelee } from '~/types/weapons'
-import { elementBuffA, ElementMelody } from '~/types/elementBuff'
+import { elementBuffA, ElementMelody } from '~/types/Buffs/elementBuff'
 
 export const calculateElementWithBuffs = (
   baseElementValue: number,

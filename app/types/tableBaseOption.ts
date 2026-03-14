@@ -5,7 +5,7 @@ import type {
   HunterSkill,
   Fortify,
   attackBuff,
-} from './attackBuff'
+} from './Buffs/attackBuff'
 import {
   attackBuffA,
   attackBuffB,
@@ -23,8 +23,8 @@ import {
   attackBuffN,
   attackBuffO,
   AttackMelody,
-} from './attackBuff'
-import type { CriticalBuffs } from './criticalBuff'
+} from './Buffs/attackBuff'
+import type { CriticalBuffs } from './Buffs/criticalBuff'
 import {
   criticalBuffA,
   criticalBuffB,
@@ -34,10 +34,10 @@ import {
   criticalBuffF,
   CriticalMelody,
   CriticalEye,
-} from './criticalBuff'
+} from './Buffs/criticalBuff'
 import type { TargetDamageSettings } from './targetDamage'
-import type { ElementBuffs } from './elementBuff'
-import { ElementMelody } from './elementBuff'
+import type { ElementBuffs } from './Buffs/elementBuff'
+import { ElementMelody } from './Buffs/elementBuff'
 
 /** 切れ味の種類 */
 export type SharpnessType = 'normal' | 'plus1' | 'plus2'

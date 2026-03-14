@@ -2,8 +2,8 @@
  * グループJ: 挑戦者・フルチャージ・力の解放
  */
 import { attackBuff } from './attackBuff'
-import type { ChallengeSkill } from '~/types/challengeSkill'
-import { getChallengeSkillAttackValue } from '~/types/challengeSkill'
+import type { ChallengeSkill } from '~/types/Buffs/challengeSkill'
+import { getChallengeSkillAttackValue } from '~/types/Buffs/challengeSkill'
 
 export class attackBuffJ extends attackBuff {
   private challengeSkillValue: number = 0

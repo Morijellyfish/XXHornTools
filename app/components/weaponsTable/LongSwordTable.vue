@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { LongSword } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
-import { AttackMelody } from '~/types/attackBuff'
-import { ElementMelody } from '~/types/elementBuff'
+import { AttackMelody } from '~/types/Buffs/attackBuff'
+import { ElementMelody } from '~/types/Buffs/elementBuff'
 import WeaponTable from './WeaponTable.vue'
 
 interface Props extends TableBaseOption {
