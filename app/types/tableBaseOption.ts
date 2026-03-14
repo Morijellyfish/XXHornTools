@@ -40,6 +40,55 @@ import type { TargetDamageSettings } from './targetDamage'
 /** 切れ味の種類 */
 export type SharpnessType = 'normal' | 'plus1' | 'plus2'
 
+/** テーブルカラムの表示キー */
+export type TableColumnKey =
+  | 'name'
+  | 'requiredMotionValue'
+  | 'expected'
+  | 'attack'
+  | 'defense'
+  | 'slots'
+  | 'affinity'
+  | 'elementStatus'
+  | 'sharpness'
+  | 'notes'
+  | 'melodies'
+
+/** テーブルカラムの表示設定 */
+export interface VisibleColumns {
+  name: boolean
+  requiredMotionValue: boolean
+  expected: boolean
+  attack: boolean
+  defense: boolean
+  slots: boolean
+  affinity: boolean
+  elementStatus: boolean
+  sharpness: boolean
+  notes?: boolean
+  melodies?: boolean
+}
+
+/** 表示項目のデフォルト（防御・旋律はオフ、それ以外はオン） */
+export const DEFAULT_VISIBLE_COLUMNS: VisibleColumns = {
+  name: true,
+  requiredMotionValue: true,
+  expected: true,
+  attack: true,
+  defense: false,
+  slots: true,
+  affinity: true,
+  elementStatus: true,
+  sharpness: true,
+  notes: true,
+  melodies: false,
+}
+
+/** カラムが表示されるか判定 */
+export function isColumnVisible(visibleColumns: VisibleColumns, key: TableColumnKey): boolean {
+  return visibleColumns[key] !== false
+}
+
 /**
  * テーブルコンポーネントの基底オプション
  * すべての武器テーブルで共通して使用されるオプションを定義
@@ -55,6 +104,8 @@ export interface TableBaseOption {
   sharpnessMultiplier?: number
   /** 目標ダメージ設定 */
   targetDamageSettings?: TargetDamageSettings
+  /** テーブルカラムの表示設定 */
+  visibleColumns: VisibleColumns
 }
 
 /**

@@ -1,6 +1,8 @@
 <script setup lang="ts" generic="T extends WeaponMelee">
+import { computed } from 'vue'
 import type { WeaponMelee } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
+import { isColumnVisible } from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/attackBuff'
 import { useWeaponTable } from '~/composables/useWeaponTable'
 import WeaponTableRow from './WeaponTableRow.vue'
@@ -24,6 +26,8 @@ const props = withDefaults(defineProps<Props>(), {
   sharpnessMultiplier: 1.0,
 })
 
+const visibleColumns = computed(() => props.visibleColumns)
+
 const {
   sortedWeapons,
   toggleSort,
@@ -43,9 +47,20 @@ const {
       <table class="weapon-table w-full">
         <thead>
           <tr class="border-b">
-            <th class="text-left p-2 whitespace-nowrap">名称</th>
-            <th class="text-right p-2 whitespace-nowrap">必要モーション値</th>
             <th
+              v-if="isColumnVisible(visibleColumns, 'name')"
+              class="text-left p-2 whitespace-nowrap"
+            >
+              名称
+            </th>
+            <th
+              v-if="isColumnVisible(visibleColumns, 'requiredMotionValue')"
+              class="text-right p-2 whitespace-nowrap"
+            >
+              必要モーション値
+            </th>
+            <th
+              v-if="isColumnVisible(visibleColumns, 'expected')"
               class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
               @click="toggleSort('expected')"
             >
@@ -54,6 +69,7 @@ const {
               </span>
             </th>
             <th
+              v-if="isColumnVisible(visibleColumns, 'attack')"
               class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
               @click="toggleSort('attack')"
             >
@@ -62,6 +78,7 @@ const {
               </span>
             </th>
             <th
+              v-if="isColumnVisible(visibleColumns, 'defense')"
               class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
               @click="toggleSort('defense')"
             >
@@ -70,6 +87,7 @@ const {
               </span>
             </th>
             <th
+              v-if="isColumnVisible(visibleColumns, 'slots')"
               class="text-center p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap w-20"
               @click="toggleSort('slots')"
             >
@@ -78,6 +96,7 @@ const {
               </span>
             </th>
             <th
+              v-if="isColumnVisible(visibleColumns, 'affinity')"
               class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
               @click="toggleSort('affinity')"
             >
@@ -85,10 +104,20 @@ const {
                 会心率 <span class="w-1 text-center">{{ getSortIcon('affinity') }}</span>
               </span>
             </th>
-            <th class="text-left p-2 whitespace-nowrap">属性・状態異常</th>
+            <th
+              v-if="isColumnVisible(visibleColumns, 'elementStatus')"
+              class="text-left p-2 whitespace-nowrap"
+            >
+              属性・状態異常
+            </th>
             <!-- 拡張用ヘッダー -->
             <slot name="header-columns" />
-            <th class="text-left p-2 whitespace-nowrap">斬れ味</th>
+            <th
+              v-if="isColumnVisible(visibleColumns, 'sharpness')"
+              class="text-left p-2 whitespace-nowrap"
+            >
+              斬れ味
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -106,6 +135,7 @@ const {
             :show-base-affinity="isShowBaseAffinity(weapon)"
             :selected-sharpness="selectedSharpness"
             :bludgeoner="attackModifiers.bludgeoner"
+            :visible-columns="visibleColumns"
           >
             <!-- 拡張用カラム -->
             <template #additional-columns="{ weapon: w }">

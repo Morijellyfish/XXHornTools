@@ -64,6 +64,7 @@ const filteredHorns = computed(() => {
     description="モンスターハンターXXの狩猟笛のステータス比較表"
     :allow-horn-dependent-melody="true"
     :default-hitzone-type="DEFAULT_HITZONE_TYPE"
+    weapon-type="huntingHorn"
   >
     <template #filters>
       <MelodyFilter v-model="selectedMelodyNames" :melody-names="melodyNames" />
@@ -77,6 +78,7 @@ const filteredHorns = computed(() => {
       :sharpness-multiplier="sharpnessMultiplier"
       :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
       :target-damage-settings="tableOptions.targetDamageSettings"
+      :visible-columns="tableOptions.visibleColumns"
       :selected-melody-names="selectedMelodyNames"
       :highlighted-melody-names="highlightedMelodyNames"
       :on-melody-click="toggleMelodyHighlight"

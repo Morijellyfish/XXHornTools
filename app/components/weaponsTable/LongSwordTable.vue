@@ -33,5 +33,6 @@ const props = withDefaults(defineProps<Props>(), {
     :sharpness-multiplier="props.sharpnessMultiplier"
     :critical-melody="props.criticalBuffs?.criticalMelody"
     :target-damage-settings="props.targetDamageSettings"
+    :visible-columns="props.visibleColumns"
   />
 </template>

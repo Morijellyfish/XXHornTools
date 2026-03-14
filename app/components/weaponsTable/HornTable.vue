@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HuntingHorn } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
+import { isColumnVisible } from '~/types/tableBaseOption'
 import { CriticalMelody } from '~/types/criticalBuff'
 import { AttackMelody } from '~/types/attackBuff'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
@@ -38,14 +39,15 @@ const props = withDefaults(defineProps<Props>(), {
     :sharpness-multiplier="props.sharpnessMultiplier"
     :critical-melody="props.criticalBuffs?.criticalMelody"
     :target-damage-settings="props.targetDamageSettings"
+    :visible-columns="props.visibleColumns"
   >
     <template #header-columns>
-      <th class="text-left p-2">音色</th>
-      <th class="text-left p-2">旋律</th>
+      <th v-if="isColumnVisible(props.visibleColumns, 'notes')" class="text-left p-2">音色</th>
+      <th v-if="isColumnVisible(props.visibleColumns, 'melodies')" class="text-left p-2">旋律</th>
     </template>
     <template #row-columns="{ weapon: horn }">
       <!-- 音色カラム -->
-      <td class="p-2">
+      <td v-if="isColumnVisible(props.visibleColumns, 'notes')" class="p-2">
         <div class="flex items-center gap-1">
           <span
             v-for="(note, index) in [horn.notes.note1, horn.notes.note2, horn.notes.note3]"
@@ -60,7 +62,7 @@ const props = withDefaults(defineProps<Props>(), {
         </div>
       </td>
       <!-- 旋律カラム -->
-      <td class="p-2">
+      <td v-if="isColumnVisible(props.visibleColumns, 'melodies')" class="p-2">
         <div class="flex flex-col gap-1 mp-body">
           <span
             v-for="(name, index) in horn.notes.getMelodyNames()"

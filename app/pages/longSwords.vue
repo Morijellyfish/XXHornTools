@@ -30,6 +30,7 @@ const sharpnessMultiplier = computed(() => {
     title="太刀比較表"
     description="モンスターハンターXXの太刀のステータス比較表"
     :default-hitzone-type="DEFAULT_HITZONE_TYPE"
+    weapon-type="longSword"
   >
     <LongSwordTable
       :long-swords="allLongSwords"
@@ -39,6 +40,7 @@ const sharpnessMultiplier = computed(() => {
       :sharpness-multiplier="sharpnessMultiplier"
       :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
       :target-damage-settings="tableOptions.targetDamageSettings"
+      :visible-columns="tableOptions.visibleColumns"
     />
   </WeaponCompareShell>
 </template>

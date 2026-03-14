@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { MelleeType } from '~/types/attackType'
 import type { TableBaseOption } from '~/types/tableBaseOption'
+import type { WeaponType } from '~/types/weapons'
 import WeaponTableOptions from '~/components/WeaponTableOptions.vue'
 import OptionMonitor from '~/components/OptionMonitor.vue'
 
@@ -11,6 +12,8 @@ type Props = {
   allowHornDependentMelody?: boolean
   /** 目標テンプレートのデフォルト物理属性（切/打/弾） */
   defaultHitzoneType: MelleeType
+  /** 武器種（表示項目の出し分けに使用） */
+  weaponType: WeaponType
 }
 
 const props = defineProps<Props>()
@@ -41,6 +44,7 @@ const emit = defineEmits<{
       <OptionMonitor
         :model-value="props.modelValue"
         :default-hitzone-type="props.defaultHitzoneType"
+        :weapon-type="props.weaponType"
         @update:model-value="emit('update:modelValue', $event)"
       />
 

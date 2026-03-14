@@ -1,5 +1,7 @@
 <script setup lang="ts" generic="T extends WeaponMelee">
 import type { WeaponMelee } from '~/types/weapons'
+import type { VisibleColumns } from '~/types/tableBaseOption'
+import { isColumnVisible } from '~/types/tableBaseOption'
 import { getSharpnessColor, SharpnessColor } from '~/types/sharpness'
 import type { SharpnessType } from '~/composables/useWeaponTable'
 
@@ -15,9 +17,10 @@ interface Props {
   showBaseAffinity: boolean
   selectedSharpness: SharpnessType
   bludgeoner?: boolean
+  visibleColumns: VisibleColumns
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 // 属性・状態異常を文字列で表示
 const formatElementOrStatus = (weapon: WeaponMelee): string => {
@@ -54,31 +57,50 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
 
 <template>
   <tr class="border-b mp-border">
-    <td class="p-2">
+    <td v-if="isColumnVisible(props.visibleColumns, 'name')" class="p-2">
       <span class="mp-clamp-2">{{ weapon.name }}</span>
     </td>
-    <td class="p-2 text-right tabular-nums whitespace-nowrap">
+    <td
+      v-if="isColumnVisible(props.visibleColumns, 'requiredMotionValue')"
+      class="p-2 text-right tabular-nums whitespace-nowrap"
+    >
       <span v-if="requiredMotionValue !== undefined">
         {{ requiredMotionValue.toFixed(1) }}
       </span>
       <span v-else class="mp-muted">-</span>
     </td>
-    <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ expectedValue }}</td>
-    <td class="p-2 text-right tabular-nums whitespace-nowrap">
+    <td
+      v-if="isColumnVisible(props.visibleColumns, 'expected')"
+      class="p-2 text-right tabular-nums whitespace-nowrap"
+    >
+      {{ expectedValue }}
+    </td>
+    <td
+      v-if="isColumnVisible(props.visibleColumns, 'attack')"
+      class="p-2 text-right tabular-nums whitespace-nowrap"
+    >
       <div class="flex flex-col items-end leading-tight">
         <span>{{ attackWithBuffs }}</span>
         <span v-if="showBaseAttack" class="text-xs mp-muted">({{ baseAttack }})</span>
       </div>
     </td>
-    <td class="p-2 text-right tabular-nums whitespace-nowrap">{{ weapon.defense }}</td>
-    <td class="p-2 whitespace-nowrap">
+    <td
+      v-if="isColumnVisible(props.visibleColumns, 'defense')"
+      class="p-2 text-right tabular-nums whitespace-nowrap"
+    >
+      {{ weapon.defense }}
+    </td>
+    <td v-if="isColumnVisible(props.visibleColumns, 'slots')" class="p-2 whitespace-nowrap">
       <div class="inline-flex items-center">
         <span v-for="i in 3" :key="i" class="w-5 text-center">
           {{ getSlotValue(weapon.slots, i - 1) }}
         </span>
       </div>
     </td>
-    <td class="p-2 text-right tabular-nums whitespace-nowrap">
+    <td
+      v-if="isColumnVisible(props.visibleColumns, 'affinity')"
+      class="p-2 text-right tabular-nums whitespace-nowrap"
+    >
       <div class="flex flex-col items-end leading-tight">
         <span
           :class="{
@@ -92,12 +114,12 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
         </span>
       </div>
     </td>
-    <td class="p-2">
+    <td v-if="isColumnVisible(props.visibleColumns, 'elementStatus')" class="p-2">
       <span class="whitespace-nowrap">{{ formatElementOrStatus(weapon) }}</span>
     </td>
     <!-- 拡張用スロット -->
     <slot name="additional-columns" :weapon="weapon" />
-    <td class="p-2">
+    <td v-if="isColumnVisible(props.visibleColumns, 'sharpness')" class="p-2">
       <div class="flex flex-col gap-1">
         <div
           class="flex items-center gap-1"

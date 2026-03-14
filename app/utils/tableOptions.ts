@@ -1,4 +1,5 @@
 import type { TableBaseOption } from '~/types/tableBaseOption'
+import { DEFAULT_VISIBLE_COLUMNS } from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/attackBuff'
 import { CriticalEye, CriticalMelody } from '~/types/criticalBuff'
 
@@ -37,5 +38,6 @@ export function createDefaultTableOptions(): TableBaseOption {
       attackMelody: AttackMelody.None,
     },
     sharpnessMultiplier: 1.0,
+    visibleColumns: { ...DEFAULT_VISIBLE_COLUMNS },
   }
 }

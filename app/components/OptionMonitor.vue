@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import type { MelleeType } from '~/types/attackType'
 import type { TableBaseOption } from '~/types/tableBaseOption'
+import type { WeaponType } from '~/types/weapons'
 import {
   getActiveSkills,
   calculateCriticalBonus,
@@ -13,6 +14,8 @@ interface Props {
   modelValue: TableBaseOption
   /** 目標テンプレートのデフォルト物理属性（切/打/弾） */
   defaultHitzoneType: MelleeType
+  /** 武器種（表示項目の出し分けに使用） */
+  weaponType: WeaponType
 }
 
 const props = defineProps<Props>()
@@ -229,6 +232,14 @@ const onTemplateApply = (payload: {
         <MonsterSelector
           :default-hitzone-type="props.defaultHitzoneType"
           @apply="onTemplateApply"
+        />
+      </div>
+
+      <div class="mt-4 pt-4 mp-divider-top">
+        <TableVisible
+          :model-value="tableOptions.visibleColumns"
+          :weapon-type="props.weaponType"
+          @update:model-value="tableOptions = { ...tableOptions, visibleColumns: $event }"
         />
       </div>
     </div>
