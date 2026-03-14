@@ -9,6 +9,7 @@ import { gammoth } from './gammoth'
 import { kushala } from './kushala'
 import { mizutsune } from './mizutsune'
 import { rathian } from './rathian'
+import { redhelmArzuros } from './redhelmArzuros'
 import { teostra } from './teostra'
 import { valstrax } from './valstrax'
 
@@ -22,6 +23,7 @@ export const allMonsters: Monster[] = [
   kushala,
   mizutsune,
   rathian,
+  redhelmArzuros,
   teostra,
   valstrax,
 ]
