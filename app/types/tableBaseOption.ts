@@ -76,7 +76,7 @@ export const DEFAULT_VISIBLE_COLUMNS: VisibleColumns = {
   name: true,
   requiredMotionValue: true,
   expected: true,
-  elementDamage: true,
+  elementDamage: false,
   attack: true,
   defense: false,
   slots: true,

@@ -8,6 +8,7 @@ import type { SharpnessType } from '~/composables/useWeaponTable'
 interface Props {
   weapon: T
   requiredMotionValue?: number
+  requiredMotionValueElementInfo?: { type: string; percentage: number } | null
   attackCount?: number
   expectedValue: number
   physicalExpectedValue: number
@@ -69,7 +70,13 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
       class="p-2 text-right tabular-nums whitespace-nowrap"
     >
       <div class="flex flex-col items-end leading-tight">
-        <span>{{ (requiredMotionValue ?? 0).toFixed(1) }}</span>
+        <span>
+          {{ (requiredMotionValue ?? 0).toFixed(1) }}
+          <span v-if="requiredMotionValueElementInfo" class="text-xs mp-muted">
+            ({{ requiredMotionValueElementInfo.type
+            }}{{ requiredMotionValueElementInfo.percentage }}%)
+          </span>
+        </span>
         <span v-if="(attackCount ?? 1) >= 2" class="text-xs mp-muted">
           (平均{{ ((requiredMotionValue ?? 0) / Math.max(1, attackCount ?? 1)).toFixed(1) }})
         </span>

@@ -38,6 +38,7 @@ const {
   getElementExpectedValue,
   getAttackWithBuffs,
   getRequiredMotionValue,
+  getRequiredMotionValueElementInfo,
   getElementDamage,
   getAttackCount,
   isShowBaseAttack,
@@ -140,6 +141,7 @@ const {
             :key="weapon.name"
             :weapon="weapon"
             :required-motion-value="getRequiredMotionValue(weapon)"
+            :required-motion-value-element-info="getRequiredMotionValueElementInfo(weapon)"
             :attack-count="getAttackCount()"
             :expected-value="getExpectedValue(weapon)"
             :physical-expected-value="getPhysicalExpectedValue(weapon)"

@@ -257,6 +257,20 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return props.targetDamageSettings?.attackCount ?? defaults.attackCount
   }
 
+  // 必要モーション値表示用の属性割合
+  const getRequiredMotionValueElementInfo = (
+    weapon: T
+  ): { type: string; percentage: number } | null => {
+    if (!weapon.element || weapon.element.type === '無') return null
+    const totalElementDamage = getElementDamage(weapon) * getAttackCount()
+    if (totalElementDamage <= 0) return null
+    const defaults = getDefaultTargetDamageSettings()
+    const targetDamage = props.targetDamageSettings?.targetDamage ?? defaults.targetDamage
+    if (targetDamage <= 0) return null
+    const percentage = Math.round((totalElementDamage / targetDamage) * 100)
+    return { type: weapon.element.type, percentage }
+  }
+
   return {
     sortKey,
     sortOrder,
@@ -269,6 +283,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     getElementExpectedValue,
     getAttackWithBuffs,
     getRequiredMotionValue,
+    getRequiredMotionValueElementInfo,
     getElementDamage,
     getAttackCount,
     isShowBaseAttack,
