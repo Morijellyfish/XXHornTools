@@ -1,0 +1,131 @@
+import type { Lance } from '~/types/weapons'
+import { SharpnessColor } from '~/types/sharpness'
+
+export const lancesR4: Lance[] = [
+  {
+    name: 'トライデント6',
+    attack: 260,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    statusAilment: { type: '麻痺', value: 30 },
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+  {
+    name: '瀑流槍オセアーノ6',
+    attack: 320,
+    defense: 0,
+    slots: 1,
+    affinity: -20,
+    element: { type: '水', value: 44 },
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+  {
+    name: 'シバルリー7',
+    attack: 320,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+  {
+    name: '剛撃竜槍【二神】7',
+    attack: 330,
+    defense: 22,
+    slots: 1,
+    affinity: 0,
+    element: { type: '龍', value: 10 },
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+  {
+    name: '削岩槍ボルボルグ6',
+    attack: 340,
+    defense: 0,
+    slots: 2,
+    affinity: -25,
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+  {
+    name: 'ザクキマターキ6',
+    attack: 340,
+    defense: 0,
+    slots: 1,
+    affinity: 0,
+    element: { type: '水', value: 29 },
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+  {
+    name: 'ルカーニコンケリント6',
+    attack: 340,
+    defense: 0,
+    slots: 0,
+    affinity: 0,
+    element: { type: '氷', value: 17 },
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+  {
+    name: 'バジラットヴェノム6',
+    attack: 340,
+    defense: 0,
+    slots: 0,
+    affinity: -15,
+    statusAilment: { type: '毒', value: 34 },
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+  {
+    name: 'ダイオーガー6',
+    attack: 350,
+    defense: 0,
+    slots: 0,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+  {
+    name: '少し風化した槍7',
+    attack: 380,
+    defense: 0,
+    slots: 0,
+    affinity: -70,
+    sharpness: {
+      normal: { color: SharpnessColor.Red, length: 10 },
+      plus1: { color: SharpnessColor.Red, length: 10 },
+      plus2: { color: SharpnessColor.Red, length: 10 },
+    },
+  },
+]
