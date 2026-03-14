@@ -1,3 +1,8 @@
+import type { ElementType } from './attackType'
+
+/** 属性肉質（各属性ごとの肉質） */
+export type ElementHitzoneValues = Partial<Record<ElementType, number>>
+
 /**
  * 目標ダメージ設定
  * 目標ダメージから必要モーション値を計算するための設定をまとめた型
@@ -7,17 +12,38 @@ export interface TargetDamageSettings {
   targetDamage?: number
   /** 肉質（デフォルト: 100） */
   hitzone?: number
+  /** 属性肉質（デフォルト: 20） */
+  elementHitzone?: ElementHitzoneValues
+  /** 攻撃回数（デフォルト: 1） */
+  attackCount?: number
   /** 全体防御率（デフォルト: 1.0） */
   overallDefenseRate?: number
+}
+
+const DEFAULT_ELEMENT_HITZONE = 20
+
+/** 各属性のデフォルト肉質を取得 */
+export function getDefaultElementHitzone(): Record<ElementType, number> {
+  const elements: ElementType[] = ['火', '水', '雷', '氷', '龍']
+  return Object.fromEntries(elements.map(e => [e, DEFAULT_ELEMENT_HITZONE])) as Record<
+    ElementType,
+    number
+  >
 }
 
 /**
  * デフォルト値を持つTargetDamageSettingsを取得
  */
-export function getDefaultTargetDamageSettings(): Required<TargetDamageSettings> {
+export function getDefaultTargetDamageSettings(): Required<
+  Omit<TargetDamageSettings, 'elementHitzone'>
+> & {
+  elementHitzone: Record<ElementType, number>
+} {
   return {
     targetDamage: 1000,
     hitzone: 45,
+    elementHitzone: getDefaultElementHitzone(),
+    attackCount: 1,
     overallDefenseRate: 1.0,
   }
 }

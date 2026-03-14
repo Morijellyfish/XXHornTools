@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { MelleeType } from '~/types/attackType'
+import type { ElementType, MelleeType } from '~/types/attackType'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import type { WeaponType } from '~/types/weapons'
 import {
@@ -73,6 +73,60 @@ const clampHitzone = () => {
   }
   if (clampedValue !== value) {
     updateHitzone(clampedValue)
+  }
+}
+
+const ELEMENT_TYPES: ElementType[] = ['火', '水', '雷', '氷', '龍']
+
+const updateElementHitzone = (element: ElementType, value: number | null | undefined) => {
+  const numValue = value === null || value === undefined ? undefined : Number(value)
+  const current = targetDamageSettings.value.elementHitzone ?? {}
+  tableOptions.value = {
+    ...tableOptions.value,
+    targetDamageSettings: {
+      ...targetDamageSettings.value,
+      elementHitzone: {
+        ...current,
+        [element]: numValue,
+      },
+    },
+  }
+}
+
+const updateAttackCount = (value: number | null | undefined) => {
+  const numValue = value === null || value === undefined ? undefined : Number(value)
+  tableOptions.value = {
+    ...tableOptions.value,
+    targetDamageSettings: {
+      ...targetDamageSettings.value,
+      attackCount: numValue,
+    },
+  }
+}
+
+const clampAttackCount = () => {
+  const value = targetDamageSettings.value.attackCount
+  if (value === undefined) {
+    return
+  }
+  if (value < 1) {
+    updateAttackCount(1)
+  }
+}
+
+const clampElementHitzone = (element: ElementType) => {
+  const value = targetDamageSettings.value.elementHitzone?.[element]
+  if (value === undefined) {
+    return
+  }
+  let clampedValue = value
+  if (value < 0) {
+    clampedValue = 0
+  } else if (value > 1000) {
+    clampedValue = 1000
+  }
+  if (clampedValue !== value) {
+    updateElementHitzone(element, clampedValue)
   }
 }
 
@@ -224,6 +278,38 @@ const onTemplateApply = (payload: {
             :max-fraction-digits="2"
             @update:model-value="updateOverallDefenseRate($event)"
             @blur="clampOverallDefenseRate"
+          />
+        </div>
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-4">
+        <span class="mp-label mp-muted whitespace-nowrap">属性肉質:</span>
+        <div v-for="element in ELEMENT_TYPES" :key="element" class="flex items-center gap-2">
+          <label class="mp-label mp-muted whitespace-nowrap">{{ element }}:</label>
+          <InputNumber
+            :model-value="targetDamageSettings.elementHitzone?.[element] ?? null"
+            :min="0"
+            :max="1000"
+            class="w-20"
+            placeholder="20"
+            input-class="w-full"
+            :use-grouping="false"
+            @update:model-value="updateElementHitzone(element, $event)"
+            @blur="clampElementHitzone(element)"
+          />
+        </div>
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-4">
+        <div class="flex items-center gap-2">
+          <label class="mp-label mp-muted whitespace-nowrap">攻撃回数:</label>
+          <InputNumber
+            :model-value="targetDamageSettings.attackCount ?? null"
+            :min="1"
+            class="w-20"
+            placeholder="1"
+            input-class="w-full"
+            :use-grouping="false"
+            @update:model-value="updateAttackCount($event)"
+            @blur="clampAttackCount"
           />
         </div>
       </div>
