@@ -15,7 +15,14 @@ import {
 
 // SharpnessType を再エクスポート（後方互換性のため）
 export type { SharpnessType }
-export type SortKey = 'expected' | 'attack' | 'defense' | 'slots' | 'affinity' | null
+export type SortKey =
+  | 'requiredMotionValue'
+  | 'expected'
+  | 'attack'
+  | 'defense'
+  | 'slots'
+  | 'affinity'
+  | null
 export type SortOrder = 'asc' | 'desc'
 
 export interface UseWeaponTableProps<T extends WeaponMelee> extends TableBaseOption {
@@ -24,8 +31,8 @@ export interface UseWeaponTableProps<T extends WeaponMelee> extends TableBaseOpt
 
 export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps<T>) {
   // ソート状態
-  const sortKey = ref<SortKey>('expected')
-  const sortOrder = ref<SortOrder>('desc')
+  const sortKey = ref<SortKey>('requiredMotionValue')
+  const sortOrder = ref<SortOrder>('asc')
 
   // ソート処理
   const sortedWeapons = computed(() => {
@@ -36,6 +43,10 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       let bValue: number
 
       switch (sortKey.value) {
+        case 'requiredMotionValue':
+          aValue = getRequiredMotionValue(a)
+          bValue = getRequiredMotionValue(b)
+          break
         case 'expected':
           aValue = getPhysicalExpectedValue(a)
           bValue = getPhysicalExpectedValue(b)
@@ -145,22 +156,22 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     )
   }
 
-  // 必要モーション値を計算（目標ダメージから属性ダメージを引いた物理分の全体値、攻撃回数で割らない）
-  const getRequiredMotionValue = (weapon: T): number | undefined => {
+  // 必要モーション値を計算（属性だけで目標を超える場合は0を返す）
+  const getRequiredMotionValue = (weapon: T): number => {
     const defaults = getDefaultTargetDamageSettings()
     const settings = props.targetDamageSettings ?? {}
     const targetDamage = settings.targetDamage ?? defaults.targetDamage
-    const attackCount = settings.attackCount ?? defaults.attackCount
+    const attackCount = Math.max(1, settings.attackCount ?? defaults.attackCount)
 
     // 1 hitあたりの属性ダメージ
     const elementDamagePerHit = getElementDamage(weapon)
     // 攻撃回数分の総属性ダメージ
     const totalElementDamage = elementDamagePerHit * attackCount
-    // 物理で賄う必要があるダメージ（目標 - 属性分、全体）
+    // 物理で賄う必要があるダメージ
     const totalPhysicalDamageNeeded = targetDamage - totalElementDamage
 
     if (totalPhysicalDamageNeeded <= 0) {
-      return undefined
+      return 0
     }
 
     const mergedSettings = {
@@ -170,7 +181,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     }
 
     const physicalExpectedValue = getPhysicalExpectedValue(weapon)
-    return calculateRequiredMotionValue(mergedSettings, physicalExpectedValue)
+    return calculateRequiredMotionValue(mergedSettings, physicalExpectedValue) ?? 0
   }
 
   // 元の会心率を括弧で表示するかどうかを判定

@@ -59,9 +59,13 @@ const {
             </th>
             <th
               v-if="isColumnVisible(visibleColumns, 'requiredMotionValue')"
-              class="text-right p-2 whitespace-nowrap"
+              class="text-right p-2 cursor-pointer mp-hover-surface-2 select-none whitespace-nowrap"
+              @click="toggleSort('requiredMotionValue')"
             >
-              必要モーション値
+              <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
+                必要モーション値
+                <span class="w-4 text-center">{{ getSortIcon('requiredMotionValue') }}</span>
+              </span>
             </th>
             <th
               v-if="isColumnVisible(visibleColumns, 'expected')"
