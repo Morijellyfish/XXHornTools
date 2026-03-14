@@ -1,41 +1,15 @@
 import type { CriticalBuffs } from './criticalBuff'
-import type {
-  AttackBuffs,
-  AttackSkill,
-  ChallengeSkill,
-  HunterSkill,
-  Fortify,
-  attackBuff,
-} from './attackBuff'
-import {
-  attackBuffA,
-  attackBuffB,
-  attackBuffC,
-  attackBuffP,
-  attackBuffD,
-  attackBuffE,
-  attackBuffF,
-  attackBuffG,
-  attackBuffH,
-  attackBuffI,
-  attackBuffJ,
-  attackBuffK,
-  attackBuffM,
-  attackBuffN,
-  attackBuffO,
-  AttackMelody,
-} from './attackBuff'
+import type { AttackBuffs, AttackSkill, ChallengeSkill, HunterSkill, Fortify } from './attackBuff'
 import type { ElementBuffs } from './elementBuff'
+import type { WeaponMelee } from '~/types/weapons'
 import {
-  criticalBuffA,
-  criticalBuffB,
-  criticalBuffC,
-  criticalBuffD,
-  criticalBuffE,
-  criticalBuffF,
-  CriticalMelody,
-  CriticalEye,
-} from './criticalBuff'
+  calculateAttackWithBuffs,
+  calculateAttackAddWithBuffs as calcAttackAdd,
+  calculateAttackMultiplyWithBuffs as calcAttackMultiply,
+} from '~/utils/attackBuffCalculate'
+import { calculateCriticalWithBuffs } from '~/utils/criticalBuffCalculate'
+import { calculateElementWithBuffs } from '~/utils/elementBuffCalculate'
+import { CriticalEye } from './criticalBuff'
 import { ElementMelody } from './elementBuff'
 
 /** 切れ味の種類（Buffs用、循環参照回避） */
@@ -222,139 +196,27 @@ export function getActiveSkills(options: BuffsWithSharpness): string[] {
   return skills
 }
 
-/**
- * 会心補正値を計算（固定値のみ、武器依存の会心旋律は除外）
- * @param options バフ設定
- * @returns 会心補正値（%）
- */
-export function calculateCriticalBonus(options: Buffs): number {
-  const buffs = options.criticalBuffs
-  let bonus = 0
+export { calculateCriticalWithBuffs } from '~/utils/criticalBuffCalculate'
 
-  // 見切りの補正
-  if (buffs?.criticalEye !== undefined) {
-    bonus += new criticalBuffA(buffs.criticalEye).getValue()
-  }
-
-  // 弱点特攻の補正
-  if (buffs?.hasWeaknessExploit !== undefined) {
-    bonus += new criticalBuffB(buffs.hasWeaknessExploit).getValue()
-  }
-
-  // 連撃の補正
-  if (buffs?.repeatOffensive) {
-    bonus += new criticalBuffC(buffs.repeatOffensive).getValue()
-  }
-
-  // 挑戦者・フルチャージ・力の解放の補正
-  const challengeSkill = (options.attackModifiers?.challengeSkill ?? 'none') as ChallengeSkill
-  bonus += new criticalBuffE(challengeSkill).getValue()
-
-  // 鬼人会心弾の補正
-  if (buffs?.demonCriticalBullet !== undefined) {
-    bonus += new criticalBuffF(buffs.demonCriticalBullet).getValue()
-  }
-
-  // 会心旋律の補正（固定値のみ、HornDependentは武器依存のため除外）
-  if (buffs?.criticalMelody !== undefined) {
-    const criticalMelody = buffs.criticalMelody
-    if (criticalMelody !== CriticalMelody.HornDependent) {
-      bonus += new criticalBuffD(criticalMelody).getValue()
-    }
-  }
-
-  return bonus
+export function calculateAttackAddWithBuffs(options: Buffs): number {
+  return calcAttackAdd(options.attackModifiers ?? {})
 }
 
-/**
- * 攻撃力加算バフの合計を計算（attackBuffクラスを使用）
- * @param options バフ設定
- * @returns 攻撃力加算バフの合計値
- */
-export function calculateTotalAttackAdd(options: Buffs): number {
-  const modifiers = options.attackModifiers ?? {}
-  const addModifiers: attackBuff[] = []
-
-  // 加算バフのみを収集
-  if (modifiers.powerCharm) {
-    addModifiers.push(new attackBuffA())
-  }
-  if (modifiers.powerTalon) {
-    addModifiers.push(new attackBuffB())
-  }
-  if (modifiers.demonDrugBuff && modifiers.demonDrugBuff !== 'none') {
-    addModifiers.push(new attackBuffC(modifiers.demonDrugBuff))
-  }
-  if (modifiers.mealAttackBuff && modifiers.mealAttackBuff !== 'none') {
-    addModifiers.push(new attackBuffP(modifiers.mealAttackBuff))
-  }
-  if (modifiers.shortTermBuff && modifiers.shortTermBuff !== 'none') {
-    addModifiers.push(new attackBuffD(modifiers.shortTermBuff))
-  }
-  if (modifiers.shortHypnosis) {
-    addModifiers.push(new attackBuffE())
-  }
-  if (modifiers.attackSkill && modifiers.attackSkill !== 'none') {
-    addModifiers.push(new attackBuffF(modifiers.attackSkill))
-  }
-  if (modifiers.challengeSkill && modifiers.challengeSkill !== 'none') {
-    addModifiers.push(new attackBuffJ(modifiers.challengeSkill))
-  }
-  if (modifiers.hunterSkill && modifiers.hunterSkill !== 'none') {
-    addModifiers.push(new attackBuffK(modifiers.hunterSkill))
-  }
-  if (modifiers.resuscitate) {
-    addModifiers.push(new attackBuffM())
-  }
-  if (modifiers.resentment) {
-    addModifiers.push(new attackBuffN())
-  }
-
-  // 加算バフの合計を計算（apply(0)でvalueを取得）
-  let total = 0
-  for (const modifier of addModifiers) {
-    modifier.apply(0) // valueを設定
-    total += modifier.value
-  }
-
-  return total
+export function calculateAttackMultiplyWithBuffs(options: Buffs): number {
+  return calcAttackMultiply(options.attackModifiers ?? {})
 }
 
-/**
- * 攻撃力倍率（乗算バフ）の合計を計算（attackBuffクラスを使用）
- * @param options バフ設定
- * @returns 攻撃力倍率（乗算バフの合計）
- */
-export function calculateTotalAttackMultiply(options: Buffs): number {
-  const modifiers = options.attackModifiers ?? {}
-  const multiplyModifiers: attackBuff[] = []
+export function getAttackWithBuffs(buffs: Buffs, weapon: WeaponMelee): number {
+  return calculateAttackWithBuffs(weapon.attack, buffs.attackModifiers ?? {}, weapon, 'normal')
+}
 
-  // 乗算バフのみを収集
-  if (modifiers.adrenaline && modifiers.adrenaline !== 'none') {
-    multiplyModifiers.push(new attackBuffG(modifiers.adrenaline))
-  }
-  if (modifiers.fortify && modifiers.fortify !== 'none') {
-    multiplyModifiers.push(new attackBuffI(modifiers.fortify))
-  }
-  if (modifiers.dragonInstinct) {
-    multiplyModifiers.push(new attackBuffO())
-  }
-  // 攻撃旋律（固定値のみ、HornDependentは武器依存のため除外）
-  const attackMelody = modifiers.attackMelody ?? AttackMelody.None
-  if (attackMelody !== AttackMelody.None && attackMelody !== AttackMelody.HornDependent) {
-    const attackMelodyBuff = new attackBuffH(attackMelody)
-    attackMelodyBuff.apply(1) // valueを設定
-    if (attackMelodyBuff.value !== 1.0) {
-      multiplyModifiers.push(attackMelodyBuff)
-    }
-  }
+export function getAffinityWithBuffs(buffs: Buffs, weapon: WeaponMelee): number {
+  return weapon.affinity + calculateCriticalWithBuffs(buffs, weapon)
+}
 
-  // 乗算バフの合計を計算（apply(1)でvalueを取得）
-  let multiplier = 1.0
-  for (const modifier of multiplyModifiers) {
-    modifier.apply(1) // valueを設定
-    multiplier *= modifier.value
+export function getElementWithBuffs(buffs: Buffs, weapon: WeaponMelee): number {
+  if (!weapon.element || weapon.element.type === '無') {
+    return 0
   }
-
-  return multiplier
+  return calculateElementWithBuffs(weapon.element.value, buffs.elementModifiers ?? {}, weapon)
 }

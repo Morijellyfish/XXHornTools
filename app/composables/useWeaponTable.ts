@@ -2,8 +2,7 @@ import { ref, computed } from 'vue'
 import type { WeaponMelee } from '~/types/weapons'
 import { isHuntingHorn } from '~/types/weapons'
 import type { TableBaseOption, SharpnessType } from '~/types/tableBaseOption'
-import { calculateCriticalBonus } from '~/types/Buffs/Buffs'
-import { CriticalMelody } from '~/types/Buffs/criticalBuff'
+import { calculateCriticalWithBuffs } from '~/types/Buffs/Buffs'
 import { AttackMelody } from '~/types/Buffs/attackBuff'
 import { ElementMelody } from '~/types/Buffs/elementBuff'
 import { calculateExpectedValue, calculateElementExpectedValue } from '~/utils/damageCalculate'
@@ -101,18 +100,9 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     return sortOrder.value === 'asc' ? '↑' : '↓'
   }
 
-  // 会心補正値を計算（武器依存の会心旋律も考慮）
-  const calculateCriticalBonusForWeapon = (weapon: T): number => {
-    // 固定値の会心補正を取得
-    let bonus = calculateCriticalBonus(props.buffs ?? {})
-    // 武器依存の会心旋律の補正を追加
-    const criticalMelody = props.buffs?.criticalBuffs?.criticalMelody ?? CriticalMelody.None
-    if (criticalMelody === CriticalMelody.HornDependent && isHuntingHorn(weapon)) {
-      // HornDependent の場合は武器依存のため、武器の旋律から取得
-      bonus += weapon.notes.getMaxMelodyBonus_Critical()
-    }
-    return bonus
-  }
+  // 会心補正値を計算
+  const calculateCriticalBonusForWeapon = (weapon: T): number =>
+    calculateCriticalWithBuffs(props.buffs ?? {}, weapon)
 
   // 会心率を計算（元の会心率 + 会心補正）
   const calculateAffinity = (weapon: T): number => {

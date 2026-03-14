@@ -35,3 +35,8 @@ export { attackBuffL, getBludgeonerMultiplier } from './attackBuff_L'
 export { attackBuffM } from './attackBuff_M'
 export { attackBuffN } from './attackBuff_N'
 export { attackBuffO } from './attackBuff_O'
+export {
+  getAttackAddModifiers,
+  getAttackMultiplyModifiers,
+  type SharpnessType,
+} from './attackBuffModifiers'

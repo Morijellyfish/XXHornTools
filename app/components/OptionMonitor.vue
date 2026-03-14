@@ -6,9 +6,9 @@ import type { TableBaseOption } from '~/types/tableBaseOption'
 import type { WeaponType } from '~/types/weapons'
 import {
   getActiveSkills,
-  calculateCriticalBonus,
-  calculateTotalAttackAdd,
-  calculateTotalAttackMultiply,
+  calculateCriticalWithBuffs,
+  calculateAttackAddWithBuffs,
+  calculateAttackMultiplyWithBuffs,
 } from '~/types/Buffs/Buffs'
 
 interface Props {
@@ -152,15 +152,15 @@ const clampOverallDefenseRate = () => {
   }
 }
 
-// 会心補正を計算
-const criticalBonus = computed(() => calculateCriticalBonus(tableOptions.value.buffs ?? {}))
+// 会心補正
+const criticalBonus = computed(() => calculateCriticalWithBuffs(tableOptions.value.buffs ?? {}))
 
-// 攻撃力加算バフの合計を計算
-const totalAttackAdd = computed(() => calculateTotalAttackAdd(tableOptions.value.buffs ?? {}))
+// 攻撃力加算
+const totalAttackAdd = computed(() => calculateAttackAddWithBuffs(tableOptions.value.buffs ?? {}))
 
-// 攻撃力倍率（乗算バフ）の合計を計算
+// 攻撃力乗算
 const totalAttackMultiply = computed(() =>
-  calculateTotalAttackMultiply(tableOptions.value.buffs ?? {})
+  calculateAttackMultiplyWithBuffs(tableOptions.value.buffs ?? {})
 )
 
 // 発動スキルのリストを取得
