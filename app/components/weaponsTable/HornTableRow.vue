@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HuntingHorn } from '~/types/weapons'
 import type { Note } from '~/types/notes'
+import type { VisibleColumns } from '~/types/tableBaseOption'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import { AttackMelody } from '~/types/attackBuff'
 import { CriticalMelody } from '~/types/criticalBuff'
@@ -9,7 +10,12 @@ import WeaponTableRow from './WeaponTableRow.vue'
 
 interface Props {
   horn: HuntingHorn
+  requiredMotionValue?: number
+  attackCount?: number
   expectedValue: number
+  physicalExpectedValue: number
+  elementExpectedValue: number
+  elementDamage: number
   attackWithBuffs: number
   baseAttack: number
   showBaseAttack: boolean
@@ -20,6 +26,7 @@ interface Props {
   attackMelody: AttackMelody
   criticalMelody: CriticalMelody
   bludgeoner?: boolean
+  visibleColumns: VisibleColumns
   selectedMelodyNames?: Set<string> // フィルターで選択されている旋律名
   highlightedMelodyNames?: Set<string> // ハイライトされている旋律名
   onMelodyClick?: (melodyName: string) => void // 旋律名クリック時のコールバック
@@ -36,7 +43,12 @@ const getNoteColor = (note: Note): string => {
 <template>
   <WeaponTableRow
     :weapon="horn"
+    :required-motion-value="requiredMotionValue"
+    :attack-count="attackCount"
     :expected-value="expectedValue"
+    :physical-expected-value="physicalExpectedValue"
+    :element-expected-value="elementExpectedValue"
+    :element-damage="elementDamage"
     :attack-with-buffs="attackWithBuffs"
     :base-attack="baseAttack"
     :show-base-attack="showBaseAttack"
@@ -45,6 +57,7 @@ const getNoteColor = (note: Note): string => {
     :show-base-affinity="showBaseAffinity"
     :selected-sharpness="selectedSharpness"
     :bludgeoner="bludgeoner"
+    :visible-columns="visibleColumns"
   >
     <template #additional-columns>
       <!-- 音色カラム -->
