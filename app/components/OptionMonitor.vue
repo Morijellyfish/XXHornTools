@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { ElementHitzoneValues } from '~/types/targetDamage'
 import type { ElementType, MelleeType } from '~/types/attackType'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import type { WeaponType } from '~/types/weapons'
@@ -174,6 +175,7 @@ const onTemplateApply = (payload: {
   hitzone?: number
   targetDamage?: number
   overallDefenseRate?: number
+  elementHitzone?: ElementHitzoneValues
 }) => {
   tableOptions.value = {
     ...tableOptions.value,

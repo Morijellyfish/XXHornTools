@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import Select from 'primevue/select'
 import { allMonsters } from '~/data/monsters'
+import type { ElementHitzoneValues } from '~/types/targetDamage'
 import type { MelleeType } from '~/types/attackType'
 import {
   getDefaultDurabilityPartKey,
@@ -23,7 +24,14 @@ interface Props {
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  apply: [payload: { hitzone?: number; targetDamage?: number; overallDefenseRate?: number }]
+  apply: [
+    payload: {
+      hitzone?: number
+      targetDamage?: number
+      overallDefenseRate?: number
+      elementHitzone?: ElementHitzoneValues
+    },
+  ]
 }>()
 
 const selectedMonsterName = ref<string>('')
@@ -72,16 +80,21 @@ const hitzoneTypeOptions: { label: string; value: MelleeType }[] = [
 const isFrenziedVariant = computed(() => selectedVariantName.value.includes('獰猛'))
 
 const getSelectedHitzoneValue = (): number | undefined => {
-  const monster = selectedMonster.value
-  if (!monster) return undefined
+  const monster = selectedMonster.value!
   const variant = monster.hitZoneVariants.find(v => v.name === selectedVariantName.value)
   const hitZone = variant?.hitZones.find(hz => hz.name === selectedHitzonePartName.value)
   return hitZone?.mellee[selectedHitzoneType.value]
 }
 
+const getSelectedElementHitzoneValue = (): ElementHitzoneValues | undefined => {
+  const monster = selectedMonster.value!
+  const variant = monster.hitZoneVariants.find(v => v.name === selectedVariantName.value)
+  const hitZone = variant?.hitZones.find(hz => hz.name === selectedHitzonePartName.value)
+  return hitZone?.element
+}
+
 const getSelectedDurabilityValue = (): number | undefined => {
-  const monster = selectedMonster.value
-  if (!monster) return undefined
+  const monster = selectedMonster.value!
 
   const [name, kind] = selectedDurabilityPartKey.value.split('::')
   if (!name || (kind !== 'normal' && kind !== 'prebreak')) return undefined
@@ -105,6 +118,7 @@ const apply = () => {
   if (!canApply.value) return
 
   const hitzone = getSelectedHitzoneValue()
+  const elementHitzone = getSelectedElementHitzoneValue()
   const durabilityValue = getSelectedDurabilityValue()
   const flinchMultiplier = templateFlinchMultiplier.value ?? 1.0
   const defenseMultiplier = templateDefenseMultiplier.value ?? 1.0
@@ -114,6 +128,7 @@ const apply = () => {
 
   emit('apply', {
     ...(hitzone !== undefined ? { hitzone } : {}),
+    ...(elementHitzone !== undefined ? { elementHitzone } : {}),
     ...(targetDamage !== undefined ? { targetDamage } : {}),
     overallDefenseRate: defenseMultiplier,
   })
