@@ -9,7 +9,7 @@ import {
   calculateCriticalBonus,
   calculateTotalAttackAdd,
   calculateTotalAttackMultiply,
-} from '~/types/tableBaseOption'
+} from '~/types/Buffs/Buffs'
 
 interface Props {
   modelValue: TableBaseOption
@@ -153,20 +153,27 @@ const clampOverallDefenseRate = () => {
 }
 
 // 会心補正を計算
-const criticalBonus = computed(() => calculateCriticalBonus(tableOptions.value))
+const criticalBonus = computed(() => calculateCriticalBonus(tableOptions.value.buffs ?? {}))
 
 // 攻撃力加算バフの合計を計算
-const totalAttackAdd = computed(() => calculateTotalAttackAdd(tableOptions.value))
+const totalAttackAdd = computed(() => calculateTotalAttackAdd(tableOptions.value.buffs ?? {}))
 
 // 攻撃力倍率（乗算バフ）の合計を計算
-const totalAttackMultiply = computed(() => calculateTotalAttackMultiply(tableOptions.value))
+const totalAttackMultiply = computed(() =>
+  calculateTotalAttackMultiply(tableOptions.value.buffs ?? {})
+)
 
 // 発動スキルのリストを取得
-const activeSkills = computed(() => getActiveSkills(tableOptions.value))
+const activeSkills = computed(() =>
+  getActiveSkills({
+    ...(tableOptions.value.buffs ?? {}),
+    selectedSharpness: tableOptions.value.selectedSharpness,
+  })
+)
 
 // 弱点特攻発動かつ肉質45未満の時に警告を表示
 const showWeaknessExploitWarning = computed(() => {
-  const hasWE = tableOptions.value.criticalBuffs?.hasWeaknessExploit === true
+  const hasWE = tableOptions.value.buffs?.criticalBuffs?.hasWeaknessExploit === true
   const hitzone = targetDamageSettings.value.hitzone
   return hasWE && hitzone !== undefined && hitzone < 45
 })

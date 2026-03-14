@@ -11,18 +11,15 @@ interface Props extends TableBaseOption {
 
 const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
-  criticalBuffs: () => ({
-    hasCriticalBoost: false,
-    hasMadAffinity: false,
-  }),
-  attackModifiers: () => ({
-    powerCharm: false,
-    powerTalon: false,
-    attackSkill: 'none',
-    attackMelody: AttackMelody.None,
-  }),
-  elementModifiers: () => ({
-    elementMelody: ElementMelody.None,
+  buffs: () => ({
+    criticalBuffs: { hasCriticalBoost: false, hasMadAffinity: false },
+    attackModifiers: {
+      powerCharm: false,
+      powerTalon: false,
+      attackSkill: 'none',
+      attackMelody: AttackMelody.None,
+    },
+    elementModifiers: { elementMelody: ElementMelody.None },
   }),
   sharpnessMultiplier: 1.0,
 })
@@ -32,11 +29,8 @@ const props = withDefaults(defineProps<Props>(), {
   <WeaponTable
     :weapons="props.longSwords"
     :selected-sharpness="props.selectedSharpness"
-    :critical-buffs="props.criticalBuffs"
-    :attack-modifiers="props.attackModifiers"
+    :buffs="props.buffs"
     :sharpness-multiplier="props.sharpnessMultiplier"
-    :critical-melody="props.criticalBuffs?.criticalMelody"
-    :element-modifiers="props.elementModifiers"
     :target-damage-settings="props.targetDamageSettings"
     :visible-columns="props.visibleColumns"
   />

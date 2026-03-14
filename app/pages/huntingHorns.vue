@@ -32,12 +32,9 @@ const toggleMelodyHighlight = (melodyName: string) => {
   highlightedMelodyNames.value = new Set(highlightedMelodyNames.value)
 }
 
-// criticalBuffsをそのまま使用
-const criticalBuffs = computed(() => tableOptions.value.criticalBuffs)
-
 // 切れ味補正倍率を計算
 const sharpnessMultiplier = computed(() => {
-  const shortTermBuff = tableOptions.value.attackModifiers?.shortTermBuff
+  const shortTermBuff = tableOptions.value.buffs?.attackModifiers?.shortTermBuff
   return shortTermBuff === 'demonBullet' || shortTermBuff === 'demonCriticalBullet' ? 1.1 : 1.0
 })
 
@@ -73,11 +70,8 @@ const filteredHorns = computed(() => {
     <HornTable
       :horns="filteredHorns"
       :selected-sharpness="tableOptions.selectedSharpness"
-      :critical-buffs="criticalBuffs"
-      :attack-modifiers="tableOptions.attackModifiers"
-      :element-modifiers="tableOptions.elementModifiers"
+      :buffs="tableOptions.buffs"
       :sharpness-multiplier="sharpnessMultiplier"
-      :critical-melody="tableOptions.criticalBuffs?.criticalMelody"
       :target-damage-settings="tableOptions.targetDamageSettings"
       :visible-columns="tableOptions.visibleColumns"
       :selected-melody-names="selectedMelodyNames"

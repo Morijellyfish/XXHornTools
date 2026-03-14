@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import type { WeaponMelee } from '~/types/weapons'
 import { isHuntingHorn } from '~/types/weapons'
 import type { TableBaseOption, SharpnessType } from '~/types/tableBaseOption'
-import { calculateCriticalBonus } from '~/types/tableBaseOption'
+import { calculateCriticalBonus } from '~/types/Buffs/Buffs'
 import { CriticalMelody } from '~/types/Buffs/criticalBuff'
 import { AttackMelody } from '~/types/Buffs/attackBuff'
 import { ElementMelody } from '~/types/Buffs/elementBuff'
@@ -104,9 +104,9 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
   // 会心補正値を計算（武器依存の会心旋律も考慮）
   const calculateCriticalBonusForWeapon = (weapon: T): number => {
     // 固定値の会心補正を取得
-    let bonus = calculateCriticalBonus(props)
+    let bonus = calculateCriticalBonus(props.buffs ?? {})
     // 武器依存の会心旋律の補正を追加
-    const criticalMelody = props.criticalBuffs?.criticalMelody ?? CriticalMelody.None
+    const criticalMelody = props.buffs?.criticalBuffs?.criticalMelody ?? CriticalMelody.None
     if (criticalMelody === CriticalMelody.HornDependent && isHuntingHorn(weapon)) {
       // HornDependent の場合は武器依存のため、武器の旋律から取得
       bonus += weapon.notes.getMaxMelodyBonus_Critical()
@@ -128,8 +128,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       weapon,
       props.selectedSharpness ?? 'normal',
       totalCriticalBonus,
-      props.criticalBuffs?.hasCriticalBoost ?? false,
-      props.criticalBuffs?.hasMadAffinity ?? false,
+      props.buffs?.criticalBuffs?.hasCriticalBoost ?? false,
+      props.buffs?.criticalBuffs?.hasMadAffinity ?? false,
       props.sharpnessMultiplier ?? 1.0
     )
   }
@@ -154,7 +154,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
   const getAttackWithBuffs = (weapon: T): number => {
     return calculateAttackWithBuffs(
       weapon.attack,
-      props.attackModifiers ?? {},
+      props.buffs?.attackModifiers ?? {},
       weapon,
       props.selectedSharpness ?? 'normal'
     )
@@ -165,7 +165,11 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     if (!weapon.element || weapon.element.type === '無') {
       return 0
     }
-    return calculateElementWithBuffs(weapon.element.value, props.elementModifiers ?? {}, weapon)
+    return calculateElementWithBuffs(
+      weapon.element.value,
+      props.buffs?.elementModifiers ?? {},
+      weapon
+    )
   }
 
   // 必要モーション値を計算（属性だけで目標を超える場合は0を返す）
@@ -204,7 +208,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
 
   // 元の攻撃力を括弧で表示するかどうかを判定
   const isShowBaseAttack = (weapon: T): boolean => {
-    const modifiers = props.attackModifiers ?? {}
+    const modifiers = props.buffs?.attackModifiers ?? {}
     // 力の解放は攻撃力補正がないため除外
     const challengeSkill = modifiers.challengeSkill
     const hasAttackBuffFromChallengeSkill = Boolean(
@@ -252,7 +256,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
 
   // 元の属性値を括弧で表示するかどうかを判定
   const isShowBaseElement = (weapon: T): boolean => {
-    const elementMelody = props.elementModifiers?.elementMelody ?? ElementMelody.None
+    const elementMelody = props.buffs?.elementModifiers?.elementMelody ?? ElementMelody.None
     if (elementMelody === ElementMelody.None) return false
     if (elementMelody === ElementMelody.HornDependent) {
       return isHuntingHorn(weapon) && weapon.notes.getMaxMelodyMultiplier_Element() !== 1.0

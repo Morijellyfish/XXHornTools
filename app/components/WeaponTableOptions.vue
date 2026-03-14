@@ -38,9 +38,10 @@ const options = computed({
 })
 
 // 各プロパティへのアクセスを簡潔にするための computed
-const attackModifiers = computed(() => options.value.attackModifiers ?? {})
-const elementModifiers = computed(() => options.value.elementModifiers ?? {})
-const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
+const buffs = computed(() => options.value.buffs ?? {})
+const attackModifiers = computed(() => buffs.value.attackModifiers ?? {})
+const elementModifiers = computed(() => buffs.value.elementModifiers ?? {})
+const criticalBuffs = computed(() => buffs.value.criticalBuffs ?? {})
 </script>
 
 <template>
@@ -59,7 +60,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, powerCharm: $event },
+                buffs: { ...buffs, attackModifiers: { ...attackModifiers, powerCharm: $event } },
               }
             "
           />
@@ -73,7 +74,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, powerTalon: $event },
+                buffs: { ...buffs, attackModifiers: { ...attackModifiers, powerTalon: $event } },
               }
             "
           />
@@ -93,7 +94,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, demonDrugBuff: $event },
+                buffs: { ...buffs, attackModifiers: { ...attackModifiers, demonDrugBuff: $event } },
               }
             "
           />
@@ -120,7 +121,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, mealAttackBuff: $event },
+                buffs: {
+                  ...buffs,
+                  attackModifiers: { ...attackModifiers, mealAttackBuff: $event },
+                },
               }
             "
           />
@@ -134,7 +138,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, shortHypnosis: $event },
+                buffs: { ...buffs, attackModifiers: { ...attackModifiers, shortHypnosis: $event } },
               }
             "
           />
@@ -164,10 +168,13 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
               @update:model-value="
                 options = {
                   ...options,
-                  attackModifiers: { ...attackModifiers, shortTermBuff: $event },
-                  criticalBuffs: {
-                    ...criticalBuffs,
-                    demonCriticalBullet: $event === 'demonCriticalBullet',
+                  buffs: {
+                    ...buffs,
+                    attackModifiers: { ...attackModifiers, shortTermBuff: $event },
+                    criticalBuffs: {
+                      ...criticalBuffs,
+                      demonCriticalBullet: $event === 'demonCriticalBullet',
+                    },
                   },
                 }
               "
@@ -207,7 +214,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, attackSkill: $event },
+                buffs: { ...buffs, attackModifiers: { ...attackModifiers, attackSkill: $event } },
               }
             "
           />
@@ -245,7 +252,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, challengeSkill: $event },
+                buffs: {
+                  ...buffs,
+                  attackModifiers: { ...attackModifiers, challengeSkill: $event },
+                },
               }
             "
           />
@@ -268,7 +278,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, hunterSkill: $event },
+                buffs: { ...buffs, attackModifiers: { ...attackModifiers, hunterSkill: $event } },
               }
             "
           />
@@ -284,7 +294,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 @update:model-value="
                   options = {
                     ...options,
-                    attackModifiers: { ...attackModifiers, resuscitate: $event },
+                    buffs: {
+                      ...buffs,
+                      attackModifiers: { ...attackModifiers, resuscitate: $event },
+                    },
                   }
                 "
               />
@@ -300,7 +313,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 @update:model-value="
                   options = {
                     ...options,
-                    attackModifiers: { ...attackModifiers, resentment: $event },
+                    buffs: {
+                      ...buffs,
+                      attackModifiers: { ...attackModifiers, resentment: $event },
+                    },
                   }
                 "
               />
@@ -330,7 +346,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 @update:model-value="
                   options = {
                     ...options,
-                    attackModifiers: { ...attackModifiers, bludgeoner: $event },
+                    buffs: {
+                      ...buffs,
+                      attackModifiers: { ...attackModifiers, bludgeoner: $event },
+                    },
                   }
                 "
               />
@@ -348,7 +367,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 @update:model-value="
                   options = {
                     ...options,
-                    criticalBuffs: { ...criticalBuffs, hasWeaknessExploit: $event },
+                    buffs: {
+                      ...buffs,
+                      criticalBuffs: { ...criticalBuffs, hasWeaknessExploit: $event },
+                    },
                   }
                 "
               />
@@ -365,7 +387,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 @update:model-value="
                   options = {
                     ...options,
-                    criticalBuffs: { ...criticalBuffs, repeatOffensive: $event },
+                    buffs: {
+                      ...buffs,
+                      criticalBuffs: { ...criticalBuffs, repeatOffensive: $event },
+                    },
                   }
                 "
               />
@@ -384,7 +409,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
               { value: CriticalEye.Plus3, label: '+3' },
             ]"
             @update:model-value="
-              options = { ...options, criticalBuffs: { ...criticalBuffs, criticalEye: $event } }
+              options = {
+                ...options,
+                buffs: { ...buffs, criticalBuffs: { ...criticalBuffs, criticalEye: $event } },
+              }
             "
           />
           <div class="grid grid-cols-2">
@@ -399,7 +427,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 @update:model-value="
                   options = {
                     ...options,
-                    criticalBuffs: { ...criticalBuffs, hasCriticalBoost: $event },
+                    buffs: {
+                      ...buffs,
+                      criticalBuffs: { ...criticalBuffs, hasCriticalBoost: $event },
+                    },
                   }
                 "
               />
@@ -415,7 +446,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 @update:model-value="
                   options = {
                     ...options,
-                    criticalBuffs: { ...criticalBuffs, hasMadAffinity: $event },
+                    buffs: {
+                      ...buffs,
+                      criticalBuffs: { ...criticalBuffs, hasMadAffinity: $event },
+                    },
                   }
                 "
               />
@@ -444,7 +478,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, attackMelody: $event as AttackMelody },
+                buffs: {
+                  ...buffs,
+                  attackModifiers: { ...attackModifiers, attackMelody: $event as AttackMelody },
+                },
               }
             "
           />
@@ -462,7 +499,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                criticalBuffs: { ...criticalBuffs, criticalMelody: $event as CriticalMelody },
+                buffs: {
+                  ...buffs,
+                  criticalBuffs: { ...criticalBuffs, criticalMelody: $event as CriticalMelody },
+                },
               }
             "
           />
@@ -480,7 +520,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                elementModifiers: { ...elementModifiers, elementMelody: $event as ElementMelody },
+                buffs: {
+                  ...buffs,
+                  elementModifiers: { ...elementModifiers, elementMelody: $event as ElementMelody },
+                },
               }
             "
           />
@@ -511,7 +554,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
             @update:model-value="
               options = {
                 ...options,
-                attackModifiers: { ...attackModifiers, adrenaline: $event },
+                buffs: { ...buffs, attackModifiers: { ...attackModifiers, adrenaline: $event } },
               }
             "
           />
@@ -528,7 +571,7 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 @update:model-value="
                   options = {
                     ...options,
-                    attackModifiers: { ...attackModifiers, fortify: $event },
+                    buffs: { ...buffs, attackModifiers: { ...attackModifiers, fortify: $event } },
                   }
                 "
               />
@@ -544,7 +587,10 @@ const criticalBuffs = computed(() => options.value.criticalBuffs ?? {})
                 @update:model-value="
                   options = {
                     ...options,
-                    attackModifiers: { ...attackModifiers, dragonInstinct: $event },
+                    buffs: {
+                      ...buffs,
+                      attackModifiers: { ...attackModifiers, dragonInstinct: $event },
+                    },
                   }
                 "
               />

@@ -17,18 +17,15 @@ interface Props extends TableBaseOption {
 
 const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
-  criticalBuffs: () => ({
-    hasCriticalBoost: false,
-    hasMadAffinity: false,
-  }),
-  attackModifiers: () => ({
-    powerCharm: false,
-    powerTalon: false,
-    attackSkill: 'none',
-    attackMelody: AttackMelody.None,
-  }),
-  elementModifiers: () => ({
-    elementMelody: ElementMelody.None,
+  buffs: () => ({
+    criticalBuffs: { hasCriticalBoost: false, hasMadAffinity: false },
+    attackModifiers: {
+      powerCharm: false,
+      powerTalon: false,
+      attackSkill: 'none',
+      attackMelody: AttackMelody.None,
+    },
+    elementModifiers: { elementMelody: ElementMelody.None },
   }),
   sharpnessMultiplier: 1.0,
 })
@@ -38,11 +35,8 @@ const props = withDefaults(defineProps<Props>(), {
   <WeaponTable
     :weapons="props.horns"
     :selected-sharpness="props.selectedSharpness"
-    :critical-buffs="props.criticalBuffs"
-    :attack-modifiers="props.attackModifiers"
+    :buffs="props.buffs"
     :sharpness-multiplier="props.sharpnessMultiplier"
-    :critical-melody="props.criticalBuffs?.criticalMelody"
-    :element-modifiers="props.elementModifiers"
     :target-damage-settings="props.targetDamageSettings"
     :visible-columns="props.visibleColumns"
   >
@@ -74,13 +68,13 @@ const props = withDefaults(defineProps<Props>(), {
             :key="index"
             :class="{
               'mp-alert-attack':
-                ((props.attackModifiers?.attackMelody ?? AttackMelody.None) ===
+                ((props.buffs?.attackModifiers?.attackMelody ?? AttackMelody.None) ===
                   AttackMelody.HornDependent &&
                   (name === '攻撃力強化【小】' || name === '攻撃力強化【大】')) ||
-                ((props.criticalBuffs?.criticalMelody ?? CriticalMelody.None) ===
+                ((props.buffs?.criticalBuffs?.criticalMelody ?? CriticalMelody.None) ===
                   CriticalMelody.HornDependent &&
                   name === '会心率UP&体力回復【小】') ||
-                ((props.elementModifiers?.elementMelody ?? ElementMelody.None) ===
+                ((props.buffs?.elementModifiers?.elementMelody ?? ElementMelody.None) ===
                   ElementMelody.HornDependent &&
                   name === '属性攻撃力強化'),
               'mp-chip-primary':

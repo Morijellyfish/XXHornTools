@@ -14,18 +14,15 @@ interface Props extends TableBaseOption {
 
 const props = withDefaults(defineProps<Props>(), {
   selectedSharpness: 'normal',
-  criticalBuffs: () => ({
-    hasCriticalBoost: false,
-    hasMadAffinity: false,
-  }),
-  attackModifiers: () => ({
-    powerCharm: false,
-    powerTalon: false,
-    attackSkill: 'none',
-    attackMelody: AttackMelody.None,
-  }),
-  elementModifiers: () => ({
-    elementMelody: ElementMelody.None,
+  buffs: () => ({
+    criticalBuffs: { hasCriticalBoost: false, hasMadAffinity: false },
+    attackModifiers: {
+      powerCharm: false,
+      powerTalon: false,
+      attackSkill: 'none',
+      attackMelody: AttackMelody.None,
+    },
+    elementModifiers: { elementMelody: ElementMelody.None },
   }),
   sharpnessMultiplier: 1.0,
 })
@@ -161,8 +158,8 @@ const {
             :affinity="calculateAffinity(weapon)"
             :base-affinity="weapon.affinity"
             :show-base-affinity="isShowBaseAffinity(weapon)"
-            :selected-sharpness="selectedSharpness"
-            :bludgeoner="attackModifiers.bludgeoner"
+            :selected-sharpness="props.selectedSharpness"
+            :bludgeoner="props.buffs?.attackModifiers?.bludgeoner"
             :visible-columns="visibleColumns"
           >
             <!-- 拡張用カラム -->
