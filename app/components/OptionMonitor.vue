@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import type { ElementHitzoneValues } from '~/types/targetDamage'
 import type { ElementType, MelleeType } from '~/types/attackType'
 import type { TableBaseOption } from '~/types/tableBaseOption'
@@ -178,6 +178,8 @@ const showWeaknessExploitWarning = computed(() => {
   return hasWE && hitzone !== undefined && hitzone < 45
 })
 
+const targetDamageExpanded = ref(true)
+
 const onTemplateApply = (payload: {
   hitzone?: number
   targetDamage?: number
@@ -244,90 +246,98 @@ const onTemplateApply = (payload: {
       </span>
     </div>
     <div class="mt-4 pt-4 mp-divider-top">
-      <div class="mp-label mb-3 mp-text">目標ダメージ設定</div>
-      <div class="flex flex-wrap items-center gap-4">
-        <div class="flex items-center gap-2">
-          <label class="mp-label mp-muted whitespace-nowrap"> 目標ダメージ: </label>
-          <InputNumber
-            :model-value="targetDamageSettings.targetDamage ?? null"
-            :min="0"
-            class="w-24"
-            placeholder="10000"
-            input-class="w-full"
-            :use-grouping="false"
-            @update:model-value="updateTargetDamage($event)"
-            @blur="clampTargetDamage"
-          />
+      <button
+        type="button"
+        class="mp-label mb-3 mp-text cursor-pointer select-none bg-transparent border-none p-0 text-left"
+        @click="targetDamageExpanded = !targetDamageExpanded"
+      >
+        {{ targetDamageExpanded ? '▼' : '▶' }} 目標ダメージ設定
+      </button>
+      <div v-show="targetDamageExpanded" class="mt-3">
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="flex items-center gap-2">
+            <label class="mp-label mp-muted whitespace-nowrap"> 目標ダメージ: </label>
+            <InputNumber
+              :model-value="targetDamageSettings.targetDamage ?? null"
+              :min="0"
+              class="w-24"
+              placeholder="10000"
+              input-class="w-full"
+              :use-grouping="false"
+              @update:model-value="updateTargetDamage($event)"
+              @blur="clampTargetDamage"
+            />
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="mp-label mp-muted whitespace-nowrap">肉質:</label>
+            <InputNumber
+              :model-value="targetDamageSettings.hitzone ?? null"
+              :min="0"
+              :max="1000"
+              class="w-20"
+              placeholder="45"
+              input-class="w-full"
+              :use-grouping="false"
+              @update:model-value="updateHitzone($event)"
+              @blur="clampHitzone"
+            />
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="mp-label mp-muted whitespace-nowrap"> 全体防御率: </label>
+            <InputNumber
+              :model-value="targetDamageSettings.overallDefenseRate ?? null"
+              :min="0"
+              :step="0.01"
+              class="w-20"
+              placeholder="1.0"
+              input-class="w-full"
+              :use-grouping="false"
+              :min-fraction-digits="0"
+              :max-fraction-digits="2"
+              @update:model-value="updateOverallDefenseRate($event)"
+              @blur="clampOverallDefenseRate"
+            />
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <label class="mp-label mp-muted whitespace-nowrap">肉質:</label>
-          <InputNumber
-            :model-value="targetDamageSettings.hitzone ?? null"
-            :min="0"
-            :max="1000"
-            class="w-20"
-            placeholder="45"
-            input-class="w-full"
-            :use-grouping="false"
-            @update:model-value="updateHitzone($event)"
-            @blur="clampHitzone"
-          />
+        <div class="mt-3 flex flex-wrap items-center gap-4">
+          <span class="mp-label mp-muted whitespace-nowrap">属性肉質:</span>
+          <div v-for="element in ELEMENT_TYPES" :key="element" class="flex items-center gap-2">
+            <label class="mp-label mp-muted whitespace-nowrap">{{ element }}:</label>
+            <InputNumber
+              :model-value="targetDamageSettings.elementHitzone?.[element] ?? null"
+              :min="0"
+              :max="1000"
+              class="w-20"
+              placeholder="20"
+              input-class="w-full"
+              :use-grouping="false"
+              @update:model-value="updateElementHitzone(element, $event)"
+              @blur="clampElementHitzone(element)"
+            />
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <label class="mp-label mp-muted whitespace-nowrap"> 全体防御率: </label>
-          <InputNumber
-            :model-value="targetDamageSettings.overallDefenseRate ?? null"
-            :min="0"
-            :step="0.01"
-            class="w-20"
-            placeholder="1.0"
-            input-class="w-full"
-            :use-grouping="false"
-            :min-fraction-digits="0"
-            :max-fraction-digits="2"
-            @update:model-value="updateOverallDefenseRate($event)"
-            @blur="clampOverallDefenseRate"
-          />
+        <div class="mt-3 flex flex-wrap items-center gap-4">
+          <div class="flex items-center gap-2">
+            <label class="mp-label mp-muted whitespace-nowrap">攻撃回数:</label>
+            <InputNumber
+              :model-value="targetDamageSettings.attackCount ?? null"
+              :min="1"
+              class="w-20"
+              placeholder="1"
+              input-class="w-full"
+              :use-grouping="false"
+              @update:model-value="updateAttackCount($event)"
+              @blur="clampAttackCount"
+            />
+          </div>
         </div>
-      </div>
-      <div class="mt-3 flex flex-wrap items-center gap-4">
-        <span class="mp-label mp-muted whitespace-nowrap">属性肉質:</span>
-        <div v-for="element in ELEMENT_TYPES" :key="element" class="flex items-center gap-2">
-          <label class="mp-label mp-muted whitespace-nowrap">{{ element }}:</label>
-          <InputNumber
-            :model-value="targetDamageSettings.elementHitzone?.[element] ?? null"
-            :min="0"
-            :max="1000"
-            class="w-20"
-            placeholder="20"
-            input-class="w-full"
-            :use-grouping="false"
-            @update:model-value="updateElementHitzone(element, $event)"
-            @blur="clampElementHitzone(element)"
-          />
-        </div>
-      </div>
-      <div class="mt-3 flex flex-wrap items-center gap-4">
-        <div class="flex items-center gap-2">
-          <label class="mp-label mp-muted whitespace-nowrap">攻撃回数:</label>
-          <InputNumber
-            :model-value="targetDamageSettings.attackCount ?? null"
-            :min="1"
-            class="w-20"
-            placeholder="1"
-            input-class="w-full"
-            :use-grouping="false"
-            @update:model-value="updateAttackCount($event)"
-            @blur="clampAttackCount"
-          />
-        </div>
-      </div>
 
-      <div class="mt-4">
-        <MonsterSelector
-          :default-hitzone-type="props.defaultHitzoneType"
-          @apply="onTemplateApply"
-        />
+        <div class="mt-4">
+          <MonsterSelector
+            :default-hitzone-type="props.defaultHitzoneType"
+            @apply="onTemplateApply"
+          />
+        </div>
       </div>
 
       <div class="mt-4 pt-4 mp-divider-top">
