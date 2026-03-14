@@ -2,10 +2,11 @@ import type { Monster } from '~/types/monster/monster'
 
 // モンスターの統合データをここにインポート
 import { rathian } from './rathian'
+import { teostra } from './teostra'
 import { valstrax } from './valstrax'
 
 // すべてのモンスターの統合データを統合
-export const allMonsters: Monster[] = [rathian, valstrax]
+export const allMonsters: Monster[] = [rathian, teostra, valstrax]
 
 // モンスター名で統合データを検索するヘルパー関数
 export const getMonster = (monsterName: string): Monster | undefined => {
