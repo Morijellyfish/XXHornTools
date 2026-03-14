@@ -1,5 +1,6 @@
 import PrimeVue from 'primevue/config'
 import Ripple from 'primevue/ripple'
+import Tooltip from 'primevue/tooltip'
 import Aura from '@primeuix/themes/aura'
 import { Theme, definePreset, dt, evaluateDtExpressions } from '@primeuix/styled'
 
@@ -90,6 +91,7 @@ export default defineNuxtPlugin(nuxtApp => {
   })
 
   nuxtApp.vueApp.directive('ripple', Ripple)
+  nuxtApp.vueApp.directive('tooltip', Tooltip)
 
   // FOUC対策（SSG/SSRでのみ実行）
   if (import.meta.server) {

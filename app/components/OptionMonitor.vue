@@ -106,6 +106,13 @@ const totalAttackMultiply = computed(() => calculateTotalAttackMultiply(tableOpt
 // 発動スキルのリストを取得
 const activeSkills = computed(() => getActiveSkills(tableOptions.value))
 
+// 弱点特攻発動かつ肉質45未満の時に警告を表示
+const showWeaknessExploitWarning = computed(() => {
+  const hasWE = tableOptions.value.criticalBuffs?.hasWeaknessExploit === true
+  const hitzone = targetDamageSettings.value.hitzone
+  return hasWE && hitzone !== undefined && hitzone < 45
+})
+
 const onTemplateApply = (payload: {
   hitzone?: number
   targetDamage?: number
@@ -149,6 +156,17 @@ const onTemplateApply = (payload: {
           :class="criticalBonus > 0 ? 'mp-accent' : 'mp-muted'"
         >
           {{ criticalBonus > 0 ? `+${criticalBonus}%` : '0%' }}
+        </span>
+        <span
+          v-if="showWeaknessExploitWarning"
+          v-tooltip.top="{
+            value:
+              '弱点特攻が有効になるのは45以上になります\r\nオンのままだと実際の値と差異が出ます',
+            showDelay: 50,
+          }"
+          class="ml-2 mp-alert-attack cursor-help"
+        >
+          弱点特攻がオンになっています！
         </span>
       </div>
     </div>
