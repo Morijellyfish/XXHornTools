@@ -3,6 +3,7 @@ import { allLongSwords } from '~/data/longSword'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { createDefaultTableOptions } from '~/utils/tableOptions'
+import { DEFAULT_HITZONE_TYPE } from '~/types/weapons/longSword'
 import WeaponCompareShell from '~/components/layout/WeaponCompareShell.vue'
 import LongSwordTable from '~/components/weaponsTable/LongSwordTable.vue'
 
@@ -28,6 +29,7 @@ const sharpnessMultiplier = computed(() => {
     v-model="tableOptions"
     title="太刀比較表"
     description="モンスターハンターXXの太刀のステータス比較表"
+    :default-hitzone-type="DEFAULT_HITZONE_TYPE"
   >
     <LongSwordTable
       :long-swords="allLongSwords"

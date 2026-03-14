@@ -1,3 +1,4 @@
+import type { MelleeType } from '../attackType'
 import type { Monster } from './monster'
 
 /**
@@ -60,7 +61,7 @@ export function getHitZonePartList(monster?: Monster, variantName?: string): Lab
 export function getHitZonePartListWithValue(
   monster: Monster | undefined,
   variantName: string | undefined,
-  hitzoneType: 'slash' | 'impact' | 'shot'
+  hitzoneType: MelleeType
 ): LabeledValue[] {
   const variant = monster?.hitZoneVariants.find(v => v.name === variantName)
   const hitZones = variant?.hitZones ?? []

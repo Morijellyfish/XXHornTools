@@ -4,6 +4,7 @@ import { melodyNames } from '~/data/melodies'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { createDefaultTableOptions } from '~/utils/tableOptions'
+import { DEFAULT_HITZONE_TYPE } from '~/types/weapons/huntingHorn'
 import WeaponCompareShell from '~/components/layout/WeaponCompareShell.vue'
 import MelodyFilter from '~/components/MelodyFilter.vue'
 import HornTable from '~/components/weaponsTable/HornTable.vue'
@@ -62,6 +63,7 @@ const filteredHorns = computed(() => {
     title="狩猟笛比較表"
     description="モンスターハンターXXの狩猟笛のステータス比較表"
     :allow-horn-dependent-melody="true"
+    :default-hitzone-type="DEFAULT_HITZONE_TYPE"
   >
     <template #filters>
       <MelodyFilter v-model="selectedMelodyNames" :melody-names="melodyNames" />

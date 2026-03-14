@@ -1,6 +1,10 @@
+import type { MelleeType } from '../attackType'
 import type { Notes } from '../notes'
 import type { WeaponMelee } from './weaponMelee'
 import type { WeaponBase } from './weaponBase'
+
+/** 狩猟笛のデフォルト物理属性（打撃） */
+export const DEFAULT_HITZONE_TYPE: MelleeType = 'impact'
 
 // 狩猟笛の型定義
 export interface HuntingHorn extends WeaponMelee {

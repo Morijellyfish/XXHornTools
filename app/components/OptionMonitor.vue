@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import Select from 'primevue/select'
 import { allMonsters } from '~/data/monsters'
+import type { MelleeType } from '~/types/attackType'
 import {
   getDefaultDurabilityPartKey,
   getDefaultHitZonePartName,
@@ -23,6 +24,8 @@ import {
 
 interface Props {
   modelValue: TableBaseOption
+  /** 目標テンプレートのデフォルト物理属性（切/打/弾） */
+  defaultHitzoneType: MelleeType
 }
 
 const props = defineProps<Props>()
@@ -120,7 +123,7 @@ const selectedMonsterName = ref<string>('')
 const selectedVariantName = ref<string>('')
 const selectedHitzonePartName = ref<string>('')
 const selectedDurabilityPartKey = ref<string>('')
-const selectedHitzoneType = ref<'slash' | 'impact' | 'shot'>('impact')
+const selectedHitzoneType = ref<MelleeType>(props.defaultHitzoneType)
 
 // 目標テンプレート側の補助入力（将来の適用ロジック用）
 const templateFlinchMultiplier = ref<number | null>(null)
@@ -157,7 +160,7 @@ const durabilityPartOptions = computed(() => {
   return getDurabilityListWithValue(selectedMonster.value, isFrenziedVariant.value)
 })
 
-const hitzoneTypeOptions: { label: string; value: 'slash' | 'impact' | 'shot' }[] = [
+const hitzoneTypeOptions: { label: string; value: MelleeType }[] = [
   { label: '切', value: 'slash' },
   { label: '打', value: 'impact' },
   { label: '弾', value: 'shot' },
