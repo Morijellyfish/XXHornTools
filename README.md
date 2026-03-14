@@ -65,6 +65,7 @@
 
 - [MHXX ダメージ計算](https://kuroyonhon.com/mhxx/d/dame.php)
 - [MHXG Wiki](http://wiki.mhxg.org/)
+- [Kiranico MHXX](https://mhxx.kiranico.com/)
 
 ### 免責事項
 

@@ -52,6 +52,10 @@ const referenceSites: ReferenceSite[] = [
     name: 'MHXG Wiki',
     url: 'http://wiki.mhxg.org/',
   },
+  {
+    name: 'Kiranico MHXX',
+    url: 'https://mhxx.kiranico.com/',
+  },
 ]
 </script>
 
