@@ -38,6 +38,8 @@ const {
   getElementExpectedValue,
   getAttackWithBuffs,
   getRequiredMotionValue,
+  getElementDamage,
+  getAttackCount,
   isShowBaseAttack,
   isShowBaseAffinity,
 } = useWeaponTable(props)
@@ -69,6 +71,12 @@ const {
               <span class="inline-flex items-center gap-1 justify-end w-full whitespace-nowrap">
                 期待値 <span class="w-4 text-center">{{ getSortIcon('expected') }}</span>
               </span>
+            </th>
+            <th
+              v-if="isColumnVisible(visibleColumns, 'elementDamage')"
+              class="text-right p-2 whitespace-nowrap"
+            >
+              属性ダメージ
             </th>
             <th
               v-if="isColumnVisible(visibleColumns, 'attack')"
@@ -128,9 +136,11 @@ const {
             :key="weapon.name"
             :weapon="weapon"
             :required-motion-value="getRequiredMotionValue(weapon)"
+            :attack-count="getAttackCount()"
             :expected-value="getExpectedValue(weapon)"
             :physical-expected-value="getPhysicalExpectedValue(weapon)"
             :element-expected-value="getElementExpectedValue(weapon)"
+            :element-damage="getElementDamage(weapon)"
             :attack-with-buffs="getAttackWithBuffs(weapon)"
             :base-attack="weapon.attack"
             :show-base-attack="isShowBaseAttack(weapon)"

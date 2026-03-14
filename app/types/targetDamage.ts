@@ -104,3 +104,24 @@ export function calculateDamage(
   const damage = (motionValue / 100) * expectedValue * (hitzone / 100) * overallDefenseRate
   return Math.floor(damage)
 }
+
+/**
+ * 属性ダメージを計算
+ * @param elementExpectedValue 属性期待値（属性値 × 斬れ味補正）
+ * @param elementHitzone 属性肉質（該当属性の肉質）
+ * @param overallDefenseRate 全体防御率（デフォルト: 1.0）
+ * @returns 計算された属性ダメージ（切り捨て）。無効な値の場合は 0
+ *
+ * 計算式: 属性ダメージ = 切捨(属性期待値 × 属性肉質 ÷ 100 × 全体防御率)
+ */
+export function calculateElementDamage(
+  elementExpectedValue: number,
+  elementHitzone: number,
+  overallDefenseRate: number = 1.0
+): number {
+  if (elementExpectedValue <= 0 || elementHitzone <= 0 || overallDefenseRate <= 0) {
+    return 0
+  }
+  const damage = elementExpectedValue * (elementHitzone / 100) * overallDefenseRate
+  return Math.floor(damage)
+}

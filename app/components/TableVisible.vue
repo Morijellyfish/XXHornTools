@@ -33,6 +33,7 @@ const columnItems = [
   { key: 'name' as const, label: '名称' },
   { key: 'requiredMotionValue' as const, label: '必要モーション値' },
   { key: 'expected' as const, label: '期待値' },
+  { key: 'elementDamage' as const, label: '属性ダメージ' },
   { key: 'attack' as const, label: '攻撃' },
   { key: 'defense' as const, label: '防御' },
   { key: 'slots' as const, label: 'スロット' },

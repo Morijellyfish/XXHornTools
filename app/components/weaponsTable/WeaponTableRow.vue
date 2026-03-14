@@ -8,9 +8,11 @@ import type { SharpnessType } from '~/composables/useWeaponTable'
 interface Props {
   weapon: T
   requiredMotionValue?: number
+  attackCount?: number
   expectedValue: number
   physicalExpectedValue: number
   elementExpectedValue: number
+  elementDamage: number
   attackWithBuffs: number
   baseAttack: number
   showBaseAttack: boolean
@@ -66,10 +68,15 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
       v-if="isColumnVisible(props.visibleColumns, 'requiredMotionValue')"
       class="p-2 text-right tabular-nums whitespace-nowrap"
     >
-      <span v-if="requiredMotionValue !== undefined">
-        {{ requiredMotionValue.toFixed(1) }}
-      </span>
-      <span v-else class="mp-muted">-</span>
+      <div class="flex flex-col items-end leading-tight">
+        <template v-if="requiredMotionValue !== undefined">
+          <span>{{ requiredMotionValue.toFixed(1) }}</span>
+          <span v-if="(attackCount ?? 1) >= 2" class="text-xs mp-muted">
+            (平均{{ (requiredMotionValue / (attackCount ?? 1)).toFixed(1) }})
+          </span>
+        </template>
+        <span v-else class="mp-muted">-</span>
+      </div>
     </td>
     <td
       v-if="isColumnVisible(props.visibleColumns, 'expected')"
@@ -81,6 +88,13 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
           ({{ physicalExpectedValue }}+{{ weapon.element.type }}{{ elementExpectedValue }})
         </span>
       </div>
+    </td>
+    <td
+      v-if="isColumnVisible(props.visibleColumns, 'elementDamage')"
+      class="p-2 text-right tabular-nums whitespace-nowrap"
+    >
+      <span v-if="elementDamage > 0">{{ elementDamage }}</span>
+      <span v-else class="mp-muted">-</span>
     </td>
     <td
       v-if="isColumnVisible(props.visibleColumns, 'attack')"

@@ -45,6 +45,7 @@ export type TableColumnKey =
   | 'name'
   | 'requiredMotionValue'
   | 'expected'
+  | 'elementDamage'
   | 'attack'
   | 'defense'
   | 'slots'
@@ -59,6 +60,7 @@ export interface VisibleColumns {
   name: boolean
   requiredMotionValue: boolean
   expected: boolean
+  elementDamage: boolean
   attack: boolean
   defense: boolean
   slots: boolean
@@ -74,6 +76,7 @@ export const DEFAULT_VISIBLE_COLUMNS: VisibleColumns = {
   name: true,
   requiredMotionValue: true,
   expected: true,
+  elementDamage: true,
   attack: true,
   defense: false,
   slots: true,

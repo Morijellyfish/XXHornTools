@@ -7,7 +7,11 @@ import { CriticalMelody } from '~/types/criticalBuff'
 import { AttackMelody } from '~/types/attackBuff'
 import { calculateExpectedValue, calculateElementExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
-import { calculateRequiredMotionValue, getDefaultTargetDamageSettings } from '~/types/targetDamage'
+import {
+  calculateRequiredMotionValue,
+  calculateElementDamage,
+  getDefaultTargetDamageSettings,
+} from '~/types/targetDamage'
 
 // SharpnessType を再エクスポート（後方互換性のため）
 export type { SharpnessType }
@@ -141,14 +145,26 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     )
   }
 
-  // 必要モーション値を計算
+  // 必要モーション値を計算（目標ダメージから属性ダメージを引いた物理分の全体値、攻撃回数で割らない）
   const getRequiredMotionValue = (weapon: T): number | undefined => {
     const defaults = getDefaultTargetDamageSettings()
     const settings = props.targetDamageSettings ?? {}
+    const targetDamage = settings.targetDamage ?? defaults.targetDamage
+    const attackCount = settings.attackCount ?? defaults.attackCount
 
-    // デフォルト値とマージ（未設定の値はデフォルト値を使用）
+    // 1 hitあたりの属性ダメージ
+    const elementDamagePerHit = getElementDamage(weapon)
+    // 攻撃回数分の総属性ダメージ
+    const totalElementDamage = elementDamagePerHit * attackCount
+    // 物理で賄う必要があるダメージ（目標 - 属性分、全体）
+    const totalPhysicalDamageNeeded = targetDamage - totalElementDamage
+
+    if (totalPhysicalDamageNeeded <= 0) {
+      return undefined
+    }
+
     const mergedSettings = {
-      targetDamage: settings.targetDamage ?? defaults.targetDamage,
+      targetDamage: totalPhysicalDamageNeeded,
       hitzone: settings.hitzone ?? defaults.hitzone,
       overallDefenseRate: settings.overallDefenseRate ?? defaults.overallDefenseRate,
     }
@@ -211,6 +227,25 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     )
   }
 
+  // 属性ダメージを計算（1 hitあたり）
+  const getElementDamage = (weapon: T): number => {
+    const elementExpectedValue = getElementExpectedValue(weapon)
+    if (elementExpectedValue <= 0 || !weapon.element || weapon.element.type === '無') {
+      return 0
+    }
+    const defaults = getDefaultTargetDamageSettings()
+    const settings = props.targetDamageSettings ?? {}
+    const elementHitzone =
+      settings.elementHitzone?.[weapon.element.type] ?? defaults.elementHitzone[weapon.element.type]
+    const overallDefenseRate = settings.overallDefenseRate ?? defaults.overallDefenseRate
+    return calculateElementDamage(elementExpectedValue, elementHitzone, overallDefenseRate)
+  }
+
+  const getAttackCount = (): number => {
+    const defaults = getDefaultTargetDamageSettings()
+    return props.targetDamageSettings?.attackCount ?? defaults.attackCount
+  }
+
   return {
     sortKey,
     sortOrder,
@@ -223,6 +258,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     getElementExpectedValue,
     getAttackWithBuffs,
     getRequiredMotionValue,
+    getElementDamage,
+    getAttackCount,
     isShowBaseAttack,
     isShowBaseAffinity,
   }
