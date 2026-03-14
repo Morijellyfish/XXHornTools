@@ -125,6 +125,8 @@ const selectedHitzonePartName = ref<string>('')
 const selectedDurabilityPartKey = ref<string>('')
 const selectedHitzoneType = ref<MelleeType>(props.defaultHitzoneType)
 
+// 目標テンプレートの展開状態（details の代わりに v-show で DOM の誤結合を防ぐ）
+const templateExpanded = ref(false)
 // 目標テンプレート側の補助入力（将来の適用ロジック用）
 const templateFlinchMultiplier = ref<number | null>(null)
 const templateDefenseMultiplier = ref<number | null>(null)
@@ -286,164 +288,168 @@ watch(
       </span>
     </div>
     <div class="mt-4 pt-4 mp-divider-top">
-      <div class="space-y-6">
-        <div>
-          <div class="mp-label mb-3 mp-text">目標ダメージ設定</div>
-          <div class="flex flex-wrap items-center gap-4">
+      <div class="mp-label mb-3 mp-text">目標ダメージ設定</div>
+      <div class="flex flex-wrap items-center gap-4">
+        <div class="flex items-center gap-2">
+          <label class="mp-label mp-muted whitespace-nowrap"> 目標ダメージ: </label>
+          <InputNumber
+            :model-value="targetDamageSettings.targetDamage ?? null"
+            :min="0"
+            class="w-24"
+            placeholder="10000"
+            input-class="w-full"
+            :use-grouping="false"
+            @update:model-value="updateTargetDamage($event)"
+            @blur="clampTargetDamage"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="mp-label mp-muted whitespace-nowrap">肉質:</label>
+          <InputNumber
+            :model-value="targetDamageSettings.hitzone ?? null"
+            :min="0"
+            :max="1000"
+            class="w-20"
+            placeholder="45"
+            input-class="w-full"
+            :use-grouping="false"
+            @update:model-value="updateHitzone($event)"
+            @blur="clampHitzone"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="mp-label mp-muted whitespace-nowrap"> 全体防御率: </label>
+          <InputNumber
+            :model-value="targetDamageSettings.overallDefenseRate ?? null"
+            :min="0"
+            :step="0.01"
+            class="w-20"
+            placeholder="1.0"
+            input-class="w-full"
+            :use-grouping="false"
+            :min-fraction-digits="0"
+            :max-fraction-digits="2"
+            @update:model-value="updateOverallDefenseRate($event)"
+            @blur="clampOverallDefenseRate"
+          />
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <button
+          type="button"
+          class="mp-label mp-muted cursor-pointer select-none bg-transparent border-none p-0 text-left"
+          @click="templateExpanded = !templateExpanded"
+        >
+          {{ templateExpanded ? '▼' : '▶' }} 目標テンプレート
+        </button>
+        <div v-show="templateExpanded">
+          <div class="mt-3 flex flex-wrap items-center gap-3">
+            <Select
+              v-model="selectedMonsterName"
+              :options="monsterOptions"
+              option-label="label"
+              option-value="value"
+              placeholder="モンスター"
+              class="w-56"
+            />
+            <Select
+              v-model="selectedVariantName"
+              :options="variantOptions"
+              option-label="label"
+              option-value="value"
+              placeholder="通常時"
+              class="w-40"
+              :disabled="!selectedMonsterName"
+            />
+            <Select
+              v-model="selectedHitzonePartName"
+              :options="hitzonePartOptions"
+              option-label="label"
+              option-value="value"
+              placeholder="肉質部位"
+              class="w-40"
+              :disabled="!selectedMonsterName || !selectedVariantName"
+            />
+            <Select
+              v-model="selectedDurabilityPartKey"
+              :options="durabilityPartOptions"
+              option-label="label"
+              option-value="value"
+              placeholder="耐久部位"
+              class="w-40"
+              :disabled="!selectedMonsterName"
+            />
+            <Select
+              v-model="selectedHitzoneType"
+              :options="hitzoneTypeOptions"
+              option-label="label"
+              option-value="value"
+              placeholder="切/打/弾"
+              class="w-28"
+            />
+          </div>
+          <div class="mt-3 flex flex-wrap items-center gap-4">
             <div class="flex items-center gap-2">
-              <label class="mp-label mp-muted whitespace-nowrap"> 目標ダメージ: </label>
+              <label class="mp-label mp-muted whitespace-nowrap">怯み:</label>
               <InputNumber
-                :model-value="targetDamageSettings.targetDamage ?? null"
-                :min="0"
-                class="w-24"
-                placeholder="10000"
-                input-class="w-full"
-                :use-grouping="false"
-                @update:model-value="updateTargetDamage($event)"
-                @blur="clampTargetDamage"
-              />
-            </div>
-            <div class="flex items-center gap-2">
-              <label class="mp-label mp-muted whitespace-nowrap">肉質:</label>
-              <InputNumber
-                :model-value="targetDamageSettings.hitzone ?? null"
-                :min="0"
-                :max="1000"
-                class="w-20"
-                placeholder="45"
-                input-class="w-full"
-                :use-grouping="false"
-                @update:model-value="updateHitzone($event)"
-                @blur="clampHitzone"
-              />
-            </div>
-            <div class="flex items-center gap-2">
-              <label class="mp-label mp-muted whitespace-nowrap"> 全体防御率: </label>
-              <InputNumber
-                :model-value="targetDamageSettings.overallDefenseRate ?? null"
+                v-model="templateFlinchMultiplier"
                 :min="0"
                 :step="0.01"
-                class="w-20"
+                class="w-24"
                 placeholder="1.0"
                 input-class="w-full"
                 :use-grouping="false"
                 :min-fraction-digits="0"
                 :max-fraction-digits="2"
-                @update:model-value="updateOverallDefenseRate($event)"
-                @blur="clampOverallDefenseRate"
               />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="mp-label mp-muted whitespace-nowrap">防御力:</label>
+              <InputNumber
+                v-model="templateDefenseMultiplier"
+                :min="0"
+                :step="0.01"
+                class="w-24"
+                placeholder="1.0"
+                input-class="w-full"
+                :use-grouping="false"
+                :min-fraction-digits="0"
+                :max-fraction-digits="2"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="mp-label mp-muted whitespace-nowrap">気絶:</label>
+              <InputNumber
+                v-model="templateStunMultiplier"
+                :min="0"
+                :step="0.01"
+                class="w-24"
+                placeholder="1.0"
+                input-class="w-full"
+                :use-grouping="false"
+                :min-fraction-digits="0"
+                :max-fraction-digits="2"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="mp-label mp-muted whitespace-nowrap">疲れ:</label>
+              <InputNumber
+                v-model="templateFatigueMultiplier"
+                :min="0"
+                :step="0.01"
+                class="w-24"
+                placeholder="1.0"
+                input-class="w-full"
+                :use-grouping="false"
+                :min-fraction-digits="0"
+                :max-fraction-digits="2"
+              />
+            </div>
+            <div class="flex items-center">
+              <Button :disabled="!canApplyTemplate" @click="applyTemplate">適用</Button>
             </div>
           </div>
-
-          <details class="mt-4">
-            <summary class="mp-label mp-muted cursor-pointer select-none">目標テンプレート</summary>
-            <div class="mt-3 flex flex-wrap items-center gap-3">
-              <Select
-                v-model="selectedMonsterName"
-                :options="monsterOptions"
-                option-label="label"
-                option-value="value"
-                placeholder="モンスター"
-                class="w-56"
-              />
-              <Select
-                v-model="selectedVariantName"
-                :options="variantOptions"
-                option-label="label"
-                option-value="value"
-                placeholder="通常時"
-                class="w-40"
-                :disabled="!selectedMonsterName"
-              />
-              <Select
-                v-model="selectedHitzonePartName"
-                :options="hitzonePartOptions"
-                option-label="label"
-                option-value="value"
-                placeholder="肉質部位"
-                class="w-40"
-                :disabled="!selectedMonsterName || !selectedVariantName"
-              />
-              <Select
-                v-model="selectedDurabilityPartKey"
-                :options="durabilityPartOptions"
-                option-label="label"
-                option-value="value"
-                placeholder="耐久部位"
-                class="w-40"
-                :disabled="!selectedMonsterName"
-              />
-              <Select
-                v-model="selectedHitzoneType"
-                :options="hitzoneTypeOptions"
-                option-label="label"
-                option-value="value"
-                placeholder="切/打/弾"
-                class="w-28"
-              />
-            </div>
-            <div class="mt-3 flex flex-wrap items-center gap-4">
-              <div class="flex items-center gap-2">
-                <label class="mp-label mp-muted whitespace-nowrap">怯み:</label>
-                <InputNumber
-                  v-model="templateFlinchMultiplier"
-                  :min="0"
-                  :step="0.01"
-                  class="w-24"
-                  placeholder="1.0"
-                  input-class="w-full"
-                  :use-grouping="false"
-                  :min-fraction-digits="0"
-                  :max-fraction-digits="2"
-                />
-              </div>
-              <div class="flex items-center gap-2">
-                <label class="mp-label mp-muted whitespace-nowrap">防御力:</label>
-                <InputNumber
-                  v-model="templateDefenseMultiplier"
-                  :min="0"
-                  :step="0.01"
-                  class="w-24"
-                  placeholder="1.0"
-                  input-class="w-full"
-                  :use-grouping="false"
-                  :min-fraction-digits="0"
-                  :max-fraction-digits="2"
-                />
-              </div>
-              <div class="flex items-center gap-2">
-                <label class="mp-label mp-muted whitespace-nowrap">気絶:</label>
-                <InputNumber
-                  v-model="templateStunMultiplier"
-                  :min="0"
-                  :step="0.01"
-                  class="w-24"
-                  placeholder="1.0"
-                  input-class="w-full"
-                  :use-grouping="false"
-                  :min-fraction-digits="0"
-                  :max-fraction-digits="2"
-                />
-              </div>
-              <div class="flex items-center gap-2">
-                <label class="mp-label mp-muted whitespace-nowrap">疲れ:</label>
-                <InputNumber
-                  v-model="templateFatigueMultiplier"
-                  :min="0"
-                  :step="0.01"
-                  class="w-24"
-                  placeholder="1.0"
-                  input-class="w-full"
-                  :use-grouping="false"
-                  :min-fraction-digits="0"
-                  :max-fraction-digits="2"
-                />
-              </div>
-              <div class="flex items-center">
-                <Button :disabled="!canApplyTemplate" @click="applyTemplate">適用</Button>
-              </div>
-            </div>
-          </details>
         </div>
       </div>
     </div>
