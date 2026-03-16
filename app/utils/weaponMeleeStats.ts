@@ -57,7 +57,35 @@ export function getElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext
     weapon.element.value,
     context.buffs?.elementModifiers ?? {},
     weapon
+  ).value
+}
+
+// 属性値が倍率上限に達しているか
+export function isElementCapped(weapon: WeaponMelee, context: WeaponMeleeStatsContext): boolean {
+  if (!weapon.element || weapon.element.type === '無') {
+    return false
+  }
+  return calculateElementWithBuffs(
+    weapon.element.value,
+    context.buffs?.elementModifiers ?? {},
+    weapon
+  ).isCapped
+}
+
+// キャップ適用前の属性値（ツールチップ用）
+export function getElementUncappedValue(
+  weapon: WeaponMelee,
+  context: WeaponMeleeStatsContext
+): number | undefined {
+  if (!weapon.element || weapon.element.type === '無') {
+    return undefined
+  }
+  const result = calculateElementWithBuffs(
+    weapon.element.value,
+    context.buffs?.elementModifiers ?? {},
+    weapon
   )
+  return result.isCapped ? result.uncappedValue : undefined
 }
 
 // 物理期待値

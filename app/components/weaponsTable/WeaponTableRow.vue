@@ -18,6 +18,8 @@ interface Props {
   baseAttack: number
   showBaseAttack: boolean
   elementWithBuffs?: number
+  elementCapped?: boolean
+  elementUncappedValue?: number
   showBaseElement?: boolean
   affinity: number
   baseAffinity: number
@@ -144,9 +146,22 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
     </td>
     <td v-if="isColumnVisible(props.visibleColumns, 'elementStatus')" class="p-2">
       <div class="flex flex-col items-start leading-tight">
-        <span class="whitespace-nowrap">{{
-          formatElementOrStatus(weapon, props.elementWithBuffs)
-        }}</span>
+        <span
+          v-tooltip.top="
+            props.elementCapped && props.elementUncappedValue !== undefined
+              ? {
+                  value: `上限に引っかかっています\r\n素の値：${props.elementUncappedValue}`,
+                  showDelay: 50,
+                }
+              : undefined
+          "
+          class="whitespace-nowrap"
+          :class="{
+            'mp-alert-attack cursor-help': props.elementCapped,
+          }"
+        >
+          {{ formatElementOrStatus(weapon, props.elementWithBuffs) }}
+        </span>
         <span v-if="props.showBaseElement && weapon.element" class="text-xs mp-muted">
           ({{ weapon.element.type }}{{ weapon.element.value }})
         </span>

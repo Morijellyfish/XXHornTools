@@ -239,5 +239,5 @@ export function getElementWithBuffs(buffs: Buffs, weapon: WeaponMelee): number {
   if (!weapon.element || weapon.element.type === '無') {
     return 0
   }
-  return calculateElementWithBuffs(weapon.element.value, buffs.elementModifiers ?? {}, weapon)
+  return calculateElementWithBuffs(weapon.element.value, buffs.elementModifiers ?? {}, weapon).value
 }

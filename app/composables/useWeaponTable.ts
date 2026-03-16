@@ -117,6 +117,9 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       weaponMeleeStats.getElementExpectedValue(weapon, context.value),
     getAttack: (weapon: T) => weaponMeleeStats.getAttack(weapon, context.value),
     getElement: (weapon: T) => weaponMeleeStats.getElement(weapon, context.value),
+    isElementCapped: (weapon: T) => weaponMeleeStats.isElementCapped(weapon, context.value),
+    getElementUncappedValue: (weapon: T) =>
+      weaponMeleeStats.getElementUncappedValue(weapon, context.value),
     getRequiredMotionValue: (weapon: T) =>
       weaponMeleeStats.getRequiredMotionValue(weapon, context.value),
     getRequiredMotionValueElementInfo: (weapon: T) =>

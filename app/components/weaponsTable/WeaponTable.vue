@@ -39,6 +39,8 @@ const {
   getElementExpectedValue,
   getAttack,
   getElement,
+  isElementCapped,
+  getElementUncappedValue,
   getRequiredMotionValue,
   getRequiredMotionValueElementInfo,
   getElementDamage,
@@ -154,6 +156,8 @@ const {
             :base-attack="weapon.attack"
             :show-base-attack="isShowBaseAttack(weapon)"
             :element-with-buffs="getElement(weapon)"
+            :element-capped="isElementCapped(weapon)"
+            :element-uncapped-value="getElementUncappedValue(weapon)"
             :show-base-element="isShowBaseElement(weapon)"
             :affinity="getAffinity(weapon)"
             :base-affinity="weapon.affinity"
