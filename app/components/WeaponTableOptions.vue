@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { CriticalMelody, CriticalEye } from '~/types/Buffs/criticalBuff'
 import {
@@ -42,10 +42,101 @@ const buffs = computed(() => options.value.buffs ?? {})
 const attackModifiers = computed(() => buffs.value.attackModifiers ?? {})
 const elementModifiers = computed(() => buffs.value.elementModifiers ?? {})
 const criticalBuffs = computed(() => buffs.value.criticalBuffs ?? {})
+
+const showNegativeSkills = ref(false)
+
+// マイナススキル非表示時の攻撃オプション（DOWN系を除外）
+const attackSkillRows = computed(() => {
+  const show = showNegativeSkills.value
+  return [
+    [
+      { value: 'none' as const, label: '無' },
+      ...(show
+        ? [
+            {
+              value: 'down_large' as const,
+              label: `DOWN【大】| ${getAttackSkillValue('down_large')}`,
+            },
+            {
+              value: 'down_medium' as const,
+              label: `DOWN【中】| ${getAttackSkillValue('down_medium')}`,
+            },
+            {
+              value: 'down_small' as const,
+              label: `DOWN【小】| ${getAttackSkillValue('down_small')}`,
+            },
+          ]
+        : []),
+    ],
+    [
+      { value: 'up_small' as const, label: `UP【小】| +${getAttackSkillValue('up_small')}` },
+      { value: 'up_medium' as const, label: `UP【中】| +${getAttackSkillValue('up_medium')}` },
+      { value: 'up_large' as const, label: `UP【大】| +${getAttackSkillValue('up_large')}` },
+    ],
+  ]
+})
+
+// マイナススキル非表示時の見切りオプション（-3,-2,-1を除外）
+const criticalEyeOptions = computed(() => {
+  const show = showNegativeSkills.value
+  const base = [
+    { value: CriticalEye.Zero, label: '0' },
+    { value: CriticalEye.Plus1, label: '+1' },
+    { value: CriticalEye.Plus2, label: '+2' },
+    { value: CriticalEye.Plus3, label: '+3' },
+  ]
+  const minus = show
+    ? [
+        { value: CriticalEye.Minus3, label: '-3' },
+        { value: CriticalEye.Minus2, label: '-2' },
+        { value: CriticalEye.Minus1, label: '-1' },
+      ]
+    : []
+  return [...minus, ...base]
+})
+
+// マイナススキル非表示時の火事場力オプション（心配性 x0.7 を除外）
+const adrenalineOptions = computed(() => {
+  const show = showNegativeSkills.value
+  return [
+    { value: 'none' as const, label: '無' },
+    ...(show
+      ? [
+          {
+            value: 'worrywart' as const,
+            label: `心配性 | x${getAdrenalineMultiplier('worrywart')}`,
+          },
+        ]
+      : []),
+    {
+      value: 'adrenalinePlus2' as const,
+      label: `火事場+2 | x${getAdrenalineMultiplier('adrenalinePlus2')}`,
+    },
+    {
+      value: 'catAdrenaline' as const,
+      label: `猫火事場 | x${getAdrenalineMultiplier('catAdrenaline')}`,
+    },
+  ]
+})
 </script>
 
 <template>
   <div class="mb-0 space-y-4">
+    <div class="flex items-center gap-2">
+      <Checkbox
+        :model-value="showNegativeSkills"
+        binary
+        :input-id="'show-negative-skills'"
+        @update:model-value="showNegativeSkills = $event"
+      />
+      <label
+        for="show-negative-skills"
+        class="mp-label mp-text cursor-pointer"
+        @click="showNegativeSkills = !showNegativeSkills"
+      >
+        マイナススキルを表示
+      </label>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2">
       <div class="border-r mp-border pr-4">
         <label class="mp-label mp-text mb-2 block">事前準備:</label>
@@ -189,28 +280,7 @@ const criticalBuffs = computed(() => buffs.value.criticalBuffs ?? {})
           <SelectOption
             :model-value="attackModifiers.attackSkill ?? 'none'"
             label="攻撃:"
-            :rows="[
-              [
-                { value: 'none', label: '無' },
-                {
-                  value: 'down_large',
-                  label: `DOWN【大】| ${getAttackSkillValue('down_large')}`,
-                },
-                {
-                  value: 'down_medium',
-                  label: `DOWN【中】| ${getAttackSkillValue('down_medium')}`,
-                },
-                {
-                  value: 'down_small',
-                  label: `DOWN【小】| ${getAttackSkillValue('down_small')}`,
-                },
-              ],
-              [
-                { value: 'up_small', label: `UP【小】| +${getAttackSkillValue('up_small')}` },
-                { value: 'up_medium', label: `UP【中】| +${getAttackSkillValue('up_medium')}` },
-                { value: 'up_large', label: `UP【大】| +${getAttackSkillValue('up_large')}` },
-              ],
-            ]"
+            :rows="attackSkillRows"
             @update:model-value="
               options = {
                 ...options,
@@ -399,15 +469,7 @@ const criticalBuffs = computed(() => buffs.value.criticalBuffs ?? {})
           <SelectOption
             :model-value="criticalBuffs.criticalEye ?? CriticalEye.Zero"
             label="見切り:"
-            :options="[
-              { value: CriticalEye.Minus3, label: '-3' },
-              { value: CriticalEye.Minus2, label: '-2' },
-              { value: CriticalEye.Minus1, label: '-1' },
-              { value: CriticalEye.Zero, label: '0' },
-              { value: CriticalEye.Plus1, label: '+1' },
-              { value: CriticalEye.Plus2, label: '+2' },
-              { value: CriticalEye.Plus3, label: '+3' },
-            ]"
+            :options="criticalEyeOptions"
             @update:model-value="
               options = {
                 ...options,
@@ -536,21 +598,7 @@ const criticalBuffs = computed(() => buffs.value.criticalBuffs ?? {})
             :model-value="attackModifiers.adrenaline ?? 'none'"
             label="火事場力:"
             wrap
-            :options="[
-              { value: 'none', label: '無' },
-              {
-                value: 'worrywart',
-                label: `心配性 | x${getAdrenalineMultiplier('worrywart')}`,
-              },
-              {
-                value: 'adrenalinePlus2',
-                label: `火事場+2 | x${getAdrenalineMultiplier('adrenalinePlus2')}`,
-              },
-              {
-                value: 'catAdrenaline',
-                label: `猫火事場 | x${getAdrenalineMultiplier('catAdrenaline')}`,
-              },
-            ]"
+            :options="adrenalineOptions"
             @update:model-value="
               options = {
                 ...options,
