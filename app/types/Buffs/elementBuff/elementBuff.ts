@@ -10,7 +10,7 @@ export type ElementBuffModifierType = 'element_multiplier'
 /**
  * 属性バフのグループ
  */
-export type ElementBuffGroup = 'A' // 属性旋律
+export type ElementBuffGroup = 'A' | 'B' | 'C' // A: 属性旋律, B: 属性攻撃, C: 単属性強化
 
 export class elementBuff {
   readonly type: ElementBuffModifierType

@@ -183,6 +183,27 @@ export function getActiveSkills(options: BuffsWithSharpness): string[] {
     skills.push(melodyNames[elementMelody])
   }
 
+  // 属性攻撃
+  const elemental = options.elementModifiers?.elemental ?? 'none'
+  if (elemental !== 'none') {
+    const elementalNames: Record<'down' | 'up', string> = {
+      down: '属性攻撃弱化',
+      up: '属性攻撃強化',
+    }
+    skills.push(elementalNames[elemental])
+  }
+
+  // 単属性強化
+  const elemAtk = options.elementModifiers?.elemAtk ?? 'none'
+  if (elemAtk !== 'none') {
+    const elemAtkNames: Record<'down' | 'plus1' | 'plus2', string> = {
+      down: '単属性攻撃弱化',
+      plus1: '単属性攻撃強化+1',
+      plus2: '単属性攻撃強化+2',
+    }
+    skills.push(elemAtkNames[elemAtk])
+  }
+
   // 斬れ味レベル
   if (options.selectedSharpness && options.selectedSharpness !== 'normal') {
     const sharpnessNames: Record<'normal' | 'plus1' | 'plus2', string> = {

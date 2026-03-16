@@ -206,10 +206,22 @@ export function isShowBaseAttack(weapon: WeaponMelee, context: WeaponMeleeStatsC
 
 // 元の属性値表示
 export function isShowBaseElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext): boolean {
-  const elementMelody = context.buffs?.elementModifiers?.elementMelody ?? ElementMelody.None
-  if (elementMelody === ElementMelody.None) return false
-  if (elementMelody === ElementMelody.HornDependent) {
-    return isHuntingHorn(weapon) && weapon.notes.getMaxMelodyMultiplier_Element() !== 1.0
+  const mods = context.buffs?.elementModifiers
+  const elementMelody = mods?.elementMelody ?? ElementMelody.None
+  const elemental = mods?.elemental ?? 'none'
+  const elemAtk = mods?.elemAtk ?? 'none'
+
+  if (elementMelody !== ElementMelody.None) {
+    if (elementMelody === ElementMelody.HornDependent) {
+      if (isHuntingHorn(weapon) && weapon.notes.getMaxMelodyMultiplier_Element() !== 1.0) {
+        return true
+      }
+    } else {
+      return true
+    }
   }
-  return true
+  if (elemental !== 'none') return true
+  if (elemAtk !== 'none') return true
+
+  return false
 }

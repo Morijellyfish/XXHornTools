@@ -95,6 +95,27 @@ const criticalEyeOptions = computed(() => {
   return [...minus, ...base]
 })
 
+// マイナススキル非表示時の属性攻撃オプション（弱化を除外）
+const elementalOptions = computed(() => {
+  const show = showNegativeSkills.value
+  return [
+    ...(show ? [{ value: 'down' as const, label: '弱化' }] : []),
+    { value: 'none' as const, label: '無し' },
+    { value: 'up' as const, label: '強化' },
+  ]
+})
+
+// マイナススキル非表示時の単属性強化オプション（弱化を除外）
+const elemAtkOptions = computed(() => {
+  const show = showNegativeSkills.value
+  return [
+    ...(show ? [{ value: 'down' as const, label: '弱化' }] : []),
+    { value: 'none' as const, label: '無し' },
+    { value: 'plus1' as const, label: '強化+1' },
+    { value: 'plus2' as const, label: '強化+2' },
+  ]
+})
+
 // マイナススキル非表示時の火事場力オプション（心配性 x0.7 を除外）
 const adrenalineOptions = computed(() => {
   const show = showNegativeSkills.value
@@ -646,6 +667,43 @@ const adrenalineOptions = computed(() => {
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="border-r mp-border pr-4">
+        <label class="mp-label mp-text mb-2 block">属性系:</label>
+        <div class="space-y-4">
+          <SelectOption
+            :model-value="elementModifiers.elemental ?? 'none'"
+            label="属性攻撃:"
+            :options="elementalOptions"
+            @update:model-value="
+              options = {
+                ...options,
+                buffs: {
+                  ...buffs,
+                  elementModifiers: { ...elementModifiers, elemental: $event },
+                },
+              }
+            "
+          />
+          <SelectOption
+            :model-value="elementModifiers.elemAtk ?? 'none'"
+            label="単属性強化:"
+            :options="elemAtkOptions"
+            @update:model-value="
+              options = {
+                ...options,
+                buffs: {
+                  ...buffs,
+                  elementModifiers: { ...elementModifiers, elemAtk: $event },
+                },
+              }
+            "
+          />
+        </div>
+      </div>
+      <div class="pl-4"></div>
     </div>
   </div>
 </template>

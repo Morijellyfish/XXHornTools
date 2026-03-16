@@ -1,6 +1,6 @@
 import type { ElementBuffs, elementBuff } from '~/types/Buffs/elementBuff'
 import type { WeaponMelee } from '~/types/weapons'
-import { elementBuffA, ElementMelody } from '~/types/Buffs/elementBuff'
+import { elementBuffA, elementBuffB, elementBuffC, ElementMelody } from '~/types/Buffs/elementBuff'
 
 /**
  * 補正済み属性値を計算（elementBuffクラスを使用）
@@ -16,8 +16,12 @@ export const calculateElementWithBuffs = (
 ): number => {
   const allModifiers: elementBuff[] = []
 
-  // 属性旋律
+  // A: 属性旋律
   allModifiers.push(new elementBuffA(modifiers.elementMelody ?? ElementMelody.None, weapon))
+  // B: 属性攻撃
+  allModifiers.push(new elementBuffB(modifiers.elemental ?? 'none'))
+  // C: 単属性強化
+  allModifiers.push(new elementBuffC(modifiers.elemAtk ?? 'none'))
 
   let elementValue = baseElementValue
   for (const modifier of allModifiers) {
