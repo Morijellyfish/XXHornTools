@@ -174,6 +174,12 @@ const activeSkills = computed(() =>
   })
 )
 
+// 攻撃力加算の表示用
+const formatAttackAdd = (v: number) => (v === 0 ? '0' : v > 0 ? `+${v}` : `${v}`)
+
+// 会心率の表示用
+const formatCriticalBonus = (v: number) => (v === 0 ? '0%' : v > 0 ? `+${v}%` : `${v}%`)
+
 // 弱点特攻発動かつ肉質45未満の時に警告を表示
 const showWeaknessExploitWarning = computed(() => {
   const hasWE = tableOptions.value.buffs?.criticalBuffs?.hasWeaknessExploit === true
@@ -206,16 +212,24 @@ const onTemplateApply = (payload: {
         <span class="mp-muted">攻撃力加算:</span>
         <span
           class="font-mono font-bold ml-2"
-          :class="totalAttackAdd > 0 ? 'mp-accent' : 'mp-muted'"
+          :class="
+            totalAttackAdd > 0 ? 'mp-accent' : totalAttackAdd < 0 ? 'mp-alert-attack' : 'mp-muted'
+          "
         >
-          {{ totalAttackAdd > 0 ? `+${totalAttackAdd}` : '0' }}
+          {{ formatAttackAdd(totalAttackAdd) }}
         </span>
       </div>
       <div>
         <span class="mp-muted">攻撃力倍率:</span>
         <span
           class="font-mono font-bold ml-2"
-          :class="totalAttackMultiply !== 1.0 ? 'mp-accent' : 'mp-muted'"
+          :class="
+            totalAttackMultiply > 1.0
+              ? 'mp-accent'
+              : totalAttackMultiply < 1.0
+                ? 'mp-alert-attack'
+                : 'mp-muted'
+          "
         >
           x{{ totalAttackMultiply.toFixed(2) }}
         </span>
@@ -224,9 +238,11 @@ const onTemplateApply = (payload: {
         <span class="mp-muted">会心率追加:</span>
         <span
           class="font-mono font-bold ml-2"
-          :class="criticalBonus > 0 ? 'mp-accent' : 'mp-muted'"
+          :class="
+            criticalBonus > 0 ? 'mp-accent' : criticalBonus < 0 ? 'mp-alert-attack' : 'mp-muted'
+          "
         >
-          {{ criticalBonus > 0 ? `+${criticalBonus}%` : '0%' }}
+          {{ formatCriticalBonus(criticalBonus) }}
         </span>
         <span
           v-if="showWeaknessExploitWarning"
