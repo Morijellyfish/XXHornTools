@@ -28,5 +28,5 @@ export const calculateElementWithBuffs = (
     elementValue = modifier.apply(elementValue)
   }
 
-  return elementValue
+  return Math.floor(elementValue)
 }

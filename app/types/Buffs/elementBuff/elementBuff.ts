@@ -24,7 +24,7 @@ export class elementBuff {
 
   apply(elementValue: number): number {
     if (this.type === 'element_multiplier') {
-      return Math.round(elementValue * this.value)
+      return elementValue * this.value
     }
     return elementValue
   }

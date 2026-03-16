@@ -31,6 +31,6 @@ export class elementBuffC extends elementBuff {
     if (this.value === 1.0 && this.add === 0) {
       return elementValue
     }
-    return Math.round(elementValue * this.value + this.add)
+    return elementValue * this.value + this.add
   }
 }
