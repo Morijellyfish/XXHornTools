@@ -30,11 +30,11 @@ export type AttackSkill =
 
 export const getAttackSkillValue = (attackSkill: AttackSkill): number => {
   switch (attackSkill) {
-    case 'down_small':
+    case 'down_large':
       return -15
     case 'down_medium':
       return -10
-    case 'down_large':
+    case 'down_small':
       return -5
     case 'up_small':
       return 10

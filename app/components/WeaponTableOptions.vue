@@ -193,16 +193,16 @@ const criticalBuffs = computed(() => buffs.value.criticalBuffs ?? {})
               [
                 { value: 'none', label: '無' },
                 {
-                  value: 'down_small',
-                  label: `DOWN【小】| ${getAttackSkillValue('down_small')}`,
+                  value: 'down_large',
+                  label: `DOWN【大】| ${getAttackSkillValue('down_large')}`,
                 },
                 {
                   value: 'down_medium',
                   label: `DOWN【中】| ${getAttackSkillValue('down_medium')}`,
                 },
                 {
-                  value: 'down_large',
-                  label: `DOWN【大】| ${getAttackSkillValue('down_large')}`,
+                  value: 'down_small',
+                  label: `DOWN【小】| ${getAttackSkillValue('down_small')}`,
                 },
               ],
               [
