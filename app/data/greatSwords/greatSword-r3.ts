@@ -8,7 +8,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: 65,
-    element: { type: '龍', value: 35 },
+    elementStatus: { type: '龍', value: 35 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 60 },
       plus1: { color: SharpnessColor.Purple, length: 15 },
@@ -21,7 +21,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: { type: '雷', value: 74 },
+    elementStatus: { type: '雷', value: 74 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 110 },
       plus1: { color: SharpnessColor.White, length: 135 },
@@ -34,7 +34,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: { type: '睡眠', value: 28 },
+    elementStatus: { type: '睡眠', value: 28 },
     sharpness: {
       normal: { color: SharpnessColor.Green, length: 120 },
       plus1: { color: SharpnessColor.Blue, length: 25 },
@@ -47,7 +47,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: 20,
-    element: { type: '雷', value: 45 },
+    elementStatus: { type: '雷', value: 45 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 35 },
@@ -60,7 +60,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    statusAilment: { type: '毒', value: 70 },
+    elementStatus: { type: '毒', value: 70 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.Purple, length: 15 },
@@ -85,7 +85,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: 10,
-    element: { type: '水', value: 45 },
+    elementStatus: { type: '水', value: 45 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.Purple, length: 25 },
@@ -98,7 +98,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: { type: '雷', value: 54 },
+    elementStatus: { type: '雷', value: 54 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 15 },
@@ -111,7 +111,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    element: { type: '雷', value: 34 },
+    elementStatus: { type: '雷', value: 34 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.White, length: 65 },
@@ -124,7 +124,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: { type: '龍', value: 46 },
+    elementStatus: { type: '龍', value: 46 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 35 },
@@ -137,7 +137,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: 10,
-    element: { type: '氷', value: 47 },
+    elementStatus: { type: '氷', value: 47 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -162,7 +162,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: 25,
-    element: { type: '龍', value: 25 },
+    elementStatus: { type: '龍', value: 25 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 80 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -175,7 +175,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: { type: '火', value: 43 },
+    elementStatus: { type: '火', value: 43 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.Purple, length: 15 },
@@ -200,7 +200,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: { type: '火', value: 44 },
+    elementStatus: { type: '火', value: 44 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 20 },
       plus1: { color: SharpnessColor.White, length: 45 },
@@ -225,7 +225,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: { type: '毒', value: 34 },
+    elementStatus: { type: '毒', value: 34 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -262,7 +262,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    statusAilment: { type: '爆破', value: 27 },
+    elementStatus: { type: '爆破', value: 27 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 60 },
       plus1: { color: SharpnessColor.White, length: 15 },
@@ -287,7 +287,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: -20,
-    element: { type: '氷', value: 30 },
+    elementStatus: { type: '氷', value: 30 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.White, length: 55 },
@@ -312,7 +312,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: { type: '龍', value: 27 },
+    elementStatus: { type: '龍', value: 27 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -361,7 +361,7 @@ export const greatSwordsR3: GreatSword[] = [
     defense: 0,
     slots: 1,
     affinity: -25,
-    element: { type: '龍', value: 24 },
+    elementStatus: { type: '龍', value: 24 },
     sharpness: {
       normal: { color: SharpnessColor.Green, length: 60 },
       plus1: { color: SharpnessColor.White, length: 15 },

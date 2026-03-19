@@ -20,7 +20,7 @@ export const greatSwordsR9: GreatSword[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: { type: '水', value: 58 },
+    elementStatus: { type: '水', value: 58 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -33,7 +33,7 @@ export const greatSwordsR9: GreatSword[] = [
     defense: 20,
     slots: 0,
     affinity: 0,
-    element: { type: '火', value: 24 },
+    elementStatus: { type: '火', value: 24 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
