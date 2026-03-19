@@ -20,7 +20,7 @@ export const dualBladesR8: DualBlade[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: { type: '水', value: 32 },
+    elementStatus: { type: '水', value: 32 },
     subElement: { type: '睡眠', value: 22 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 110 },

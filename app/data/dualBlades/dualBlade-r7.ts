@@ -8,7 +8,7 @@ export const dualBladesR7: DualBlade[] = [
     defense: 0,
     slots: 0,
     affinity: -20,
-    element: { type: '水', value: 8 },
+    elementStatus: { type: '水', value: 8 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 20 },
       plus1: { color: SharpnessColor.White, length: 45 },
@@ -21,7 +21,7 @@ export const dualBladesR7: DualBlade[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: { type: '火', value: 32 },
+    elementStatus: { type: '火', value: 32 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -34,7 +34,7 @@ export const dualBladesR7: DualBlade[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: { type: '龍', value: 10 },
+    elementStatus: { type: '龍', value: 10 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 10 },
@@ -47,7 +47,7 @@ export const dualBladesR7: DualBlade[] = [
     defense: 0,
     slots: 1,
     affinity: 10,
-    element: { type: '龍', value: 32 },
+    elementStatus: { type: '龍', value: 32 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 20 },
       plus1: { color: SharpnessColor.Purple, length: 45 },
@@ -72,7 +72,7 @@ export const dualBladesR7: DualBlade[] = [
     defense: 20,
     slots: 0,
     affinity: -20,
-    element: { type: '氷', value: 12 },
+    elementStatus: { type: '氷', value: 12 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 30 },
       plus1: { color: SharpnessColor.Blue, length: 55 },
@@ -85,7 +85,7 @@ export const dualBladesR7: DualBlade[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: { type: '龍', value: 30 },
+    elementStatus: { type: '龍', value: 30 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 250 },
       plus1: { color: SharpnessColor.White, length: 250 },
