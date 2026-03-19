@@ -30,6 +30,8 @@ const insectGlaiveColumnItems = [{ key: 'insectType' as const, label: '系統' }
 
 const chargeBladeColumnItems = [{ key: 'chargeBladePhialType' as const, label: '装着ビン' }]
 
+const switchAxeColumnItems = [{ key: 'switchAxePhialType' as const, label: '装着ビン' }]
+
 const getHornColumnItems = (weaponType: WeaponType) =>
   weaponType === 'huntingHorn' ? hornColumnItems : []
 
@@ -38,6 +40,9 @@ const getInsectGlaiveColumnItems = (weaponType: WeaponType) =>
 
 const getChargeBladeColumnItems = (weaponType: WeaponType) =>
   weaponType === 'chargeBlade' ? chargeBladeColumnItems : []
+
+const getSwitchAxeColumnItems = (weaponType: WeaponType) =>
+  weaponType === 'switchAxe' ? switchAxeColumnItems : []
 
 const columnItems = [
   { key: 'name' as const, label: '名称' },
@@ -91,6 +96,7 @@ const toggle = (key: keyof VisibleColumns) => {
           ...getHornColumnItems(props.weaponType),
           ...getInsectGlaiveColumnItems(props.weaponType),
           ...getChargeBladeColumnItems(props.weaponType),
+          ...getSwitchAxeColumnItems(props.weaponType),
         ]"
         :key="item.key"
       >
