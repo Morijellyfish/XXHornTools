@@ -8,7 +8,7 @@ export const lancesR9: Lance[] = [
     defense: 0,
     slots: 3,
     affinity: 15,
-    element: { type: '龍', value: 30 },
+    elementStatus: { type: '龍', value: 30 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 30 },

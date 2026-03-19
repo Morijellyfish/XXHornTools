@@ -8,7 +8,7 @@ export const lancesR8: Lance[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    statusAilment: { type: '麻痺', value: 7 },
+    elementStatus: { type: '麻痺', value: 7 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 40 },
       plus1: { color: SharpnessColor.Purple, length: 40 },
@@ -21,7 +21,7 @@ export const lancesR8: Lance[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: { type: '睡眠', value: 16 },
+    elementStatus: { type: '睡眠', value: 16 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 40 },
       plus1: { color: SharpnessColor.Purple, length: 40 },
@@ -34,7 +34,7 @@ export const lancesR8: Lance[] = [
     defense: 20,
     slots: 0,
     affinity: 0,
-    statusAilment: { type: '睡眠', value: 22 },
+    elementStatus: { type: '睡眠', value: 22 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 70 },
       plus1: { color: SharpnessColor.White, length: 25 },
