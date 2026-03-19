@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SwitchAxe, SwitchAxePhialType } from '~/types/weapons'
+import type { Gunlance, GunlanceShelling } from '~/types/weapons'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { isColumnVisible } from '~/types/tableBaseOption'
 import { AttackMelody } from '~/types/Buffs/attackBuff'
@@ -7,7 +7,7 @@ import { ElementMelody } from '~/types/Buffs/elementBuff'
 import WeaponTable from './WeaponTable.vue'
 
 interface Props extends TableBaseOption {
-  switchAxes: SwitchAxe[]
+  gunlances: Gunlance[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -25,23 +25,20 @@ const props = withDefaults(defineProps<Props>(), {
   sharpnessMultiplier: 1.0,
 })
 
-/** 装着ビン種別を日本語ラベルに変換 */
-const phialTypeLabel = (type: SwitchAxePhialType): string => {
-  const labels: Record<SwitchAxePhialType, string> = {
-    power: '強撃',
-    element: '強属性',
-    dragon: '滅龍',
-    paralysis: '麻痺',
-    poison: '毒',
-    exhaust: '減気',
+/** 砲撃種別・レベルを日本語ラベルに変換 */
+const shellingLabel = (s: GunlanceShelling): string => {
+  const labels: Record<GunlanceShelling['type'], string> = {
+    normal: '通常',
+    long: '放射',
+    wide: '拡散',
   }
-  return labels[type]
+  return `${labels[s.type]}${s.level}`
 }
 </script>
 
 <template>
   <WeaponTable
-    :weapons="props.switchAxes"
+    :weapons="props.gunlances"
     :selected-sharpness="props.selectedSharpness"
     :buffs="props.buffs"
     :sharpness-multiplier="props.sharpnessMultiplier"
@@ -49,13 +46,13 @@ const phialTypeLabel = (type: SwitchAxePhialType): string => {
     :visible-columns="props.visibleColumns"
   >
     <template #header-columns>
-      <th v-if="isColumnVisible(props.visibleColumns, 'switchAxePhialType')" class="text-left p-2">
-        装着ビン
+      <th v-if="isColumnVisible(props.visibleColumns, 'gunlanceShelling')" class="text-left p-2">
+        砲撃
       </th>
     </template>
-    <template #row-columns="{ weapon: axe }">
-      <td v-if="isColumnVisible(props.visibleColumns, 'switchAxePhialType')" class="p-2">
-        {{ phialTypeLabel(axe.switchAxePhialType) }}
+    <template #row-columns="{ weapon: gl }">
+      <td v-if="isColumnVisible(props.visibleColumns, 'gunlanceShelling')" class="p-2">
+        {{ shellingLabel(gl.gunlanceShelling) }}
       </td>
     </template>
   </WeaponTable>

@@ -21,6 +21,7 @@ export type TableColumnKey =
   | 'insectType'
   | 'chargeBladePhialType'
   | 'switchAxePhialType'
+  | 'gunlanceShelling'
 
 /** テーブルカラムの表示設定 */
 export interface VisibleColumns {
@@ -39,6 +40,7 @@ export interface VisibleColumns {
   insectType?: boolean
   chargeBladePhialType?: boolean
   switchAxePhialType?: boolean
+  gunlanceShelling?: boolean
 }
 
 /** 表示項目のデフォルト（防御・旋律はオフ、それ以外はオン） */
@@ -58,6 +60,7 @@ export const DEFAULT_VISIBLE_COLUMNS: VisibleColumns = {
   insectType: true,
   chargeBladePhialType: true,
   switchAxePhialType: true,
+  gunlanceShelling: true,
 }
 
 /** カラムが表示されるか判定 */
