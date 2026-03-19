@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     '/lances': { prerender: true },
     '/swordAndShields': { prerender: true },
     '/greatSwords': { prerender: true },
+    '/hammers': { prerender: true },
     '/melodyTimer': { prerender: true },
   },
 
@@ -40,6 +41,7 @@ export default defineNuxtConfig({
         '/lances',
         '/swordAndShields',
         '/greatSwords',
+        '/hammers',
         '/melodyTimer',
       ],
       crawlLinks: true,

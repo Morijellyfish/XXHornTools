@@ -1,0 +1,122 @@
+import type { Hammer } from '~/types/weapons'
+import { SharpnessColor } from '~/types/sharpness'
+
+export const hammersR7: Hammer[] = [
+  {
+    name: '神滅鎚アル・メタリア5',
+    attack: 290,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    element: { type: '龍', value: 43 },
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 50 },
+      plus1: { color: SharpnessColor.Purple, length: 50 },
+      plus2: { color: SharpnessColor.Purple, length: 50 },
+    },
+  },
+  {
+    name: '赫醒鎚マグナウド6',
+    attack: 290,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    element: { type: '龍', value: 44 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 250 },
+      plus1: { color: SharpnessColor.White, length: 250 },
+      plus2: { color: SharpnessColor.White, length: 250 },
+    },
+  },
+  {
+    name: 'ヒュペル＝ダオラ5',
+    attack: 300,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    element: { type: '氷', value: 33 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: '極星幽鎚ダリエガロア5',
+    attack: 310,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    element: { type: '龍', value: 17 },
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 10 },
+      plus1: { color: SharpnessColor.Purple, length: 10 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
+    },
+  },
+  {
+    name: '星天のアグスシャマ5',
+    attack: 310,
+    defense: 0,
+    slots: 2,
+    affinity: 15,
+    element: { type: '火', value: 50 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 35 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: '咎鎚ドロル5',
+    attack: 310,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    element: { type: '龍', value: 27 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.White, length: 55 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: '鬼神大鎚【怒金鬼】5',
+    attack: 310,
+    defense: 0,
+    slots: 2,
+    affinity: -10,
+    element: { type: '雷', value: 37 },
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 10 },
+      plus1: { color: SharpnessColor.Purple, length: 35 },
+      plus2: { color: SharpnessColor.Purple, length: 60 },
+    },
+  },
+  {
+    name: '崩界槌オテルカムノミ5',
+    attack: 360,
+    defense: 20,
+    slots: 0,
+    affinity: -20,
+    element: { type: '氷', value: 25 },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 30 },
+      plus1: { color: SharpnessColor.Blue, length: 55 },
+      plus2: { color: SharpnessColor.White, length: 20 },
+    },
+  },
+  {
+    name: '太虚ノ鏡【動天】5',
+    attack: 360,
+    defense: 0,
+    slots: 0,
+    affinity: -20,
+    element: { type: '水', value: 20 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 35 },
+      plus2: { color: SharpnessColor.White, length: 60 },
+    },
+  },
+]

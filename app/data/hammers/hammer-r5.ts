@@ -1,0 +1,120 @@
+import type { Hammer } from '~/types/weapons'
+import { SharpnessColor } from '~/types/sharpness'
+
+export const hammersR5: Hammer[] = [
+  {
+    name: 'くろねこクラッシャー5',
+    attack: 260,
+    defense: 0,
+    slots: 1,
+    affinity: 0,
+    statusAilment: { type: '麻痺', value: 45 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: '欣喜雀躍の白銀鍋6',
+    attack: 280,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    statusAilment: { type: '睡眠', value: 27 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 35 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: '化槌ブライニクル6',
+    attack: 290,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    element: { type: '氷', value: 57 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: '大鬼鉄ノ尊7',
+    attack: 300,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    statusAilment: { type: '麻痺', value: 20 },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 80 },
+      plus1: { color: SharpnessColor.White, length: 25 },
+      plus2: { color: SharpnessColor.White, length: 50 },
+    },
+  },
+  {
+    name: 'ホールオブミート5',
+    attack: 310,
+    defense: 0,
+    slots: 0,
+    affinity: -30,
+    element: { type: '火', value: 18 },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 50 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.White, length: 40 },
+    },
+  },
+  {
+    name: 'アルドクレイター5',
+    attack: 320,
+    defense: 25,
+    slots: 1,
+    affinity: 0,
+    statusAilment: { type: '毒', value: 15 },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 70 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: '水帥ロンペレッジェ7',
+    attack: 330,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    element: { type: '水', value: 40 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 35 },
+      plus2: { color: SharpnessColor.White, length: 60 },
+    },
+  },
+  {
+    name: '擬鎚バサルモス5',
+    attack: 330,
+    defense: 20,
+    slots: 0,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.White, length: 45 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
+    },
+  },
+  {
+    name: 'ファイナルウォー5',
+    attack: 330,
+    defense: 15,
+    slots: 3,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 35 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+]
