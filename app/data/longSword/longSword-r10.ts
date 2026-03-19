@@ -8,7 +8,7 @@ export const longSwordsR10: LongSword[] = [
     defense: 0,
     slots: 3,
     affinity: 30,
-    statusAilment: {
+    elementStatus: {
       type: '爆破',
       value: 55,
     },
@@ -24,7 +24,7 @@ export const longSwordsR10: LongSword[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: {
+    elementStatus: {
       type: '爆破',
       value: 40,
     },
@@ -40,7 +40,7 @@ export const longSwordsR10: LongSword[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 50,
     },
@@ -56,7 +56,7 @@ export const longSwordsR10: LongSword[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '雷',
       value: 68,
     },
@@ -72,7 +72,7 @@ export const longSwordsR10: LongSword[] = [
     defense: 0,
     slots: 2,
     affinity: 10,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 10,
     },

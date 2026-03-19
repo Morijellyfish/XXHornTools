@@ -8,7 +8,7 @@ export const longSwordsR8: LongSword[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    statusAilment: {
+    elementStatus: {
       type: '睡眠',
       value: 34,
     },
@@ -24,7 +24,7 @@ export const longSwordsR8: LongSword[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '火',
       value: 55,
     },
@@ -40,7 +40,7 @@ export const longSwordsR8: LongSword[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: {
+    elementStatus: {
       type: '麻痺',
       value: 5,
     },

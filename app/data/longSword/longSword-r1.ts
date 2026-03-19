@@ -8,7 +8,7 @@ export const longSwordsR1: LongSword[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '氷',
       value: 33,
     },

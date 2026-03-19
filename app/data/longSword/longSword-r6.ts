@@ -8,7 +8,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 3,
     affinity: 25,
-    statusAilment: {
+    elementStatus: {
       type: '毒',
       value: 42,
     },
@@ -24,7 +24,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 1,
     affinity: 25,
-    element: {
+    elementStatus: {
       type: '水',
       value: 30,
     },
@@ -40,7 +40,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 56,
     },
@@ -56,7 +56,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 2,
     affinity: 55,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 10,
     },
@@ -84,7 +84,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 0,
     affinity: 25,
-    element: {
+    elementStatus: {
       type: '火',
       value: 40,
     },
@@ -112,7 +112,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 25,
     slots: 1,
     affinity: -5,
-    statusAilment: {
+    elementStatus: {
       type: '爆破',
       value: 36,
     },
@@ -128,7 +128,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '雷',
       value: 40,
     },
@@ -144,7 +144,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 0,
     affinity: 15,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 26,
     },
@@ -172,7 +172,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    statusAilment: {
+    elementStatus: {
       type: '爆破',
       value: 32,
     },
@@ -188,7 +188,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 1,
     affinity: 10,
-    element: {
+    elementStatus: {
       type: '火',
       value: 23,
     },
@@ -216,7 +216,7 @@ export const longSwordsR6: LongSword[] = [
     defense: 0,
     slots: 1,
     affinity: 10,
-    element: {
+    elementStatus: {
       type: '雷',
       value: 26,
     },
