@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     '/longSwords': { prerender: true },
     '/lances': { prerender: true },
     '/swordAndShields': { prerender: true },
+    '/greatSwords': { prerender: true },
     '/melodyTimer': { prerender: true },
   },
 
@@ -32,7 +33,15 @@ export default defineNuxtConfig({
   // 静的サイト生成（SSG）の設定
   nitro: {
     prerender: {
-      routes: ['/', '/huntingHorns', '/longSwords', '/lances', '/swordAndShields', '/melodyTimer'],
+      routes: [
+        '/',
+        '/huntingHorns',
+        '/longSwords',
+        '/lances',
+        '/swordAndShields',
+        '/greatSwords',
+        '/melodyTimer',
+      ],
       crawlLinks: true,
     },
   },

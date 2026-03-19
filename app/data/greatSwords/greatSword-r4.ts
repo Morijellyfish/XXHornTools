@@ -1,0 +1,130 @@
+import type { GreatSword } from '~/types/weapons'
+import { SharpnessColor } from '~/types/sharpness'
+
+export const greatSwordsR4: GreatSword[] = [
+  {
+    name: 'キングオブキャット5',
+    attack: 270,
+    defense: 0,
+    slots: 1,
+    affinity: 0,
+    statusAilment: { type: '麻痺', value: 50 },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 50 },
+      plus1: { color: SharpnessColor.Blue, length: 75 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
+    },
+  },
+  {
+    name: '影断ネル＝カトラ6',
+    attack: 280,
+    defense: 0,
+    slots: 2,
+    affinity: 40,
+    statusAilment: { type: '毒', value: 25 },
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 40 },
+      plus1: { color: SharpnessColor.Purple, length: 40 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
+    },
+  },
+  {
+    name: '瀑刃剣ガノトトス7',
+    attack: 310,
+    defense: 0,
+    slots: 0,
+    affinity: 0,
+    element: { type: '水', value: 62 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 15 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
+    },
+  },
+  {
+    name: 'クロームヘル7',
+    attack: 310,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    statusAilment: { type: '毒', value: 50 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.White, length: 90 },
+    },
+  },
+  {
+    name: 'ピリーチレジスカ6',
+    attack: 330,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: 'ジャラーシュナイダー6',
+    attack: 340,
+    defense: 0,
+    slots: 1,
+    affinity: 0,
+    element: { type: '水', value: 34 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.Purple, length: 15 },
+      plus2: { color: SharpnessColor.Purple, length: 40 },
+    },
+  },
+  {
+    name: 'エクセルブレイズ5',
+    attack: 340,
+    defense: 5,
+    slots: 1,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: 'アセンション7',
+    attack: 370,
+    defense: 0,
+    slots: 1,
+    affinity: -5,
+    sharpness: {
+      normal: { color: SharpnessColor.Green, length: 100 },
+      plus1: { color: SharpnessColor.Blue, length: 25 },
+      plus2: { color: SharpnessColor.Blue, length: 50 },
+    },
+  },
+  {
+    name: 'ボルボプレッシャー6',
+    attack: 370,
+    defense: 0,
+    slots: 1,
+    affinity: -40,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.White, length: 45 },
+      plus2: { color: SharpnessColor.White, length: 70 },
+    },
+  },
+  {
+    name: '少し風化した大剣7',
+    attack: 380,
+    defense: 0,
+    slots: 0,
+    affinity: -70,
+    sharpness: {
+      normal: { color: SharpnessColor.Yellow, length: 190 },
+      plus1: { color: SharpnessColor.Blue, length: 5 },
+      plus2: { color: SharpnessColor.White, length: 10 },
+    },
+  },
+]

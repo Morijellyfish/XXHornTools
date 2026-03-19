@@ -1,0 +1,140 @@
+import type { GreatSword } from '~/types/weapons'
+import { SharpnessColor } from '~/types/sharpness'
+
+export const greatSwordsR1: GreatSword[] = [
+  {
+    name: 'さびた大剣3',
+    attack: 100,
+    defense: 0,
+    slots: 0,
+    affinity: -70,
+    sharpness: {
+      normal: { color: SharpnessColor.Yellow, length: 20 },
+      plus1: { color: SharpnessColor.Yellow, length: 45 },
+      plus2: { color: SharpnessColor.Green, length: 20 },
+    },
+  },
+  {
+    name: '咬剣【咆黄蛇】9',
+    attack: 290,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    statusAilment: { type: '麻痺', value: 42 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.White, length: 45 },
+      plus2: { color: SharpnessColor.White, length: 70 },
+    },
+  },
+  {
+    name: '殻剣アカキカギツメ8',
+    attack: 320,
+    defense: 20,
+    slots: 3,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.White, length: 45 },
+      plus2: { color: SharpnessColor.White, length: 70 },
+    },
+  },
+  {
+    name: '咬剣【金剛牙】8',
+    attack: 320,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    element: { type: '氷', value: 35 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.White, length: 45 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: 'ソフォスブレイド11',
+    attack: 320,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.White, length: 90 },
+    },
+  },
+  {
+    name: '沫斬ドロスボーン7',
+    attack: 330,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.White, length: 55 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
+    },
+  },
+  {
+    name: '咬剣【凄蒼牙】9',
+    attack: 330,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 60 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.White, length: 40 },
+    },
+  },
+  {
+    name: '咬剣【闘紫牙】9',
+    attack: 340,
+    defense: 0,
+    slots: 0,
+    affinity: 0,
+    statusAilment: { type: '毒', value: 40 },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 50 },
+      plus1: { color: SharpnessColor.White, length: 25 },
+      plus2: { color: SharpnessColor.White, length: 50 },
+    },
+  },
+  {
+    name: 'ユアガリブレイド8',
+    attack: 350,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.Green, length: 180 },
+      plus1: { color: SharpnessColor.Blue, length: 25 },
+      plus2: { color: SharpnessColor.White, length: 20 },
+    },
+  },
+  {
+    name: '断骨大剣11',
+    attack: 360,
+    defense: 0,
+    slots: 0,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 50 },
+      plus1: { color: SharpnessColor.White, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: 'エルトライトソード11',
+    attack: 360,
+    defense: 0,
+    slots: 0,
+    affinity: 0,
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 60 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.White, length: 40 },
+    },
+  },
+]
