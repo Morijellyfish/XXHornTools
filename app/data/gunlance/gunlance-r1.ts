@@ -86,7 +86,7 @@ export const gunlancesR1: Gunlance[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: { type: '麻痺', value: 42 },
+    elementStatus: { type: '麻痺', value: 42 },
     gunlanceShelling: { type: 'normal', level: 4 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 70 },

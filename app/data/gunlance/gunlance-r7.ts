@@ -8,7 +8,7 @@ export const gunlancesR7: Gunlance[] = [
     defense: 0,
     slots: 0,
     affinity: -20,
-    element: { type: '水', value: 20 },
+    elementStatus: { type: '水', value: 20 },
     gunlanceShelling: { type: 'long', level: 5 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
@@ -22,7 +22,7 @@ export const gunlancesR7: Gunlance[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: { type: '龍', value: 15 },
+    elementStatus: { type: '龍', value: 15 },
     gunlanceShelling: { type: 'normal', level: 5 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 10 },
@@ -36,7 +36,7 @@ export const gunlancesR7: Gunlance[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: { type: '龍', value: 42 },
+    elementStatus: { type: '龍', value: 42 },
     gunlanceShelling: { type: 'long', level: 5 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
@@ -63,7 +63,7 @@ export const gunlancesR7: Gunlance[] = [
     defense: 20,
     slots: 0,
     affinity: -20,
-    element: { type: '氷', value: 20 },
+    elementStatus: { type: '氷', value: 20 },
     gunlanceShelling: { type: 'long', level: 5 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 30 },
@@ -77,7 +77,7 @@ export const gunlancesR7: Gunlance[] = [
     defense: 0,
     slots: 1,
     affinity: -5,
-    element: { type: '雷', value: 34 },
+    elementStatus: { type: '雷', value: 34 },
     gunlanceShelling: { type: 'wide', level: 5 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
@@ -91,7 +91,7 @@ export const gunlancesR7: Gunlance[] = [
     defense: 0,
     slots: 2,
     affinity: 5,
-    element: { type: '龍', value: 52 },
+    elementStatus: { type: '龍', value: 52 },
     gunlanceShelling: { type: 'long', level: 4 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 110 },
@@ -105,7 +105,7 @@ export const gunlancesR7: Gunlance[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    statusAilment: { type: '毒', value: 39 },
+    elementStatus: { type: '毒', value: 39 },
     gunlanceShelling: { type: 'normal', level: 4 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
@@ -119,7 +119,7 @@ export const gunlancesR7: Gunlance[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: { type: '龍', value: 40 },
+    elementStatus: { type: '龍', value: 40 },
     gunlanceShelling: { type: 'long', level: 4 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 250 },
@@ -133,7 +133,7 @@ export const gunlancesR7: Gunlance[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: { type: '氷', value: 52 },
+    elementStatus: { type: '氷', value: 52 },
     gunlanceShelling: { type: 'normal', level: 5 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 80 },

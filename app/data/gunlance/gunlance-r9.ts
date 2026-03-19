@@ -8,7 +8,7 @@ export const gunlancesR9: Gunlance[] = [
     defense: 0,
     slots: 2,
     affinity: 15,
-    element: { type: '火', value: 45 },
+    elementStatus: { type: '火', value: 45 },
     gunlanceShelling: { type: 'long', level: 4 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
@@ -22,7 +22,7 @@ export const gunlancesR9: Gunlance[] = [
     defense: 0,
     slots: 3,
     affinity: -10,
-    element: { type: '火', value: 25 },
+    elementStatus: { type: '火', value: 25 },
     gunlanceShelling: { type: 'wide', level: 4 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
