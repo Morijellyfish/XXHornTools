@@ -18,6 +18,7 @@ export type TableColumnKey =
   | 'sharpness'
   | 'notes'
   | 'melodies'
+  | 'insectType'
 
 /** テーブルカラムの表示設定 */
 export interface VisibleColumns {
@@ -33,6 +34,7 @@ export interface VisibleColumns {
   sharpness: boolean
   notes?: boolean
   melodies?: boolean
+  insectType?: boolean
 }
 
 /** 表示項目のデフォルト（防御・旋律はオフ、それ以外はオン） */
@@ -49,6 +51,7 @@ export const DEFAULT_VISIBLE_COLUMNS: VisibleColumns = {
   sharpness: true,
   notes: true,
   melodies: false,
+  insectType: true,
 }
 
 /** カラムが表示されるか判定 */

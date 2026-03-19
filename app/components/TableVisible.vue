@@ -26,8 +26,13 @@ const hornColumnItems = [
   { key: 'melodies' as const, label: '旋律' },
 ]
 
+const insectGlaiveColumnItems = [{ key: 'insectType' as const, label: '系統' }]
+
 const getHornColumnItems = (weaponType: WeaponType) =>
   weaponType === 'huntingHorn' ? hornColumnItems : []
+
+const getInsectGlaiveColumnItems = (weaponType: WeaponType) =>
+  weaponType === 'insectGlaive' ? insectGlaiveColumnItems : []
 
 const columnItems = [
   { key: 'name' as const, label: '名称' },
@@ -76,25 +81,29 @@ const toggle = (key: keyof VisibleColumns) => {
           {{ item.label }}
         </label>
       </div>
-      <div
-        v-for="item in getHornColumnItems(props.weaponType)"
+      <template
+        v-for="item in [
+          ...getHornColumnItems(props.weaponType),
+          ...getInsectGlaiveColumnItems(props.weaponType),
+        ]"
         :key="item.key"
-        class="flex items-center gap-2"
       >
-        <Checkbox
-          :model-value="visibleColumns[item.key]"
-          binary
-          :input-id="`col-${item.key}`"
-          @update:model-value="toggle(item.key)"
-        />
-        <label
-          :for="`col-${item.key}`"
-          class="mp-label mp-text cursor-pointer whitespace-nowrap"
-          @click="toggle(item.key)"
-        >
-          {{ item.label }}
-        </label>
-      </div>
+        <div class="flex items-center gap-2">
+          <Checkbox
+            :model-value="visibleColumns[item.key]"
+            binary
+            :input-id="`col-${item.key}`"
+            @update:model-value="toggle(item.key)"
+          />
+          <label
+            :for="`col-${item.key}`"
+            class="mp-label mp-text cursor-pointer whitespace-nowrap"
+            @click="toggle(item.key)"
+          >
+            {{ item.label }}
+          </label>
+        </div>
+      </template>
     </div>
   </div>
 </template>

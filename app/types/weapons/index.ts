@@ -10,6 +10,7 @@ export type WeaponType =
   | 'swordAndShield'
   | 'greatSword'
   | 'hammer'
+  | 'insectGlaive'
 
 // 武器型
 export type { HuntingHorn } from './huntingHorn'
@@ -19,3 +20,4 @@ export type { Lance } from './lance'
 export type { SwordAndShield } from './swordAndShield'
 export type { GreatSword } from './greatSword'
 export type { Hammer } from './hammer'
+export type { InsectGlaive, InsectType } from './insectGlaive'

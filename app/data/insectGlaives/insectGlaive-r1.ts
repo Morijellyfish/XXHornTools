@@ -1,0 +1,111 @@
+import type { InsectGlaive } from '~/types/weapons'
+import { SharpnessColor } from '~/types/sharpness'
+
+export const insectGlaivesR1: InsectGlaive[] = [
+  {
+    name: 'ソフォスロッド11',
+    attack: 320,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    insectType: 'slash',
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.White, length: 90 },
+    },
+  },
+  {
+    name: '舞乱棍【抜群】8',
+    attack: 320,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    insectType: 'impact',
+    element: { type: '氷', value: 27 },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 50 },
+      plus1: { color: SharpnessColor.White, length: 25 },
+      plus2: { color: SharpnessColor.White, length: 50 },
+    },
+  },
+  {
+    name: '操虫三叉戟オルタロス8',
+    attack: 320,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    insectType: 'slash',
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
+    },
+  },
+  {
+    name: 'エスカーマフェーダー9',
+    attack: 330,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    insectType: 'slash',
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 40 },
+      plus1: { color: SharpnessColor.White, length: 65 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: 'エアボーン11',
+    attack: 330,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    insectType: 'impact',
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.White, length: 45 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: '鋼銃剣【飛天改】11',
+    attack: 350,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    insectType: 'slash',
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 60 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.White, length: 40 },
+    },
+  },
+  {
+    name: '突撃銃剣【巴蛇】8',
+    attack: 350,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    insectType: 'slash',
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 40 },
+      plus1: { color: SharpnessColor.Blue, length: 65 },
+      plus2: { color: SharpnessColor.White, length: 20 },
+    },
+  },
+  {
+    name: '砂錨棍サブロアンクロ8',
+    attack: 350,
+    defense: 0,
+    slots: 1,
+    affinity: 0,
+    insectType: 'slash',
+    element: { type: '水', value: 27 },
+    sharpness: {
+      normal: { color: SharpnessColor.Blue, length: 20 },
+      plus1: { color: SharpnessColor.Blue, length: 45 },
+      plus2: { color: SharpnessColor.White, length: 10 },
+    },
+  },
+]
