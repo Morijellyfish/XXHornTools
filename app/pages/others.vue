@@ -22,7 +22,7 @@ const column1: WeaponItem[] = [
 const column2: WeaponItem[] = [
   { title: 'ガンランス', implemented: false },
   { title: 'スラッシュアックス', implemented: false },
-  { title: 'チャージアックス', implemented: false },
+  { title: 'チャージアックス', to: '/chargeBlades', implemented: true },
   { title: '操虫棍', to: '/insectGlaives', implemented: true },
   { title: '弓', implemented: false },
   { title: 'ライトボウガン', implemented: false },

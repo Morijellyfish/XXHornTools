@@ -1,0 +1,102 @@
+import type { ChargeBlade } from '~/types/weapons'
+import { SharpnessColor } from '~/types/sharpness'
+
+export const chargeBladesR7: ChargeBlade[] = [
+  {
+    name: 'テスカ・デル・エスト5',
+    attack: 280,
+    defense: 0,
+    slots: 1,
+    affinity: 0,
+    chargeBladePhialType: 'impact',
+    statusAilment: { type: '爆破', value: 48 },
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 20 },
+      plus1: { color: SharpnessColor.Purple, length: 45 },
+      plus2: { color: SharpnessColor.Purple, length: 70 },
+    },
+  },
+  {
+    name: '金煌月盾斧クリュサル5',
+    attack: 290,
+    defense: 0,
+    slots: 3,
+    affinity: 0,
+    chargeBladePhialType: 'element',
+    element: { type: '火', value: 42 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 50 },
+      plus1: { color: SharpnessColor.White, length: 75 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: '赫醒剣斧ジルバッド6',
+    attack: 300,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    chargeBladePhialType: 'element',
+    element: { type: '龍', value: 48 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 250 },
+      plus1: { color: SharpnessColor.White, length: 250 },
+      plus2: { color: SharpnessColor.White, length: 250 },
+    },
+  },
+  {
+    name: '煌炎斧ヘルメスノヴァ5',
+    attack: 310,
+    defense: 0,
+    slots: 2,
+    affinity: 20,
+    chargeBladePhialType: 'impact',
+    element: { type: '火', value: 30 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: '極星寂護斧ガンガロア5',
+    attack: 310,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    chargeBladePhialType: 'impact',
+    element: { type: '龍', value: 12 },
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 10 },
+      plus1: { color: SharpnessColor.Purple, length: 10 },
+      plus2: { color: SharpnessColor.Purple, length: 10 },
+    },
+  },
+  {
+    name: '太虚ノ華【普天】5',
+    attack: 360,
+    defense: 0,
+    slots: 0,
+    affinity: -20,
+    chargeBladePhialType: 'impact',
+    element: { type: '水', value: 20 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 10 },
+      plus1: { color: SharpnessColor.White, length: 35 },
+      plus2: { color: SharpnessColor.White, length: 60 },
+    },
+  },
+  {
+    name: '覇壊斧イクセエンカム5',
+    attack: 370,
+    defense: 0,
+    slots: 0,
+    affinity: 45,
+    chargeBladePhialType: 'impact',
+    sharpness: {
+      normal: { color: SharpnessColor.Green, length: 50 },
+      plus1: { color: SharpnessColor.Green, length: 75 },
+      plus2: { color: SharpnessColor.Blue, length: 10 },
+    },
+  },
+]

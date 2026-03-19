@@ -28,11 +28,16 @@ const hornColumnItems = [
 
 const insectGlaiveColumnItems = [{ key: 'insectType' as const, label: '系統' }]
 
+const chargeBladeColumnItems = [{ key: 'chargeBladePhialType' as const, label: '装着ビン' }]
+
 const getHornColumnItems = (weaponType: WeaponType) =>
   weaponType === 'huntingHorn' ? hornColumnItems : []
 
 const getInsectGlaiveColumnItems = (weaponType: WeaponType) =>
   weaponType === 'insectGlaive' ? insectGlaiveColumnItems : []
+
+const getChargeBladeColumnItems = (weaponType: WeaponType) =>
+  weaponType === 'chargeBlade' ? chargeBladeColumnItems : []
 
 const columnItems = [
   { key: 'name' as const, label: '名称' },
@@ -85,6 +90,7 @@ const toggle = (key: keyof VisibleColumns) => {
         v-for="item in [
           ...getHornColumnItems(props.weaponType),
           ...getInsectGlaiveColumnItems(props.weaponType),
+          ...getChargeBladeColumnItems(props.weaponType),
         ]"
         :key="item.key"
       >

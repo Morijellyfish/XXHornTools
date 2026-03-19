@@ -1,0 +1,113 @@
+import type { ChargeBlade } from '~/types/weapons'
+import { SharpnessColor } from '~/types/sharpness'
+
+export const chargeBladesR2: ChargeBlade[] = [
+  {
+    name: 'オミナスフェレス6',
+    attack: 250,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    chargeBladePhialType: 'impact',
+    statusAilment: { type: '麻痺', value: 28 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.White, length: 55 },
+      plus2: { color: SharpnessColor.White, length: 80 },
+    },
+  },
+  {
+    name: '焼盾ピザックスDX7',
+    attack: 270,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    chargeBladePhialType: 'impact',
+    sharpness: {
+      normal: { color: SharpnessColor.Purple, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 30 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: '毒盾斧ヘルヴェノム9',
+    attack: 300,
+    defense: 0,
+    slots: 2,
+    affinity: 0,
+    chargeBladePhialType: 'impact',
+    statusAilment: { type: '毒', value: 35 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.White, length: 55 },
+      plus2: { color: SharpnessColor.Purple, length: 20 },
+    },
+  },
+  {
+    name: 'シュヴァルツスクード8',
+    attack: 310,
+    defense: 25,
+    slots: 3,
+    affinity: 0,
+    chargeBladePhialType: 'impact',
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 20 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: '寝翼大公プロスクシェ9',
+    attack: 310,
+    defense: 0,
+    slots: 1,
+    affinity: 0,
+    chargeBladePhialType: 'impact',
+    statusAilment: { type: '睡眠', value: 22 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: 'コンポジットボーダー8',
+    attack: 330,
+    defense: 25,
+    slots: 0,
+    affinity: 0,
+    chargeBladePhialType: 'impact',
+    element: { type: '水', value: 24 },
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 30 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: 'ナデギリマクリ8',
+    attack: 330,
+    defense: 0,
+    slots: 1,
+    affinity: 0,
+    chargeBladePhialType: 'impact',
+    sharpness: {
+      normal: { color: SharpnessColor.White, length: 50 },
+      plus1: { color: SharpnessColor.Purple, length: 5 },
+      plus2: { color: SharpnessColor.Purple, length: 30 },
+    },
+  },
+  {
+    name: '妖しき霧幻ガルグカシ6',
+    attack: 380,
+    defense: 0,
+    slots: 0,
+    affinity: -30,
+    chargeBladePhialType: 'impact',
+    sharpness: {
+      normal: { color: SharpnessColor.Green, length: 100 },
+      plus1: { color: SharpnessColor.White, length: 15 },
+      plus2: { color: SharpnessColor.White, length: 40 },
+    },
+  },
+]
