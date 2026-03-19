@@ -8,7 +8,7 @@ export const switchAxesR10: SwitchAxe[] = [
     defense: 0,
     slots: 3,
     affinity: 30,
-    statusAilment: { type: '爆破', value: 50 },
+    elementStatus: { type: '爆破', value: 50 },
     switchAxePhialType: 'element',
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
@@ -22,7 +22,7 @@ export const switchAxesR10: SwitchAxe[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: { type: '爆破', value: 45 },
+    elementStatus: { type: '爆破', value: 45 },
     switchAxePhialType: 'power',
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
@@ -36,7 +36,7 @@ export const switchAxesR10: SwitchAxe[] = [
     defense: 0,
     slots: 0,
     affinity: -30,
-    element: { type: '龍', value: 22 },
+    elementStatus: { type: '龍', value: 22 },
     switchAxePhialType: 'power',
     sharpness: {
       normal: { color: SharpnessColor.White, length: 60 },
@@ -50,7 +50,7 @@ export const switchAxesR10: SwitchAxe[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: { type: '龍', value: 50 },
+    elementStatus: { type: '龍', value: 50 },
     switchAxePhialType: 'power',
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
@@ -64,7 +64,7 @@ export const switchAxesR10: SwitchAxe[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: { type: '雷', value: 52 },
+    elementStatus: { type: '雷', value: 52 },
     switchAxePhialType: 'power',
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },

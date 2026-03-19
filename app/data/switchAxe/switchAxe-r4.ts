@@ -8,7 +8,7 @@ export const switchAxesR4: SwitchAxe[] = [
     defense: 0,
     slots: 3,
     affinity: 10,
-    element: { type: '火', value: 30 },
+    elementStatus: { type: '火', value: 30 },
     switchAxePhialType: 'power',
     sharpness: {
       normal: { color: SharpnessColor.White, length: 20 },
@@ -35,7 +35,7 @@ export const switchAxesR4: SwitchAxe[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: { type: '水', value: 30 },
+    elementStatus: { type: '水', value: 30 },
     switchAxePhialType: 'element',
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
@@ -49,7 +49,7 @@ export const switchAxesR4: SwitchAxe[] = [
     defense: 0,
     slots: 0,
     affinity: -15,
-    element: { type: '氷', value: 22 },
+    elementStatus: { type: '氷', value: 22 },
     switchAxePhialType: 'element',
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 50 },

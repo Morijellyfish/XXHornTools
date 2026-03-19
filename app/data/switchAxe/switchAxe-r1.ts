@@ -8,7 +8,7 @@ export const switchAxesR1: SwitchAxe[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    statusAilment: { type: '麻痺', value: 26 },
+    elementStatus: { type: '麻痺', value: 26 },
     switchAxePhialType: 'power',
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 20 },
