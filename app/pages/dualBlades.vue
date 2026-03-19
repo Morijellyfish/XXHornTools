@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import { allDualBlades } from '~/data/dualBlades'
+﻿<script setup lang="ts">
+import { allDualBlades } from '~/data/weapons/dualBlades'
 import { ref } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { createDefaultTableOptions } from '~/utils/tableOptions'

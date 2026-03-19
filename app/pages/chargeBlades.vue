@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import { allChargeBlades } from '~/data/chargeBlade'
+﻿<script setup lang="ts">
+import { allChargeBlades } from '~/data/weapons/chargeBlade'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { createDefaultTableOptions } from '~/utils/tableOptions'

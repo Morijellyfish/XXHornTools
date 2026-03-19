@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { allSwitchAxes } from '~/data/switchAxe'
+import { allSwitchAxes } from '~/data/weapons/switchAxe'
 import { ref } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { createDefaultTableOptions } from '~/utils/tableOptions'

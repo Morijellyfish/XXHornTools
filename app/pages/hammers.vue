@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import { allHammers } from '~/data/hammers'
+﻿<script setup lang="ts">
+import { allHammers } from '~/data/weapons/hammers'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { createDefaultTableOptions } from '~/utils/tableOptions'

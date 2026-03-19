@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { allLances } from '~/data/lance'
+import { allLances } from '~/data/weapons/lance'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { createDefaultTableOptions } from '~/utils/tableOptions'

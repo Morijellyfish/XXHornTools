@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { allHorns } from '~/data/horns'
+import { allHorns } from '~/data/weapons/horns'
 import { melodyNames } from '~/data/melodies'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'

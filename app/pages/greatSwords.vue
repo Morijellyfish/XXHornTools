@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { allGreatSwords } from '~/data/greatSwords'
+import { allGreatSwords } from '~/data/weapons/greatSwords'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { createDefaultTableOptions } from '~/utils/tableOptions'

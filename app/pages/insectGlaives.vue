@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { allInsectGlaives } from '~/data/insectGlaives'
+import { allInsectGlaives } from '~/data/weapons/insectGlaives'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
 import { createDefaultTableOptions } from '~/utils/tableOptions'
