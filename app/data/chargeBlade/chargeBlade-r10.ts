@@ -9,7 +9,7 @@ export const chargeBladesR10: ChargeBlade[] = [
     slots: 3,
     affinity: 30,
     chargeBladePhialType: 'impact',
-    statusAilment: { type: '爆破', value: 50 },
+    elementStatus: { type: '爆破', value: 50 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 25 },
@@ -23,7 +23,7 @@ export const chargeBladesR10: ChargeBlade[] = [
     slots: 2,
     affinity: 0,
     chargeBladePhialType: 'element',
-    element: { type: '龍', value: 43 },
+    elementStatus: { type: '龍', value: 43 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 50 },
       plus1: { color: SharpnessColor.Purple, length: 50 },
@@ -37,7 +37,7 @@ export const chargeBladesR10: ChargeBlade[] = [
     slots: 0,
     affinity: 25,
     chargeBladePhialType: 'impact',
-    element: { type: '火', value: 22 },
+    elementStatus: { type: '火', value: 22 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 20 },
       plus1: { color: SharpnessColor.Purple, length: 45 },
@@ -51,7 +51,7 @@ export const chargeBladesR10: ChargeBlade[] = [
     slots: 2,
     affinity: 0,
     chargeBladePhialType: 'impact',
-    statusAilment: { type: '爆破', value: 40 },
+    elementStatus: { type: '爆破', value: 40 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -65,7 +65,7 @@ export const chargeBladesR10: ChargeBlade[] = [
     slots: 0,
     affinity: 0,
     chargeBladePhialType: 'impact',
-    element: { type: '龍', value: 50 },
+    elementStatus: { type: '龍', value: 50 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 50 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -79,7 +79,7 @@ export const chargeBladesR10: ChargeBlade[] = [
     slots: 0,
     affinity: 0,
     chargeBladePhialType: 'element',
-    element: { type: '雷', value: 50 },
+    elementStatus: { type: '雷', value: 50 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 15 },
@@ -93,7 +93,7 @@ export const chargeBladesR10: ChargeBlade[] = [
     slots: 1,
     affinity: -35,
     chargeBladePhialType: 'impact',
-    element: { type: '龍', value: 13 },
+    elementStatus: { type: '龍', value: 13 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 50 },
       plus1: { color: SharpnessColor.White, length: 75 },

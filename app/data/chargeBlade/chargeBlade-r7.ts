@@ -9,7 +9,7 @@ export const chargeBladesR7: ChargeBlade[] = [
     slots: 1,
     affinity: 0,
     chargeBladePhialType: 'impact',
-    statusAilment: { type: '爆破', value: 48 },
+    elementStatus: { type: '爆破', value: 48 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 20 },
       plus1: { color: SharpnessColor.Purple, length: 45 },
@@ -23,7 +23,7 @@ export const chargeBladesR7: ChargeBlade[] = [
     slots: 3,
     affinity: 0,
     chargeBladePhialType: 'element',
-    element: { type: '火', value: 42 },
+    elementStatus: { type: '火', value: 42 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 50 },
       plus1: { color: SharpnessColor.White, length: 75 },
@@ -37,7 +37,7 @@ export const chargeBladesR7: ChargeBlade[] = [
     slots: 2,
     affinity: 0,
     chargeBladePhialType: 'element',
-    element: { type: '龍', value: 48 },
+    elementStatus: { type: '龍', value: 48 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 250 },
       plus1: { color: SharpnessColor.White, length: 250 },
@@ -51,7 +51,7 @@ export const chargeBladesR7: ChargeBlade[] = [
     slots: 2,
     affinity: 20,
     chargeBladePhialType: 'impact',
-    element: { type: '火', value: 30 },
+    elementStatus: { type: '火', value: 30 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -65,7 +65,7 @@ export const chargeBladesR7: ChargeBlade[] = [
     slots: 2,
     affinity: 0,
     chargeBladePhialType: 'impact',
-    element: { type: '龍', value: 12 },
+    elementStatus: { type: '龍', value: 12 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 10 },
@@ -79,7 +79,7 @@ export const chargeBladesR7: ChargeBlade[] = [
     slots: 0,
     affinity: -20,
     chargeBladePhialType: 'impact',
-    element: { type: '水', value: 20 },
+    elementStatus: { type: '水', value: 20 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
       plus1: { color: SharpnessColor.White, length: 35 },

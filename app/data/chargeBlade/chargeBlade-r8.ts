@@ -9,7 +9,7 @@ export const chargeBladesR8: ChargeBlade[] = [
     slots: 1,
     affinity: 0,
     chargeBladePhialType: 'impact',
-    statusAilment: { type: '麻痺', value: 8 },
+    elementStatus: { type: '麻痺', value: 8 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 30 },

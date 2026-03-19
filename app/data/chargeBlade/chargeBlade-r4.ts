@@ -9,7 +9,7 @@ export const chargeBladesR4: ChargeBlade[] = [
     slots: 1,
     affinity: 25,
     chargeBladePhialType: 'impact',
-    statusAilment: { type: '毒', value: 28 },
+    elementStatus: { type: '毒', value: 28 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 120 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -23,7 +23,7 @@ export const chargeBladesR4: ChargeBlade[] = [
     slots: 1,
     affinity: 10,
     chargeBladePhialType: 'element',
-    element: { type: '雷', value: 34 },
+    elementStatus: { type: '雷', value: 34 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -37,7 +37,7 @@ export const chargeBladesR4: ChargeBlade[] = [
     slots: 1,
     affinity: 0,
     chargeBladePhialType: 'element',
-    element: { type: '水', value: 31 },
+    elementStatus: { type: '水', value: 31 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
       plus1: { color: SharpnessColor.White, length: 35 },
@@ -51,7 +51,7 @@ export const chargeBladesR4: ChargeBlade[] = [
     slots: 1,
     affinity: -15,
     chargeBladePhialType: 'element',
-    element: { type: '氷', value: 37 },
+    elementStatus: { type: '氷', value: 37 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 60 },
       plus1: { color: SharpnessColor.White, length: 15 },
