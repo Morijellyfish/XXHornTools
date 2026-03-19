@@ -87,7 +87,7 @@ export const hornsR1: HuntingHorn[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '氷',
       value: 27,
     },

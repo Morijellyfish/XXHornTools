@@ -9,7 +9,7 @@ export const hornsR10: HuntingHorn[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: {
+    elementStatus: {
       type: '爆破',
       value: 49,
     },
@@ -26,7 +26,7 @@ export const hornsR10: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 60,
     },
@@ -43,7 +43,7 @@ export const hornsR10: HuntingHorn[] = [
     defense: 0,
     slots: 2,
     affinity: -35,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 25,
     },
@@ -73,7 +73,7 @@ export const hornsR10: HuntingHorn[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    statusAilment: {
+    elementStatus: {
       type: '爆破',
       value: 55,
     },

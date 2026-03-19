@@ -9,7 +9,7 @@ export const hornsR7: HuntingHorn[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 55,
     },
@@ -26,7 +26,7 @@ export const hornsR7: HuntingHorn[] = [
     defense: 0,
     slots: 1,
     affinity: 10,
-    element: {
+    elementStatus: {
       type: '氷',
       value: 45,
     },
@@ -43,7 +43,7 @@ export const hornsR7: HuntingHorn[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 17,
     },
@@ -60,7 +60,7 @@ export const hornsR7: HuntingHorn[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '龍',
       value: 30,
     },
@@ -77,7 +77,7 @@ export const hornsR7: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: -20,
-    element: {
+    elementStatus: {
       type: '水',
       value: 20,
     },
@@ -107,7 +107,7 @@ export const hornsR7: HuntingHorn[] = [
     defense: 20,
     slots: 0,
     affinity: -20,
-    element: {
+    elementStatus: {
       type: '氷',
       value: 20,
     },

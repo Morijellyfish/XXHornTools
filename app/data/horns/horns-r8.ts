@@ -9,7 +9,7 @@ export const hornsR8: HuntingHorn[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    statusAilment: {
+    elementStatus: {
       type: '睡眠',
       value: 26,
     },
@@ -26,7 +26,7 @@ export const hornsR8: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    statusAilment: {
+    elementStatus: {
       type: '麻痺',
       value: 30,
     },
@@ -43,7 +43,7 @@ export const hornsR8: HuntingHorn[] = [
     defense: 25,
     slots: 2,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '火',
       value: 35,
     },

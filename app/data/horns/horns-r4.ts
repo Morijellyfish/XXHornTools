@@ -48,7 +48,7 @@ export const hornsR4: HuntingHorn[] = [
     defense: 15,
     slots: 0,
     affinity: 10,
-    element: {
+    elementStatus: {
       type: '火',
       value: 25,
     },
@@ -65,7 +65,7 @@ export const hornsR4: HuntingHorn[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: {
+    elementStatus: {
       type: '水',
       value: 35,
     },

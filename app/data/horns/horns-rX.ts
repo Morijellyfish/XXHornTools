@@ -9,7 +9,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 20,
-    statusAilment: {
+    elementStatus: {
       type: '毒',
       value: 40,
     },
@@ -26,7 +26,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 10,
-    element: {
+    elementStatus: {
       type: '雷',
       value: 46,
     },
@@ -43,7 +43,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 40,
-    element: {
+    elementStatus: {
       type: '雷',
       value: 22,
     },
@@ -60,7 +60,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 10,
-    statusAilment: {
+    elementStatus: {
       type: '毒',
       value: 46,
     },
@@ -90,7 +90,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 5,
-    statusAilment: {
+    elementStatus: {
       type: '爆破',
       value: 36,
     },
@@ -107,7 +107,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 10,
-    element: {
+    elementStatus: {
       type: '火',
       value: 42,
     },
@@ -137,7 +137,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 10,
-    statusAilment: {
+    elementStatus: {
       type: '睡眠',
       value: 18,
     },
@@ -154,7 +154,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 5,
-    element: {
+    elementStatus: {
       type: '水',
       value: 25,
     },
@@ -171,7 +171,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 0,
     slots: 0,
     affinity: 20,
-    element: {
+    elementStatus: {
       type: '水',
       value: 34,
     },
@@ -227,7 +227,7 @@ export const hornsRX: HuntingHorn[] = [
     defense: 10,
     slots: 0,
     affinity: 5,
-    element: {
+    elementStatus: {
       type: '氷',
       value: 27,
     },
