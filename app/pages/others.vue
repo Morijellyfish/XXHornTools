@@ -13,7 +13,7 @@ const column1: WeaponItem[] = [
   { title: '大剣', to: '/greatSwords', implemented: true },
   { title: '太刀', to: '/longSwords', implemented: true },
   { title: '片手剣', to: '/swordAndShields', implemented: true },
-  { title: '双剣', implemented: false },
+  { title: '双剣', to: '/dualBlades', implemented: true },
   { title: 'ハンマー', to: '/hammers', implemented: true },
   { title: '狩猟笛', to: '/huntingHorns', implemented: true },
   { title: 'ランス', to: '/lances', implemented: true },

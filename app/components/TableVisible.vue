@@ -34,6 +34,8 @@ const switchAxeColumnItems = [{ key: 'switchAxePhialType' as const, label: '装�
 
 const gunlanceColumnItems = [{ key: 'gunlanceShelling' as const, label: '砲撃' }]
 
+const dualBladeColumnItems = [{ key: 'dualBladeSubElement' as const, label: '副属性' }]
+
 const getHornColumnItems = (weaponType: WeaponType) =>
   weaponType === 'huntingHorn' ? hornColumnItems : []
 
@@ -48,6 +50,9 @@ const getSwitchAxeColumnItems = (weaponType: WeaponType) =>
 
 const getGunlanceColumnItems = (weaponType: WeaponType) =>
   weaponType === 'gunlance' ? gunlanceColumnItems : []
+
+const getDualBladeColumnItems = (weaponType: WeaponType) =>
+  weaponType === 'dualBlade' ? dualBladeColumnItems : []
 
 const columnItems = [
   { key: 'name' as const, label: '名称' },
@@ -103,6 +108,7 @@ const toggle = (key: keyof VisibleColumns) => {
           ...getChargeBladeColumnItems(props.weaponType),
           ...getSwitchAxeColumnItems(props.weaponType),
           ...getGunlanceColumnItems(props.weaponType),
+          ...getDualBladeColumnItems(props.weaponType),
         ]"
         :key="item.key"
       >

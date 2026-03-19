@@ -22,6 +22,7 @@ export type TableColumnKey =
   | 'chargeBladePhialType'
   | 'switchAxePhialType'
   | 'gunlanceShelling'
+  | 'dualBladeSubElement'
 
 /** テーブルカラムの表示設定 */
 export interface VisibleColumns {
@@ -41,6 +42,7 @@ export interface VisibleColumns {
   chargeBladePhialType?: boolean
   switchAxePhialType?: boolean
   gunlanceShelling?: boolean
+  dualBladeSubElement?: boolean
 }
 
 /** 表示項目のデフォルト（防御・旋律はオフ、それ以外はオン） */
@@ -61,6 +63,7 @@ export const DEFAULT_VISIBLE_COLUMNS: VisibleColumns = {
   chargeBladePhialType: true,
   switchAxePhialType: true,
   gunlanceShelling: true,
+  dualBladeSubElement: true,
 }
 
 /** カラムが表示されるか判定 */
