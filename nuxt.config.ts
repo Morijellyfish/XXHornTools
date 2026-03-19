@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     '/greatSwords': { prerender: true },
     '/hammers': { prerender: true },
     '/insectGlaives': { prerender: true },
+    '/others': { prerender: true },
     '/melodyTimer': { prerender: true },
   },
 
@@ -44,6 +45,7 @@ export default defineNuxtConfig({
         '/greatSwords',
         '/hammers',
         '/insectGlaives',
+        '/others',
         '/melodyTimer',
       ],
       crawlLinks: true,

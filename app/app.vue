@@ -37,6 +37,7 @@ useSeoMeta({
             <nav class="hidden sm:flex items-center gap-2">
               <NuxtLink to="/huntingHorns" class="text-sm mp-navlink">武器比較表</NuxtLink>
               <NuxtLink to="/melodyTimer" class="text-sm mp-navlink">旋律タイマー</NuxtLink>
+              <NuxtLink to="/others" class="text-sm mp-navlink">その他</NuxtLink>
             </nav>
           </div>
         </div>
