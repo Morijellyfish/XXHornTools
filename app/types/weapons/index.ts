@@ -1,5 +1,6 @@
 // 基底クラス
-export type { Element, StatusAilment, WeaponBase } from './weaponBase'
+export type { Element, StatusAilment, ElementOrStatus, WeaponBase } from './weaponBase'
+export { isElementType } from './weaponBase'
 export type { WeaponMelee } from './weaponMelee'
 
 /** 武器種（表示項目の出し分けなどに使用） */
@@ -28,4 +29,4 @@ export type { InsectGlaive, InsectType } from './insectGlaive'
 export type { ChargeBlade, ChargeBladePhialType } from './chargeBlade'
 export type { SwitchAxe, SwitchAxePhialType } from './switchAxe'
 export type { Gunlance, GunlanceShelling } from './gunlance'
-export type { DualBlade, ElementOrStatus } from './dualBlade'
+export type { DualBlade } from './dualBlade'

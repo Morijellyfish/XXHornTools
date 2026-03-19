@@ -1,4 +1,5 @@
 import type { WeaponMelee } from '~/types/weapons'
+import { isElementType } from '~/types/weapons'
 import { SHARPNESS_MULTIPLIERS, type SharpnessColor } from '~/types/sharpness'
 
 type SharpnessType = 'normal' | 'plus1' | 'plus2'
@@ -116,7 +117,8 @@ export const calculateElementExpectedValue = (
   baseElementValue?: number
 ): number => {
   const elementValue =
-    baseElementValue ?? (weapon.element && weapon.element.type !== '無' ? weapon.element.value : 0)
+    baseElementValue ??
+    (weapon.elementStatus && isElementType(weapon.elementStatus) ? weapon.elementStatus.value : 0)
   if (elementValue <= 0) {
     return 0
   }

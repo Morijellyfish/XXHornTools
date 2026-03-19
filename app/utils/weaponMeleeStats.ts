@@ -5,7 +5,7 @@
  * 攻撃力・会心率・期待値・必要モーション値などを算出する。
  */
 import type { WeaponMelee } from '~/types/weapons'
-import { isHuntingHorn } from '~/types/weapons'
+import { isElementType, isHuntingHorn } from '~/types/weapons'
 import type { Buffs } from '~/types/Buffs/Buffs'
 import type { SharpnessType } from '~/types/tableBaseOption'
 import type { TargetDamageSettings } from '~/types/targetDamage'
@@ -50,11 +50,11 @@ export function getAttack(weapon: WeaponMelee, context: WeaponMeleeStatsContext)
 
 // 属性値
 export function getElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
-  if (!weapon.element || weapon.element.type === '無') {
+  if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) {
     return 0
   }
   return calculateElementWithBuffs(
-    weapon.element.value,
+    weapon.elementStatus.value,
     context.buffs?.elementModifiers ?? {},
     weapon
   ).value
@@ -62,11 +62,11 @@ export function getElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext
 
 // 属性値が倍率上限に達しているか
 export function isElementCapped(weapon: WeaponMelee, context: WeaponMeleeStatsContext): boolean {
-  if (!weapon.element || weapon.element.type === '無') {
+  if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) {
     return false
   }
   return calculateElementWithBuffs(
-    weapon.element.value,
+    weapon.elementStatus.value,
     context.buffs?.elementModifiers ?? {},
     weapon
   ).isCapped
@@ -77,11 +77,11 @@ export function getElementUncappedValue(
   weapon: WeaponMelee,
   context: WeaponMeleeStatsContext
 ): number | undefined {
-  if (!weapon.element || weapon.element.type === '無') {
+  if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) {
     return undefined
   }
   const result = calculateElementWithBuffs(
-    weapon.element.value,
+    weapon.elementStatus.value,
     context.buffs?.elementModifiers ?? {},
     weapon
   )
@@ -128,13 +128,14 @@ export function getExpectedValue(weapon: WeaponMelee, context: WeaponMeleeStatsC
 // 属性ダメージ
 export function getElementDamage(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
   const elementExpectedValue = getElementExpectedValue(weapon, context)
-  if (elementExpectedValue <= 0 || !weapon.element || weapon.element.type === '無') {
+  if (elementExpectedValue <= 0 || !weapon.elementStatus || !isElementType(weapon.elementStatus)) {
     return 0
   }
   const defaults = getDefaultTargetDamageSettings()
   const settings = context.targetDamageSettings ?? {}
   const elementHitzone =
-    settings.elementHitzone?.[weapon.element.type] ?? defaults.elementHitzone[weapon.element.type]
+    settings.elementHitzone?.[weapon.elementStatus.type] ??
+    defaults.elementHitzone[weapon.elementStatus.type]
   const overallDefenseRate = settings.overallDefenseRate ?? defaults.overallDefenseRate
   return calculateElementDamage(elementExpectedValue, elementHitzone, overallDefenseRate)
 }
@@ -172,7 +173,7 @@ export function getRequiredMotionValueElementInfo(
   weapon: WeaponMelee,
   context: WeaponMeleeStatsContext
 ): { type: string; percentage: number } | null {
-  if (!weapon.element || weapon.element.type === '無') return null
+  if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) return null
   const defaults = getDefaultTargetDamageSettings()
   const attackCount = context.targetDamageSettings?.attackCount ?? defaults.attackCount
   const totalElementDamage = getElementDamage(weapon, context) * attackCount
@@ -180,7 +181,7 @@ export function getRequiredMotionValueElementInfo(
   const targetDamage = context.targetDamageSettings?.targetDamage ?? defaults.targetDamage
   if (targetDamage <= 0) return null
   const percentage = Math.round((totalElementDamage / targetDamage) * 100)
-  return { type: weapon.element.type, percentage }
+  return { type: weapon.elementStatus.type, percentage }
 }
 
 // 元の会心率表示

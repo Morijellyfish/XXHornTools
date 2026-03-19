@@ -4,6 +4,17 @@ export type Element = '火' | '水' | '雷' | '氷' | '龍' | '無'
 // 状態異常
 export type StatusAilment = '毒' | '麻痺' | '睡眠' | '爆破' | '無'
 
+// 属性or状態異常のスロット
+export type ElementOrStatus =
+  | { type: Element; value: number }
+  | { type: StatusAilment; value: number }
+
+const ELEMENT_TYPES = ['火', '水', '雷', '氷', '龍'] as const
+
+export function isElementType(es: ElementOrStatus): es is { type: Element; value: number } {
+  return ELEMENT_TYPES.includes(es.type as (typeof ELEMENT_TYPES)[number])
+}
+
 // 武器の基底インターフェース
 export interface WeaponBase {
   // 基本情報
@@ -13,13 +24,6 @@ export interface WeaponBase {
   slots: number
   affinity: number // 会心率（%）
 
-  // 属性・状態異常
-  element?: {
-    type: Element
-    value: number
-  }
-  statusAilment?: {
-    type: StatusAilment
-    value: number
-  }
+  // 主属性（属性 or 状態異常）
+  elementStatus?: ElementOrStatus
 }

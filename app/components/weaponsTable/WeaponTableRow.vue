@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="T extends WeaponMelee">
 import type { WeaponMelee } from '~/types/weapons'
+import { isElementType } from '~/types/weapons'
 import type { VisibleColumns } from '~/types/tableBaseOption'
 import { isColumnVisible } from '~/types/tableBaseOption'
 import { getSharpnessColor, SharpnessColor } from '~/types/sharpness'
@@ -33,14 +34,12 @@ const props = defineProps<Props>()
 
 // 属性・状態異常を文字列で表示
 const formatElementOrStatus = (weapon: WeaponMelee, elementWithBuffs?: number): string => {
-  if (weapon.element) {
-    const displayValue = elementWithBuffs ?? weapon.element.value
-    return `${weapon.element.type}${displayValue}`
-  }
-  if (weapon.statusAilment) {
-    return `${weapon.statusAilment.type}${weapon.statusAilment.value}`
-  }
-  return '-'
+  if (!weapon.elementStatus) return '-'
+  const displayValue =
+    isElementType(weapon.elementStatus) && elementWithBuffs !== undefined
+      ? elementWithBuffs
+      : weapon.elementStatus.value
+  return `${weapon.elementStatus.type}${displayValue}`
 }
 
 // スロットの各位置の値を取得
@@ -93,8 +92,13 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
     >
       <div class="flex flex-col items-end leading-tight">
         <span>{{ expectedValue }}</span>
-        <span v-if="elementExpectedValue > 0 && weapon.element" class="text-xs mp-muted">
-          ({{ physicalExpectedValue }}+{{ weapon.element.type }}{{ elementExpectedValue }})
+        <span
+          v-if="
+            elementExpectedValue > 0 && weapon.elementStatus && isElementType(weapon.elementStatus)
+          "
+          class="text-xs mp-muted"
+        >
+          ({{ physicalExpectedValue }}+{{ weapon.elementStatus.type }}{{ elementExpectedValue }})
         </span>
       </div>
     </td>
@@ -162,8 +166,8 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
         >
           {{ formatElementOrStatus(weapon, props.elementWithBuffs) }}
         </span>
-        <span v-if="props.showBaseElement && weapon.element" class="text-xs mp-muted">
-          ({{ weapon.element.type }}{{ weapon.element.value }})
+        <span v-if="props.showBaseElement && weapon.elementStatus" class="text-xs mp-muted">
+          ({{ weapon.elementStatus.type }}{{ weapon.elementStatus.value }})
         </span>
       </div>
     </td>

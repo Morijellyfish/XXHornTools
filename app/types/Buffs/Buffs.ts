@@ -2,6 +2,7 @@ import type { CriticalBuffs } from './criticalBuff'
 import type { AttackBuffs, AttackSkill, ChallengeSkill, HunterSkill, Fortify } from './attackBuff'
 import type { ElementBuffs } from './elementBuff'
 import type { WeaponMelee } from '~/types/weapons'
+import { isElementType } from '~/types/weapons'
 import {
   calculateAttackWithBuffs,
   calculateAttackAddWithBuffs as calcAttackAdd,
@@ -236,8 +237,9 @@ export function getAffinityWithBuffs(buffs: Buffs, weapon: WeaponMelee): number 
 }
 
 export function getElementWithBuffs(buffs: Buffs, weapon: WeaponMelee): number {
-  if (!weapon.element || weapon.element.type === '無') {
+  if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) {
     return 0
   }
-  return calculateElementWithBuffs(weapon.element.value, buffs.elementModifiers ?? {}, weapon).value
+  return calculateElementWithBuffs(weapon.elementStatus.value, buffs.elementModifiers ?? {}, weapon)
+    .value
 }
