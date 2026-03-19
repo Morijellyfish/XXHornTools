@@ -8,7 +8,7 @@ export const hammersR8: Hammer[] = [
     defense: 0,
     slots: 0,
     affinity: 10,
-    statusAilment: { type: '睡眠', value: 30 },
+    elementStatus: { type: '睡眠', value: 30 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 120 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -21,7 +21,7 @@ export const hammersR8: Hammer[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: { type: '睡眠', value: 25 },
+    elementStatus: { type: '睡眠', value: 25 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 70 },
       plus1: { color: SharpnessColor.White, length: 25 },

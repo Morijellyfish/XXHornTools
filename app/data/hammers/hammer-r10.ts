@@ -8,7 +8,7 @@ export const hammersR10: Hammer[] = [
     defense: 12,
     slots: 0,
     affinity: 0,
-    element: { type: '龍', value: 75 },
+    elementStatus: { type: '龍', value: 75 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 25 },
@@ -21,7 +21,7 @@ export const hammersR10: Hammer[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: { type: '爆破', value: 45 },
+    elementStatus: { type: '爆破', value: 45 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -34,7 +34,7 @@ export const hammersR10: Hammer[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: { type: '龍', value: 45 },
+    elementStatus: { type: '龍', value: 45 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -47,7 +47,7 @@ export const hammersR10: Hammer[] = [
     defense: 0,
     slots: 2,
     affinity: -40,
-    element: { type: '龍', value: 20 },
+    elementStatus: { type: '龍', value: 20 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 50 },
       plus1: { color: SharpnessColor.White, length: 75 },
@@ -72,7 +72,7 @@ export const hammersR10: Hammer[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    statusAilment: { type: '爆破', value: 30 },
+    elementStatus: { type: '爆破', value: 30 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 25 },

@@ -8,7 +8,7 @@ export const hammersR4: Hammer[] = [
     defense: 0,
     slots: 1,
     affinity: 20,
-    statusAilment: { type: '睡眠', value: 23 },
+    elementStatus: { type: '睡眠', value: 23 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 30 },
@@ -21,7 +21,7 @@ export const hammersR4: Hammer[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    statusAilment: { type: '麻痺', value: 25 },
+    elementStatus: { type: '麻痺', value: 25 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 80 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -46,7 +46,7 @@ export const hammersR4: Hammer[] = [
     defense: 0,
     slots: 1,
     affinity: -5,
-    element: { type: '水', value: 15 },
+    elementStatus: { type: '水', value: 15 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 50 },
       plus1: { color: SharpnessColor.White, length: 25 },
@@ -71,7 +71,7 @@ export const hammersR4: Hammer[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: { type: '氷', value: 25 },
+    elementStatus: { type: '氷', value: 25 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 50 },
       plus1: { color: SharpnessColor.White, length: 25 },

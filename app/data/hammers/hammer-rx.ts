@@ -8,7 +8,7 @@ export const hammersRX: Hammer[] = [
     defense: 0,
     slots: 0,
     affinity: 40,
-    element: { type: '雷', value: 21 },
+    elementStatus: { type: '雷', value: 21 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 20 },
       plus1: { color: SharpnessColor.Purple, length: 45 },
@@ -21,7 +21,7 @@ export const hammersRX: Hammer[] = [
     defense: 0,
     slots: 0,
     affinity: 10,
-    element: { type: '火', value: 48 },
+    elementStatus: { type: '火', value: 48 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 50 },
       plus1: { color: SharpnessColor.Purple, length: 25 },
@@ -34,7 +34,7 @@ export const hammersRX: Hammer[] = [
     defense: 0,
     slots: 0,
     affinity: 10,
-    element: { type: '雷', value: 46 },
+    elementStatus: { type: '雷', value: 46 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 50 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -47,7 +47,7 @@ export const hammersRX: Hammer[] = [
     defense: 0,
     slots: 0,
     affinity: 5,
-    statusAilment: { type: '爆破', value: 30 },
+    elementStatus: { type: '爆破', value: 30 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 30 },
@@ -84,7 +84,7 @@ export const hammersRX: Hammer[] = [
     defense: 0,
     slots: 0,
     affinity: 20,
-    element: { type: '水', value: 35 },
+    elementStatus: { type: '水', value: 35 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 15 },
@@ -121,7 +121,7 @@ export const hammersRX: Hammer[] = [
     defense: 20,
     slots: 0,
     affinity: 10,
-    element: { type: '水', value: 30 },
+    elementStatus: { type: '水', value: 30 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 120 },
       plus1: { color: SharpnessColor.White, length: 25 },
@@ -134,7 +134,7 @@ export const hammersRX: Hammer[] = [
     defense: 10,
     slots: 0,
     affinity: 5,
-    element: { type: '氷', value: 17 },
+    elementStatus: { type: '氷', value: 17 },
     sharpness: {
       normal: { color: SharpnessColor.Green, length: 120 },
       plus1: { color: SharpnessColor.Blue, length: 25 },
