@@ -8,7 +8,7 @@ export const swordAndShieldsR4: SwordAndShield[] = [
     defense: 0,
     slots: 0,
     affinity: 30,
-    statusAilment: { type: '睡眠', value: 22 },
+    elementStatus: { type: '睡眠', value: 22 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 120 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -21,7 +21,7 @@ export const swordAndShieldsR4: SwordAndShield[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: { type: '水', value: 34 },
+    elementStatus: { type: '水', value: 34 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -34,7 +34,7 @@ export const swordAndShieldsR4: SwordAndShield[] = [
     defense: 0,
     slots: 0,
     affinity: -15,
-    element: { type: '氷', value: 17 },
+    elementStatus: { type: '氷', value: 17 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 50 },
       plus1: { color: SharpnessColor.White, length: 25 },
@@ -47,7 +47,7 @@ export const swordAndShieldsR4: SwordAndShield[] = [
     defense: 15,
     slots: 0,
     affinity: 0,
-    element: { type: '水', value: 17 },
+    elementStatus: { type: '水', value: 17 },
     sharpness: {
       normal: { color: SharpnessColor.Green, length: 160 },
       plus1: { color: SharpnessColor.Blue, length: 25 },

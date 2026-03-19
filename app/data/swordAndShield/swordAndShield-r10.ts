@@ -8,7 +8,7 @@ export const swordAndShieldsR10: SwordAndShield[] = [
     defense: 0,
     slots: 0,
     affinity: 0,
-    element: { type: '龍', value: 44 },
+    elementStatus: { type: '龍', value: 44 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 15 },
@@ -21,7 +21,7 @@ export const swordAndShieldsR10: SwordAndShield[] = [
     defense: 0,
     slots: 2,
     affinity: 0,
-    statusAilment: { type: '爆破', value: 44 },
+    elementStatus: { type: '爆破', value: 44 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -34,7 +34,7 @@ export const swordAndShieldsR10: SwordAndShield[] = [
     defense: 0,
     slots: 1,
     affinity: 0,
-    element: { type: '火', value: 35 },
+    elementStatus: { type: '火', value: 35 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 55 },
@@ -47,7 +47,7 @@ export const swordAndShieldsR10: SwordAndShield[] = [
     defense: 0,
     slots: 2,
     affinity: -25,
-    element: { type: '龍', value: 8 },
+    elementStatus: { type: '龍', value: 8 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 60 },
       plus1: { color: SharpnessColor.White, length: 85 },
@@ -72,7 +72,7 @@ export const swordAndShieldsR10: SwordAndShield[] = [
     defense: 0,
     slots: 3,
     affinity: 0,
-    statusAilment: { type: '爆破', value: 34 },
+    elementStatus: { type: '爆破', value: 34 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },

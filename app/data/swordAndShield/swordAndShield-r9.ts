@@ -8,7 +8,7 @@ export const swordAndShieldsR9: SwordAndShield[] = [
     defense: 20,
     slots: 1,
     affinity: 0,
-    statusAilment: { type: '爆破', value: 14 },
+    elementStatus: { type: '爆破', value: 14 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 10 },
@@ -33,7 +33,7 @@ export const swordAndShieldsR9: SwordAndShield[] = [
     defense: 0,
     slots: 0,
     affinity: 15,
-    element: { type: '氷', value: 19 },
+    elementStatus: { type: '氷', value: 19 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 110 },
       plus1: { color: SharpnessColor.White, length: 5 },
