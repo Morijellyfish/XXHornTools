@@ -9,7 +9,7 @@ export const insectGlaivesR4: InsectGlaive[] = [
     slots: 3,
     affinity: 0,
     insectType: 'impact',
-    element: { type: '火', value: 16 },
+    elementStatus: { type: '火', value: 16 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 10 },
       plus1: { color: SharpnessColor.White, length: 35 },
@@ -23,7 +23,7 @@ export const insectGlaivesR4: InsectGlaive[] = [
     slots: 3,
     affinity: 0,
     insectType: 'impact',
-    element: { type: '水', value: 39 },
+    elementStatus: { type: '水', value: 39 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.White, length: 65 },
@@ -37,7 +37,7 @@ export const insectGlaivesR4: InsectGlaive[] = [
     slots: 1,
     affinity: 20,
     insectType: 'impact',
-    statusAilment: { type: '毒', value: 29 },
+    elementStatus: { type: '毒', value: 29 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 60 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -51,7 +51,7 @@ export const insectGlaivesR4: InsectGlaive[] = [
     slots: 2,
     affinity: 0,
     insectType: 'slash',
-    element: { type: '氷', value: 30 },
+    elementStatus: { type: '氷', value: 30 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -65,7 +65,7 @@ export const insectGlaivesR4: InsectGlaive[] = [
     slots: 0,
     affinity: 0,
     insectType: 'slash',
-    element: { type: '水', value: 17 },
+    elementStatus: { type: '水', value: 17 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 80 },
       plus1: { color: SharpnessColor.White, length: 25 },

@@ -9,7 +9,7 @@ export const insectGlaivesR7: InsectGlaive[] = [
     slots: 2,
     affinity: 0,
     insectType: 'slash',
-    element: { type: '龍', value: 45 },
+    elementStatus: { type: '龍', value: 45 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 250 },
       plus1: { color: SharpnessColor.White, length: 250 },
@@ -23,7 +23,7 @@ export const insectGlaivesR7: InsectGlaive[] = [
     slots: 2,
     affinity: 0,
     insectType: 'impact',
-    element: { type: '龍', value: 33 },
+    elementStatus: { type: '龍', value: 33 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 60 },
       plus1: { color: SharpnessColor.Purple, length: 60 },
@@ -37,7 +37,7 @@ export const insectGlaivesR7: InsectGlaive[] = [
     slots: 1,
     affinity: 20,
     insectType: 'slash',
-    element: { type: '火', value: 35 },
+    elementStatus: { type: '火', value: 35 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 30 },
       plus1: { color: SharpnessColor.Purple, length: 5 },
@@ -51,7 +51,7 @@ export const insectGlaivesR7: InsectGlaive[] = [
     slots: 0,
     affinity: -20,
     insectType: 'impact',
-    element: { type: '雷', value: 50 },
+    elementStatus: { type: '雷', value: 50 },
     sharpness: {
       normal: { color: SharpnessColor.White, length: 40 },
       plus1: { color: SharpnessColor.White, length: 65 },
@@ -65,7 +65,7 @@ export const insectGlaivesR7: InsectGlaive[] = [
     slots: 2,
     affinity: 0,
     insectType: 'impact',
-    element: { type: '龍', value: 13 },
+    elementStatus: { type: '龍', value: 13 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 10 },
@@ -79,7 +79,7 @@ export const insectGlaivesR7: InsectGlaive[] = [
     slots: 0,
     affinity: -30,
     insectType: 'impact',
-    element: { type: '氷', value: 15 },
+    elementStatus: { type: '氷', value: 15 },
     sharpness: {
       normal: { color: SharpnessColor.Blue, length: 20 },
       plus1: { color: SharpnessColor.White, length: 5 },

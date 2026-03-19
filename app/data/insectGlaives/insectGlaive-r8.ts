@@ -9,7 +9,7 @@ export const insectGlaivesR8: InsectGlaive[] = [
     slots: 2,
     affinity: 15,
     insectType: 'slash',
-    statusAilment: { type: '睡眠', value: 25 },
+    elementStatus: { type: '睡眠', value: 25 },
     sharpness: {
       normal: { color: SharpnessColor.Purple, length: 10 },
       plus1: { color: SharpnessColor.Purple, length: 35 },
