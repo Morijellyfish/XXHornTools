@@ -43,6 +43,9 @@ const tools: Tool[] = [
   // },
 ]
 
+const repoUrl = 'https://github.com/Morijellyfish/XXHornTools'
+const discordInviteUrl = 'https://discord.gg/sRrPe6sfcd'
+
 const referenceSites: ReferenceSite[] = [
   {
     name: 'MHXX ダメージ計算',
@@ -113,10 +116,41 @@ const referenceSites: ReferenceSite[] = [
     </section>
 
     <section class="mx-auto max-w-6xl py-8 sm:py-10">
-      <div class="mp-panel mp-pad-loose">
-        <h2 class="mp-section-title mp-text">狩猟笛をより楽しむために</h2>
+      <div class="space-y-8">
+        <div>
+          <h2 class="mp-section-title mp-text">狩猟笛をより楽しむために</h2>
+          <p class="mt-2 mp-body mp-muted leading-relaxed">
+            狩りピToolsは、モンスターハンターXXの狩猟笛をサポートするためのツール集です。いくつかのツールを追加予定です。
+          </p>
+        </div>
+        <div>
+          <h2 class="mp-section-title mp-text">狩猟笛じゃないあなたへ</h2>
+          <p class="mt-2 mp-body mp-muted leading-relaxed">
+            このツールがいいなと思ったら少し狩猟笛を使ってみませんか？
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="feedback" class="mx-auto max-w-6xl py-8 sm:py-10">
+      <div class="mb-6">
+        <h2 class="mp-section-title mp-text">貢献やフィードバック</h2>
         <p class="mt-2 mp-body mp-muted leading-relaxed">
-          狩りピToolsは、モンスターハンターXXの狩猟笛をサポートするためのツール集です。いくつかのツールを追加予定です。
+          <a
+            :href="repoUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mp-accent hover:underline font-medium"
+          >GitHub</a>で受け付けています。
+        </p>
+        <p class="mt-2 mp-body mp-muted leading-relaxed">
+          Discordでも気軽なフィードバックをください。招待リンク
+          <a
+            :href="discordInviteUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mp-accent hover:underline break-all"
+          >{{ discordInviteUrl }}</a>
         </p>
       </div>
     </section>
