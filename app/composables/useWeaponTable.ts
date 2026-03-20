@@ -47,8 +47,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
           bValue = weaponMeleeStats.getRequiredMotionValue(b, ctx)
           break
         case 'expected':
-          aValue = weaponMeleeStats.getPhysicalExpectedValue(a, ctx)
-          bValue = weaponMeleeStats.getPhysicalExpectedValue(b, ctx)
+          aValue = weaponMeleeStats.getExpectedValue(a, ctx)
+          bValue = weaponMeleeStats.getExpectedValue(b, ctx)
           break
         case 'attack':
           aValue = a.attack
@@ -115,6 +115,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
       weaponMeleeStats.getPhysicalExpectedValue(weapon, context.value),
     getElementExpectedValue: (weapon: T) =>
       weaponMeleeStats.getElementExpectedValue(weapon, context.value),
+    getSubElementExpectedValue: (weapon: T) =>
+      weaponMeleeStats.getSubElementExpectedValue(weapon, context.value),
     getAttack: (weapon: T) => weaponMeleeStats.getAttack(weapon, context.value),
     getElement: (weapon: T) => weaponMeleeStats.getElement(weapon, context.value),
     isElementCapped: (weapon: T) => weaponMeleeStats.isElementCapped(weapon, context.value),

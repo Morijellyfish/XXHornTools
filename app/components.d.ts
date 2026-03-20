@@ -19,6 +19,7 @@ declare module 'vue' {
     InputText: typeof import('primevue/inputtext')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Slider: typeof import('primevue/slider')['default']
   }
 }
 
@@ -31,4 +32,5 @@ declare global {
   const InputText: typeof import('primevue/inputtext')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
+  const Slider: typeof import('primevue/slider')['default']
 }

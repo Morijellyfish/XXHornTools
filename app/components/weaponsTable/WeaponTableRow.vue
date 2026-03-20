@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="T extends WeaponMelee">
-import type { WeaponMelee } from '~/types/weapons'
+import { computed } from 'vue'
+import type { ElementOrStatus, WeaponMelee } from '~/types/weapons'
 import { isElementType } from '~/types/weapons'
 import type { VisibleColumns } from '~/types/tableBaseOption'
 import { isColumnVisible } from '~/types/tableBaseOption'
@@ -14,6 +15,8 @@ interface Props {
   expectedValue: number
   physicalExpectedValue: number
   elementExpectedValue: number
+  /** 双剣の副属性（属性のみ）の属性期待値 */
+  subElementExpectedValue?: number
   elementDamage: number
   attackWithBuffs: number
   baseAttack: number
@@ -31,6 +34,28 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+/** 期待値の内訳行: (436+氷40) または (436+氷40+水34) */
+const expectedBreakdownLine = computed(() => {
+  const phys = props.physicalExpectedValue
+  const parts: string[] = []
+  if (
+    props.weapon.elementStatus &&
+    isElementType(props.weapon.elementStatus) &&
+    props.elementExpectedValue > 0
+  ) {
+    parts.push(`${props.weapon.elementStatus.type}${props.elementExpectedValue}`)
+  }
+  const sub =
+    'subElement' in props.weapon
+      ? (props.weapon as WeaponMelee & { subElement?: ElementOrStatus }).subElement
+      : undefined
+  if (sub && isElementType(sub) && (props.subElementExpectedValue ?? 0) > 0) {
+    parts.push(`${sub.type}${props.subElementExpectedValue}`)
+  }
+  if (parts.length === 0) return null
+  return `(${phys}+${parts.join('+')})`
+})
 
 // 属性・状態異常を文字列で表示
 const formatElementOrStatus = (weapon: WeaponMelee, elementWithBuffs?: number): string => {
@@ -92,13 +117,8 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
     >
       <div class="flex flex-col items-end leading-tight">
         <span>{{ expectedValue }}</span>
-        <span
-          v-if="
-            elementExpectedValue > 0 && weapon.elementStatus && isElementType(weapon.elementStatus)
-          "
-          class="text-xs mp-muted"
-        >
-          ({{ physicalExpectedValue }}+{{ weapon.elementStatus.type }}{{ elementExpectedValue }})
+        <span v-if="expectedBreakdownLine" class="text-xs mp-muted">
+          {{ expectedBreakdownLine }}
         </span>
       </div>
     </td>

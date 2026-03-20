@@ -1,3 +1,5 @@
+import type { ElementType } from '../attackType'
+
 // 属性
 export type Element = '火' | '水' | '雷' | '氷' | '龍' | '無'
 
@@ -11,7 +13,10 @@ export type ElementOrStatus =
 
 const ELEMENT_TYPES = ['火', '水', '雷', '氷', '龍'] as const
 
-export function isElementType(es: ElementOrStatus): es is { type: Element; value: number } {
+/** 五属性のいずれか（「無」や状態異常は除外） */
+export function isElementType(
+  es: ElementOrStatus
+): es is { type: ElementType; value: number } {
   return ELEMENT_TYPES.includes(es.type as (typeof ELEMENT_TYPES)[number])
 }
 

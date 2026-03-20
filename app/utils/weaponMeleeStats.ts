@@ -4,7 +4,7 @@
  * バフ・切れ味・目標ダメージ設定などの context を受け取り、
  * 攻撃力・会心率・期待値・必要モーション値などを算出する。
  */
-import type { WeaponMelee } from '~/types/weapons'
+import type { ElementOrStatus, WeaponMelee } from '~/types/weapons'
 import { isElementType, isHuntingHorn } from '~/types/weapons'
 import type { Buffs } from '~/types/Buffs/Buffs'
 import type { SharpnessType } from '~/types/tableBaseOption'
@@ -48,7 +48,13 @@ export function getAttack(weapon: WeaponMelee, context: WeaponMeleeStatsContext)
   )
 }
 
-// 属性値
+// 双剣の副属性スロット（存在しない武器は undefined）
+function getSubElementSlot(weapon: WeaponMelee): ElementOrStatus | undefined {
+  if (!('subElement' in weapon)) return undefined
+  return (weapon as WeaponMelee & { subElement?: ElementOrStatus }).subElement
+}
+
+// 属性値（主属性）
 export function getElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
   if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) {
     return 0
@@ -58,6 +64,15 @@ export function getElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext
     context.buffs?.elementModifiers ?? {},
     weapon
   ).value
+}
+
+// 副属性の素値（双剣の属性スロットのみ。状態異常は 0）
+export function getSubElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
+  const sub = getSubElementSlot(weapon)
+  if (!sub || !isElementType(sub)) {
+    return 0
+  }
+  return calculateElementWithBuffs(sub.value, context.buffs?.elementModifiers ?? {}, weapon).value
 }
 
 // 属性値が倍率上限に達しているか
@@ -106,7 +121,7 @@ export function getPhysicalExpectedValue(
   )
 }
 
-// 属性期待値
+// 属性期待値（主属性）
 export function getElementExpectedValue(
   weapon: WeaponMelee,
   context: WeaponMeleeStatsContext
@@ -120,22 +135,44 @@ export function getElementExpectedValue(
   )
 }
 
-// 期待値
+// 属性期待値（副属性・双剣の属性スロットのみ）
+export function getSubElementExpectedValue(
+  weapon: WeaponMelee,
+  context: WeaponMeleeStatsContext
+): number {
+  const subWithBuffs = getSubElement(weapon, context)
+  if (subWithBuffs <= 0) {
+    return 0
+  }
+  return calculateElementExpectedValue(
+    weapon,
+    context.selectedSharpness ?? 'normal',
+    context.sharpnessMultiplier ?? 1.0,
+    subWithBuffs
+  )
+}
+
+// 期待値（物理 + 主属性期待値 + 副属性期待値）
 export function getExpectedValue(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
-  return getPhysicalExpectedValue(weapon, context) + getElementExpectedValue(weapon, context)
+  return (
+    getPhysicalExpectedValue(weapon, context) +
+    getElementExpectedValue(weapon, context) +
+    getSubElementExpectedValue(weapon, context)
+  )
 }
 
 // 属性ダメージ
 export function getElementDamage(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
   const elementExpectedValue = getElementExpectedValue(weapon, context)
-  if (elementExpectedValue <= 0 || !weapon.elementStatus || !isElementType(weapon.elementStatus)) {
+  const status = weapon.elementStatus
+  if (elementExpectedValue <= 0 || !status || !isElementType(status)) {
     return 0
   }
+  const elementKey = status.type
   const defaults = getDefaultTargetDamageSettings()
   const settings = context.targetDamageSettings ?? {}
   const elementHitzone =
-    settings.elementHitzone?.[weapon.elementStatus.type] ??
-    defaults.elementHitzone[weapon.elementStatus.type]
+    settings.elementHitzone?.[elementKey] ?? defaults.elementHitzone[elementKey]
   const overallDefenseRate = settings.overallDefenseRate ?? defaults.overallDefenseRate
   return calculateElementDamage(elementExpectedValue, elementHitzone, overallDefenseRate)
 }

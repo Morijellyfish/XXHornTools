@@ -37,6 +37,7 @@ const {
   getExpectedValue,
   getPhysicalExpectedValue,
   getElementExpectedValue,
+  getSubElementExpectedValue,
   getAttack,
   getElement,
   isElementCapped,
@@ -151,6 +152,7 @@ const {
             :expected-value="getExpectedValue(weapon)"
             :physical-expected-value="getPhysicalExpectedValue(weapon)"
             :element-expected-value="getElementExpectedValue(weapon)"
+            :sub-element-expected-value="getSubElementExpectedValue(weapon)"
             :element-damage="getElementDamage(weapon)"
             :attack-with-buffs="getAttack(weapon)"
             :base-attack="weapon.attack"
