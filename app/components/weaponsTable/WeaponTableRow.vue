@@ -10,7 +10,7 @@ import type { SharpnessType } from '~/composables/useWeaponTable'
 interface Props {
   weapon: T
   requiredMotionValue?: number
-  requiredMotionValueElementInfo?: { type: string; percentage: number } | null
+  requiredMotionValueElementInfo?: { displayLine: string } | null
   attackCount?: number
   expectedValue: number
   physicalExpectedValue: number
@@ -37,7 +37,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-/** 期待値の内訳行: (436+氷40) または (436+氷40+水34) */
+/** 期待値の属性内訳行: (436+氷40) または (436+氷40+水34) */
 const expectedBreakdownLine = computed(() => {
   const phys = props.physicalExpectedValue
   const parts: string[] = []
@@ -104,8 +104,7 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
         <span>
           {{ (requiredMotionValue ?? 0).toFixed(1) }}
           <span v-if="requiredMotionValueElementInfo" class="text-xs mp-muted">
-            ({{ requiredMotionValueElementInfo.type
-            }}{{ requiredMotionValueElementInfo.percentage }}%)
+            {{ requiredMotionValueElementInfo.displayLine }}
           </span>
         </span>
         <span v-if="(attackCount ?? 1) >= 2" class="text-xs mp-muted">

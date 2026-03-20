@@ -202,6 +202,10 @@ export interface ElementDamageDetail {
   total: number
   /** 双属性（主・副とも属性ダメージが発生）のときのみ */
   breakdownLine: string | null
+  /** 主スロット由来の属性ダメージ（命中1回あたり） */
+  mainDamage: number
+  /** 副スロット由来の属性ダメージ（命中1回あたり） */
+  subDamage: number
 }
 
 /**
@@ -224,7 +228,7 @@ export function getElementDamageDetail(
   const hasSubEl = Boolean(sub && isElementType(sub) && subEV > 0)
 
   if (!hasMainEl && !hasSubEl) {
-    return { total: 0, breakdownLine: null }
+    return { total: 0, breakdownLine: null, mainDamage: 0, subDamage: 0 }
   }
 
   const applyRatio = useDualBladeElementRatio(weapon)
@@ -255,7 +259,7 @@ export function getElementDamageDetail(
       ? `(${status.type}${mainDmg}+${sub.type}${subDmg})`
       : null
 
-  return { total, breakdownLine }
+  return { total, breakdownLine, mainDamage: mainDmg, subDamage: subDmg }
 }
 
 export function getElementDamage(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
@@ -291,19 +295,49 @@ export function getRequiredMotionValue(
 }
 
 // 必要モーション値の属性割合
+export interface RequiredMotionValueElementInfo {
+  displayLine: string
+}
+
+// 必要モーション値の属性割合（目標ダメージに占める属性ダメージの内訳%）
 export function getRequiredMotionValueElementInfo(
   weapon: WeaponMelee,
   context: WeaponMeleeStatsContext
-): { type: string; percentage: number } | null {
-  if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) return null
+): RequiredMotionValueElementInfo | null {
   const defaults = getDefaultTargetDamageSettings()
-  const attackCount = context.targetDamageSettings?.attackCount ?? defaults.attackCount
-  const totalElementDamage = getElementDamage(weapon, context) * attackCount
-  if (totalElementDamage <= 0) return null
+  const attackCount = Math.max(1, context.targetDamageSettings?.attackCount ?? defaults.attackCount)
   const targetDamage = context.targetDamageSettings?.targetDamage ?? defaults.targetDamage
   if (targetDamage <= 0) return null
-  const percentage = Math.round((totalElementDamage / targetDamage) * 100)
-  return { type: weapon.elementStatus.type, percentage }
+
+  const detail = getElementDamageDetail(weapon, context)
+  const totalElementDamage = detail.total * attackCount
+  if (totalElementDamage <= 0) return null
+
+  const status = weapon.elementStatus
+  const sub = getSubElementSlot(weapon)
+
+  const pct = (portion: number) => Math.round(((portion * attackCount) / targetDamage) * 100)
+
+  const dualAttribute =
+    detail.mainDamage > 0 &&
+    detail.subDamage > 0 &&
+    status &&
+    isElementType(status) &&
+    sub &&
+    isElementType(sub)
+
+  if (dualAttribute) {
+    return {
+      displayLine: `(${status.type}${pct(detail.mainDamage)}%, ${sub.type}${pct(detail.subDamage)}%)`,
+    }
+  }
+  if (detail.mainDamage > 0 && status && isElementType(status)) {
+    return { displayLine: `(${status.type}${pct(detail.mainDamage)}%)` }
+  }
+  if (detail.subDamage > 0 && sub && isElementType(sub)) {
+    return { displayLine: `(${sub.type}${pct(detail.subDamage)}%)` }
+  }
+  return null
 }
 
 // 元の会心率表示
