@@ -67,6 +67,9 @@ const referenceSites: ReferenceSite[] = [
     <section class="mx-auto max-w-6xl py-10 sm:py-14">
       <h1 class="mp-page-title mp-text">狩りピTools</h1>
       <p class="mt-3 mp-lead mp-muted">モンスターハンターXXのプレイをサポートする各種ツール集</p>
+      <p class="mt-3 mp-body mp-muted max-w-2xl leading-relaxed">
+        狩りピストによる狩りピストのためのツール群です。
+      </p>
     </section>
 
     <section id="tools" class="mx-auto max-w-6xl py-8 sm:py-10">
@@ -126,6 +129,10 @@ const referenceSites: ReferenceSite[] = [
         <div>
           <h2 class="mp-section-title mp-text">狩猟笛じゃないあなたへ</h2>
           <p class="mt-2 mp-body mp-muted leading-relaxed">
+            <NuxtLink to="/others" class="mp-accent hover:underline font-medium">その他</NuxtLink
+            >から、他武器種向けの比較表も一部利用できます。
+          </p>
+          <p class="mt-2 mp-body mp-muted leading-relaxed">
             このツールがいいなと思ったら少し狩猟笛を使ってみませんか？
           </p>
         </div>
@@ -141,16 +148,22 @@ const referenceSites: ReferenceSite[] = [
             target="_blank"
             rel="noopener noreferrer"
             class="mp-accent hover:underline font-medium"
-          >GitHub</a>で受け付けています。
+          >
+            GitHub
+          </a>
+          で受け付けています。
         </p>
         <p class="mt-2 mp-body mp-muted leading-relaxed">
-          Discordでも気軽なフィードバックをください。招待リンク
+          Discordでも気軽なフィードバックをください。<br />
+          招待リンク
           <a
             :href="discordInviteUrl"
             target="_blank"
             rel="noopener noreferrer"
             class="mp-accent hover:underline break-all"
-          >{{ discordInviteUrl }}</a>
+          >
+            {{ discordInviteUrl }}
+          </a>
         </p>
       </div>
     </section>
