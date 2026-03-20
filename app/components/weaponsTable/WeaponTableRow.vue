@@ -18,6 +18,8 @@ interface Props {
   /** 双剣の副属性（属性のみ）の属性期待値 */
   subElementExpectedValue?: number
   elementDamage: number
+  /** 双属性の属性ダメージ内訳（例: (水7+氷8)） */
+  elementDamageBreakdownLine?: string | null
   attackWithBuffs: number
   baseAttack: number
   showBaseAttack: boolean
@@ -126,7 +128,12 @@ const isGreenOrBelow = (color: SharpnessColor): boolean => {
       v-if="isColumnVisible(props.visibleColumns, 'elementDamage')"
       class="p-2 text-right tabular-nums whitespace-nowrap"
     >
-      <span v-if="elementDamage > 0">{{ elementDamage }}</span>
+      <div v-if="elementDamage > 0" class="flex flex-col items-end leading-tight">
+        <span>{{ elementDamage }}</span>
+        <span v-if="elementDamageBreakdownLine" class="text-xs mp-muted">
+          {{ elementDamageBreakdownLine }}
+        </span>
+      </div>
       <span v-else class="mp-muted">-</span>
     </td>
     <td

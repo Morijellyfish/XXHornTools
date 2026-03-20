@@ -31,6 +31,7 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     selectedSharpness: props.selectedSharpness ?? 'normal',
     targetDamageSettings: props.targetDamageSettings,
     sharpnessMultiplier: props.sharpnessMultiplier ?? 1.0,
+    dualBladeElementMainRatio: props.dualBladeElementMainRatio,
   }))
 
   const sortedWeapons = computed(() => {
@@ -127,6 +128,8 @@ export function useWeaponTable<T extends WeaponMelee>(props: UseWeaponTableProps
     getRequiredMotionValueElementInfo: (weapon: T) =>
       weaponMeleeStats.getRequiredMotionValueElementInfo(weapon, context.value),
     getElementDamage: (weapon: T) => weaponMeleeStats.getElementDamage(weapon, context.value),
+    getElementDamageBreakdownLine: (weapon: T) =>
+      weaponMeleeStats.getElementDamageDetail(weapon, context.value).breakdownLine,
     getAttackCount,
     isShowBaseAttack: (weapon: T) => weaponMeleeStats.isShowBaseAttack(weapon, context.value),
     isShowBaseAffinity: (weapon: T) => weaponMeleeStats.isShowBaseAffinity(weapon, context.value),

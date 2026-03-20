@@ -14,9 +14,7 @@ export type ElementOrStatus =
 const ELEMENT_TYPES = ['火', '水', '雷', '氷', '龍'] as const
 
 /** 五属性のいずれか（「無」や状態異常は除外） */
-export function isElementType(
-  es: ElementOrStatus
-): es is { type: ElementType; value: number } {
+export function isElementType(es: ElementOrStatus): es is { type: ElementType; value: number } {
   return ELEMENT_TYPES.includes(es.type as (typeof ELEMENT_TYPES)[number])
 }
 

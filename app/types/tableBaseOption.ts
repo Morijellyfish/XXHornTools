@@ -84,6 +84,8 @@ export interface TableBaseOption {
   sharpnessMultiplier?: number
   /** 目標ダメージ設定 */
   targetDamageSettings?: TargetDamageSettings
+  /** 双剣のみ: 属性ダメージ計算で主属性を使う割合 */
+  dualBladeElementMainRatio?: number
   /** テーブルカラムの表示設定 */
   visibleColumns: VisibleColumns
 }

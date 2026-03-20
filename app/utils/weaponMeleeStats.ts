@@ -14,7 +14,10 @@ import { AttackMelody } from '~/types/Buffs/attackBuff'
 import { ElementMelody } from '~/types/Buffs/elementBuff'
 import { calculateExpectedValue, calculateElementExpectedValue } from '~/utils/damageCalculate'
 import { calculateAttackWithBuffs } from '~/utils/attackBuffCalculate'
-import { calculateElementWithBuffs } from '~/utils/elementBuffCalculate'
+import {
+  calculateElementWithBuffs,
+  type ElementWithBuffsResult,
+} from '~/utils/elementBuffCalculate'
 import {
   calculateRequiredMotionValue,
   calculateElementDamage,
@@ -26,6 +29,16 @@ export interface WeaponMeleeStatsContext {
   selectedSharpness?: SharpnessType
   targetDamageSettings?: TargetDamageSettings
   sharpnessMultiplier?: number
+  dualBladeElementMainRatio?: number
+}
+
+/** 双剣オプションの主属性寄与（0.1 刻みスライダーと揃える） */
+function getDualBladeElementMainRatio(context: WeaponMeleeStatsContext): number {
+  const r = context.dualBladeElementMainRatio
+  if (r === undefined || Number.isNaN(r)) {
+    return 0.5
+  }
+  return Math.round(r * 10) / 10
 }
 
 // 会心補正
@@ -54,53 +67,66 @@ function getSubElementSlot(weapon: WeaponMelee): ElementOrStatus | undefined {
   return (weapon as WeaponMelee & { subElement?: ElementOrStatus }).subElement
 }
 
-// 属性値（主属性）
+/** 主属性 / 副属性（双剣）のどちらのスロットか */
+type ElementSlotKind = 'main' | 'sub'
+
+function getElementSlotSource(
+  weapon: WeaponMelee,
+  slot: ElementSlotKind
+): ElementOrStatus | undefined {
+  return slot === 'main' ? weapon.elementStatus : getSubElementSlot(weapon)
+}
+
+/**
+ * 属性バフ適用。属性でない・main,sub属性スロットなしは null。
+ */
+function getElementBuffResultForSlot(
+  weapon: WeaponMelee,
+  context: WeaponMeleeStatsContext,
+  slot: ElementSlotKind
+): ElementWithBuffsResult | null {
+  const source = getElementSlotSource(weapon, slot)
+  if (!source || !isElementType(source)) {
+    return null
+  }
+  const mods = context.buffs?.elementModifiers ?? {}
+  return calculateElementWithBuffs(source.value, mods, weapon)
+}
+
+function uncappedValueIfCapped(r: ElementWithBuffsResult | null): number | undefined {
+  return r?.isCapped ? r.uncappedValue : undefined
+}
+
+// --- 主属性 ---
 export function getElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
-  if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) {
-    return 0
-  }
-  return calculateElementWithBuffs(
-    weapon.elementStatus.value,
-    context.buffs?.elementModifiers ?? {},
-    weapon
-  ).value
+  return getElementBuffResultForSlot(weapon, context, 'main')?.value ?? 0
 }
 
-// 副属性の素値（双剣の属性スロットのみ。状態異常は 0）
-export function getSubElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
-  const sub = getSubElementSlot(weapon)
-  if (!sub || !isElementType(sub)) {
-    return 0
-  }
-  return calculateElementWithBuffs(sub.value, context.buffs?.elementModifiers ?? {}, weapon).value
-}
-
-// 属性値が倍率上限に達しているか
 export function isElementCapped(weapon: WeaponMelee, context: WeaponMeleeStatsContext): boolean {
-  if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) {
-    return false
-  }
-  return calculateElementWithBuffs(
-    weapon.elementStatus.value,
-    context.buffs?.elementModifiers ?? {},
-    weapon
-  ).isCapped
+  return getElementBuffResultForSlot(weapon, context, 'main')?.isCapped ?? false
 }
 
-// キャップ適用前の属性値（ツールチップ用）
 export function getElementUncappedValue(
   weapon: WeaponMelee,
   context: WeaponMeleeStatsContext
 ): number | undefined {
-  if (!weapon.elementStatus || !isElementType(weapon.elementStatus)) {
-    return undefined
-  }
-  const result = calculateElementWithBuffs(
-    weapon.elementStatus.value,
-    context.buffs?.elementModifiers ?? {},
-    weapon
-  )
-  return result.isCapped ? result.uncappedValue : undefined
+  return uncappedValueIfCapped(getElementBuffResultForSlot(weapon, context, 'main'))
+}
+
+// --- 副属性（双剣・属性スロットのみ。状態異常は 0 / false） ---
+export function getSubElement(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
+  return getElementBuffResultForSlot(weapon, context, 'sub')?.value ?? 0
+}
+
+export function isSubElementCapped(weapon: WeaponMelee, context: WeaponMeleeStatsContext): boolean {
+  return getElementBuffResultForSlot(weapon, context, 'sub')?.isCapped ?? false
+}
+
+export function getSubElementUncappedValue(
+  weapon: WeaponMelee,
+  context: WeaponMeleeStatsContext
+): number | undefined {
+  return uncappedValueIfCapped(getElementBuffResultForSlot(weapon, context, 'sub'))
 }
 
 // 物理期待値
@@ -161,20 +187,79 @@ export function getExpectedValue(weapon: WeaponMelee, context: WeaponMeleeStatsC
   )
 }
 
-// 属性ダメージ
-export function getElementDamage(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
-  const elementExpectedValue = getElementExpectedValue(weapon, context)
-  const status = weapon.elementStatus
-  if (elementExpectedValue <= 0 || !status || !isElementType(status)) {
-    return 0
-  }
-  const elementKey = status.type
+/**
+ * 双剣で主・副の両スロットに値があるときだけ属性ダメージに割合を掛ける（副が状態異常でも可）。
+ * 単スロット武器（副スロットなし）は割合なし。
+ */
+function useDualBladeElementRatio(weapon: WeaponMelee): boolean {
+  if (!('subElement' in weapon)) return false
+  const sub = getSubElementSlot(weapon)
+  return Boolean(weapon.elementStatus && sub !== undefined)
+}
+
+/** 属性ダメージの合計と、主副とも属性のときの内訳行 */
+export interface ElementDamageDetail {
+  total: number
+  /** 双属性（主・副とも属性ダメージが発生）のときのみ */
+  breakdownLine: string | null
+}
+
+/**
+ * 属性ダメージ（主・副それぞれ期待値→属性肉質。双剣で両スロットあればオプション割合を乗算）
+ */
+export function getElementDamageDetail(
+  weapon: WeaponMelee,
+  context: WeaponMeleeStatsContext
+): ElementDamageDetail {
   const defaults = getDefaultTargetDamageSettings()
   const settings = context.targetDamageSettings ?? {}
-  const elementHitzone =
-    settings.elementHitzone?.[elementKey] ?? defaults.elementHitzone[elementKey]
   const overallDefenseRate = settings.overallDefenseRate ?? defaults.overallDefenseRate
-  return calculateElementDamage(elementExpectedValue, elementHitzone, overallDefenseRate)
+
+  const mainEV = getElementExpectedValue(weapon, context)
+  const subEV = getSubElementExpectedValue(weapon, context)
+  const status = weapon.elementStatus
+  const sub = getSubElementSlot(weapon)
+
+  const hasMainEl = Boolean(status && isElementType(status) && mainEV > 0)
+  const hasSubEl = Boolean(sub && isElementType(sub) && subEV > 0)
+
+  if (!hasMainEl && !hasSubEl) {
+    return { total: 0, breakdownLine: null }
+  }
+
+  const applyRatio = useDualBladeElementRatio(weapon)
+  const mainRatio = applyRatio ? getDualBladeElementMainRatio(context) : 1
+  const subRatio = applyRatio ? 1 - mainRatio : 1
+
+  let mainDmg = 0
+  let subDmg = 0
+
+  if (hasMainEl && status && isElementType(status)) {
+    const elementKey = status.type
+    const elementHitzone =
+      settings.elementHitzone?.[elementKey] ?? defaults.elementHitzone[elementKey]
+    const weightedEV = mainEV * mainRatio
+    mainDmg = calculateElementDamage(weightedEV, elementHitzone, overallDefenseRate)
+  }
+  if (hasSubEl && sub && isElementType(sub)) {
+    const elementKey = sub.type
+    const elementHitzone =
+      settings.elementHitzone?.[elementKey] ?? defaults.elementHitzone[elementKey]
+    const weightedEV = subEV * subRatio
+    subDmg = calculateElementDamage(weightedEV, elementHitzone, overallDefenseRate)
+  }
+
+  const total = mainDmg + subDmg
+  const breakdownLine =
+    hasMainEl && hasSubEl && status && isElementType(status) && sub && isElementType(sub)
+      ? `(${status.type}${mainDmg}+${sub.type}${subDmg})`
+      : null
+
+  return { total, breakdownLine }
+}
+
+export function getElementDamage(weapon: WeaponMelee, context: WeaponMeleeStatsContext): number {
+  return getElementDamageDetail(weapon, context).total
 }
 
 // 必要モーション値

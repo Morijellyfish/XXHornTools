@@ -45,6 +45,7 @@ const {
   getRequiredMotionValue,
   getRequiredMotionValueElementInfo,
   getElementDamage,
+  getElementDamageBreakdownLine,
   getAttackCount,
   isShowBaseAttack,
   isShowBaseAffinity,
@@ -154,6 +155,7 @@ const {
             :element-expected-value="getElementExpectedValue(weapon)"
             :sub-element-expected-value="getSubElementExpectedValue(weapon)"
             :element-damage="getElementDamage(weapon)"
+            :element-damage-breakdown-line="getElementDamageBreakdownLine(weapon)"
             :attack-with-buffs="getAttack(weapon)"
             :base-attack="weapon.attack"
             :show-base-attack="isShowBaseAttack(weapon)"

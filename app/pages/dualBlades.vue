@@ -37,6 +37,7 @@ const attributeMainRatio = ref(0.5)
       :sharpness-multiplier="1.0"
       :target-damage-settings="tableOptions.targetDamageSettings"
       :visible-columns="tableOptions.visibleColumns"
+      :dual-blade-element-main-ratio="attributeMainRatio"
     />
   </WeaponCompareShell>
 </template>
