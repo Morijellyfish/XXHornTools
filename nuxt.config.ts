@@ -3,7 +3,7 @@ import Components from 'unplugin-vue-components/vite'
 import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss'],
+  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@nuxtjs/sitemap'],
 
   devtools: {
     enabled: true,
@@ -17,6 +17,11 @@ export default defineNuxtConfig({
 
   // Tailwind + アプリ固有CSSはmain.cssに一本化して、@nuxtjs/tailwindcss経由で読み込む
   css: [],
+
+  // サイトマップの絶対URL用（@nuxtjs/sitemap / nuxt-site-config）
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://morijellyfish.github.io',
+  },
 
   routeRules: {
     '/': { prerender: true },
