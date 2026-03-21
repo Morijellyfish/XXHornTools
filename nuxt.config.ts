@@ -23,6 +23,11 @@ export default defineNuxtConfig({
     url: process.env.NUXT_PUBLIC_SITE_URL || 'https://morijellyfish.github.io',
   },
 
+  // 既定の XSL は静的ホストで 404 になり、ブラウザが真っ白になることがあるため無効化
+  sitemap: {
+    xsl: false,
+  },
+
   routeRules: {
     '/': { prerender: true },
     '/huntingHorns': { prerender: true },
