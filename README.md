@@ -161,11 +161,13 @@ XXHornTools/
 
 ### データの修正
 
-狩猟笛のデータを修正する場合は、`app/data/weapons/horns/` ディレクトリ内の該当レア度のファイルを編集してください。
+ゲームデータの修正は `app/data` 以下で行います。狩猟笛以外の武器種やモンスターなどもここにあります。
 
 ### バフの追加
 
-新しいバフタイプを追加する場合は、`app/types/attackBuff/` ディレクトリ内の該当グループファイルを編集し、計算ロジックを `app/utils/attackBuffCalculate.ts` に追加してください。
+バフの型や選択肢は `app/types/Buffs/` 配下で管理しています。集約は `app/types/Buffs/Buffs.ts` を参照してください。
+
+計算ロジックはutilsにあります。
 
 ## ライセンス
 

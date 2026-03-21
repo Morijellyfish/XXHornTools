@@ -133,7 +133,7 @@ const referenceSites: ReferenceSite[] = [
             >から、他武器種向けの比較表も一部利用できます。
           </p>
           <p class="mt-2 mp-body mp-muted leading-relaxed">
-            このツールがいいなと思ったら少し狩猟笛を使ってみませんか？
+            このツールが便利だと思ったら少し狩猟笛で遊んでください。
           </p>
         </div>
       </div>
