@@ -24,7 +24,8 @@ const tools: Tool[] = [
   {
     id: 'horns',
     title: '狩猟笛比較表',
-    description: 'MHXXの狩猟笛のダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+    description:
+      'モンスターハンターXXの狩猟笛のステータスを比較し、様々なバフやスキルを組み合わせた際の期待値や怯みまでの必要モーション値を計算できます。',
     to: '/huntingHorns',
     status: 'available',
   },
@@ -32,7 +33,7 @@ const tools: Tool[] = [
     id: 'melody-timer',
     title: '旋律タイマー',
     description:
-      'MHXXの狩猟笛向け旋律タイマー。複数タイマー・旋律テンプレート・キーボード操作に対応したツール',
+      '狩猟笛のバフ管理に特化したタイマー。各旋律ごとにタイマーを設定し、キーボード入力で簡単に管理できます。',
     to: '/melodyTimer',
     status: 'available',
   },
