@@ -1,4 +1,4 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import { allHammers } from '~/data/weapons/hammers'
 import { ref, computed } from 'vue'
 import type { TableBaseOption } from '~/types/tableBaseOption'
@@ -7,8 +7,12 @@ import { DEFAULT_HITZONE_TYPE } from '~/types/weapons/hammer'
 import WeaponCompareShell from '~/components/layout/WeaponCompareShell.vue'
 import HammerTable from '~/components/weaponsTable/HammerTable.vue'
 
-useHead({
-  title: 'ハンマー比較表 - 狩りピTools',
+useSeoMeta({
+  title: 'ハンマーダメージ比較表 (MHXX) - 狩りピTools',
+  description: 'MHXXのハンマーのダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  ogTitle: 'ハンマーダメージ比較表 (MHXX) - 狩りピTools',
+  ogDescription: 'MHXXのハンマーのダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  twitterCard: 'summary',
 })
 
 // TableBaseOption にすべてのオプションを集約
@@ -25,7 +29,7 @@ const sharpnessMultiplier = computed(() => {
   <WeaponCompareShell
     v-model="tableOptions"
     title="ハンマー比較表"
-    description="モンスターハンターXXのハンマーのステータス比較表"
+    description="モンスターハンターXXのハンマーのダメージ比較表"
     :default-hitzone-type="DEFAULT_HITZONE_TYPE"
     weapon-type="hammer"
   >

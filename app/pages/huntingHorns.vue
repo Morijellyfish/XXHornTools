@@ -9,8 +9,12 @@ import WeaponCompareShell from '~/components/layout/WeaponCompareShell.vue'
 import MelodyFilter from '~/components/MelodyFilter.vue'
 import HornTable from '~/components/weaponsTable/HornTable.vue'
 
-useHead({
-  title: '狩猟笛比較表 - 狩りピTools',
+useSeoMeta({
+  title: '狩猟笛ダメージ比較表 (MHXX) - 狩りピTools',
+  description: 'MHXXの狩猟笛のダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  ogTitle: '狩猟笛ダメージ比較表 (MHXX) - 狩りピTools',
+  ogDescription: 'MHXXの狩猟笛のダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  twitterCard: 'summary',
 })
 
 // TableBaseOption にすべてのオプションを集約
@@ -58,7 +62,7 @@ const filteredHorns = computed(() => {
   <WeaponCompareShell
     v-model="tableOptions"
     title="狩猟笛比較表"
-    description="モンスターハンターXXの狩猟笛のステータス比較表"
+    description="モンスターハンターXXの狩猟笛のダメージ比較表"
     :allow-horn-dependent-melody="true"
     :default-hitzone-type="DEFAULT_HITZONE_TYPE"
     weapon-type="huntingHorn"

@@ -6,8 +6,14 @@ import type { Note } from '~/types/notes'
 import { NOTE_COLORS, getNoteBorderColor } from '~/types/notes'
 import Select from 'primevue/select'
 
-useHead({
-  title: '旋律タイマー - 狩りピTools',
+useSeoMeta({
+  title: '旋律タイマー (MHXX) - 狩りピTools',
+  description:
+    'MHXXの狩猟笛向け旋律タイマー。複数タイマー・旋律テンプレート・キーボード操作に対応したツール',
+  ogTitle: '旋律タイマー (MHXX) - 狩りピTools',
+  ogDescription:
+    'MHXXの狩猟笛向け旋律タイマー。複数タイマー・旋律テンプレート・キーボード操作に対応したツール',
+  twitterCard: 'summary',
 })
 
 interface TimerState {

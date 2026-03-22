@@ -8,8 +8,12 @@ import WeaponCompareShell from '~/components/layout/WeaponCompareShell.vue'
 import DualBladeOptions from '~/components/DualBladeOptions.vue'
 import DualBladeTable from '~/components/weaponsTable/DualBladeTable.vue'
 
-useHead({
-  title: '双剣比較表 - 狩りピTools',
+useSeoMeta({
+  title: '双剣ダメージ比較表 (MHXX) - 狩りピTools',
+  description: 'MHXXの双剣のダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  ogTitle: '双剣ダメージ比較表 (MHXX) - 狩りピTools',
+  ogDescription: 'MHXXの双剣のダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  twitterCard: 'summary',
 })
 
 const tableOptions = ref<TableBaseOption>(createDefaultTableOptions())
@@ -22,7 +26,7 @@ const attributeMainRatio = ref(0.5)
   <WeaponCompareShell
     v-model="tableOptions"
     title="双剣比較表"
-    description="モンスターハンターXXの双剣のステータス比較表"
+    description="モンスターハンターXXの双剣のダメージ比較表"
     :default-hitzone-type="DEFAULT_HITZONE_TYPE"
     weapon-type="dualBlade"
   >

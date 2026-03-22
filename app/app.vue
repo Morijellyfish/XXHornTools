@@ -8,20 +8,9 @@ useHead({
   },
 })
 
-const title = '狩猟笛比較表'
-const description = 'モンスターハンターXXの狩猟笛の攻撃力比較表'
-
 const authorXUrl = 'https://x.com/mori_jellyfish'
 const repoUrl = 'https://github.com/Morijellyfish/XXHornTools'
 const issuesUrl = 'https://github.com/Morijellyfish/XXHornTools/issues'
-
-useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  twitterCard: 'summary',
-})
 </script>
 
 <template>

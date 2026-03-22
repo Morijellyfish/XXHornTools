@@ -1,6 +1,10 @@
 <script setup lang="ts">
-useHead({
-  title: 'その他 - 狩りピTools',
+useSeoMeta({
+  title: 'その他の武器種 (MHXX) - 狩りピTools',
+  description: 'MHXXの大剣・太刀・双剣・ランスなど各武器種のダメージ比較表ページへの案内。',
+  ogTitle: 'その他の武器種 (MHXX) - 狩りピTools',
+  ogDescription: 'MHXXの大剣・太刀・双剣・ランスなど各武器種のダメージ比較表ページへの案内。',
+  twitterCard: 'summary',
 })
 
 interface WeaponItem {

@@ -7,8 +7,12 @@ import { DEFAULT_HITZONE_TYPE } from '~/types/weapons/gunlance'
 import WeaponCompareShell from '~/components/layout/WeaponCompareShell.vue'
 import GunlanceTable from '~/components/weaponsTable/GunlanceTable.vue'
 
-useHead({
-  title: 'ガンランス比較表 - 狩りピTools',
+useSeoMeta({
+  title: 'ガンランスダメージ比較表 (MHXX) - 狩りピTools',
+  description: 'MHXXのガンランスのダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  ogTitle: 'ガンランスダメージ比較表 (MHXX) - 狩りピTools',
+  ogDescription: 'MHXXのガンランスのダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  twitterCard: 'summary',
 })
 
 const tableOptions = ref<TableBaseOption>(createDefaultTableOptions())
@@ -18,7 +22,7 @@ const tableOptions = ref<TableBaseOption>(createDefaultTableOptions())
   <WeaponCompareShell
     v-model="tableOptions"
     title="ガンランス比較表"
-    description="モンスターハンターXXのガンランスのステータス比較表"
+    description="モンスターハンターXXのガンランスのダメージ比較表"
     :default-hitzone-type="DEFAULT_HITZONE_TYPE"
     weapon-type="gunlance"
   >

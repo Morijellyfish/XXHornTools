@@ -7,8 +7,12 @@ import { DEFAULT_HITZONE_TYPE } from '~/types/weapons/insectGlaive'
 import WeaponCompareShell from '~/components/layout/WeaponCompareShell.vue'
 import InsectGlaiveTable from '~/components/weaponsTable/InsectGlaiveTable.vue'
 
-useHead({
-  title: '操虫棍比較表 - 狩りピTools',
+useSeoMeta({
+  title: '操虫棍ダメージ比較表 (MHXX) - 狩りピTools',
+  description: 'MHXXの操虫棍のダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  ogTitle: '操虫棍ダメージ比較表 (MHXX) - 狩りピTools',
+  ogDescription: 'MHXXの操虫棍のダメージ比較表。バフ・会心率・切れ味などを反映した比較ツール',
+  twitterCard: 'summary',
 })
 
 // TableBaseOption にすべてのオプションを集約
@@ -25,7 +29,7 @@ const sharpnessMultiplier = computed(() => {
   <WeaponCompareShell
     v-model="tableOptions"
     title="操虫棍比較表"
-    description="モンスターハンターXXの操虫棍のステータス比較表"
+    description="モンスターハンターXXの操虫棍のダメージ比較表"
     :default-hitzone-type="DEFAULT_HITZONE_TYPE"
     weapon-type="insectGlaive"
   >
