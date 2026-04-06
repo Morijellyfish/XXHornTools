@@ -3,7 +3,7 @@ import Components from 'unplugin-vue-components/vite'
 import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@nuxtjs/sitemap'],
+  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@nuxtjs/sitemap', '@nuxt/test-utils/module'],
 
   devtools: {
     enabled: true,
@@ -72,6 +72,13 @@ export default defineNuxtConfig({
         resolvers: [PrimeVueResolver()],
       }),
     ],
+  },
+
+  // test/ 以下を Nuxt の TS コンテキストに含める
+  typescript: {
+    tsConfig: {
+      include: ['../test/**/*'],
+    },
   },
 
   eslint: {
