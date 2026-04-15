@@ -121,6 +121,8 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
+    xsl: false,
+    credits: false,
     // prerender のリンク巡回で base と二重に結合された誤 URL を除外
     exclude: [/\/XXHornTools\/XXHornTools\/?$/],
   },
