@@ -126,4 +126,9 @@ export default defineNuxtConfig({
     // prerender のリンク巡回で base と二重に結合された誤 URL を除外
     exclude: [/\/XXHornTools\/XXHornTools\/?$/],
   },
+
+  tailwindcss: {
+    cssPath: '~/assets/css/main.css',
+    configPath: 'tailwind.config.cjs',
+  },
 })
