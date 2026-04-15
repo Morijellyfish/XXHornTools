@@ -123,6 +123,14 @@ const canApply = computed(
     !!selectedDurabilityPartKey.value
 )
 
+const canApplyHunt = computed(() => !!selectedQuest.value)
+
+const applyHunt = () => {
+  const quest = selectedQuest.value
+  if (!quest) return
+  emit('apply', { targetDamage: quest.health })
+}
+
 const apply = () => {
   if (!canApply.value) return
 
@@ -303,8 +311,9 @@ watch(
             :max-fraction-digits="2"
           />
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center gap-2">
           <Button :disabled="!canApply" @click="apply">適用</Button>
+          <Button :disabled="!canApplyHunt" @click="applyHunt">討伐</Button>
         </div>
       </div>
     </div>
