@@ -120,15 +120,8 @@ export default defineNuxtConfig({
     },
   },
 
-  // 既定の XSL は静的ホストで 404 になり、ブラウザが真っ白になることがあるため無効化
   sitemap: {
-    xsl: false,
     // prerender のリンク巡回で base と二重に結合された誤 URL を除外
     exclude: [/\/XXHornTools\/XXHornTools\/?$/],
-  },
-
-  tailwindcss: {
-    cssPath: '~/assets/css/main.css',
-    configPath: 'tailwind.config.cjs',
   },
 })
