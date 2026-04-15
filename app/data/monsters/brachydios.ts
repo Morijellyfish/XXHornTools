@@ -2,70 +2,74 @@ import type { Monster } from '~/types/monster/monster'
 import { PartDurability } from '~/types/monster/partDurability'
 import { brachydiosQuests } from '../quest/brachydios'
 
-const normalHitZones = [
-  {
-    name: '角',
-    mellee: { slash: 20, impact: 24, shot: 15 },
-    element: { 火: 0, 水: 25, 雷: 5, 氷: 20, 龍: 5 },
-    stun: 120,
-    exhaust: 100,
-  },
-  {
-    name: '頭部',
-    mellee: { slash: 70, impact: 65, shot: 50 },
-    element: { 火: 0, 水: 20, 雷: 10, 氷: 15, 龍: 5 },
-    stun: 100,
-    exhaust: 100,
-  },
-  {
-    name: '上半身',
-    mellee: { slash: 40, impact: 35, shot: 20 },
-    element: { 火: 0, 水: 15, 雷: 0, 氷: 10, 龍: 5 },
-    stun: 0,
-    exhaust: 100,
-  },
-  {
-    name: '前脚',
-    mellee: { slash: 45, impact: 50, shot: 30 },
-    element: { 火: 0, 水: 10, 雷: 5, 氷: 5, 龍: 0 },
-    stun: 0,
-    exhaust: 100,
-  },
-  {
-    name: '後脚',
-    mellee: { slash: 30, impact: 35, shot: 35 },
-    element: { 火: 0, 水: 10, 雷: 5, 氷: 5, 龍: 0 },
-    stun: 0,
-    exhaust: 100,
-  },
-  {
-    name: '尻尾',
-    mellee: { slash: 35, impact: 25, shot: 45 },
-    element: { 火: 0, 水: 15, 雷: 5, 氷: 10, 龍: 5 },
-    stun: 0,
-    exhaust: 100,
-  },
-  {
-    name: '尻尾先端',
-    mellee: { slash: 20, impact: 10, shot: 10 },
-    element: { 火: 0, 水: 5, 雷: 0, 氷: 5, 龍: 0 },
-    stun: 0,
-    exhaust: 100,
-  },
-]
-
 export const brachydios: Monster = {
   name: 'ブラキディオス',
   species: '獣竜種',
   hitZoneVariants: [
     {
       name: '通常時',
-      hitZones: normalHitZones,
+      hitZones: [
+        {
+          name: '角',
+          mellee: { slash: 20, impact: 24, shot: 15 },
+          element: { 火: 0, 水: 25, 雷: 5, 氷: 20, 龍: 5 },
+          stun: 120,
+          exhaust: 100,
+        },
+        {
+          name: '頭部',
+          mellee: { slash: 70, impact: 65, shot: 50 },
+          element: { 火: 0, 水: 20, 雷: 10, 氷: 15, 龍: 5 },
+          stun: 100,
+          exhaust: 100,
+        },
+        {
+          name: '上半身',
+          mellee: { slash: 40, impact: 35, shot: 20 },
+          element: { 火: 0, 水: 15, 雷: 0, 氷: 10, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '前脚',
+          mellee: { slash: 45, impact: 50, shot: 30 },
+          element: { 火: 0, 水: 10, 雷: 5, 氷: 5, 龍: 0 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '後脚',
+          mellee: { slash: 30, impact: 35, shot: 35 },
+          element: { 火: 0, 水: 10, 雷: 5, 氷: 5, 龍: 0 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾',
+          mellee: { slash: 35, impact: 25, shot: 45 },
+          element: { 火: 0, 水: 15, 雷: 5, 氷: 10, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾先端',
+          mellee: { slash: 20, impact: 10, shot: 10 },
+          element: { 火: 0, 水: 5, 雷: 0, 氷: 5, 龍: 0 },
+          stun: 0,
+          exhaust: 100,
+        },
+      ],
     },
     {
       name: '獰猛時',
       hitZones: [
-        normalHitZones[0]!,
+        {
+          name: '角',
+          mellee: { slash: 20, impact: 24, shot: 15 },
+          element: { 火: 0, 水: 25, 雷: 5, 氷: 20, 龍: 5 },
+          stun: 120,
+          exhaust: 100,
+        },
         {
           name: '頭部',
           mellee: { slash: 84, impact: 78, shot: 60 },
@@ -73,7 +77,13 @@ export const brachydios: Monster = {
           stun: 120,
           exhaust: 100,
         },
-        normalHitZones[2]!,
+        {
+          name: '上半身',
+          mellee: { slash: 40, impact: 35, shot: 20 },
+          element: { 火: 0, 水: 15, 雷: 0, 氷: 10, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
         {
           name: '前脚',
           mellee: { slash: 54, impact: 60, shot: 36 },
@@ -81,9 +91,27 @@ export const brachydios: Monster = {
           stun: 0,
           exhaust: 100,
         },
-        normalHitZones[4]!,
-        normalHitZones[5]!,
-        normalHitZones[6]!,
+        {
+          name: '後脚',
+          mellee: { slash: 30, impact: 35, shot: 35 },
+          element: { 火: 0, 水: 10, 雷: 5, 氷: 5, 龍: 0 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾',
+          mellee: { slash: 35, impact: 25, shot: 45 },
+          element: { 火: 0, 水: 15, 雷: 5, 氷: 10, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾先端',
+          mellee: { slash: 20, impact: 10, shot: 10 },
+          element: { 火: 0, 水: 5, 雷: 0, 氷: 5, 龍: 0 },
+          stun: 0,
+          exhaust: 100,
+        },
       ],
     },
   ],
