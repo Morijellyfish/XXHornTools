@@ -1,4 +1,4 @@
-// MHXX に登場するモンスター種族（この一覧以外は取りうけない）
+// MHXX に登場するモンスター種族
 export const MONSTER_TAXONOMIES = [
   '草食種',
   '獣人種',
