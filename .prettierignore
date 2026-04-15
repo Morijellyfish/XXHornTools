@@ -7,3 +7,4 @@ dist
 pnpm-lock.yaml
 package-lock.json
 app/components.d.ts
+app/data/monsters/*.generated.ts

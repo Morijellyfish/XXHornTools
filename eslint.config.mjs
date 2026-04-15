@@ -4,6 +4,9 @@ import prettier from 'eslint-plugin-prettier'
 import prettierConfig from 'eslint-config-prettier'
 
 export default withNuxt(
+  {
+    ignores: ['**/monsterEffectiveElementsByName.generated.ts'],
+  },
   // Prettierプラグインと設定を追加
   {
     plugins: {

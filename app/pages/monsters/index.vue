@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { allMonsters } from '~/data/monsters'
+import { allMonsters, monsterEffectiveElementsByName } from '~/data/monsters'
 import type { Monster } from '~/types/monster/monster'
-import { getMonsterEffectiveElements } from '~/types/monster/monsterEffectiveElements'
 import { formatMonsterEffectIntensity } from '~/types/monster/monsterOverview'
 
 useSeoMeta({
@@ -33,7 +32,7 @@ function effectIntensityRowMissing(m: Monster, key: 'roar' | 'windPressure' | 't
 }
 
 function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boolean } {
-  const list = getMonsterEffectiveElements(m)
+  const list = [...(monsterEffectiveElementsByName[m.name] ?? [])]
   return {
     text: list.length === 0 ? 'なし' : list.join('、'),
     defined: list.length > 0,

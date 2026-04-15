@@ -1,6 +1,31 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import Components from 'unplugin-vue-components/vite'
 import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
+import type { Plugin } from 'vite'
+import { runGenerate } from './build/generateMonsterEffectiveElementsByName'
+
+/** モンスター肉質から有効属性マップをビルド／dev 開始時に生成（クライアントでは走査しない） */
+function monsterEffectiveElementsVitePlugin(rootDir: string): Plugin {
+  return {
+    name: 'monster-effective-elements-regen',
+    async buildStart() {
+      await runGenerate(rootDir)
+    },
+    configureServer(server) {
+      void runGenerate(rootDir)
+      server.watcher.on('change', file => {
+        const n = file.replace(/\\/g, '/')
+        if (
+          n.includes('/app/data/monsters/') &&
+          n.endsWith('.ts') &&
+          !n.includes('monsterEffectiveElementsByName.generated')
+        ) {
+          void runGenerate(rootDir)
+        }
+      })
+    },
+  }
+}
 
 export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@nuxtjs/sitemap', '@nuxt/test-utils/module'],
@@ -67,6 +92,7 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [
+      monsterEffectiveElementsVitePlugin(process.cwd()),
       Components({
         // PrimeVueのコンポーネントをテンプレート利用時に自動import
         resolvers: [PrimeVueResolver()],

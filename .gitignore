@@ -13,6 +13,9 @@ node_modules
 logs
 *.log
 
+# モンスター有効属性マップ（pnpm install の postinstall で再生成）
+app/data/monsters/monsterEffectiveElementsByName.generated.ts
+
 # Misc
 .DS_Store
 .fleet
