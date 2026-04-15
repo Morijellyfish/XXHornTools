@@ -4,6 +4,7 @@ import { glavenusQuests } from '../quest/glavenus'
 
 export const glavenus: Monster = {
   name: 'ディノバルド',
+  species: '獣竜種',
   hitZoneVariants: [
     {
       name: '通常時',

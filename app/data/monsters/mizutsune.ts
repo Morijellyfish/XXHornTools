@@ -4,6 +4,7 @@ import { mizutsuneQuests } from '../quest/mizutsune'
 
 export const mizutsune: Monster = {
   name: 'タマミツネ',
+  species: '海竜種',
   hitZoneVariants: [
     {
       name: '通常時',

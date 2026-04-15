@@ -56,6 +56,7 @@ const normalHitZones = [
 
 export const brachydios: Monster = {
   name: 'ブラキディオス',
+  species: '獣竜種',
   hitZoneVariants: [
     {
       name: '通常時',

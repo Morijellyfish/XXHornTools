@@ -4,6 +4,7 @@ import { astalosQuests } from '../quest/astalos'
 
 export const astalos: Monster = {
   name: 'ライゼクス',
+  species: '飛竜種',
   hitZoneVariants: [
     {
       name: '通常時',

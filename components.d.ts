@@ -22,9 +22,9 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
-  const Button: typeof import('primevue/button')['default']
-  const Card: typeof import('primevue/card')['default']
-  const Checkbox: typeof import('primevue/checkbox')['default']
-  const RouterLink: typeof import('vue-router')['RouterLink']
-  const RouterView: typeof import('vue-router')['RouterView']
+  const Button: (typeof import('primevue/button'))['default']
+  const Card: (typeof import('primevue/card'))['default']
+  const Checkbox: (typeof import('primevue/checkbox'))['default']
+  const RouterLink: (typeof import('vue-router'))['RouterLink']
+  const RouterView: (typeof import('vue-router'))['RouterView']
 }

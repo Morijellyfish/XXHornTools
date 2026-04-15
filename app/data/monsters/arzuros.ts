@@ -4,6 +4,7 @@ import { arzurosQuests } from '../quest/arzuros'
 
 export const arzuros: Monster = {
   name: 'アオアシラ',
+  species: '牙獣種',
   hitZoneVariants: [
     {
       name: '通常時',

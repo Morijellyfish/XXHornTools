@@ -4,6 +4,7 @@ import { chameleosQuests } from '../quest/chameleos'
 
 export const chameleos: Monster = {
   name: 'オオナズチ',
+  species: '古龍種',
   hitZoneVariants: [
     {
       name: '通常時',

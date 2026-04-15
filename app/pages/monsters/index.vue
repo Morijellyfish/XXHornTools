@@ -19,10 +19,6 @@ const sortedMonsters = computed(() =>
   [...allMonsters].sort((a, b) => a.name.localeCompare(b.name, 'ja'))
 )
 
-function isBlank(value: string | undefined): boolean {
-  return value === undefined || value === ''
-}
-
 function missingHighlightClass(defined: boolean): string {
   return defined ? '' : 'text-amber-300/90'
 }
@@ -36,20 +32,10 @@ function effectIntensityRowMissing(m: Monster, key: 'roar' | 'windPressure' | 't
   return line === '未定義'
 }
 
-function monsterSpeciesDisplay(m: Monster): string {
-  const s = m.species
-  if (s === undefined || s === '') return '未定義'
-  return s
-}
-
-function monsterSpeciesDefined(m: Monster): boolean {
-  return !isBlank(m.species)
-}
-
 function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boolean } {
   const list = getMonsterEffectiveElements(m)
   return {
-    text: list.length === 0 ? 'なし' : list.join(', '),
+    text: list.length === 0 ? 'なし' : list.join('、'),
     defined: list.length > 0,
   }
 }
@@ -73,9 +59,7 @@ function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boole
             <dl class="mt-3 space-y-2 text-sm">
               <div class="flex justify-between gap-2 border-b border-white/5 pb-2">
                 <dt class="mp-muted shrink-0">種族</dt>
-                <dd class="text-right" :class="missingHighlightClass(monsterSpeciesDefined(m))">
-                  {{ monsterSpeciesDisplay(m) }}
-                </dd>
+                <dd class="text-right">{{ m.species }}</dd>
               </div>
               <div class="flex justify-between gap-2 border-b border-white/5 pb-2">
                 <dt class="mp-muted shrink-0">有効属性</dt>

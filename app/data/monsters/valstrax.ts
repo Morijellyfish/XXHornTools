@@ -4,6 +4,7 @@ import { valstraxQuests } from '../quest/valstrax'
 
 export const valstrax: Monster = {
   name: 'バルファルク',
+  species: '古龍種',
   hitZoneVariants: [
     {
       name: '通常時',

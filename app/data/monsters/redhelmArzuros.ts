@@ -4,6 +4,7 @@ import { redhelmArzurosQuests } from '../quest/redhelmArzuros'
 
 export const redhelmArzuros: Monster = {
   name: '紅兜アオアシラ',
+  species: '牙獣種',
   hitZoneVariants: [
     {
       name: '通常時',

@@ -4,6 +4,7 @@ import { rathianQuests } from '../quest/rathian'
 
 export const rathian: Monster = {
   name: 'リオレイア',
+  species: '飛竜種',
   hitZoneVariants: [
     {
       name: '通常時',

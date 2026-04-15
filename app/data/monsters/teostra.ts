@@ -4,6 +4,7 @@ import { teostraQuests } from '../quest/teostra'
 
 export const teostra: Monster = {
   name: 'テオ・テスカトル',
+  species: '古龍種',
   hitZoneVariants: [
     {
       name: '通常時',

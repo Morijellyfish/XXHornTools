@@ -4,6 +4,7 @@ import { gammothQuests } from '../quest/gammoth'
 
 export const gammoth: Monster = {
   name: 'ガムート',
+  species: '牙獣種',
   hitZoneVariants: [
     {
       name: '通常時',
