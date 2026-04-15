@@ -312,7 +312,7 @@ watch(
           />
         </div>
         <div class="flex items-center gap-2">
-          <Button :disabled="!canApply" @click="apply">適用</Button>
+          <Button :disabled="!canApply" @click="apply">怯み</Button>
           <Button :disabled="!canApplyHunt" @click="applyHunt">討伐</Button>
         </div>
       </div>
