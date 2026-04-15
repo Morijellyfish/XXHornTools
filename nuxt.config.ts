@@ -4,15 +4,11 @@ import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
 import type { Plugin } from 'vite'
 import { runGenerate } from './build/generateMonsterEffectiveElementsByName'
 
-/** モンスター肉質から有効属性マップをビルド／dev 開始時に生成（クライアントでは走査しない） */
+/** dev 中にモンスター TS を編集したときだけ再生成（初回は下のインラインモジュールが担当） */
 function monsterEffectiveElementsVitePlugin(rootDir: string): Plugin {
   return {
     name: 'monster-effective-elements-regen',
-    async buildStart() {
-      await runGenerate(rootDir)
-    },
     configureServer(server) {
-      void runGenerate(rootDir)
       server.watcher.on('change', file => {
         const n = file.replace(/\\/g, '/')
         if (
@@ -28,7 +24,15 @@ function monsterEffectiveElementsVitePlugin(rootDir: string): Plugin {
 }
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@nuxtjs/sitemap', '@nuxt/test-utils/module'],
+  modules: [
+    async function monsterEffectiveElementsBootstrap(_options, nuxt) {
+      await runGenerate(nuxt.options.rootDir)
+    },
+    '@nuxt/eslint',
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/sitemap',
+    '@nuxt/test-utils/module',
+  ],
 
   devtools: {
     enabled: true,
