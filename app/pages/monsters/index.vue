@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { allMonsters } from '~/data/monsters'
 import type { Monster } from '~/types/monster/monster'
+import { getMonsterEffectiveElements } from '~/types/monster/monsterEffectiveElements'
 import { formatMonsterEffectIntensity } from '~/types/monster/monsterOverview'
 
 useSeoMeta({
@@ -44,6 +45,14 @@ function monsterSpeciesDisplay(m: Monster): string {
 function monsterSpeciesDefined(m: Monster): boolean {
   return !isBlank(m.species)
 }
+
+function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boolean } {
+  const list = getMonsterEffectiveElements(m)
+  return {
+    text: list.length === 0 ? 'なし' : list.join(', '),
+    defined: list.length > 0,
+  }
+}
 </script>
 
 <template>
@@ -51,7 +60,7 @@ function monsterSpeciesDefined(m: Monster): boolean {
     <section class="mx-auto max-w-6xl py-10 sm:py-14">
       <h1 class="mp-page-title mp-text">モンスターデータ</h1>
       <p class="mt-3 mp-body mp-muted">
-        各モンスターのデータを参照します。有効属性は未実装のため未定義です。
+        モンスターごとの種族・有効属性・咆哮・風圧・振動の一覧です。
       </p>
     </section>
 
@@ -70,7 +79,12 @@ function monsterSpeciesDefined(m: Monster): boolean {
               </div>
               <div class="flex justify-between gap-2 border-b border-white/5 pb-2">
                 <dt class="mp-muted shrink-0">有効属性</dt>
-                <dd class="text-right" :class="missingHighlightClass(false)">未定義</dd>
+                <dd
+                  class="text-right"
+                  :class="missingHighlightClass(monsterEffectiveElementsRow(m).defined)"
+                >
+                  {{ monsterEffectiveElementsRow(m).text }}
+                </dd>
               </div>
               <div class="flex justify-between gap-2 border-b border-white/5 pb-2">
                 <dt class="mp-muted shrink-0">咆哮</dt>
