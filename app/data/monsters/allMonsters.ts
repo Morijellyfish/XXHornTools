@@ -1,6 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
 import { arzuros } from './arzuros'
 import { astalos } from './astalos'
+import { azureboltAstalos } from './azureboltAstalos'
 import { brachydios } from './brachydios'
 import { chameleos } from './chameleos'
 import { divinesightMizutsune } from './divinesightMizutsune'
@@ -17,6 +18,7 @@ import { valstrax } from './valstrax'
 export const allMonsters: Monster[] = [
   arzuros,
   astalos,
+  azureboltAstalos,
   brachydios,
   chameleos,
   glavenus,

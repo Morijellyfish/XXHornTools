@@ -1,0 +1,183 @@
+import type { Monster } from '~/types/monster/monster'
+import { PartDurability } from '~/types/monster/partDurability'
+import { azureboltAstalosQuests } from '../quest/azureboltAstalos'
+
+export const azureboltAstalos: Monster = {
+  name: '青電主ライゼクス',
+  species: '飛竜種',
+  hitZoneVariants: [
+    {
+      name: '通常時',
+      hitZones: [
+        {
+          name: '頭部',
+          mellee: { slash: 55, impact: 55, shot: 30 },
+          element: { 火: 5, 水: 5, 雷: 0, 氷: 5, 龍: 5 },
+          stun: 100,
+          exhaust: 100,
+        },
+        {
+          name: '腹部',
+          mellee: { slash: 20, impact: 20, shot: 15 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 20, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '背',
+          mellee: { slash: 32, impact: 32, shot: 5 },
+          element: { 火: 5, 水: 5, 雷: 0, 氷: 5, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '翼',
+          mellee: { slash: 45, impact: 45, shot: 20 },
+          element: { 火: 5, 水: 5, 雷: 0, 氷: 5, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '脚',
+          mellee: { slash: 28, impact: 28, shot: 15 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 15, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾',
+          mellee: { slash: 35, impact: 35, shot: 20 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 20, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾先端',
+          mellee: { slash: 43, impact: 43, shot: 25 },
+          element: { 火: 10, 水: 12, 雷: 0, 氷: 20, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+      ],
+    },
+    {
+      name: '電荷時',
+      hitZones: [
+        {
+          name: '頭部',
+          mellee: { slash: 60, impact: 60, shot: 30 },
+          element: { 火: 6, 水: 6, 雷: 0, 氷: 10, 龍: 5 },
+          stun: 100,
+          exhaust: 100,
+        },
+        {
+          name: '腹部',
+          mellee: { slash: 20, impact: 20, shot: 15 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 20, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '背',
+          mellee: { slash: 32, impact: 32, shot: 5 },
+          element: { 火: 5, 水: 5, 雷: 0, 氷: 5, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '翼',
+          mellee: { slash: 58, impact: 58, shot: 40 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 15, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '脚',
+          mellee: { slash: 28, impact: 28, shot: 15 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 15, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾',
+          mellee: { slash: 58, impact: 58, shot: 45 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 10, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾先端',
+          mellee: { slash: 58, impact: 58, shot: 45 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 10, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+      ],
+    },
+    {
+      name: '疲れ時',
+      hitZones: [
+        {
+          name: '頭部',
+          mellee: { slash: 45, impact: 45, shot: 25 },
+          element: { 火: 5, 水: 5, 雷: 0, 氷: 10, 龍: 5 },
+          stun: 100,
+          exhaust: 100,
+        },
+        {
+          name: '腹部',
+          mellee: { slash: 20, impact: 20, shot: 15 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 20, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '背',
+          mellee: { slash: 32, impact: 32, shot: 5 },
+          element: { 火: 5, 水: 5, 雷: 0, 氷: 5, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '翼',
+          mellee: { slash: 25, impact: 25, shot: 25 },
+          element: { 火: 5, 水: 5, 雷: 0, 氷: 10, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '脚',
+          mellee: { slash: 28, impact: 28, shot: 15 },
+          element: { 火: 10, 水: 10, 雷: 0, 氷: 15, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾',
+          mellee: { slash: 43, impact: 43, shot: 25 },
+          element: { 火: 5, 水: 5, 雷: 0, 氷: 10, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾先端',
+          mellee: { slash: 43, impact: 43, shot: 25 },
+          element: { 火: 5, 水: 5, 雷: 0, 氷: 10, 龍: 5 },
+          stun: 0,
+          exhaust: 100,
+        },
+      ],
+    },
+  ],
+  partDurabilities: [
+    new PartDurability('頭部', 320),
+    new PartDurability('左翼', 200),
+    new PartDurability('右翼', 420),
+    new PartDurability('胴', 420),
+    new PartDurability('左脚', 270),
+    new PartDurability('右脚', 270),
+    new PartDurability('尻尾根本', 180),
+    new PartDurability('尻尾', 230, 450),
+  ],
+  quests: azureboltAstalosQuests,
+}
