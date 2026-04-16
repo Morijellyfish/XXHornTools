@@ -3,6 +3,7 @@ import { arzuros } from './arzuros'
 import { astalos } from './astalos'
 import { brachydios } from './brachydios'
 import { chameleos } from './chameleos'
+import { divinesightMizutsune } from './divinesightMizutsune'
 import { glavenus } from './glavenus'
 import { gammoth } from './gammoth'
 import { kushala } from './kushala'
@@ -22,6 +23,7 @@ export const allMonsters: Monster[] = [
   gammoth,
   kushala,
   mizutsune,
+  divinesightMizutsune,
   rathian,
   redhelmArzuros,
   teostra,
