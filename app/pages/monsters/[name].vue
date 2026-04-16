@@ -17,6 +17,14 @@ useSeoMeta({
         ← モンスター一覧に戻る
       </NuxtLink>
       <h1 class="mp-page-title mp-text mt-4">{{ monster.name }}</h1>
+
+      <div class="mt-8 space-y-8">
+        <MonsterHitZoneTable
+          v-for="variant in monster.hitZoneVariants"
+          :key="variant.name"
+          :variant="variant"
+        />
+      </div>
     </section>
 
     <section v-else class="mx-auto max-w-6xl py-10 sm:py-14">
