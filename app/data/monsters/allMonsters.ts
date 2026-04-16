@@ -7,6 +7,7 @@ import { chameleos } from './chameleos'
 import { divinesightMizutsune } from './divinesightMizutsune'
 import { glavenus } from './glavenus'
 import { gammoth } from './gammoth'
+import { frostpeakGammoth } from './frostpeakGammoth'
 import { kushala } from './kushala'
 import { mizutsune } from './mizutsune'
 import { rathian } from './rathian'
@@ -23,6 +24,7 @@ export const allMonsters: Monster[] = [
   chameleos,
   glavenus,
   gammoth,
+  frostpeakGammoth,
   kushala,
   mizutsune,
   divinesightMizutsune,
