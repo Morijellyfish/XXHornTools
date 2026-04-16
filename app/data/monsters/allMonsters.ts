@@ -10,6 +10,7 @@ import { hellbladeGlavenus } from './hellbladeGlavenus'
 import { gammoth } from './gammoth'
 import { frostpeakGammoth } from './frostpeakGammoth'
 import { snowbaronLagombi } from './snowbaronLagombi'
+import { drilltuskTetsucabra } from './drilltuskTetsucabra'
 import { kushala } from './kushala'
 import { mizutsune } from './mizutsune'
 import { rathian } from './rathian'
@@ -29,6 +30,7 @@ export const allMonsters: Monster[] = [
   gammoth,
   frostpeakGammoth,
   snowbaronLagombi,
+  drilltuskTetsucabra,
   kushala,
   mizutsune,
   divinesightMizutsune,
