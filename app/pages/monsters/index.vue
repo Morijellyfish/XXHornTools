@@ -53,7 +53,10 @@ function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boole
       <h2 class="mp-section-title mp-text mb-4">モンスター一覧</h2>
       <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
         <li v-for="m in sortedMonsters" :key="m.name">
-          <div class="block h-full rounded-lg border mp-border mp-panel p-4 mp-text">
+          <NuxtLink
+            :to="`/monsters/${m.name}`"
+            class="block h-full rounded-lg border mp-border mp-panel p-4 mp-text hover:border-white/30 transition-colors"
+          >
             <p class="font-medium">{{ m.name }}</p>
             <dl class="mt-3 space-y-2 text-sm">
               <div class="flex justify-between gap-2 border-b border-white/5 pb-2">
@@ -97,7 +100,7 @@ function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boole
                 </dd>
               </div>
             </dl>
-          </div>
+          </NuxtLink>
         </li>
       </ul>
     </section>
