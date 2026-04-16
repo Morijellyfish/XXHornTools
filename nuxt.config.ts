@@ -68,6 +68,9 @@ export default defineNuxtConfig({
     '/others': { prerender: true },
     '/melodyTimer': { prerender: true },
   },
+  experimental: {
+    payloadExtraction: false,
+  },
 
   compatibilityDate: '2025-01-15',
 
