@@ -15,6 +15,7 @@ import { blangonga } from './blangonga'
 import { azureboltAstalos } from './azureboltAstalos'
 import { brachydios } from './brachydios'
 import { bulldrome } from './bulldrome'
+import { cephadrome } from './cephadrome'
 import { chameleos } from './chameleos'
 import { chaoticGoreMagala } from './chaoticGoreMagala'
 import { congalala } from './congalala'
@@ -48,6 +49,7 @@ import { khezu } from './khezu'
 import { kirin } from './kirin'
 import { kushala } from './kushala'
 import { lagiacrus } from './lagiacrus'
+import { lavasioth } from './lavasioth'
 import { laoShanLung } from './laoShanLung'
 import { malfestio } from './malfestio'
 import { mizutsune } from './mizutsune'
@@ -55,6 +57,7 @@ import { najarala } from './najarala'
 import { nargacuga } from './nargacuga'
 import { nibelsnarf } from './nibelsnarf'
 import { nerscylla } from './nerscylla'
+import { plesioth } from './plesioth'
 import { ragingBrachydios } from './ragingBrachydios'
 import { rajang } from './rajang'
 import { rathalos } from './rathalos'
@@ -103,6 +106,7 @@ export const allMonsters: Monster[] = [
   azureboltAstalos,
   brachydios,
   bulldrome,
+  cephadrome,
   chameleos,
   chaoticGoreMagala,
   congalala,
@@ -132,6 +136,7 @@ export const allMonsters: Monster[] = [
   kirin,
   kushala,
   lagiacrus,
+  lavasioth,
   laoShanLung,
   malfestio,
   mizutsune,
@@ -139,6 +144,7 @@ export const allMonsters: Monster[] = [
   nargacuga,
   nibelsnarf,
   nerscylla,
+  plesioth,
   deviljho,
   divinesightMizutsune,
   daimyoHermitaur,
