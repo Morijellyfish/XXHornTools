@@ -1,4 +1,6 @@
 import type { Monster } from '~/types/monster/monster'
+import { alatreon } from './alatreon'
+import { amatsu } from './amatsu'
 import { arzuros } from './arzuros'
 import { astalos } from './astalos'
 import { bloodlustDiablos } from './bloodlustDiablos'
@@ -20,13 +22,16 @@ import { drilltuskTetsucabra } from './drilltuskTetsucabra'
 import { deadeyeYianGaruga } from './deadeyeYianGaruga'
 import { dreadkingRathalos } from './dreadkingRathalos'
 import { dreadqueenRathian } from './dreadqueenRathian'
+import { kirin } from './kirin'
 import { kushala } from './kushala'
+import { laoShanLung } from './laoShanLung'
 import { mizutsune } from './mizutsune'
 import { ragingBrachydios } from './ragingBrachydios'
 import { rathian } from './rathian'
 import { redhelmArzuros } from './redhelmArzuros'
 import { rustrazorHermitaur } from './rustrazorHermitaur'
 import { savageDeviljho } from './savageDeviljho'
+import { shagaruMagala } from './shagaruMagala'
 import { shredclawCeanataur } from './shredclawCeanataur'
 import { silverwindNargacuga } from './silverwindNargacuga'
 import { teostra } from './teostra'
@@ -35,6 +40,8 @@ import { valstrax } from './valstrax'
 
 /** 統合配列（有効属性のビルド時生成はこのファイルのみを読み込む） */
 export const allMonsters: Monster[] = [
+  alatreon,
+  amatsu,
   arzuros,
   astalos,
   bloodlustDiablos,
@@ -55,7 +62,9 @@ export const allMonsters: Monster[] = [
   deadeyeYianGaruga,
   dreadkingRathalos,
   dreadqueenRathian,
+  kirin,
   kushala,
+  laoShanLung,
   mizutsune,
   divinesightMizutsune,
   ragingBrachydios,
@@ -63,6 +72,7 @@ export const allMonsters: Monster[] = [
   redhelmArzuros,
   rustrazorHermitaur,
   savageDeviljho,
+  shagaruMagala,
   shredclawCeanataur,
   silverwindNargacuga,
   teostra,
