@@ -10,6 +10,7 @@ import {
   getDefaultVariantName,
   getDurabilityList,
   getDurabilityListWithValue,
+  isFrenziedVariantName,
   getHitZonePartList,
   getHitZonePartListWithValue,
   getHitZoneVariantList,
@@ -86,7 +87,7 @@ const hitzoneTypeOptions: { label: string; value: MelleeType }[] = [
   { label: '弾', value: 'shot' },
 ]
 
-const isFrenziedVariant = computed(() => selectedVariantName.value.includes('獰猛'))
+const isFrenziedVariant = computed(() => isFrenziedVariantName(selectedVariantName.value))
 
 const getSelectedHitzoneValue = (): number | undefined => {
   const monster = selectedMonster.value!
