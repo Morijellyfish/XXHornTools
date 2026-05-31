@@ -2,14 +2,6 @@ import type { Monster } from '~/types/monster/monster'
 import { PartDurability } from '~/types/monster/partDurability'
 import { drilltuskTetsucabraQuests } from '../quest/drilltuskTetsucabra'
 
-const rockHitZone = {
-  name: '岩',
-  mellee: { slash: 20, impact: 20, shot: 15 },
-  element: { 火: 0, 水: 0, 雷: 0, 氷: 10, 龍: 0 },
-  stun: 0,
-  exhaust: 100,
-} as const
-
 export const drilltuskTetsucabra: Monster = {
   name: '岩穿テツカブラ',
   species: '両生種',
@@ -59,7 +51,13 @@ export const drilltuskTetsucabra: Monster = {
           stun: 0,
           exhaust: 100,
         },
-        { ...rockHitZone },
+        {
+          name: '岩',
+          mellee: { slash: 20, impact: 20, shot: 15 },
+          element: { 火: 0, 水: 0, 雷: 0, 氷: 10, 龍: 0 },
+          stun: 0,
+          exhaust: 100,
+        },
       ],
     },
     {
@@ -107,7 +105,13 @@ export const drilltuskTetsucabra: Monster = {
           stun: 0,
           exhaust: 100,
         },
-        { ...rockHitZone },
+        {
+          name: '岩',
+          mellee: { slash: 20, impact: 20, shot: 15 },
+          element: { 火: 0, 水: 0, 雷: 0, 氷: 10, 龍: 0 },
+          stun: 0,
+          exhaust: 100,
+        },
       ],
     },
   ],
