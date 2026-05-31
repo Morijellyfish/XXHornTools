@@ -3,6 +3,7 @@ import { agnaktor } from './agnaktor'
 import { alatreon } from './alatreon'
 import { amatsu } from './amatsu'
 import { arzuros } from './arzuros'
+import { barroth } from './barroth'
 import { atlalKa } from './atlalKa'
 import { atlalThrone } from './atlalThrone'
 import { astalos } from './astalos'
@@ -15,7 +16,9 @@ import { chameleos } from './chameleos'
 import { chaoticGoreMagala } from './chaoticGoreMagala'
 import { congalala } from './congalala'
 import { crystalbeardUragaan } from './crystalbeardUragaan'
+import { deviljho } from './deviljho'
 import { divinesightMizutsune } from './divinesightMizutsune'
+import { duramboros } from './duramboros'
 import { glavenus } from './glavenus'
 import { grimclawTigrex } from './grimclawTigrex'
 import { hellbladeGlavenus } from './hellbladeGlavenus'
@@ -50,6 +53,7 @@ import { silverwindNargacuga } from './silverwindNargacuga'
 import { tetsucabra } from './tetsucabra'
 import { teostra } from './teostra'
 import { thunderlordZinogre } from './thunderlordZinogre'
+import { uragaan } from './uragaan'
 import { valstrax } from './valstrax'
 import { volvidon } from './volvidon'
 import { zamtrios } from './zamtrios'
@@ -60,6 +64,7 @@ export const allMonsters: Monster[] = [
   alatreon,
   amatsu,
   arzuros,
+  barroth,
   atlalKa,
   atlalThrone,
   astalos,
@@ -91,7 +96,9 @@ export const allMonsters: Monster[] = [
   laoShanLung,
   mizutsune,
   nibelsnarf,
+  deviljho,
   divinesightMizutsune,
+  duramboros,
   ragingBrachydios,
   rajang,
   rathian,
@@ -107,6 +114,7 @@ export const allMonsters: Monster[] = [
   tetsucabra,
   teostra,
   thunderlordZinogre,
+  uragaan,
   valstrax,
   volvidon,
   zamtrios,
