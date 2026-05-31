@@ -20,6 +20,7 @@ import { chameleos } from './chameleos'
 import { chaoticGoreMagala } from './chaoticGoreMagala'
 import { congalala } from './congalala'
 import { crystalbeardUragaan } from './crystalbeardUragaan'
+import { diablos } from './diablos'
 import { deviljho } from './deviljho'
 import { divinesightMizutsune } from './divinesightMizutsune'
 import { daimyoHermitaur } from './daimyoHermitaur'
@@ -150,6 +151,7 @@ export const allMonsters: Monster[] = [
   nibelsnarf,
   nerscylla,
   plesioth,
+  diablos,
   deviljho,
   divinesightMizutsune,
   daimyoHermitaur,
