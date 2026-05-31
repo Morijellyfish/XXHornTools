@@ -1,4 +1,5 @@
 import type { Monster } from '~/types/monster/monster'
+import { agnaktor } from './agnaktor'
 import { alatreon } from './alatreon'
 import { amatsu } from './amatsu'
 import { arzuros } from './arzuros'
@@ -26,11 +27,14 @@ import { dreadkingRathalos } from './dreadkingRathalos'
 import { dreadqueenRathian } from './dreadqueenRathian'
 import { kirin } from './kirin'
 import { kushala } from './kushala'
+import { lagiacrus } from './lagiacrus'
 import { laoShanLung } from './laoShanLung'
 import { mizutsune } from './mizutsune'
+import { nibelsnarf } from './nibelsnarf'
 import { ragingBrachydios } from './ragingBrachydios'
 import { rathian } from './rathian'
 import { redhelmArzuros } from './redhelmArzuros'
+import { royalLudroth } from './royalLudroth'
 import { rustrazorHermitaur } from './rustrazorHermitaur'
 import { seltas } from './seltas'
 import { seltasQueen } from './seltasQueen'
@@ -46,6 +50,7 @@ import { zamtrios } from './zamtrios'
 
 /** 統合配列（有効属性のビルド時生成はこのファイルのみを読み込む） */
 export const allMonsters: Monster[] = [
+  agnaktor,
   alatreon,
   amatsu,
   arzuros,
@@ -72,12 +77,15 @@ export const allMonsters: Monster[] = [
   dreadqueenRathian,
   kirin,
   kushala,
+  lagiacrus,
   laoShanLung,
   mizutsune,
+  nibelsnarf,
   divinesightMizutsune,
   ragingBrachydios,
   rathian,
   redhelmArzuros,
+  royalLudroth,
   rustrazorHermitaur,
   seltas,
   seltasQueen,
