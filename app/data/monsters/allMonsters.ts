@@ -58,6 +58,7 @@ import { lagombi } from './lagombi'
 import { laoShanLung } from './laoShanLung'
 import { malfestio } from './malfestio'
 import { mizutsune } from './mizutsune'
+import { nakarkos } from './nakarkos'
 import { najarala } from './najarala'
 import { nargacuga } from './nargacuga'
 import { nibelsnarf } from './nibelsnarf'
@@ -146,6 +147,7 @@ export const allMonsters: Monster[] = [
   laoShanLung,
   malfestio,
   mizutsune,
+  nakarkos,
   najarala,
   nargacuga,
   nibelsnarf,

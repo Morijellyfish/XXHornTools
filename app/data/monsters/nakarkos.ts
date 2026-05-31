@@ -1,0 +1,157 @@
+import type { Monster } from '~/types/monster/monster'
+import { PartDurability } from '~/types/monster/partDurability'
+import { nakarkosQuests } from '../quest/nakarkos'
+
+export const nakarkos: Monster = {
+  name: 'オストガロア',
+  species: '古龍種',
+  hitZoneVariants: [
+    {
+      name: '通常時',
+      hitZones: [
+        {
+          name: '頭(捕食時)',
+          mellee: { slash: 65, impact: 65, shot: 40 },
+          element: { 火: 15, 水: 0, 雷: 10, 氷: 0, 龍: 20 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '蝕腕',
+          mellee: { slash: 36, impact: 36, shot: 25 },
+          element: { 火: 5, 水: 0, 雷: 0, 氷: 0, 龍: 10 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '蝕腕先端',
+          mellee: { slash: 63, impact: 63, shot: 35 },
+          element: { 火: 15, 水: 0, 雷: 10, 氷: 0, 龍: 20 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '背',
+          mellee: { slash: 30, impact: 30, shot: 10 },
+          element: { 火: 10, 水: 0, 雷: 5, 氷: 0, 龍: 15 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '背弱点',
+          mellee: { slash: 70, impact: 70, shot: 70 },
+          element: { 火: 20, 水: 0, 雷: 10, 氷: 0, 龍: 30 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '胴',
+          mellee: { slash: 15, impact: 15, shot: 10 },
+          element: { 火: 0, 水: 0, 雷: 0, 氷: 0, 龍: 0 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '噴出孔',
+          mellee: { slash: 38, impact: 38, shot: 20 },
+          element: { 火: 5, 水: 0, 雷: 0, 氷: 0, 龍: 10 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: 'ヒレ',
+          mellee: { slash: 22, impact: 22, shot: 15 },
+          element: { 火: 5, 水: 0, 雷: 0, 氷: 0, 龍: 10 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '巨大外殻',
+          mellee: { slash: 15, impact: 15, shot: 10 },
+          element: { 火: 5, 水: 0, 雷: 0, 氷: 0, 龍: 5 },
+          stun: 0,
+          exhaust: 0,
+        },
+      ],
+    },
+    {
+      name: '粘液纏い時',
+      hitZones: [
+        {
+          name: '頭(捕食時)',
+          mellee: { slash: 30, impact: 30, shot: 15 },
+          element: { 火: 0, 水: 0, 雷: 0, 氷: 0, 龍: 0 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '蝕腕',
+          mellee: { slash: 36, impact: 36, shot: 25 },
+          element: { 火: 5, 水: 0, 雷: 0, 氷: 0, 龍: 10 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '蝕腕先端',
+          mellee: { slash: 63, impact: 63, shot: 35 },
+          element: { 火: 15, 水: 0, 雷: 10, 氷: 0, 龍: 20 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '背',
+          mellee: { slash: 30, impact: 30, shot: 10 },
+          element: { 火: 10, 水: 0, 雷: 5, 氷: 0, 龍: 15 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '背弱点',
+          mellee: { slash: 70, impact: 70, shot: 70 },
+          element: { 火: 20, 水: 0, 雷: 10, 氷: 0, 龍: 30 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '胴',
+          mellee: { slash: 15, impact: 15, shot: 10 },
+          element: { 火: 0, 水: 0, 雷: 0, 氷: 0, 龍: 0 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '噴出孔',
+          mellee: { slash: 38, impact: 38, shot: 20 },
+          element: { 火: 5, 水: 0, 雷: 0, 氷: 0, 龍: 10 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: 'ヒレ',
+          mellee: { slash: 22, impact: 22, shot: 15 },
+          element: { 火: 5, 水: 0, 雷: 0, 氷: 0, 龍: 10 },
+          stun: 0,
+          exhaust: 0,
+        },
+        {
+          name: '巨大外殻',
+          mellee: { slash: 15, impact: 15, shot: 10 },
+          element: { 火: 5, 水: 0, 雷: 0, 氷: 0, 龍: 5 },
+          stun: 0,
+          exhaust: 0,
+        },
+      ],
+    },
+  ],
+  partDurabilities: [
+    new PartDurability('頭', 500, 800),
+    new PartDurability('背中', 300),
+    new PartDurability('胴・ヒレ', 350),
+    new PartDurability('巨大外殻', 180),
+    new PartDurability('左噴出孔', 300),
+    new PartDurability('右噴出孔', 300),
+    new PartDurability('左触腕(捕食時)', 150, 126),
+    new PartDurability('右触腕(捕食時)', 150, 126),
+  ],
+  quests: nakarkosQuests,
+}
