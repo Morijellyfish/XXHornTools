@@ -11,10 +11,10 @@ import {
   getDurabilityList,
   getDurabilityListWithValue,
   isFrenziedVariantName,
+  getGroupedMonsterList,
   getHitZonePartList,
   getHitZonePartListWithValue,
   getHitZoneVariantList,
-  getMonsterList,
   getQuestList,
 } from '~/types/monster/monsterOptions'
 
@@ -49,7 +49,7 @@ const templateDefenseMultiplier = ref<number | null>(null)
 const templateStunMultiplier = ref<number | null>(null)
 const templateFatigueMultiplier = ref<number | null>(null)
 
-const monsterOptions = computed(() => getMonsterList(allMonsters))
+const monsterOptions = computed(() => getGroupedMonsterList(allMonsters))
 
 const selectedMonster = computed(() => {
   if (!selectedMonsterName.value) return undefined
@@ -204,8 +204,12 @@ watch(
           :options="monsterOptions"
           option-label="label"
           option-value="value"
+          option-group-label="label"
+          option-group-children="items"
           placeholder="モンスター"
-          class="w-56"
+          filter
+          filter-placeholder="モンスター名で検索"
+          class="w-72"
         />
         <Select
           v-model="selectedVariantName"

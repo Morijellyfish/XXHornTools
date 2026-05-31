@@ -1,5 +1,6 @@
 import type { MelleeType } from '../attackType'
 import type { Monster } from './monster'
+import { MONSTER_TAXONOMIES } from './monsterTaxonomy'
 
 /**
  * モンスターデータからUI表示用のリスト（label/value）を生成するユーティリティ
@@ -8,6 +9,11 @@ import type { Monster } from './monster'
 export type LabeledValue<T extends string = string> = {
   label: string
   value: T
+}
+
+export type LabeledValueGroup<T extends string = string> = {
+  label: string
+  items: LabeledValue<T>[]
 }
 
 /**
@@ -30,6 +36,21 @@ export function getMonsterList(monsters: Monster[]): LabeledValue[] {
     .map(m => m.name)
     .sort()
     .map(name => ({ label: name, value: name }))
+}
+
+/**
+ * モンスター選択用リストを種族ごとに作成
+ */
+export function getGroupedMonsterList(monsters: Monster[]): LabeledValueGroup[] {
+  return MONSTER_TAXONOMIES.map(species => {
+    const items = monsters
+      .filter(m => m.species === species)
+      .map(m => m.name)
+      .sort((a, b) => a.localeCompare(b, 'ja'))
+      .map(name => ({ label: name, value: name }))
+
+    return { label: species, items }
+  }).filter(group => group.items.length > 0)
 }
 
 /**
