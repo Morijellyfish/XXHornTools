@@ -22,11 +22,16 @@ import { crystalbeardUragaan } from './crystalbeardUragaan'
 import { deviljho } from './deviljho'
 import { divinesightMizutsune } from './divinesightMizutsune'
 import { duramboros } from './duramboros'
+import { gendrome } from './gendrome'
+import { giadrome } from './giadrome'
 import { glavenus } from './glavenus'
 import { goldRathian } from './goldRathian'
 import { gravios } from './gravios'
+import { greatMaccao } from './greatMaccao'
 import { grimclawTigrex } from './grimclawTigrex'
+import { gypceros } from './gypceros'
 import { hellbladeGlavenus } from './hellbladeGlavenus'
+import { iodrome } from './iodrome'
 import { gammoth } from './gammoth'
 import { frostpeakGammoth } from './frostpeakGammoth'
 import { furiousRajang } from './furiousRajang'
@@ -42,6 +47,7 @@ import { kirin } from './kirin'
 import { kushala } from './kushala'
 import { lagiacrus } from './lagiacrus'
 import { laoShanLung } from './laoShanLung'
+import { malfestio } from './malfestio'
 import { mizutsune } from './mizutsune'
 import { nargacuga } from './nargacuga'
 import { nibelsnarf } from './nibelsnarf'
@@ -67,7 +73,10 @@ import { thunderlordZinogre } from './thunderlordZinogre'
 import { ukanlos } from './ukanlos'
 import { uragaan } from './uragaan'
 import { valstrax } from './valstrax'
+import { velocidrome } from './velocidrome'
 import { volvidon } from './volvidon'
+import { yianGaruga } from './yianGaruga'
+import { yianKutKu } from './yianKutKu'
 import { zamtrios } from './zamtrios'
 
 /** 統合配列（有効属性のビルド時生成はこのファイルのみを読み込む） */
@@ -92,11 +101,16 @@ export const allMonsters: Monster[] = [
   chaoticGoreMagala,
   congalala,
   crystalbeardUragaan,
+  gendrome,
+  giadrome,
   glavenus,
   goldRathian,
   gravios,
+  greatMaccao,
   grimclawTigrex,
+  gypceros,
   hellbladeGlavenus,
+  iodrome,
   gammoth,
   frostpeakGammoth,
   furiousRajang,
@@ -112,6 +126,7 @@ export const allMonsters: Monster[] = [
   kushala,
   lagiacrus,
   laoShanLung,
+  malfestio,
   mizutsune,
   nargacuga,
   nibelsnarf,
@@ -140,6 +155,9 @@ export const allMonsters: Monster[] = [
   ukanlos,
   uragaan,
   valstrax,
+  velocidrome,
   volvidon,
+  yianGaruga,
+  yianKutKu,
   zamtrios,
 ]
