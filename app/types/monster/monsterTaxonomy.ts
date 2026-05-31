@@ -16,7 +16,7 @@ export const MONSTER_TAXONOMIES = [
   '蛇竜種',
   '亜龍種',
   '古龍種',
-  '不明',
+  '未確認',
 ] as const
 
 export type MonsterTaxonomy = (typeof MONSTER_TAXONOMIES)[number]
