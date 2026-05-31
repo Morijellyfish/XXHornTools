@@ -17,6 +17,11 @@ export type LabeledValue<T extends string = string> = {
  */
 export type DurabilityPartKey = `${string}::normal` | `${string}::prebreak`
 
+/** 肉質バリアント名から獰猛化（部位耐久の獰猛列）を参照するか */
+export function isFrenziedVariantName(variantName: string): boolean {
+  return variantName.includes('獰猛')
+}
+
 /**
  * モンスター選択用リストを作成（名前でソート）
  */

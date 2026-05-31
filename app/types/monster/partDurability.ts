@@ -36,16 +36,17 @@ export class PartDurability {
    * 状態に応じた耐久値を取得（なければフォールバック）
    */
   getDurability(isFrenzied: boolean, isPreBreak: boolean): number {
-    if (isFrenzied && isPreBreak && this.durabilityFrenziedPreBreak !== undefined) {
-      return this.durabilityFrenziedPreBreak
+    if (isFrenzied) {
+      if (isPreBreak && this.durabilityFrenziedPreBreak !== undefined) {
+        return this.durabilityFrenziedPreBreak
+      }
+      if (this.durabilityFrenzied !== undefined) {
+        return this.durabilityFrenzied
+      }
     }
 
     if (isPreBreak && this.durabilityPreBreak !== undefined) {
       return this.durabilityPreBreak
-    }
-
-    if (isFrenzied && this.durabilityFrenzied !== undefined) {
-      return this.durabilityFrenzied
     }
 
     return this.durability
