@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { azureboltAstalosQuests } from '../quest/azureboltAstalos'
 
 export const azureboltAstalos: Monster = {
@@ -8,6 +10,7 @@ export const azureboltAstalos: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭部',
@@ -62,6 +65,7 @@ export const azureboltAstalos: Monster = {
     },
     {
       name: '電荷時',
+
       hitZones: [
         {
           name: '頭部',
@@ -71,29 +75,8 @@ export const azureboltAstalos: Monster = {
           exhaust: 100,
         },
         {
-          name: '腹部',
-          mellee: { slash: 20, impact: 20, shot: 15 },
-          element: { 火: 10, 水: 10, 雷: 0, 氷: 20, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '背',
-          mellee: { slash: 32, impact: 32, shot: 5 },
-          element: { 火: 5, 水: 5, 雷: 0, 氷: 5, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
           name: '翼',
           mellee: { slash: 58, impact: 58, shot: 40 },
-          element: { 火: 10, 水: 10, 雷: 0, 氷: 15, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '脚',
-          mellee: { slash: 28, impact: 28, shot: 15 },
           element: { 火: 10, 水: 10, 雷: 0, 氷: 15, 龍: 5 },
           stun: 0,
           exhaust: 100,
@@ -116,6 +99,7 @@ export const azureboltAstalos: Monster = {
     },
     {
       name: '疲れ時',
+
       hitZones: [
         {
           name: '頭部',
@@ -125,30 +109,9 @@ export const azureboltAstalos: Monster = {
           exhaust: 100,
         },
         {
-          name: '腹部',
-          mellee: { slash: 20, impact: 20, shot: 15 },
-          element: { 火: 10, 水: 10, 雷: 0, 氷: 20, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '背',
-          mellee: { slash: 32, impact: 32, shot: 5 },
-          element: { 火: 5, 水: 5, 雷: 0, 氷: 5, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
           name: '翼',
           mellee: { slash: 25, impact: 25, shot: 25 },
           element: { 火: 5, 水: 5, 雷: 0, 氷: 10, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '脚',
-          mellee: { slash: 28, impact: 28, shot: 15 },
-          element: { 火: 10, 水: 10, 雷: 0, 氷: 15, 龍: 5 },
           stun: 0,
           exhaust: 100,
         },

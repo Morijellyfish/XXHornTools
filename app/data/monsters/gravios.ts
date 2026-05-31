@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { graviosQuests } from '../quest/gravios'
 
 export const gravios: Monster = {
@@ -8,6 +10,7 @@ export const gravios: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -55,19 +58,13 @@ export const gravios: Monster = {
     },
     {
       name: '部位破壊後',
+
       hitZones: [
         {
           name: '頭',
           mellee: { slash: 25, impact: 35, shot: 25 },
           element: { 火: 0, 水: 15, 雷: 5, 氷: 5, 龍: 30 },
           stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '首下・尾下',
-          mellee: { slash: 25, impact: 30, shot: 20 },
-          element: { 火: 0, 水: 30, 雷: 5, 氷: 10, 龍: 20 },
-          stun: 0,
           exhaust: 100,
         },
         {

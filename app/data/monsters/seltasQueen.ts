@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { seltasQueenQuests } from '../quest/seltasQueen'
 
 export const seltasQueen: Monster = {
@@ -8,6 +10,7 @@ export const seltasQueen: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -55,42 +58,8 @@ export const seltasQueen: Monster = {
     },
     {
       name: '脚破壊後',
+
       hitZones: [
-        {
-          name: '頭',
-          mellee: { slash: 80, impact: 60, shot: 80 },
-          element: { 火: 30, 水: 0, 雷: 15, 氷: 25, 龍: 0 },
-          stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '胴',
-          mellee: { slash: 24, impact: 30, shot: 30 },
-          element: { 火: 15, 水: 0, 雷: 5, 氷: 15, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '尻尾',
-          mellee: { slash: 24, impact: 30, shot: 30 },
-          element: { 火: 15, 水: 0, 雷: 5, 氷: 15, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '腹・脚',
-          mellee: { slash: 36, impact: 30, shot: 45 },
-          element: { 火: 25, 水: 0, 雷: 10, 氷: 5, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '爪・尾先',
-          mellee: { slash: 15, impact: 20, shot: 15 },
-          element: { 火: 15, 水: 0, 雷: 0, 氷: 20, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
         {
           name: '脚甲殻',
           mellee: { slash: 40, impact: 40, shot: 35 },
@@ -102,6 +71,7 @@ export const seltasQueen: Monster = {
     },
     {
       name: '獰猛化時',
+
       hitZones: [
         {
           name: '頭',
@@ -111,37 +81,9 @@ export const seltasQueen: Monster = {
           exhaust: 100,
         },
         {
-          name: '胴',
-          mellee: { slash: 24, impact: 30, shot: 30 },
-          element: { 火: 15, 水: 0, 雷: 5, 氷: 15, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
           name: '尻尾',
           mellee: { slash: 28, impact: 36, shot: 36 },
           element: { 火: 18, 水: 0, 雷: 6, 氷: 18, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '腹・脚',
-          mellee: { slash: 36, impact: 30, shot: 45 },
-          element: { 火: 25, 水: 0, 雷: 10, 氷: 5, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '爪・尾先',
-          mellee: { slash: 15, impact: 20, shot: 15 },
-          element: { 火: 15, 水: 0, 雷: 0, 氷: 20, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '脚甲殻',
-          mellee: { slash: 24, impact: 36, shot: 20 },
-          element: { 火: 5, 水: 0, 雷: 0, 氷: 15, 龍: 0 },
           stun: 0,
           exhaust: 100,
         },

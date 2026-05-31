@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { shredclawCeanataurQuests } from '../quest/shredclawCeanataur'
 
 export const shredclawCeanataur: Monster = {
@@ -8,6 +10,7 @@ export const shredclawCeanataur: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -69,21 +72,8 @@ export const shredclawCeanataur: Monster = {
     },
     {
       name: '部位破壊後',
+
       hitZones: [
-        {
-          name: '頭',
-          mellee: { slash: 50, impact: 45, shot: 45 },
-          element: { 火: 10, 水: 10, 雷: 20, 氷: 20, 龍: 0 },
-          stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '胴体',
-          mellee: { slash: 35, impact: 35, shot: 25 },
-          element: { 火: 15, 水: 5, 雷: 20, 氷: 10, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
         {
           name: 'ヤド',
           mellee: { slash: 30, impact: 30, shot: 20 },
@@ -95,13 +85,6 @@ export const shredclawCeanataur: Monster = {
           name: 'ヤド内',
           mellee: { slash: 50, impact: 55, shot: 40 },
           element: { 火: 10, 水: 10, 雷: 20, 氷: 15, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '腕',
-          mellee: { slash: 25, impact: 35, shot: 25 },
-          element: { 火: 15, 水: 5, 雷: 15, 氷: 10, 龍: 0 },
           stun: 0,
           exhaust: 100,
         },

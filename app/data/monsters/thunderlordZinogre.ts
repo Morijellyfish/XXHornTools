@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { thunderlordZinogreQuests } from '../quest/thunderlordZinogre'
 
 export const thunderlordZinogre: Monster = {
@@ -8,6 +10,7 @@ export const thunderlordZinogre: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -69,6 +72,7 @@ export const thunderlordZinogre: Monster = {
     },
     {
       name: '真帯電時',
+
       hitZones: [
         {
           name: '頭',
@@ -109,20 +113,6 @@ export const thunderlordZinogre: Monster = {
           name: '脚根元',
           mellee: { slash: 45, impact: 45, shot: 25 },
           element: { 火: 10, 水: 10, 雷: 0, 氷: 15, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '尻尾',
-          mellee: { slash: 30, impact: 25, shot: 25 },
-          element: { 火: 5, 水: 5, 雷: 0, 氷: 5, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '尾先',
-          mellee: { slash: 21, impact: 20, shot: 10 },
-          element: { 火: 10, 水: 15, 雷: 0, 氷: 25, 龍: 5 },
           stun: 0,
           exhaust: 100,
         },

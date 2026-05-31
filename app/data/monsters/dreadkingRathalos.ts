@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { dreadkingRathalosQuests } from '../quest/dreadkingRathalos'
 
 export const dreadkingRathalos: Monster = {
@@ -8,6 +10,7 @@ export const dreadkingRathalos: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -69,6 +72,7 @@ export const dreadkingRathalos: Monster = {
     },
     {
       name: '部位破壊後',
+
       hitZones: [
         {
           name: '頭',
@@ -88,20 +92,6 @@ export const dreadkingRathalos: Monster = {
           name: '背',
           mellee: { slash: 38, impact: 38, shot: 45 },
           element: { 火: 5, 水: 10, 雷: 20, 氷: 10, 龍: 25 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '腹',
-          mellee: { slash: 24, impact: 24, shot: 18 },
-          element: { 火: 0, 水: 5, 雷: 15, 氷: 5, 龍: 15 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '翼',
-          mellee: { slash: 24, impact: 21, shot: 25 },
-          element: { 火: 0, 水: 10, 雷: 20, 氷: 10, 龍: 25 },
           stun: 0,
           exhaust: 100,
         },

@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { blangongaQuests } from '../quest/blangonga'
 
 export const blangonga: Monster = {
@@ -8,6 +10,7 @@ export const blangonga: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -48,21 +51,8 @@ export const blangonga: Monster = {
     },
     {
       name: '獰猛化時',
+
       hitZones: [
-        {
-          name: '頭',
-          mellee: { slash: 60, impact: 60, shot: 60 },
-          element: { 火: 30, 水: 5, 雷: 15, 氷: 0, 龍: 0 },
-          stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '胴体',
-          mellee: { slash: 45, impact: 50, shot: 40 },
-          element: { 火: 20, 水: 5, 雷: 15, 氷: 0, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
         {
           name: '前脚',
           mellee: { slash: 54, impact: 48, shot: 36 },
@@ -74,13 +64,6 @@ export const blangonga: Monster = {
           name: '後脚',
           mellee: { slash: 54, impact: 48, shot: 36 },
           element: { 火: 18, 水: 6, 雷: 18, 氷: 0, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '尻尾',
-          mellee: { slash: 50, impact: 40, shot: 25 },
-          element: { 火: 15, 水: 5, 雷: 15, 氷: 0, 龍: 0 },
           stun: 0,
           exhaust: 100,
         },

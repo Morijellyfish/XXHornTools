@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { duramborosQuests } from '../quest/duramboros'
 
 export const duramboros: Monster = {
@@ -8,6 +10,7 @@ export const duramboros: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '角',
@@ -69,61 +72,13 @@ export const duramboros: Monster = {
     },
     {
       name: 'コブ破壊後',
+
       hitZones: [
-        {
-          name: '角',
-          mellee: { slash: 23, impact: 21, shot: 20 },
-          element: { 火: 35, 水: 10, 雷: 35, 氷: 20, 龍: 0 },
-          stun: 150,
-          exhaust: 100,
-        },
-        {
-          name: '頭',
-          mellee: { slash: 43, impact: 24, shot: 35 },
-          element: { 火: 10, 水: 5, 雷: 15, 氷: 5, 龍: 5 },
-          stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '胴体',
-          mellee: { slash: 25, impact: 35, shot: 25 },
-          element: { 火: 15, 水: 5, 雷: 10, 氷: 15, 龍: 10 },
-          stun: 0,
-          exhaust: 100,
-        },
         {
           name: 'コブ',
           mellee: { slash: 70, impact: 70, shot: 60 },
           element: { 火: 30, 水: 10, 雷: 5, 氷: 20, 龍: 20 },
           stun: 120,
-          exhaust: 100,
-        },
-        {
-          name: '前脚',
-          mellee: { slash: 32, impact: 30, shot: 25 },
-          element: { 火: 15, 水: 0, 雷: 10, 氷: 10, 龍: 10 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '後脚',
-          mellee: { slash: 44, impact: 44, shot: 35 },
-          element: { 火: 10, 水: 0, 雷: 5, 氷: 10, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '尻尾',
-          mellee: { slash: 32, impact: 40, shot: 50 },
-          element: { 火: 10, 水: 5, 雷: 5, 氷: 5, 龍: 10 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '尾先',
-          mellee: { slash: 24, impact: 43, shot: 40 },
-          element: { 火: 20, 水: 5, 雷: 5, 氷: 15, 龍: 20 },
-          stun: 0,
           exhaust: 100,
         },
       ],

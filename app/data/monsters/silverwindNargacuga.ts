@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { silverwindNargacugaQuests } from '../quest/silverwindNargacuga'
 
 export const silverwindNargacuga: Monster = {
@@ -8,6 +10,7 @@ export const silverwindNargacuga: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -69,6 +72,7 @@ export const silverwindNargacuga: Monster = {
     },
     {
       name: '怒り時',
+
       hitZones: [
         {
           name: '頭',
@@ -78,23 +82,9 @@ export const silverwindNargacuga: Monster = {
           exhaust: 100,
         },
         {
-          name: '首・背',
-          mellee: { slash: 36, impact: 40, shot: 30 },
-          element: { 火: 15, 水: 5, 雷: 15, 氷: 5, 龍: 10 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
           name: '腹',
           mellee: { slash: 25, impact: 25, shot: 30 },
           element: { 火: 5, 水: 0, 雷: 5, 氷: 0, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '刃翼',
-          mellee: { slash: 20, impact: 20, shot: 20 },
-          element: { 火: 25, 水: 5, 雷: 30, 氷: 10, 龍: 15 },
           stun: 0,
           exhaust: 100,
         },

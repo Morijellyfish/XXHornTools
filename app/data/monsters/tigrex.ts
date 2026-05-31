@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { tigrexQuests } from '../quest/tigrex'
 
 export const tigrex: Monster = {
@@ -8,6 +10,7 @@ export const tigrex: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -62,6 +65,7 @@ export const tigrex: Monster = {
     },
     {
       name: '怒り時',
+
       hitZones: [
         {
           name: '頭',
@@ -95,20 +99,6 @@ export const tigrex: Monster = {
           name: '前脚',
           mellee: { slash: 30, impact: 30, shot: 25 },
           element: { 火: 0, 水: 10, 雷: 15, 氷: 10, 龍: 10 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '後脚',
-          mellee: { slash: 40, impact: 40, shot: 40 },
-          element: { 火: 0, 水: 5, 雷: 10, 氷: 0, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '尻尾',
-          mellee: { slash: 35, impact: 30, shot: 20 },
-          element: { 火: 0, 水: 5, 雷: 15, 氷: 0, 龍: 15 },
           stun: 0,
           exhaust: 100,
         },

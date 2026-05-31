@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { najaralaQuests } from '../quest/najarala'
 
 export const najarala: Monster = {
@@ -8,6 +10,7 @@ export const najarala: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -62,39 +65,12 @@ export const najarala: Monster = {
     },
     {
       name: '疲れ時',
+
       hitZones: [
-        {
-          name: '頭',
-          mellee: { slash: 85, impact: 80, shot: 75 },
-          element: { 火: 0, 水: 5, 雷: 10, 氷: 15, 龍: 5 },
-          stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '首',
-          mellee: { slash: 40, impact: 40, shot: 45 },
-          element: { 火: 0, 水: 5, 雷: 0, 氷: 5, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '胴体',
-          mellee: { slash: 30, impact: 30, shot: 30 },
-          element: { 火: 10, 水: 20, 雷: 10, 氷: 25, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
         {
           name: '共鳴器官',
           mellee: { slash: 45, impact: 50, shot: 25 },
           element: { 火: 10, 水: 25, 雷: 5, 氷: 30, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '前脚',
-          mellee: { slash: 25, impact: 35, shot: 40 },
-          element: { 火: 10, 水: 5, 雷: 5, 氷: 35, 龍: 5 },
           stun: 0,
           exhaust: 100,
         },

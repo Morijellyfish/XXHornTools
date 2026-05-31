@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { rustrazorHermitaurQuests } from '../quest/rustrazorHermitaur'
 
 export const rustrazorHermitaur: Monster = {
@@ -8,6 +10,7 @@ export const rustrazorHermitaur: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -69,21 +72,8 @@ export const rustrazorHermitaur: Monster = {
     },
     {
       name: '部位破壊後',
+
       hitZones: [
-        {
-          name: '頭',
-          mellee: { slash: 45, impact: 55, shot: 45 },
-          element: { 火: 10, 水: 0, 雷: 20, 氷: 5, 龍: 0 },
-          stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '胴',
-          mellee: { slash: 30, impact: 35, shot: 25 },
-          element: { 火: 5, 水: 0, 雷: 10, 氷: 5, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
         {
           name: 'ヤド',
           mellee: { slash: 30, impact: 35, shot: 25 },
@@ -102,13 +92,6 @@ export const rustrazorHermitaur: Monster = {
           name: '右爪',
           mellee: { slash: 30, impact: 35, shot: 25 },
           element: { 火: 5, 水: 0, 雷: 20, 氷: 5, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '腕',
-          mellee: { slash: 30, impact: 35, shot: 25 },
-          element: { 火: 5, 水: 0, 雷: 10, 氷: 5, 龍: 0 },
           stun: 0,
           exhaust: 100,
         },

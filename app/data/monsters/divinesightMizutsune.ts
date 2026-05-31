@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { divinesightMizutsuneQuests } from '../quest/divinesightMizutsune'
 
 export const divinesightMizutsune: Monster = {
@@ -8,6 +10,7 @@ export const divinesightMizutsune: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭部',
@@ -69,26 +72,13 @@ export const divinesightMizutsune: Monster = {
     },
     {
       name: '怒り時',
+
       hitZones: [
         {
           name: '頭部',
           mellee: { slash: 52, impact: 52, shot: 30 },
           element: { 火: 10, 水: 0, 雷: 15, 氷: 5, 龍: 10 },
           stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '首',
-          mellee: { slash: 43, impact: 43, shot: 25 },
-          element: { 火: 8, 水: 0, 雷: 10, 氷: 5, 龍: 8 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '胴',
-          mellee: { slash: 25, impact: 25, shot: 20 },
-          element: { 火: 5, 水: 0, 雷: 10, 氷: 5, 龍: 5 },
-          stun: 0,
           exhaust: 100,
         },
         {
@@ -113,13 +103,6 @@ export const divinesightMizutsune: Monster = {
           exhaust: 100,
         },
         {
-          name: '後脚',
-          mellee: { slash: 38, impact: 38, shot: 20 },
-          element: { 火: 5, 水: 0, 雷: 10, 氷: 5, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
           name: '尻尾',
           mellee: { slash: 24, impact: 24, shot: 15 },
           element: { 火: 5, 水: 0, 雷: 15, 氷: 5, 龍: 5 },
@@ -130,35 +113,8 @@ export const divinesightMizutsune: Monster = {
     },
     {
       name: '毛づくろい後',
+
       hitZones: [
-        {
-          name: '頭部',
-          mellee: { slash: 50, impact: 50, shot: 25 },
-          element: { 火: 5, 水: 0, 雷: 10, 氷: 5, 龍: 8 },
-          stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '首',
-          mellee: { slash: 43, impact: 43, shot: 25 },
-          element: { 火: 8, 水: 0, 雷: 10, 氷: 5, 龍: 8 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '胴',
-          mellee: { slash: 25, impact: 25, shot: 20 },
-          element: { 火: 5, 水: 0, 雷: 10, 氷: 5, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '背ビレ',
-          mellee: { slash: 43, impact: 43, shot: 45 },
-          element: { 火: 8, 水: 0, 雷: 15, 氷: 5, 龍: 10 },
-          stun: 0,
-          exhaust: 100,
-        },
         {
           name: '左前脚',
           mellee: { slash: 52, impact: 52, shot: 45 },
@@ -170,13 +126,6 @@ export const divinesightMizutsune: Monster = {
           name: '右前脚',
           mellee: { slash: 52, impact: 52, shot: 35 },
           element: { 火: 10, 水: 0, 雷: 25, 氷: 5, 龍: 10 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '後脚',
-          mellee: { slash: 38, impact: 38, shot: 20 },
-          element: { 火: 5, 水: 0, 雷: 10, 氷: 5, 龍: 5 },
           stun: 0,
           exhaust: 100,
         },

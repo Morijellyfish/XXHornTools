@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { valstraxQuests } from '../quest/valstrax'
 
 export const valstrax: Monster = {
@@ -8,6 +10,7 @@ export const valstrax: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭部',
@@ -69,6 +72,7 @@ export const valstrax: Monster = {
     },
     {
       name: '怒り時',
+
       hitZones: [
         {
           name: '頭部',
@@ -88,20 +92,6 @@ export const valstrax: Monster = {
           name: '上半身',
           mellee: { slash: 30, impact: 25, shot: 25 },
           element: { 火: 20, 水: 20, 雷: 20, 氷: 20, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '翼脚',
-          mellee: { slash: 30, impact: 30, shot: 60 },
-          element: { 火: 15, 水: 15, 雷: 15, 氷: 15, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '前脚',
-          mellee: { slash: 25, impact: 24, shot: 25 },
-          element: { 火: 25, 水: 25, 雷: 25, 氷: 25, 龍: 0 },
           stun: 0,
           exhaust: 100,
         },

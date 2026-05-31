@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { savageDeviljhoQuests } from '../quest/savageDeviljho'
 
 export const savageDeviljho: Monster = {
@@ -8,6 +10,7 @@ export const savageDeviljho: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -55,6 +58,7 @@ export const savageDeviljho: Monster = {
     },
     {
       name: '激昂時',
+
       hitZones: [
         {
           name: '頭',
@@ -74,13 +78,6 @@ export const savageDeviljho: Monster = {
           name: '胴体',
           mellee: { slash: 20, impact: 20, shot: 15 },
           element: { 火: 20, 水: 20, 雷: 30, 氷: 20, 龍: 20 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '前脚',
-          mellee: { slash: 25, impact: 25, shot: 30 },
-          element: { 火: 15, 水: 15, 雷: 25, 氷: 15, 龍: 15 },
           stun: 0,
           exhaust: 100,
         },

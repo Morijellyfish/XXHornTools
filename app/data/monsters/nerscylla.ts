@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { nerscyllaQuests } from '../quest/nerscylla'
 
 export const nerscylla: Monster = {
@@ -8,6 +10,7 @@ export const nerscylla: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -62,6 +65,7 @@ export const nerscylla: Monster = {
     },
     {
       name: '皮破壊後',
+
       hitZones: [
         {
           name: '頭',
@@ -90,13 +94,6 @@ export const nerscylla: Monster = {
           element: { 火: 5, 水: 0, 雷: 35, 氷: 5, 龍: 0 },
           stun: 0,
           exhaust: 100,
-        },
-        {
-          name: '爪先端',
-          mellee: { slash: 20, impact: 30, shot: 20 },
-          element: { 火: 5, 水: 0, 雷: 10, 氷: 0, 龍: 0 },
-          stun: 0,
-          exhaust: 200,
         },
         {
           name: '脚',

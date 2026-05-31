@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { brachydiosQuests } from '../quest/brachydios'
 
 export const brachydios: Monster = {
@@ -8,6 +10,7 @@ export const brachydios: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '角',
@@ -62,26 +65,13 @@ export const brachydios: Monster = {
     },
     {
       name: '獰猛時',
+
       hitZones: [
-        {
-          name: '角',
-          mellee: { slash: 20, impact: 24, shot: 15 },
-          element: { 火: 0, 水: 25, 雷: 5, 氷: 20, 龍: 5 },
-          stun: 120,
-          exhaust: 100,
-        },
         {
           name: '頭部',
           mellee: { slash: 84, impact: 78, shot: 60 },
           element: { 火: 0, 水: 24, 雷: 12, 氷: 18, 龍: 6 },
           stun: 120,
-          exhaust: 100,
-        },
-        {
-          name: '上半身',
-          mellee: { slash: 40, impact: 35, shot: 20 },
-          element: { 火: 0, 水: 15, 雷: 0, 氷: 10, 龍: 5 },
-          stun: 0,
           exhaust: 100,
         },
         {
@@ -91,31 +81,9 @@ export const brachydios: Monster = {
           stun: 0,
           exhaust: 100,
         },
-        {
-          name: '後脚',
-          mellee: { slash: 30, impact: 35, shot: 35 },
-          element: { 火: 0, 水: 10, 雷: 5, 氷: 5, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '尻尾',
-          mellee: { slash: 35, impact: 25, shot: 45 },
-          element: { 火: 0, 水: 15, 雷: 5, 氷: 10, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '尻尾先端',
-          mellee: { slash: 20, impact: 10, shot: 10 },
-          element: { 火: 0, 水: 5, 雷: 0, 氷: 5, 龍: 0 },
-          stun: 0,
-          exhaust: 100,
-        },
       ],
     },
   ],
-
   partDurabilities: [
     new PartDurability('頭部', 230, undefined, 345, 345),
     new PartDurability('胴', 190, undefined, 285),

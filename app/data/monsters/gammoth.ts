@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { gammothQuests } from '../quest/gammoth'
 
 export const gammoth: Monster = {
@@ -8,6 +10,7 @@ export const gammoth: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭部',
@@ -69,25 +72,12 @@ export const gammoth: Monster = {
     },
     {
       name: '雪装甲時',
+
       hitZones: [
-        {
-          name: '頭部',
-          mellee: { slash: 55, impact: 60, shot: 40 },
-          element: { 火: 10, 水: 0, 雷: 15, 氷: 0, 龍: 0 },
-          stun: 100,
-          exhaust: 0,
-        },
         {
           name: '鼻',
           mellee: { slash: 55, impact: 50, shot: 40 },
           element: { 火: 15, 水: 5, 雷: 5, 氷: 0, 龍: 0 },
-          stun: 0,
-          exhaust: 0,
-        },
-        {
-          name: '上半身',
-          mellee: { slash: 25, impact: 34, shot: 19 },
-          element: { 火: 5, 水: 0, 雷: 5, 氷: 0, 龍: 0 },
           stun: 0,
           exhaust: 0,
         },

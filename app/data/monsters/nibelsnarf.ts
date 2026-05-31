@@ -1,5 +1,7 @@
 import type { Monster } from '~/types/monster/monster'
+
 import { PartDurability } from '~/types/monster/partDurability'
+
 import { nibelsnarfQuests } from '../quest/nibelsnarf'
 
 export const nibelsnarf: Monster = {
@@ -8,6 +10,7 @@ export const nibelsnarf: Monster = {
   hitZoneVariants: [
     {
       name: '通常時',
+
       hitZones: [
         {
           name: '頭',
@@ -69,33 +72,13 @@ export const nibelsnarf: Monster = {
     },
     {
       name: '釣り上げ時',
+
       hitZones: [
         {
           name: '頭',
           mellee: { slash: 35, impact: 36, shot: 32 },
           element: { 火: 0, 水: 15, 雷: 10, 氷: 15, 龍: 5 },
           stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: '怒り鼻',
-          mellee: { slash: 55, impact: 55, shot: 60 },
-          element: { 火: 0, 水: 10, 雷: 15, 氷: 30, 龍: 5 },
-          stun: 100,
-          exhaust: 100,
-        },
-        {
-          name: 'エラ',
-          mellee: { slash: 60, impact: 60, shot: 65 },
-          element: { 火: 0, 水: 10, 雷: 15, 氷: 15, 龍: 5 },
-          stun: 0,
-          exhaust: 100,
-        },
-        {
-          name: '口内',
-          mellee: { slash: 70, impact: 70, shot: 70 },
-          element: { 火: 0, 水: 10, 雷: 10, 氷: 10, 龍: 5 },
-          stun: 0,
           exhaust: 100,
         },
         {
