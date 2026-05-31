@@ -53,6 +53,7 @@ import { kirin } from './kirin'
 import { kushala } from './kushala'
 import { lagiacrus } from './lagiacrus'
 import { lavasioth } from './lavasioth'
+import { lagombi } from './lagombi'
 import { laoShanLung } from './laoShanLung'
 import { malfestio } from './malfestio'
 import { mizutsune } from './mizutsune'
@@ -139,6 +140,7 @@ export const allMonsters: Monster[] = [
   kirin,
   kushala,
   lagiacrus,
+  lagombi,
   lavasioth,
   laoShanLung,
   malfestio,
