@@ -38,9 +38,11 @@ import { savageDeviljho } from './savageDeviljho'
 import { shagaruMagala } from './shagaruMagala'
 import { shredclawCeanataur } from './shredclawCeanataur'
 import { silverwindNargacuga } from './silverwindNargacuga'
+import { tetsucabra } from './tetsucabra'
 import { teostra } from './teostra'
 import { thunderlordZinogre } from './thunderlordZinogre'
 import { valstrax } from './valstrax'
+import { zamtrios } from './zamtrios'
 
 /** 統合配列（有効属性のビルド時生成はこのファイルのみを読み込む） */
 export const allMonsters: Monster[] = [
@@ -83,7 +85,9 @@ export const allMonsters: Monster[] = [
   shagaruMagala,
   shredclawCeanataur,
   silverwindNargacuga,
+  tetsucabra,
   teostra,
   thunderlordZinogre,
   valstrax,
+  zamtrios,
 ]
