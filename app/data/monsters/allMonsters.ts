@@ -21,6 +21,7 @@ import { congalala } from './congalala'
 import { crystalbeardUragaan } from './crystalbeardUragaan'
 import { deviljho } from './deviljho'
 import { divinesightMizutsune } from './divinesightMizutsune'
+import { daimyoHermitaur } from './daimyoHermitaur'
 import { duramboros } from './duramboros'
 import { gendrome } from './gendrome'
 import { giadrome } from './giadrome'
@@ -63,6 +64,7 @@ import { seltasQueen } from './seltasQueen'
 import { savageDeviljho } from './savageDeviljho'
 import { seregios } from './seregios'
 import { shagaruMagala } from './shagaruMagala'
+import { shogunCeanataur } from './shogunCeanataur'
 import { shredclawCeanataur } from './shredclawCeanataur'
 import { silverRathalos } from './silverRathalos'
 import { silverwindNargacuga } from './silverwindNargacuga'
@@ -132,6 +134,7 @@ export const allMonsters: Monster[] = [
   nibelsnarf,
   deviljho,
   divinesightMizutsune,
+  daimyoHermitaur,
   duramboros,
   ragingBrachydios,
   rajang,
@@ -145,6 +148,7 @@ export const allMonsters: Monster[] = [
   savageDeviljho,
   seregios,
   shagaruMagala,
+  shogunCeanataur,
   shredclawCeanataur,
   silverRathalos,
   silverwindNargacuga,
