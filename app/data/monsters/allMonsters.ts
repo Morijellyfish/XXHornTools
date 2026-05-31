@@ -27,6 +27,7 @@ import { gendrome } from './gendrome'
 import { giadrome } from './giadrome'
 import { glavenus } from './glavenus'
 import { goldRathian } from './goldRathian'
+import { goreMagala } from './goreMagala'
 import { gravios } from './gravios'
 import { greatMaccao } from './greatMaccao'
 import { grimclawTigrex } from './grimclawTigrex'
@@ -50,8 +51,10 @@ import { lagiacrus } from './lagiacrus'
 import { laoShanLung } from './laoShanLung'
 import { malfestio } from './malfestio'
 import { mizutsune } from './mizutsune'
+import { najarala } from './najarala'
 import { nargacuga } from './nargacuga'
 import { nibelsnarf } from './nibelsnarf'
+import { nerscylla } from './nerscylla'
 import { ragingBrachydios } from './ragingBrachydios'
 import { rajang } from './rajang'
 import { rathalos } from './rathalos'
@@ -71,6 +74,7 @@ import { silverwindNargacuga } from './silverwindNargacuga'
 import { tetsucabra } from './tetsucabra'
 import { tigrex } from './tigrex'
 import { teostra } from './teostra'
+import { zinogre } from './zinogre'
 import { thunderlordZinogre } from './thunderlordZinogre'
 import { ukanlos } from './ukanlos'
 import { uragaan } from './uragaan'
@@ -107,6 +111,7 @@ export const allMonsters: Monster[] = [
   giadrome,
   glavenus,
   goldRathian,
+  goreMagala,
   gravios,
   greatMaccao,
   grimclawTigrex,
@@ -130,8 +135,10 @@ export const allMonsters: Monster[] = [
   laoShanLung,
   malfestio,
   mizutsune,
+  najarala,
   nargacuga,
   nibelsnarf,
+  nerscylla,
   deviljho,
   divinesightMizutsune,
   daimyoHermitaur,
@@ -155,6 +162,7 @@ export const allMonsters: Monster[] = [
   tetsucabra,
   tigrex,
   teostra,
+  zinogre,
   thunderlordZinogre,
   ukanlos,
   uragaan,
