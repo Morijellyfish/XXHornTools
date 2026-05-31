@@ -2,6 +2,8 @@ import type { Monster } from '~/types/monster/monster'
 import { alatreon } from './alatreon'
 import { amatsu } from './amatsu'
 import { arzuros } from './arzuros'
+import { atlalKa } from './atlalKa'
+import { atlalThrone } from './atlalThrone'
 import { astalos } from './astalos'
 import { bloodlustDiablos } from './bloodlustDiablos'
 import { azureboltAstalos } from './azureboltAstalos'
@@ -30,6 +32,8 @@ import { ragingBrachydios } from './ragingBrachydios'
 import { rathian } from './rathian'
 import { redhelmArzuros } from './redhelmArzuros'
 import { rustrazorHermitaur } from './rustrazorHermitaur'
+import { seltas } from './seltas'
+import { seltasQueen } from './seltasQueen'
 import { savageDeviljho } from './savageDeviljho'
 import { shagaruMagala } from './shagaruMagala'
 import { shredclawCeanataur } from './shredclawCeanataur'
@@ -43,6 +47,8 @@ export const allMonsters: Monster[] = [
   alatreon,
   amatsu,
   arzuros,
+  atlalKa,
+  atlalThrone,
   astalos,
   bloodlustDiablos,
   azureboltAstalos,
@@ -71,6 +77,8 @@ export const allMonsters: Monster[] = [
   rathian,
   redhelmArzuros,
   rustrazorHermitaur,
+  seltas,
+  seltasQueen,
   savageDeviljho,
   shagaruMagala,
   shredclawCeanataur,
