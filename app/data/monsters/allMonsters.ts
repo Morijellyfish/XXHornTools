@@ -7,10 +7,13 @@ import { atlalKa } from './atlalKa'
 import { atlalThrone } from './atlalThrone'
 import { astalos } from './astalos'
 import { bloodlustDiablos } from './bloodlustDiablos'
+import { blangonga } from './blangonga'
 import { azureboltAstalos } from './azureboltAstalos'
 import { brachydios } from './brachydios'
+import { bulldrome } from './bulldrome'
 import { chameleos } from './chameleos'
 import { chaoticGoreMagala } from './chaoticGoreMagala'
+import { congalala } from './congalala'
 import { crystalbeardUragaan } from './crystalbeardUragaan'
 import { divinesightMizutsune } from './divinesightMizutsune'
 import { glavenus } from './glavenus'
@@ -25,6 +28,7 @@ import { drilltuskTetsucabra } from './drilltuskTetsucabra'
 import { deadeyeYianGaruga } from './deadeyeYianGaruga'
 import { dreadkingRathalos } from './dreadkingRathalos'
 import { dreadqueenRathian } from './dreadqueenRathian'
+import { kechaWacha } from './kechaWacha'
 import { kirin } from './kirin'
 import { kushala } from './kushala'
 import { lagiacrus } from './lagiacrus'
@@ -32,6 +36,7 @@ import { laoShanLung } from './laoShanLung'
 import { mizutsune } from './mizutsune'
 import { nibelsnarf } from './nibelsnarf'
 import { ragingBrachydios } from './ragingBrachydios'
+import { rajang } from './rajang'
 import { rathian } from './rathian'
 import { redhelmArzuros } from './redhelmArzuros'
 import { royalLudroth } from './royalLudroth'
@@ -46,6 +51,7 @@ import { tetsucabra } from './tetsucabra'
 import { teostra } from './teostra'
 import { thunderlordZinogre } from './thunderlordZinogre'
 import { valstrax } from './valstrax'
+import { volvidon } from './volvidon'
 import { zamtrios } from './zamtrios'
 
 /** 統合配列（有効属性のビルド時生成はこのファイルのみを読み込む） */
@@ -58,10 +64,13 @@ export const allMonsters: Monster[] = [
   atlalThrone,
   astalos,
   bloodlustDiablos,
+  blangonga,
   azureboltAstalos,
   brachydios,
+  bulldrome,
   chameleos,
   chaoticGoreMagala,
+  congalala,
   crystalbeardUragaan,
   glavenus,
   grimclawTigrex,
@@ -75,6 +84,7 @@ export const allMonsters: Monster[] = [
   deadeyeYianGaruga,
   dreadkingRathalos,
   dreadqueenRathian,
+  kechaWacha,
   kirin,
   kushala,
   lagiacrus,
@@ -83,6 +93,7 @@ export const allMonsters: Monster[] = [
   nibelsnarf,
   divinesightMizutsune,
   ragingBrachydios,
+  rajang,
   rathian,
   redhelmArzuros,
   royalLudroth,
@@ -97,5 +108,6 @@ export const allMonsters: Monster[] = [
   teostra,
   thunderlordZinogre,
   valstrax,
+  volvidon,
   zamtrios,
 ]
