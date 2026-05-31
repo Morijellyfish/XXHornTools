@@ -24,6 +24,9 @@ import { deviljho } from './deviljho'
 import { divinesightMizutsune } from './divinesightMizutsune'
 import { daimyoHermitaur } from './daimyoHermitaur'
 import { duramboros } from './duramboros'
+import { fatalis } from './fatalis'
+import { crimsonFatalis } from './crimsonFatalis'
+import { whiteFatalis } from './whiteFatalis'
 import { gendrome } from './gendrome'
 import { giadrome } from './giadrome'
 import { glavenus } from './glavenus'
@@ -149,6 +152,9 @@ export const allMonsters: Monster[] = [
   divinesightMizutsune,
   daimyoHermitaur,
   duramboros,
+  fatalis,
+  crimsonFatalis,
+  whiteFatalis,
   ragingBrachydios,
   rajang,
   rathalos,

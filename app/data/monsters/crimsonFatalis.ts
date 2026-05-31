@@ -1,0 +1,143 @@
+import type { Monster } from '~/types/monster/monster'
+import { PartDurability } from '~/types/monster/partDurability'
+import { crimsonFatalisQuests } from '../quest/crimsonFatalis'
+
+export const crimsonFatalis: Monster = {
+  name: 'ミラバルカン',
+  species: '古龍種',
+  hitZoneVariants: [
+    {
+      name: '通常時',
+      hitZones: [
+        {
+          name: '頭',
+          mellee: { slash: 70, impact: 75, shot: 60 },
+          element: { 火: 5, 水: 10, 雷: 5, 氷: 15, 龍: 30 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '首',
+          mellee: { slash: 50, impact: 55, shot: 40 },
+          element: { 火: 5, 水: 10, 雷: 5, 氷: 15, 龍: 25 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '胸',
+          mellee: { slash: 40, impact: 35, shot: 25 },
+          element: { 火: 5, 水: 10, 雷: 5, 氷: 15, 龍: 10 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '背中',
+          mellee: { slash: 30, impact: 25, shot: 20 },
+          element: { 火: 5, 水: 10, 雷: 5, 氷: 15, 龍: 15 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '翼',
+          mellee: { slash: 25, impact: 21, shot: 15 },
+          element: { 火: 5, 水: 10, 雷: 5, 氷: 20, 龍: 15 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '前脚・後脚先端',
+          mellee: { slash: 30, impact: 30, shot: 25 },
+          element: { 火: 5, 水: 10, 雷: 5, 氷: 15, 龍: 10 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '後脚膝上',
+          mellee: { slash: 21, impact: 21, shot: 20 },
+          element: { 火: 5, 水: 10, 雷: 5, 氷: 15, 龍: 15 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾',
+          mellee: { slash: 10, impact: 15, shot: 10 },
+          element: { 火: 5, 水: 10, 雷: 5, 氷: 15, 龍: 20 },
+          stun: 0,
+          exhaust: 100,
+        },
+      ],
+    },
+    {
+      name: '怒り時',
+      hitZones: [
+        {
+          name: '頭',
+          mellee: { slash: 85, impact: 80, shot: 70 },
+          element: { 火: 0, 水: 15, 雷: 5, 氷: 30, 龍: 35 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '首',
+          mellee: { slash: 55, impact: 55, shot: 55 },
+          element: { 火: 0, 水: 10, 雷: 5, 氷: 20, 龍: 25 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '胸',
+          mellee: { slash: 50, impact: 45, shot: 35 },
+          element: { 火: 0, 水: 10, 雷: 5, 氷: 15, 龍: 10 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '背中',
+          mellee: { slash: 30, impact: 25, shot: 20 },
+          element: { 火: 0, 水: 10, 雷: 5, 氷: 15, 龍: 15 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '翼',
+          mellee: { slash: 30, impact: 25, shot: 20 },
+          element: { 火: 0, 水: 15, 雷: 10, 氷: 25, 龍: 15 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '前脚・後脚先端',
+          mellee: { slash: 40, impact: 35, shot: 30 },
+          element: { 火: 0, 水: 10, 雷: 5, 氷: 15, 龍: 10 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '後脚膝上',
+          mellee: { slash: 30, impact: 25, shot: 20 },
+          element: { 火: 0, 水: 10, 雷: 5, 氷: 15, 龍: 15 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾',
+          mellee: { slash: 25, impact: 21, shot: 15 },
+          element: { 火: 0, 水: 10, 雷: 5, 氷: 20, 龍: 25 },
+          stun: 0,
+          exhaust: 100,
+        },
+      ],
+    },
+  ],
+  partDurabilities: [
+    new PartDurability('頭', 500, 96),
+    new PartDurability('首', 400),
+    new PartDurability('翼', 400),
+    new PartDurability('胴', 700, 205),
+    new PartDurability('背', 200),
+    new PartDurability('腕', 450),
+    new PartDurability('脚', 400),
+    new PartDurability('尻尾', 240),
+  ],
+  quests: crimsonFatalisQuests,
+}

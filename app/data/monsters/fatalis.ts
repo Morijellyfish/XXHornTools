@@ -1,0 +1,82 @@
+import type { Monster } from '~/types/monster/monster'
+import { PartDurability } from '~/types/monster/partDurability'
+import { fatalisQuests } from '../quest/fatalis'
+
+export const fatalis: Monster = {
+  name: 'ミラボレアス',
+  species: '古龍種',
+  hitZoneVariants: [
+    {
+      name: '通常時',
+      hitZones: [
+        {
+          name: '頭',
+          mellee: { slash: 70, impact: 75, shot: 65 },
+          element: { 火: 15, 水: 5, 雷: 5, 氷: 10, 龍: 30 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '首',
+          mellee: { slash: 50, impact: 50, shot: 40 },
+          element: { 火: 15, 水: 5, 雷: 5, 氷: 10, 龍: 25 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '胸',
+          mellee: { slash: 45, impact: 40, shot: 25 },
+          element: { 火: 15, 水: 5, 雷: 5, 氷: 10, 龍: 10 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '背中',
+          mellee: { slash: 30, impact: 25, shot: 20 },
+          element: { 火: 15, 水: 5, 雷: 5, 氷: 10, 龍: 15 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '翼',
+          mellee: { slash: 35, impact: 21, shot: 15 },
+          element: { 火: 10, 水: 5, 雷: 5, 氷: 10, 龍: 15 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '前脚・後脚先端',
+          mellee: { slash: 30, impact: 30, shot: 25 },
+          element: { 火: 15, 水: 5, 雷: 5, 氷: 10, 龍: 10 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '後脚膝上',
+          mellee: { slash: 21, impact: 21, shot: 20 },
+          element: { 火: 15, 水: 5, 雷: 5, 氷: 10, 龍: 15 },
+          stun: 0,
+          exhaust: 100,
+        },
+        {
+          name: '尻尾',
+          mellee: { slash: 10, impact: 15, shot: 10 },
+          element: { 火: 15, 水: 5, 雷: 5, 氷: 10, 龍: 20 },
+          stun: 0,
+          exhaust: 100,
+        },
+      ],
+    },
+  ],
+  partDurabilities: [
+    new PartDurability('頭', 500, 190),
+    new PartDurability('首', 400),
+    new PartDurability('翼', 360),
+    new PartDurability('胴', 700, 220),
+    new PartDurability('背', 200),
+    new PartDurability('腕', 400),
+    new PartDurability('脚', 360),
+    new PartDurability('尻尾', 240),
+  ],
+  quests: fatalisQuests,
+}
