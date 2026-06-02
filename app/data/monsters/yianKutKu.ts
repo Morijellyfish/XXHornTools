@@ -5,6 +5,9 @@ import { yianKutKuQuests } from '../quest/yianKutKu'
 export const yianKutKu: Monster = {
   name: 'イャンクック',
   species: '鳥竜種',
+  roar: { has: false },
+  windPressure: { has: true, strength: '小' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

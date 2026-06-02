@@ -7,6 +7,9 @@ import { malfestioQuests } from '../quest/malfestio'
 export const malfestio: Monster = {
   name: 'ホロロホルル',
   species: '鳥竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '小' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

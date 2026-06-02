@@ -7,6 +7,9 @@ import { goldRathianQuests } from '../quest/goldRathian'
 export const goldRathian: Monster = {
   name: 'リオレイア希少種',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

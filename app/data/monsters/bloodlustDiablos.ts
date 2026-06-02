@@ -7,6 +7,9 @@ import { bloodlustDiablosQuests } from '../quest/bloodlustDiablos'
 export const bloodlustDiablos: Monster = {
   name: '鏖魔ディアブロス',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

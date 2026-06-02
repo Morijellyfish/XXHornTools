@@ -7,6 +7,9 @@ import { gypcerosQuests } from '../quest/gypceros'
 export const gypceros: Monster = {
   name: 'ゲリョス',
   species: '鳥竜種',
+  roar: { has: false },
+  windPressure: { has: true, strength: '小' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

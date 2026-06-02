@@ -7,6 +7,9 @@ import { plesiothQuests } from '../quest/plesioth'
 export const plesioth: Monster = {
   name: 'ガノトトス',
   species: '魚竜種',
+  roar: { has: false },
+  windPressure: { has: true, strength: '小' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

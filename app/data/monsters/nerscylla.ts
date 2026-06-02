@@ -7,6 +7,9 @@ import { nerscyllaQuests } from '../quest/nerscylla'
 export const nerscylla: Monster = {
   name: 'ネルスキュラ',
   species: '鋏角種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

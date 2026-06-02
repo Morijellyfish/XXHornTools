@@ -7,6 +7,9 @@ import { valstraxQuests } from '../quest/valstrax'
 export const valstrax: Monster = {
   name: 'バルファルク',
   species: '古龍種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '龍' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

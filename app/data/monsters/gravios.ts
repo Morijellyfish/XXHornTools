@@ -7,6 +7,9 @@ import { graviosQuests } from '../quest/gravios'
 export const gravios: Monster = {
   name: 'グラビモス',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

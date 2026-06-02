@@ -7,6 +7,9 @@ import { seltasQueenQuests } from '../quest/seltasQueen'
 export const seltasQueen: Monster = {
   name: 'ゲネル・セルタス',
   species: '甲虫種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

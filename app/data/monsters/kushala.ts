@@ -5,6 +5,9 @@ import { kushalaQuests } from '../quest/kushala'
 export const kushala: Monster = {
   name: 'クシャルダオラ',
   species: '古龍種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '龍' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

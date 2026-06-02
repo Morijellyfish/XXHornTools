@@ -7,6 +7,9 @@ import { thunderlordZinogreQuests } from '../quest/thunderlordZinogre'
 export const thunderlordZinogre: Monster = {
   name: '金雷公ジンオウガ',
   species: '牙竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

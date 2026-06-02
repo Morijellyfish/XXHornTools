@@ -7,6 +7,9 @@ import { rathianQuests } from '../quest/rathian'
 export const rathian: Monster = {
   name: 'リオレイア',
   species: '飛竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

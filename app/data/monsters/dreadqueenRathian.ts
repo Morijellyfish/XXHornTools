@@ -7,6 +7,9 @@ import { dreadqueenRathianQuests } from '../quest/dreadqueenRathian'
 export const dreadqueenRathian: Monster = {
   name: '紫毒姫リオレイア',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

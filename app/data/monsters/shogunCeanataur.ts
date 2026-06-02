@@ -7,6 +7,9 @@ import { shogunCeanataurQuests } from '../quest/shogunCeanataur'
 export const shogunCeanataur: Monster = {
   name: 'ショウグンギザミ',
   species: '甲殻種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

@@ -7,6 +7,9 @@ import { kechaWachaQuests } from '../quest/kechaWacha'
 export const kechaWacha: Monster = {
   name: 'ケチャワチャ',
   species: '牙獣種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '小' },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

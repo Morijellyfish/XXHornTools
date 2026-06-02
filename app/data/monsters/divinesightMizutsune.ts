@@ -7,6 +7,9 @@ import { divinesightMizutsuneQuests } from '../quest/divinesightMizutsune'
 export const divinesightMizutsune: Monster = {
   name: '天眼タマミツネ',
   species: '海竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

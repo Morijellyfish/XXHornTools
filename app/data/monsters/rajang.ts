@@ -7,6 +7,9 @@ import { rajangQuests } from '../quest/rajang'
 export const rajang: Monster = {
   name: 'ラージャン',
   species: '牙獣種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

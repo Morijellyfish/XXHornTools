@@ -5,6 +5,9 @@ import { cephadromeQuests } from '../quest/cephadrome'
 export const cephadrome: Monster = {
   name: 'ドスガレオス',
   species: '魚竜種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

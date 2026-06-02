@@ -5,6 +5,9 @@ import { velocidromeQuests } from '../quest/velocidrome'
 export const velocidrome: Monster = {
   name: 'ドスランポス',
   species: '鳥竜種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

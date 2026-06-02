@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { getMonster, monsterEffectiveElementsByName } from '~/data/monsters'
-import { formatMonsterEffectIntensity } from '~/types/monster/monsterOverview'
+import {
+  effectDisplayCellClass,
+  formatRoarOrWindPressure,
+  formatTremor,
+} from '~/types/monster/monsterOverview'
 
 const route = useRoute()
 const name = route.params.name as string
@@ -32,9 +36,9 @@ const overviewItems = monster
       { label: '種族', value: monster.species },
       { label: '弱点属性', value: formatList(monsterEffectiveElementsByName[monster.name] ?? []) },
       { label: '弱点', value: formatList(getWeakHitZonePartNames()) },
-      { label: '咆哮', value: formatMonsterEffectIntensity(monster.roar) },
-      { label: '風圧', value: formatMonsterEffectIntensity(monster.windPressure) },
-      { label: '振動', value: formatMonsterEffectIntensity(monster.tremor) },
+      { label: '咆哮', value: formatRoarOrWindPressure(monster.roar) },
+      { label: '風圧', value: formatRoarOrWindPressure(monster.windPressure) },
+      { label: '振動', value: formatTremor(monster.tremor) },
     ]
   : []
 
@@ -63,7 +67,16 @@ useSeoMeta({
                   class="flex items-center justify-between gap-4 p-3"
                 >
                   <dt class="mp-muted whitespace-nowrap">{{ item.label }}</dt>
-                  <dd class="text-right mp-text">{{ item.value }}</dd>
+                  <dd
+                    class="text-right"
+                    :class="
+                      ['咆哮', '風圧', '振動'].includes(item.label)
+                        ? effectDisplayCellClass(item.value)
+                        : 'mp-text'
+                    "
+                  >
+                    {{ item.value }}
+                  </dd>
                 </div>
               </dl>
             </div>

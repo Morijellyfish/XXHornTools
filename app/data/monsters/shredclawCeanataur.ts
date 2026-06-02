@@ -7,6 +7,9 @@ import { shredclawCeanataurQuests } from '../quest/shredclawCeanataur'
 export const shredclawCeanataur: Monster = {
   name: '鎧裂ショウグンギザミ',
   species: '甲殻種',
+  roar: { has: false },
+  windPressure: { has: true, strength: '小' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

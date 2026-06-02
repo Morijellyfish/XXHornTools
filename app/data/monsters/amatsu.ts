@@ -7,6 +7,9 @@ import { amatsuQuests } from '../quest/amatsu'
 export const amatsu: Monster = {
   name: 'アマツマガツチ',
   species: '古龍種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

@@ -7,6 +7,9 @@ import { ragingBrachydiosQuests } from '../quest/ragingBrachydios'
 export const ragingBrachydios: Monster = {
   name: '猛り爆ぜるブラキディオス',
   species: '獣竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

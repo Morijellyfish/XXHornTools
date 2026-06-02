@@ -5,6 +5,9 @@ import { alatreonQuests } from '../quest/alatreon'
 export const alatreon: Monster = {
   name: 'アルバトリオン',
   species: '古龍種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '赤黒時',

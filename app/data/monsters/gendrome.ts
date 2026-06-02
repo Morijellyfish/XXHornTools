@@ -5,6 +5,9 @@ import { gendromeQuests } from '../quest/gendrome'
 export const gendrome: Monster = {
   name: 'ドスゲネポス',
   species: '鳥竜種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

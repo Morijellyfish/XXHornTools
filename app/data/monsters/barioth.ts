@@ -7,6 +7,9 @@ import { bariothQuests } from '../quest/barioth'
 export const barioth: Monster = {
   name: 'ベリオロス',
   species: '飛竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

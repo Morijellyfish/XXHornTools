@@ -5,6 +5,9 @@ import { fatalisQuests } from '../quest/fatalis'
 export const fatalis: Monster = {
   name: 'ミラボレアス',
   species: '古龍種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

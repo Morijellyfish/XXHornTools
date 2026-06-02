@@ -7,6 +7,9 @@ import { laoShanLungQuests } from '../quest/laoShanLung'
 export const laoShanLung: Monster = {
   name: 'ラオシャンロン',
   species: '古龍種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

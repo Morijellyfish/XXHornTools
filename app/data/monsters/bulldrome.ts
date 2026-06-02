@@ -5,6 +5,9 @@ import { bulldromeQuests } from '../quest/bulldrome'
 export const bulldrome: Monster = {
   name: 'ドスファンゴ',
   species: '牙獣種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

@@ -5,6 +5,9 @@ import { ukanlosQuests } from '../quest/ukanlos'
 export const ukanlos: Monster = {
   name: 'ウカムルバス',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

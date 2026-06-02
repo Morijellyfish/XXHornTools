@@ -5,6 +5,9 @@ import { mizutsuneQuests } from '../quest/mizutsune'
 export const mizutsune: Monster = {
   name: 'タマミツネ',
   species: '海竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

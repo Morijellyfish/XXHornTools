@@ -7,6 +7,9 @@ import { najaralaQuests } from '../quest/najarala'
 export const najarala: Monster = {
   name: 'ガララアジャラ',
   species: '蛇竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

@@ -7,6 +7,9 @@ import { zinogreQuests } from '../quest/zinogre'
 export const zinogre: Monster = {
   name: 'ジンオウガ',
   species: '牙竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

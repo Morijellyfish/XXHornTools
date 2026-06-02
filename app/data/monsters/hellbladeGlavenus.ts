@@ -7,6 +7,9 @@ import { hellbladeGlavenusQuests } from '../quest/hellbladeGlavenus'
 export const hellbladeGlavenus: Monster = {
   name: '燼滅刃ディノバルド',
   species: '獣竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

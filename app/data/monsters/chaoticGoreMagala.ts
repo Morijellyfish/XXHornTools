@@ -7,6 +7,9 @@ import { chaoticGoreMagalaQuests } from '../quest/chaoticGoreMagala'
 export const chaoticGoreMagala: Monster = {
   name: '渾沌に呻くゴア・マガラ',
   species: '未確認',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

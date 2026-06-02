@@ -5,6 +5,9 @@ import { volvidonQuests } from '../quest/volvidon'
 export const volvidon: Monster = {
   name: 'ラングロトラ',
   species: '牙獣種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

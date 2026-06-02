@@ -7,6 +7,9 @@ import { atlalThroneQuests } from '../quest/atlalThrone'
 export const atlalThrone: Monster = {
   name: 'アトラル・ネセト',
   species: '甲虫種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

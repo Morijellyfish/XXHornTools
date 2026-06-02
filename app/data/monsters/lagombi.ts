@@ -5,6 +5,9 @@ import { lagombiQuests } from '../quest/lagombi'
 export const lagombi: Monster = {
   name: 'ウルクスス',
   species: '牙獣種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

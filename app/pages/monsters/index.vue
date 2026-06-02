@@ -3,7 +3,11 @@ import { computed, ref } from 'vue'
 import { allMonsters, monsterEffectiveElementsByName } from '~/data/monsters'
 import type { ElementType } from '~/types/attackType'
 import type { Monster } from '~/types/monster/monster'
-import { formatMonsterEffectIntensity } from '~/types/monster/monsterOverview'
+import {
+  effectDisplayCellClass,
+  formatRoarOrWindPressure,
+  formatTremor,
+} from '~/types/monster/monsterOverview'
 import { MONSTER_TAXONOMIES } from '~/types/monster/monsterTaxonomy'
 
 useSeoMeta({
@@ -60,13 +64,12 @@ function toggleWeakElement(element: ElementType): void {
     : [...selectedWeakElements.value, element]
 }
 
-function effectIntensityLine(m: Monster, key: 'roar' | 'windPressure' | 'tremor'): string {
-  return formatMonsterEffectIntensity(m[key])
+function roarWindLine(m: Monster, key: 'roar' | 'windPressure'): string {
+  return formatRoarOrWindPressure(m[key])
 }
 
-function effectIntensityRowMissing(m: Monster, key: 'roar' | 'windPressure' | 'tremor'): boolean {
-  const line = formatMonsterEffectIntensity(m[key])
-  return line === '未定義'
+function tremorLine(m: Monster): string {
+  return formatTremor(m.tremor)
 }
 
 function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boolean } {
@@ -180,21 +183,21 @@ function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boole
                     </td>
                     <td
                       class="p-2 truncate whitespace-nowrap"
-                      :class="missingHighlightClass(!effectIntensityRowMissing(m, 'roar'))"
+                      :class="effectDisplayCellClass(roarWindLine(m, 'roar'))"
                     >
-                      {{ effectIntensityLine(m, 'roar') }}
+                      {{ roarWindLine(m, 'roar') }}
                     </td>
                     <td
                       class="p-2 truncate whitespace-nowrap"
-                      :class="missingHighlightClass(!effectIntensityRowMissing(m, 'windPressure'))"
+                      :class="effectDisplayCellClass(roarWindLine(m, 'windPressure'))"
                     >
-                      {{ effectIntensityLine(m, 'windPressure') }}
+                      {{ roarWindLine(m, 'windPressure') }}
                     </td>
                     <td
                       class="p-2 truncate whitespace-nowrap"
-                      :class="missingHighlightClass(!effectIntensityRowMissing(m, 'tremor'))"
+                      :class="effectDisplayCellClass(tremorLine(m))"
                     >
-                      {{ effectIntensityLine(m, 'tremor') }}
+                      {{ tremorLine(m) }}
                     </td>
                   </tr>
                 </tbody>

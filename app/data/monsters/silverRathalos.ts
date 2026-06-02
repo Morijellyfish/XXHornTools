@@ -7,6 +7,9 @@ import { silverRathalosQuests } from '../quest/silverRathalos'
 export const silverRathalos: Monster = {
   name: 'リオレウス希少種',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

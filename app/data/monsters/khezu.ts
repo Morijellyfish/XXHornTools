@@ -7,6 +7,9 @@ import { khezuQuests } from '../quest/khezu'
 export const khezu: Monster = {
   name: 'フルフル',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

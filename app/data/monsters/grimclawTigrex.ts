@@ -7,6 +7,9 @@ import { grimclawTigrexQuests } from '../quest/grimclawTigrex'
 export const grimclawTigrex: Monster = {
   name: '荒鉤爪ティガレックス',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

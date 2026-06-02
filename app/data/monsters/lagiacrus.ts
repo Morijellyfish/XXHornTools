@@ -5,6 +5,9 @@ import { lagiacrusQuests } from '../quest/lagiacrus'
 export const lagiacrus: Monster = {
   name: 'ラギアクルス',
   species: '海竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

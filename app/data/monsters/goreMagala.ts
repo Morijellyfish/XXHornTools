@@ -7,6 +7,9 @@ import { goreMagalaQuests } from '../quest/goreMagala'
 export const goreMagala: Monster = {
   name: 'ゴア・マガラ',
   species: '未確認',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

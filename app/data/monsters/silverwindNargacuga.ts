@@ -7,6 +7,9 @@ import { silverwindNargacugaQuests } from '../quest/silverwindNargacuga'
 export const silverwindNargacuga: Monster = {
   name: '白疾風ナルガクルガ',
   species: '飛竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

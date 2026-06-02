@@ -5,6 +5,9 @@ import { deviljhoQuests } from '../quest/deviljho'
 export const deviljho: Monster = {
   name: 'イビルジョー',
   species: '獣竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

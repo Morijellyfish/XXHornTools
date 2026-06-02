@@ -7,6 +7,9 @@ import { dreadkingRathalosQuests } from '../quest/dreadkingRathalos'
 export const dreadkingRathalos: Monster = {
   name: '黒炎王リオレウス',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

@@ -5,6 +5,9 @@ import { lavasiothQuests } from '../quest/lavasioth'
 export const lavasioth: Monster = {
   name: 'ヴォルガノス',
   species: '魚竜種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

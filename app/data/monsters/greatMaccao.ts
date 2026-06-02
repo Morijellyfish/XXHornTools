@@ -5,6 +5,9 @@ import { greatMaccaoQuests } from '../quest/greatMaccao'
 export const greatMaccao: Monster = {
   name: 'ドスマッカォ',
   species: '鳥竜種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

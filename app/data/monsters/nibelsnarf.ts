@@ -7,6 +7,9 @@ import { nibelsnarfQuests } from '../quest/nibelsnarf'
 export const nibelsnarf: Monster = {
   name: 'ハプルボッカ',
   species: '海竜種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

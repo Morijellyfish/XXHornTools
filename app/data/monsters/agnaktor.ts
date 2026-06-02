@@ -5,6 +5,9 @@ import { agnaktorQuests } from '../quest/agnaktor'
 export const agnaktor: Monster = {
   name: 'アグナコトル',
   species: '海竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

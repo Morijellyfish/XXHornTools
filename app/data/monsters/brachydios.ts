@@ -7,6 +7,9 @@ import { brachydiosQuests } from '../quest/brachydios'
 export const brachydios: Monster = {
   name: 'ブラキディオス',
   species: '獣竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

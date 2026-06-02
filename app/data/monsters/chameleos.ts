@@ -5,6 +5,9 @@ import { chameleosQuests } from '../quest/chameleos'
 export const chameleos: Monster = {
   name: 'オオナズチ',
   species: '古龍種',
+  roar: { has: false },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

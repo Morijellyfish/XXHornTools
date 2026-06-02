@@ -7,6 +7,9 @@ import { tigrexQuests } from '../quest/tigrex'
 export const tigrex: Monster = {
   name: 'ティガレックス',
   species: '飛竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

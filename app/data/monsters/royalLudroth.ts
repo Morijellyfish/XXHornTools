@@ -7,6 +7,9 @@ import { royalLudrothQuests } from '../quest/royalLudroth'
 export const royalLudroth: Monster = {
   name: 'ロアルドロス',
   species: '海竜種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

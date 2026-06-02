@@ -7,6 +7,9 @@ import { tetsucabraQuests } from '../quest/tetsucabra'
 export const tetsucabra: Monster = {
   name: 'テツカブラ',
   species: '両生種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

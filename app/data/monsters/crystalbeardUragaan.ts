@@ -7,6 +7,9 @@ import { crystalbeardUragaanQuests } from '../quest/crystalbeardUragaan'
 export const crystalbeardUragaan: Monster = {
   name: '宝纏ウラガンキン',
   species: '獣竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

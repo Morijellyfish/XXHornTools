@@ -5,6 +5,9 @@ import { kirinQuests } from '../quest/kirin'
 export const kirin: Monster = {
   name: 'キリン',
   species: '古龍種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

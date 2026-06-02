@@ -7,6 +7,9 @@ import { savageDeviljhoQuests } from '../quest/savageDeviljho'
 export const savageDeviljho: Monster = {
   name: '怒り喰らうイビルジョー',
   species: '獣竜種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

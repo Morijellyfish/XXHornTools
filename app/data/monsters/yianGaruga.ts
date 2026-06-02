@@ -7,6 +7,9 @@ import { yianGarugaQuests } from '../quest/yianGaruga'
 export const yianGaruga: Monster = {
   name: 'イャンガルルガ',
   species: '鳥竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

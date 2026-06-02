@@ -5,6 +5,9 @@ import { giadromeQuests } from '../quest/giadrome'
 export const giadrome: Monster = {
   name: 'ドスギアノス',
   species: '魚竜種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

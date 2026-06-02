@@ -5,6 +5,9 @@ import { seltasQuests } from '../quest/seltas'
 export const seltas: Monster = {
   name: 'アルセルタス',
   species: '甲虫種',
+  roar: { has: false },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

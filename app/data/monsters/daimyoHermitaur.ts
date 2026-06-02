@@ -7,6 +7,9 @@ import { daimyoHermitaurQuests } from '../quest/daimyoHermitaur'
 export const daimyoHermitaur: Monster = {
   name: 'ダイミョウザザミ',
   species: '甲殻種',
+  roar: { has: false },
+  windPressure: { has: true, strength: '小' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

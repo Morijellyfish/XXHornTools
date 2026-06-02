@@ -7,6 +7,9 @@ import { gammothQuests } from '../quest/gammoth'
 export const gammoth: Monster = {
   name: 'ガムート',
   species: '牙獣種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '大' },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

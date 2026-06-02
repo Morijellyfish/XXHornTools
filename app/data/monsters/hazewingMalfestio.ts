@@ -5,6 +5,9 @@ import { hazewingMalfestioQuests } from '../quest/hazewingMalfestio'
 export const hazewingMalfestio: Monster = {
   name: '朧隠ホロロホルル',
   species: '鳥竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: true, strength: '小' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

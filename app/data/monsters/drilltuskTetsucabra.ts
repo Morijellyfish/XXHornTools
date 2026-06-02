@@ -7,6 +7,9 @@ import { drilltuskTetsucabraQuests } from '../quest/drilltuskTetsucabra'
 export const drilltuskTetsucabra: Monster = {
   name: '岩穿テツカブラ',
   species: '両生種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

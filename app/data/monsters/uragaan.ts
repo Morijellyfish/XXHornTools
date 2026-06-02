@@ -7,6 +7,9 @@ import { uragaanQuests } from '../quest/uragaan'
 export const uragaan: Monster = {
   name: 'ウラガンキン',
   species: '獣竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

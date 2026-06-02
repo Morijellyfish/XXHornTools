@@ -5,6 +5,9 @@ import { congalalaQuests } from '../quest/congalala'
 export const congalala: Monster = {
   name: 'ババコンガ',
   species: '牙獣種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

@@ -5,6 +5,9 @@ import { atlalKaQuests } from '../quest/atlalKa'
 export const atlalKa: Monster = {
   name: 'アトラル・カ',
   species: '甲虫種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

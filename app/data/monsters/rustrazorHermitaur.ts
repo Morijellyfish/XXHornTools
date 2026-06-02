@@ -7,6 +7,9 @@ import { rustrazorHermitaurQuests } from '../quest/rustrazorHermitaur'
 export const rustrazorHermitaur: Monster = {
   name: '矛砕ダイミョウザザミ',
   species: '甲殻種',
+  roar: { has: false },
+  windPressure: { has: true, strength: '大' },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

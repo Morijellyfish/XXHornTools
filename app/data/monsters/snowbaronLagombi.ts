@@ -5,6 +5,9 @@ import { snowbaronLagombiQuests } from '../quest/snowbaronLagombi'
 export const snowbaronLagombi: Monster = {
   name: '大雪主ウルクスス',
   species: '牙獣種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: true,
   hitZoneVariants: [
     {
       name: '通常時',

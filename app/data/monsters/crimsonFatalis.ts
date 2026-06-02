@@ -5,6 +5,9 @@ import { crimsonFatalisQuests } from '../quest/crimsonFatalis'
 export const crimsonFatalis: Monster = {
   name: 'ミラバルカン',
   species: '古龍種',
+  roar: { has: true, strength: '大' },
+  windPressure: { has: true, strength: '大' },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',

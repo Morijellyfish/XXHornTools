@@ -5,6 +5,9 @@ import { barrothQuests } from '../quest/barroth'
 export const barroth: Monster = {
   name: 'ボルボロス',
   species: '獣竜種',
+  roar: { has: true, strength: '小' },
+  windPressure: { has: false },
+  tremor: false,
   hitZoneVariants: [
     {
       name: '通常時',
