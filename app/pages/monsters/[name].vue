@@ -77,6 +77,8 @@ useSeoMeta({
           :key="variant.name"
           :variant="variant"
         />
+
+        <MonsterQuestTable :quests="monster.quests" />
       </div>
     </section>
 
