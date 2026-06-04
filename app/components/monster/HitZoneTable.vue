@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ElementType, MelleeType } from '~/types/attackType'
 import type { HitZoneVariant } from '~/types/monster/hitZone'
 
-defineProps<{
+const props = defineProps<{
   variant: HitZoneVariant
 }>()
 
@@ -15,6 +16,23 @@ function isWeakMellee(value: number): boolean {
 function isWeakElement(value: number): boolean {
   return value >= ELEMENT_THRESHOLD
 }
+
+function hasMelleeWeakness(type: MelleeType): boolean {
+  return props.variant.hitZones.some(hz => hz.mellee[type] >= MELLEE_THRESHOLD)
+}
+
+function isElementAllZero(element: ElementType): boolean {
+  return props.variant.hitZones.every(hz => hz.element[element] === 0)
+}
+
+function warningHeaderClass(warn: boolean): string {
+  return warn ? 'text-yellow-300 font-semibold' : ''
+}
+
+function hitZoneValueClass(value: number, weak = false): string {
+  if (value === 0) return 'text-white/25'
+  return weak ? 'text-orange-400 font-semibold' : ''
+}
 </script>
 
 <template>
@@ -26,14 +44,54 @@ function isWeakElement(value: number): boolean {
           <thead>
             <tr>
               <th class="text-left p-2 whitespace-nowrap">部位</th>
-              <th class="text-right p-2 whitespace-nowrap">切</th>
-              <th class="text-right p-2 whitespace-nowrap">打</th>
-              <th class="text-right p-2 whitespace-nowrap">弾</th>
-              <th class="text-right p-2 whitespace-nowrap">火</th>
-              <th class="text-right p-2 whitespace-nowrap">水</th>
-              <th class="text-right p-2 whitespace-nowrap">雷</th>
-              <th class="text-right p-2 whitespace-nowrap">氷</th>
-              <th class="text-right p-2 whitespace-nowrap">龍</th>
+              <th
+                class="text-right p-2 whitespace-nowrap"
+                :class="warningHeaderClass(!hasMelleeWeakness('slash'))"
+              >
+                切
+              </th>
+              <th
+                class="text-right p-2 whitespace-nowrap"
+                :class="warningHeaderClass(!hasMelleeWeakness('impact'))"
+              >
+                打
+              </th>
+              <th
+                class="text-right p-2 whitespace-nowrap"
+                :class="warningHeaderClass(!hasMelleeWeakness('shot'))"
+              >
+                弾
+              </th>
+              <th
+                class="text-right p-2 whitespace-nowrap"
+                :class="warningHeaderClass(isElementAllZero('火'))"
+              >
+                火
+              </th>
+              <th
+                class="text-right p-2 whitespace-nowrap"
+                :class="warningHeaderClass(isElementAllZero('水'))"
+              >
+                水
+              </th>
+              <th
+                class="text-right p-2 whitespace-nowrap"
+                :class="warningHeaderClass(isElementAllZero('雷'))"
+              >
+                雷
+              </th>
+              <th
+                class="text-right p-2 whitespace-nowrap"
+                :class="warningHeaderClass(isElementAllZero('氷'))"
+              >
+                氷
+              </th>
+              <th
+                class="text-right p-2 whitespace-nowrap"
+                :class="warningHeaderClass(isElementAllZero('龍'))"
+              >
+                龍
+              </th>
               <th class="text-right p-2 whitespace-nowrap">気絶</th>
               <th class="text-right p-2 whitespace-nowrap">減</th>
             </tr>
@@ -43,54 +101,58 @@ function isWeakElement(value: number): boolean {
               <td class="p-2 whitespace-nowrap">{{ hz.name }}</td>
               <td
                 class="text-right p-2 tabular-nums"
-                :class="{ 'text-orange-400 font-semibold': isWeakMellee(hz.mellee.slash) }"
+                :class="hitZoneValueClass(hz.mellee.slash, isWeakMellee(hz.mellee.slash))"
               >
                 {{ hz.mellee.slash }}
               </td>
               <td
                 class="text-right p-2 tabular-nums"
-                :class="{ 'text-orange-400 font-semibold': isWeakMellee(hz.mellee.impact) }"
+                :class="hitZoneValueClass(hz.mellee.impact, isWeakMellee(hz.mellee.impact))"
               >
                 {{ hz.mellee.impact }}
               </td>
               <td
                 class="text-right p-2 tabular-nums"
-                :class="{ 'text-orange-400 font-semibold': isWeakMellee(hz.mellee.shot) }"
+                :class="hitZoneValueClass(hz.mellee.shot, isWeakMellee(hz.mellee.shot))"
               >
                 {{ hz.mellee.shot }}
               </td>
               <td
                 class="text-right p-2 tabular-nums"
-                :class="{ 'text-orange-400 font-semibold': isWeakElement(hz.element.火) }"
+                :class="hitZoneValueClass(hz.element.火, isWeakElement(hz.element.火))"
               >
                 {{ hz.element.火 }}
               </td>
               <td
                 class="text-right p-2 tabular-nums"
-                :class="{ 'text-orange-400 font-semibold': isWeakElement(hz.element.水) }"
+                :class="hitZoneValueClass(hz.element.水, isWeakElement(hz.element.水))"
               >
                 {{ hz.element.水 }}
               </td>
               <td
                 class="text-right p-2 tabular-nums"
-                :class="{ 'text-orange-400 font-semibold': isWeakElement(hz.element.雷) }"
+                :class="hitZoneValueClass(hz.element.雷, isWeakElement(hz.element.雷))"
               >
                 {{ hz.element.雷 }}
               </td>
               <td
                 class="text-right p-2 tabular-nums"
-                :class="{ 'text-orange-400 font-semibold': isWeakElement(hz.element.氷) }"
+                :class="hitZoneValueClass(hz.element.氷, isWeakElement(hz.element.氷))"
               >
                 {{ hz.element.氷 }}
               </td>
               <td
                 class="text-right p-2 tabular-nums"
-                :class="{ 'text-orange-400 font-semibold': isWeakElement(hz.element.龍) }"
+                :class="hitZoneValueClass(hz.element.龍, isWeakElement(hz.element.龍))"
               >
                 {{ hz.element.龍 }}
               </td>
-              <td class="text-right p-2 tabular-nums">{{ hz.stun }}</td>
-              <td class="text-right p-2 tabular-nums">{{ hz.exhaust }}</td>
+              <td class="text-right p-2 tabular-nums" :class="hitZoneValueClass(hz.stun)">
+                {{ hz.stun }}
+              </td>
+              <td class="text-right p-2 tabular-nums" :class="hitZoneValueClass(hz.exhaust)">
+                {{ hz.exhaust }}
+              </td>
             </tr>
           </tbody>
         </table>

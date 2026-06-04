@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { allMonsters, monsterEffectiveElementsByName } from '~/data/monsters'
-import type { ElementType } from '~/types/attackType'
+import {
+  allMonsters,
+  monsterEffectiveElementsByName,
+  monsterMissingMelleeWeaknessesByName,
+} from '~/data/monsters'
+import type { ElementType, MelleeType } from '~/types/attackType'
 import type { Monster } from '~/types/monster/monster'
 import {
   effectDisplayCellClass,
@@ -78,6 +82,15 @@ function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boole
     text: list.length === 0 ? 'なし' : list.join('、'),
     defined: list.length > 0,
   }
+}
+
+function missingMelleeWeaknessLabels(m: Monster): string[] {
+  const labelByType: Record<MelleeType, string> = {
+    slash: '斬弱点なし',
+    impact: '打弱点なし',
+    shot: '弾弱点なし',
+  }
+  return [...(monsterMissingMelleeWeaknessesByName[m.name] ?? [])].map(type => labelByType[type])
 }
 </script>
 
@@ -168,12 +181,23 @@ function monsterEffectiveElementsRow(m: Monster): { text: string; defined: boole
                 <tbody>
                   <tr v-for="m in group.monsters" :key="m.name">
                     <td class="p-2 whitespace-nowrap font-medium">
-                      <NuxtLink
-                        :to="`/monsters/${m.name}`"
-                        class="block truncate mp-text hover:text-white transition-colors"
-                      >
-                        {{ m.name }}
-                      </NuxtLink>
+                      <div class="flex min-w-0 items-center gap-2">
+                        <NuxtLink
+                          :to="`/monsters/${m.name}`"
+                          class="min-w-0 truncate mp-text hover:text-white transition-colors"
+                        >
+                          {{ m.name }}
+                        </NuxtLink>
+                        <div class="ml-auto flex shrink-0 items-center justify-end gap-1">
+                          <span
+                            v-for="label in missingMelleeWeaknessLabels(m)"
+                            :key="label"
+                            class="rounded border border-amber-300/30 px-1.5 py-0.5 text-[0.7rem] leading-none text-amber-200/90"
+                          >
+                            {{ label }}
+                          </span>
+                        </div>
+                      </div>
                     </td>
                     <td
                       class="p-2 truncate whitespace-nowrap"

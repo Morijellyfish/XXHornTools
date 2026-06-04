@@ -14,7 +14,7 @@ function monsterEffectiveElementsVitePlugin(rootDir: string): Plugin {
         if (
           n.includes('/app/data/monsters/') &&
           n.endsWith('.ts') &&
-          !n.includes('monsterEffectiveElementsByName.generated')
+          !n.endsWith('.generated.ts')
         ) {
           void runGenerate(rootDir)
         }
